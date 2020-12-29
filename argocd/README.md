@@ -31,7 +31,11 @@ And then visit http://localhost:8080/
 Change the password right away since it's set to the name of the initial
 `argocd-server` pod which may change later.
 
+Add argocd as a managed app in argocd:
+```
+kubectl apply -f argocd/app.yaml
+```
+
 TODO:
-* manage argo with argo
 * configure load balancer or ingress to access argo as described in
   [Getting Started](https://argoproj.github.io/argo-cd/getting_started/#3-access-the-argo-cd-api-server)
