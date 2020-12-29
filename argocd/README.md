@@ -10,7 +10,7 @@ https://registry.hub.docker.com/r/cyrilix/argocd
 For inital bootstrapping, run the following in this directory:
 ```
 kubectl create namespace argocd
-kustomize build | kubectl apply -n argocd -f -
+kustomize build | kubectl apply -f -
 ```
 
 Note: it should be possible to have `kubectl` run kustomize directly with

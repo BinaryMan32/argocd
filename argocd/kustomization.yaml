@@ -1,5 +1,8 @@
 resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v1.8.1/manifests/install.yaml
+
+namespace: argocd
+
 images:
   - name: argoproj/argocd
     newName: cyrilix/argocd
