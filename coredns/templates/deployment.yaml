@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "coredns.fullname" . }}
+  labels:
+    {{- include "coredns.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "coredns.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "coredns.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        args: [ "-conf", "/etc/coredns/Corefile" ]
+        ports:
+          - name: dns-tcp
+            containerPort: 53
+            protocol: TCP
+          - name: dns-udp
+            containerPort: 53
+            protocol: UDP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8181
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        volumeMounts:
+        - mountPath: "/etc/coredns/Corefile"
+          subPath: "Corefile"
+          name: coredns-config-volume
+        - mountPath: "/etc/coredns/zones"
+          name: coredns-zone-volume
+      restartPolicy: Always
+      volumes:
+        - name: coredns-config-volume
+          configMap:
+            name: coredns-config
+            items:
+              - key: Corefile
+                path: Corefile
+        - name: coredns-zone-volume
+          configMap:
+            name: coredns-zones

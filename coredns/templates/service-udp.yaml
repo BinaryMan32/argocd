@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: coredns-udp-service
+  labels:
+    {{- include "coredns.labels" . | nindent 4 }}
+  annotations:
+    metallb.universe.tf/allow-shared-ip: coredns
+spec:
+  ports:
+  - port: {{ .Values.service.port }}
+    targetPort: 53
+    protocol: UDP
+    name: dns-udp
+  selector:
+    {{- include "coredns.selectorLabels" . | nindent 4 }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  type: LoadBalancer
+  sessionAffinity: None
+  externalTrafficPolicy: Local
