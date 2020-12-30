@@ -13,6 +13,13 @@ kubectl create namespace argocd
 kustomize build | kubectl apply -f -
 ```
 
+The `kustomization.yaml` includes the following changes:
+* set namespace to `argocd`
+* Use arm64 images instead of amd64
+* configured to enabled load balancer as described in
+  [Getting Started](https://argoproj.github.io/argo-cd/getting_started/#3-access-the-argo-cd-api-server)
+
+
 Note: it should be possible to have `kubectl` run kustomize directly with
 `kubectl apply -k`, but it seemed this command was unable to retrieve resources
 from a URL.
@@ -35,7 +42,3 @@ Add argocd as a managed app in argocd:
 ```
 kubectl apply -f argocd/app.yaml
 ```
-
-TODO:
-* configure load balancer or ingress to access argo as described in
-  [Getting Started](https://argoproj.github.io/argo-cd/getting_started/#3-access-the-argo-cd-api-server)

@@ -6,6 +6,9 @@ bases:
 
 namespace: argocd
 
+patchesStrategicMerge:
+  - load-balancer.yaml
+
 images:
   - name: argoproj/argocd
     newName: cyrilix/argocd
