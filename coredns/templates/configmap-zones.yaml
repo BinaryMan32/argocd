@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: coredns-zones
 data:
-  db.definit.local: |
+  db.{{ .Values.domainName }}: |
     $TTL  30M
     @   IN  SOA  ns1.{{ .Values.domainName }}. {{ .Values.domainName }}. (
                     {{ .Values.serial }}  ; Serial
