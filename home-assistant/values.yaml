@@ -4,6 +4,7 @@ home-assistant:
   ingress:
     enabled: true
     annotations:
+      kubernetes.io/ingress.class: public
       nginx.org/websocket-services: home-assistant
       cert-manager.io/cluster-issuer: "letsencrypt-staging"
     tls:
