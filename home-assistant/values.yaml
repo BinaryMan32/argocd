@@ -10,4 +10,3 @@ home-assistant:
       - host: home-assistant.wildfreddy.fivebytestudios.com
         paths:
           - path: /
-            pathType: Prefix
