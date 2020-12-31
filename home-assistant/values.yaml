@@ -5,6 +5,11 @@ home-assistant:
     enabled: true
     annotations:
       nginx.org/websocket-services: home-assistant
+      cert-manager.io/issuer: "letsencrypt-staging"
+    tls:
+      - secretName: home-assistant-tls
+        hosts:
+        - home-assistant.wildfreddy.fivebytestudios.com
     hosts:
       - host: home-assistant.wildfreddy.fivebytestudios.com
         paths:
