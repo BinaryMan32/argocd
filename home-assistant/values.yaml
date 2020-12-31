@@ -8,3 +8,5 @@ home-assistant:
       nginx.org/websocket-services: home-assistant
     hosts:
       - host: home-assistant.wildfreddy.fivebytestudios.com
+        paths:
+          - path: /
