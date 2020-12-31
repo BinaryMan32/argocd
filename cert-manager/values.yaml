@@ -1,1 +1,4 @@
+cert-manager:
+  installCRDs: true
+
 email: fettinge@gmail.com
