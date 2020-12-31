@@ -37,8 +37,3 @@ And then visit http://localhost:8080/
 
 Change the password right away since it's set to the name of the initial
 `argocd-server` pod which may change later.
-
-Start managing this app with argocd:
-```
-kubectl apply -f argocd/app.yaml
-```
