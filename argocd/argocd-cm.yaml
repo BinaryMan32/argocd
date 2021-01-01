@@ -2,4 +2,14 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-cm
-data: {}
+data:
+  repositories: |
+    - url: https://gitlab.com/disc-golf-fanatic/fbs-web.git
+  repository.credentials: |
+    - url: https://gitlab.com/disc-golf-fanatic
+      usernameSecret:
+        name: gitlab-five-byte-studios
+        key: username
+      passwordSecret:
+        name: gitlab-five-byte-studios
+        key: password
