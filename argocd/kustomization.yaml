@@ -8,6 +8,7 @@ namespace: argocd
 
 patchesStrategicMerge:
   - load-balancer.yaml
+  - argocd-cm.yaml
 
 images:
   - name: argoproj/argocd
