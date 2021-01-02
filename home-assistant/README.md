@@ -19,5 +19,7 @@ explicitly create a `PersistentVolume` and `PersistentVolumeClaim` for the
 ```
 ssh pegasus3 sudo mkdir -p /var/home-assistant/config
 ```
+See [Reserving a PersistentVolume][reserve-pv].
 
 [k8s-at-home]: https://github.com/k8s-at-home/charts/tree/master/charts/home-assistant
+[reserve-pv]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reserving-a-persistentvolume
