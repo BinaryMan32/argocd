@@ -12,4 +12,12 @@ Or, add the following to `/etc/hosts`:
 ```
 And use the ingress via http://home-assistant.wildfreddy.fivebytestudios.com/
 
+Only a single node has a SSD rather than a sdcard, but the microk8s storage
+addon could allocate a `PersistentVolume` from any node's disk. To avoid this,
+explicitly create a `PersistentVolume` and `PersistentVolumeClaim` for the
+`config` storage. To create a directory for this storage:
+```
+ssh pegasus3 sudo mkdir -p /var/home-assistant/config
+```
+
 [k8s-at-home]: https://github.com/k8s-at-home/charts/tree/master/charts/home-assistant

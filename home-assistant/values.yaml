@@ -14,3 +14,7 @@ home-assistant:
       - host: home-assistant.wildfreddy.fivebytestudios.com
         paths:
           - path: /
+  persistence:
+    config:
+      enabled: true
+      existingClaim: home-assistant-config
