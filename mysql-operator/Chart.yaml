@@ -1,0 +1,8 @@
+apiVersion: v2
+name: mysql-operator
+description: mysql-operator
+version: 0.1.0
+dependencies:
+- name: mysql-operator
+  repository: https://presslabs.github.io/charts
+  version: 0.4.0
