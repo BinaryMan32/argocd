@@ -6,18 +6,14 @@ kubectl -n home-assistant port-forward svc/home-assistant 8123:8123
 ```
 And visit http://localhost:8123/
 
-Or, add the following to `/etc/hosts`:
-```
-192.168.6.100	home-assistant.wildfreddy.fivebytestudios.com
-```
-And use the ingress via http://home-assistant.wildfreddy.fivebytestudios.com/
+Or use the ingress via https://home-assistant.wildfreddy.fivebytestudios.com/
 
 Only a single node has a SSD rather than a sdcard, but the microk8s storage
 addon could allocate a `PersistentVolume` from any node's disk. To avoid this,
-explicitly create a `PersistentVolume` and `PersistentVolumeClaim` for the
-`config` storage. To create a directory for this storage:
+explicitly create `PersistentVolume` and `PersistentVolumeClaim` resources for
+home-assistant storage. To create directories for this storage:
 ```
-ssh pegasus3 sudo mkdir -p /var/home-assistant/config
+ssh pegasus3 sudo mkdir -p /var/home-assistant/{config,mqtt}
 ```
 See [Reserving a PersistentVolume][reserve-pv].
 
