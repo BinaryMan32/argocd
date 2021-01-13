@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: coredns
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.repoURL }}
+    path: {{ .Values.project.path }}/coredns
+    kustomize: {}
+  destination:
+    namespace: kube-system
+    server: {{ .Values.destination.server }}
