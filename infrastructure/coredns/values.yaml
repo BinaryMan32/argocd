@@ -1,3 +1,5 @@
+loadBalancerIP: "192.168.6.100"
+
 # From https://github.com/coredns/helm/blob/master/stable/coredns/values.yaml
 coredns:
   fullnameOverride: coredns
