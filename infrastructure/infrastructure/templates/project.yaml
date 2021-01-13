@@ -10,3 +10,6 @@ spec:
   description: Network Infrastructure
   sourceRepos:
   - {{ .Values.source.repoURL }}
+  destinations:
+  - namespace: '*'
+    server: https://kubernetes.default.svc
