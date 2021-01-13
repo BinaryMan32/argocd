@@ -4,10 +4,11 @@ Each service contains its own README.md with documentation and references.
 Repository structure based on:
 * https://chris-sanders.github.io/2020-10-07-argo-in-argo/
 * https://github.com/chris-sanders/argocd
+* https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/
 
-To start managing an app in argocd, run in its directory:
+To start managing a project in argocd, run in its directory:
 ```
-kubectl apply -f argocd/app.yaml
+kubectl apply -f project-app.yaml
 ```
 
 Testing a helm project:

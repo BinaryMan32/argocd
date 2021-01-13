@@ -1,0 +1,5 @@
+destination:
+  server: https://kubernetes.default.svc
+source:
+  repoURL: https://github.com/BinaryMan32/argocd.git
+  targetRevision: main
