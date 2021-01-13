@@ -5,6 +5,7 @@ metadata:
 data:
   repositories: |
     - url: https://gitlab.com/disc-golf-fanatic/fbs-web.git
+    - url: https://gitlab.com/disc-golf-fanatic/frolfserver.git
   repository.credentials: |
     - url: https://gitlab.com/disc-golf-fanatic
       usernameSecret:

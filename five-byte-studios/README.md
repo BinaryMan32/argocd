@@ -18,11 +18,15 @@ See argocd documentation on how to [read from private repositories][argocd-priva
 To start managing in argocd, run:
 ```
 kubectl apply -f fbs-web.yaml
+kubectl apply -f disc-golf-fanatic.yaml
 ```
 
 Once deployed, static web content should be accessible via:
 * https://fivebytestudios.com/
 * https://www.fivebytestudios.com/
+
+The disc golf fanatic app should be accessible via:
+* https://www.fivebytestudios.com/dgf
 
 [fbs-gitlab]: https://gitlab.com/disc-golf-fanatic
 [deploy token]: https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html#creating-a-deploy-token
