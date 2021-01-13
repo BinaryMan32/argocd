@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - 192.168.6.101-192.168.6.255
+      avoid-buggy-ips: true
+    - name: reserved
+      protocol: layer2
+      addresses:
+      - 192.168.6.100/32
+      avoid-buggy-ips: true
+      auto-assign: false
