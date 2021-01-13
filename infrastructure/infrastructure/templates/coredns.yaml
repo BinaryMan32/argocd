@@ -11,7 +11,9 @@ spec:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
     path: {{ .Values.project.path }}/coredns
-    kustomize: {}
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     namespace: kube-system
     server: {{ .Values.destination.server }}
