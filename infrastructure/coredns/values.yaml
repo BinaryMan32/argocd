@@ -1,6 +1,9 @@
 # From https://github.com/coredns/helm/blob/master/stable/coredns/values.yaml
 coredns:
   fullnameOverride: coredns
+  service:
+    # K3S seems to look for this address
+    clusterIP: 10.43.0.10
   # Default zone is what Kubernetes recommends:
   # https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/#coredns-configmap-options
   servers:
