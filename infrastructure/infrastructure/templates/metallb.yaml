@@ -13,5 +13,5 @@ spec:
     path: {{ .Values.project.path }}/metallb
     kustomize: {}
   destination:
-    namespace: kube-system
+    namespace: metallb-system
     server: {{ .Values.destination.server }}
