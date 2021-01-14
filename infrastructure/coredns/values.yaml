@@ -27,6 +27,9 @@ coredns:
         pods insecure
         fallthrough in-addr.arpa ip6.arpa
         ttl 30
+    # Use external dns to respond to queries
+    - name: k8s_external
+      parameters: k8s.fivebytestudios.com
     # Serves a /metrics endpoint on :9153, required for serviceMonitor
     - name: prometheus
       parameters: 0.0.0.0:9153
