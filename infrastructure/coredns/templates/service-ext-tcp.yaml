@@ -13,4 +13,6 @@ spec:
     targetPort: 53
     protocol: TCP
   selector:
-    k8s-app: kube-dns
+    app.kubernetes.io/instance: coredns
+    app.kubernetes.io/name: coredns
+    k8s-app: coredns
