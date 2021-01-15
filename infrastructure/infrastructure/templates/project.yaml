@@ -13,4 +13,4 @@ spec:
   - https://kubernetes.github.io
   destinations:
   - namespace: '*'
-    server: https://kubernetes.default.svc
+    server: {{ .Values.destination.server }}
