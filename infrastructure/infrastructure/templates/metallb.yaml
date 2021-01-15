@@ -11,9 +11,7 @@ spec:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
     path: {{ .Values.project.path }}/metallb
-    kustomize:
-      # work around empty kustomize object always showing as diff
-      version: v3.9.1
+    kustomize: {}
   destination:
     namespace: metallb-system
     server: {{ .Values.destination.server }}
