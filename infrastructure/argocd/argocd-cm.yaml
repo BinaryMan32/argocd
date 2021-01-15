@@ -9,8 +9,8 @@ data:
   repository.credentials: |
     - url: https://gitlab.com/disc-golf-fanatic
       usernameSecret:
-        name: gitlab-five-byte-studios
+        name: gitlab-disc-golf-fanatic
         key: username
       passwordSecret:
-        name: gitlab-five-byte-studios
+        name: gitlab-disc-golf-fanatic
         key: password

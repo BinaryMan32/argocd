@@ -1,0 +1,10 @@
+project:
+  name: Disc Golf Fanatic
+  path: disc-golf-fanatic
+destination:
+  server: https://kubernetes.default.svc
+  namespaces:
+    prod: disc-golf-fanatic
+source:
+  repoGroup: https://gitlab.com/disc-golf-fanatic/argocd.git
+  targetRevision: master

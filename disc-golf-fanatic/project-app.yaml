@@ -1,20 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fbs-web
+  name: disc-golf-fanatic
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://gitlab.com/disc-golf-fanatic/fbs-web.git
-    targetRevision: master
-    path: charts/fbs-web
+    repoURL: https://github.com/BinaryMan32/argocd.git
+    targetRevision: main
+    path: disc-golf-fanatic/disc-golf-fanatic
     helm:
       valueFiles:
         - values.yaml
   destination:
-    namespace: five-byte-studios
+    namespace: disc-golf-fanatic
     server: https://kubernetes.default.svc
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true

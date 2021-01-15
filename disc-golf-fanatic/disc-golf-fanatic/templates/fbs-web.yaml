@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fbs-web
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: {{ .Values.source.repoGroup }}/fbs-web.git
+    targetRevision: master
+    path: charts/fbs-web
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    namespace: {{ .Values.destination.namespaces.prod }}
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

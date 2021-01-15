@@ -3,18 +3,20 @@ kind: Application
 metadata:
   name: disc-golf-fanatic
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: {{ .Values.project.name }}
   source:
-    repoURL: https://gitlab.com/disc-golf-fanatic/frolfserver.git
+    repoURL: {{ .Values.source.repoGroup }}/frolfserver.git
     targetRevision: master
     path: charts/disc-golf-fanatic
     helm:
       valueFiles:
         - values.yaml
   destination:
-    namespace: five-byte-studios
-    server: https://kubernetes.default.svc
+    namespace: {{ .Values.destination.namespaces.prod }}
+    server: {{ .Values.destination.server }}
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
