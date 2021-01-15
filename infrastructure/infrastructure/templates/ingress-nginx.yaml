@@ -19,3 +19,6 @@ spec:
   destination:
     namespace: ingress-nginx
     server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
