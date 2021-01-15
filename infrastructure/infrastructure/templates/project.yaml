@@ -10,7 +10,7 @@ spec:
   description: Network Infrastructure
   sourceRepos:
   - {{ .Values.source.repoURL }}
-  - https://kubernetes.github.io
+  - https://kubernetes.github.io/*
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
