@@ -5,5 +5,5 @@ destination:
   namespaces:
     prod: disc-golf-fanatic
 source:
-  repoGroup: https://gitlab.com/disc-golf-fanatic/argocd.git
+  repoGroup: https://gitlab.com/disc-golf-fanatic
   targetRevision: master
