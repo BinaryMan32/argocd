@@ -13,7 +13,7 @@ spec:
     path: {{ .Values.project.path }}/argocd
     kustomize:
       # work around empty kustomize object always showing as diff
-      namePrefix: ""
+      version: v3.9.1
   destination:
     namespace: argocd
     server: {{ .Values.destination.server }}

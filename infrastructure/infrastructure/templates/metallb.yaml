@@ -13,7 +13,7 @@ spec:
     path: {{ .Values.project.path }}/metallb
     kustomize:
       # work around empty kustomize object always showing as diff
-      namePrefix: ""
+      version: v3.9.1
   destination:
     namespace: metallb-system
     server: {{ .Values.destination.server }}
