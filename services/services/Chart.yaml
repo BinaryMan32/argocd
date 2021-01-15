@@ -1,0 +1,5 @@
+apiVersion: v2
+name: services
+description: Services
+type: application
+version: 0.1.0
