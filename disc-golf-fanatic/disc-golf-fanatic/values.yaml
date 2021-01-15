@@ -1,6 +1,5 @@
 project:
-  name: Disc Golf Fanatic
-  path: disc-golf-fanatic
+  name: disc-golf-fanatic
 destination:
   server: https://kubernetes.default.svc
   namespaces:
