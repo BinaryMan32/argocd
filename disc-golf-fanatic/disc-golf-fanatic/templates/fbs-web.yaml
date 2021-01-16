@@ -9,7 +9,7 @@ spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: {{ .Values.source.repoGroup }}/fbs-web.git
-    targetRevision: master
+    targetRevision: {{ .Values.source.targetRevision }}
     path: charts/fbs-web
     helm:
       valueFiles:

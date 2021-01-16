@@ -9,7 +9,7 @@ spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: {{ .Values.source.repoGroup }}/frolfserver.git
-    targetRevision: master
+    targetRevision: {{ .Values.source.targetRevision }}
     path: charts/disc-golf-fanatic
     helm:
       valueFiles:
