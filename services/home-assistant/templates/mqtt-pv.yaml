@@ -3,7 +3,6 @@ kind: PersistentVolume
 metadata:
   name: home-assistant-mqtt
 spec:
-  storageClassName: ""
   claimRef:
     name: mqtt
     namespace: home-assistant
@@ -13,13 +12,3 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  local:
-    path: /var/home-assistant/mqtt
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - pegasus3
