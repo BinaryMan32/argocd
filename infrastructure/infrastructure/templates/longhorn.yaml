@@ -9,8 +9,8 @@ spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: https://github.com/longhorn/longhorn
-    chart: chart
     targetRevision: v1.1.0
+    path: chart
     helm:
       values: |
         service:
