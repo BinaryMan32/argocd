@@ -17,7 +17,7 @@ home-assistant:
   persistence:
     config:
       enabled: true
-      existingClaim: config
+      existingClaim: &home_assistant_claim config
 mosquitto:
   fullnameOverride: mqtt
   service:
@@ -25,4 +25,16 @@ mosquitto:
     loadBalancerIP: 192.168.6.202
   persistence:
     enabled: true
-    existingClaim: mqtt
+    existingClaim: &mosquitto_claim mqtt
+
+storage:
+  config:
+    pv: home-assistant-config
+    pvc: *home_assistant_claim
+    size: 2Gi
+    storageClassName: ""
+  mqtt:
+    pv: home-assistant-mqtt
+    pvc: *mosquitto_claim
+    size: 2Gi
+    storageClassName: ""
