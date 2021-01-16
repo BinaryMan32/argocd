@@ -16,6 +16,7 @@ spec:
         service:
           ui:
             type: LoadBalancer
+            nodePort: null
   destination:
     namespace: longhorn-system
     server: {{ .Values.destination.server }}
