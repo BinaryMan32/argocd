@@ -4,7 +4,6 @@ metadata:
   name: {{ .Values.storage.mqtt.pvc }}
 spec:
   storageClassName: {{ .Values.storage.mqtt.storageClassName }}
-  volumeName: {{ .Values.storage.mqtt.pv }}
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem

@@ -4,7 +4,6 @@ metadata:
   name: {{ .Values.storage.config.pvc }}
 spec:
   storageClassName: {{ .Values.storage.config.storageClassName }}
-  volumeName: {{ .Values.storage.config.pv }}
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
