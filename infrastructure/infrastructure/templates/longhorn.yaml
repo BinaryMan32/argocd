@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://github.com/longhorn/longhorn
+    chart: chart
+    targetRevision: v1.1.0
+    helm:
+      values: |
+        service:
+          ui:
+            type: LoadBalancer
+  destination:
+    namespace: longhorn-system
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
