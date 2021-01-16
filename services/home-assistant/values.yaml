@@ -32,9 +32,9 @@ storage:
     pv: home-assistant-config
     pvc: *home_assistant_claim
     size: 2Gi
-    storageClassName: ""
+    storageClassName: longhorn
   mqtt:
     pv: home-assistant-mqtt
     pvc: *mosquitto_claim
     size: 2Gi
-    storageClassName: ""
+    storageClassName: longhorn
