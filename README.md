@@ -3,8 +3,7 @@ Each service contains its own README.md with documentation and references.
 
 ## Bootstrapping
 
-1. [coredns](./infrastructure/coredns/)
-2. [argocd](./infrastructure/argocd/)
+Set up the [infrastructure](./infrastructure) project first.
 
 ## References
 
