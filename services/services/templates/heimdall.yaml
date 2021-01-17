@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: heimdall
+  namespace: argocd
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://k8s-at-home.com/charts/
+    chart: heimdall
+    targetRevision: 4.2.1
+    helm:
+      values: |
+        service:
+          type: LoadBalancer
+        persistence:
+          config:
+            enabled: true
+            storageClass: retain
+            size: 512Mi
+  destination:
+    namespace: heimdall
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

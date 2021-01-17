@@ -10,6 +10,7 @@ spec:
   description: Services
   sourceRepos:
   - {{ .Values.source.repoURL }}
+  - https://k8s-at-home.com/charts/
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
