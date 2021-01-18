@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: disc-golf-fanatic
+  name: disc-golf-fanatic-prod
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
