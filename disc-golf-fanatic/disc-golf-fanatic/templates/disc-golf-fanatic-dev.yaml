@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fbs-web
+  name: disc-golf-fanatic-dev
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: {{ .Values.source.repoGroup }}/fbs-web.git
+    repoURL: {{ .Values.source.repoGroup }}/frolfserver.git
     targetRevision: {{ .Values.source.targetRevision }}
-    path: charts/fbs-web
+    path: charts/disc-golf-fanatic
     helm:
       valueFiles:
         - values.yaml
-        - values-prod.yaml
+        - values-dev.yaml
   destination:
     namespace: {{ .Values.destination.namespaces.prod }}
     server: {{ .Values.destination.server }}
