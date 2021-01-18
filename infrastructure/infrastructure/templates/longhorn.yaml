@@ -16,7 +16,13 @@ spec:
         service:
           ui:
             type: LoadBalancer
-            nodePort: null
+  # helm template incorrectly sets nodePort for LoadBalancer
+  ignoreDifferences:
+    - kind: Service
+      namespace: longhorn-system
+      name: longhorn-frontend
+      jsonPointers:
+        - /spec/ports/0/nodePort
   destination:
     namespace: longhorn-system
     server: {{ .Values.destination.server }}

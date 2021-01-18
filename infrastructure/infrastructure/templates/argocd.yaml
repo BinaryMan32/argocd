@@ -11,6 +11,7 @@ spec:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
     path: {{ .Values.project.path }}/argocd
+    # always out of sync in diff, ignored in project-app
     kustomize: {}
   destination:
     namespace: argocd
