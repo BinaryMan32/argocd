@@ -11,6 +11,7 @@ spec:
   sourceRepos:
   - {{ .Values.source.repoURL }}
   - https://k8s-at-home.com/charts/
+  - https://kubernetes.github.io/dashboard
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
