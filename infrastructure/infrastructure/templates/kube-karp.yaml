@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-karp
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://github.com/immanuelfodor/kube-karp
+    targetRevision: 1.1.0
+    path: helm
+    helm:
+      values: |
+        envVars:
+          virtualIp: "192.168.6.99"
+  destination:
+    namespace: kube-karp
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

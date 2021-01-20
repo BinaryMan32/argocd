@@ -12,6 +12,7 @@ spec:
   - {{ .Values.source.repoURL }}
   - https://kubernetes.github.io/*
   - https://github.com/longhorn/longhorn
+  - https://github.com/immanuelfodor/kube-karp
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
