@@ -15,7 +15,7 @@ spec:
       values: |
         controller:
           service:
-            loadBalancerIP: {{ .Values.ipAddress.ingress-nginx }}
+            loadBalancerIP: {{ .Values.ipAddress.ingress }}
   destination:
     namespace: ingress-nginx
     server: {{ .Values.destination.server }}
