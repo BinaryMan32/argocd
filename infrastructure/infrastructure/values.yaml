@@ -6,3 +6,7 @@ destination:
 source:
   repoURL: https://github.com/BinaryMan32/argocd.git
   targetRevision: main
+ipAddress:
+  coredns: "192.168.6.100"
+  ingress-nginx: "192.168.6.101"
+  pihole: "192.168.6.102"

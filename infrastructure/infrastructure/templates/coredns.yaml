@@ -14,6 +14,8 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+      values: |
+        loadBalancerIP: {{ .Values.ipAddress.coredns }}
   destination:
     namespace: kube-system
     server: {{ .Values.destination.server }}

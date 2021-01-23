@@ -18,11 +18,13 @@ spec:
           storageClass: retain
 
         serviceWeb:
+          loadBalancerIP: {{ .Values.ipAddress.pihole }}
           annotations:
             metallb.universe.tf/allow-shared-ip: pihole-svc
           type: LoadBalancer
 
         serviceDns:
+          loadBalancerIP: {{ .Values.ipAddress.pihole }}
           annotations:
             metallb.universe.tf/allow-shared-ip: pihole-svc
           type: LoadBalancer
