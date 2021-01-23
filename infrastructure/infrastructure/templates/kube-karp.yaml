@@ -14,7 +14,7 @@ spec:
     helm:
       values: |
         envVars:
-          virtualIp: "192.168.6.99"
+          virtualIp: {{ .Values.ipAddress.kube }}
   destination:
     namespace: kube-karp
     server: {{ .Values.destination.server }}
