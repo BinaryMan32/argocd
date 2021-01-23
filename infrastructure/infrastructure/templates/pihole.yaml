@@ -15,6 +15,7 @@ spec:
       values: |
         persistentVolumeClaim:
           enabled: true
+          storageClass: retain
 
         serviceWeb:
           annotations:
