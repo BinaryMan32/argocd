@@ -17,14 +17,14 @@ spec:
           enabled: true
 
         serviceWeb:
-        annotations:
+          annotations:
             metallb.universe.tf/allow-shared-ip: pihole-svc
-        type: LoadBalancer
+          type: LoadBalancer
 
         serviceDns:
-        annotations:
+          annotations:
             metallb.universe.tf/allow-shared-ip: pihole-svc
-        type: LoadBalancer
+          type: LoadBalancer
   destination:
     namespace: pihole
     server: {{ .Values.destination.server }}
