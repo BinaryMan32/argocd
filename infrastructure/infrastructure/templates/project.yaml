@@ -13,6 +13,7 @@ spec:
   - https://kubernetes.github.io/*
   - https://github.com/longhorn/longhorn
   - https://github.com/immanuelfodor/kube-karp
+  - https://mojo2600.github.io/pihole-kubernetes/
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
