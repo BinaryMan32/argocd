@@ -21,3 +21,11 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+  ignoreDifferences:
+    # randomly generated KARP_PASSWORD
+    - group: apps
+      kind: DaemonSet
+      namespace: kube-karp
+      name: kube-karp
+      jsonPointers:
+        - /spec/template/spec/containers/0/env/4/value
