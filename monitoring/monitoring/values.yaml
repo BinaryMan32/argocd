@@ -1,0 +1,9 @@
+project:
+  name: monitoring
+  path: monitoring
+destination:
+  server: https://kubernetes.default.svc
+  namespace: monitoring
+source:
+  repoURL: https://github.com/BinaryMan32/argocd.git
+  targetRevision: main
