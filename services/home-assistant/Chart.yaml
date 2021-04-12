@@ -2,6 +2,7 @@ apiVersion: v2
 name: home-assistant
 description: Home Assistant
 version: 0.1.0
+kubeVersion: '>=1.19.0-0'
 dependencies:
 - name: home-assistant
   repository: https://k8s-at-home.com/charts/
