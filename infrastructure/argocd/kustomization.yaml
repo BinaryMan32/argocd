@@ -11,5 +11,5 @@ patchesStrategicMerge:
   - argocd-cm.yaml
 
 images:
-  - name: argoproj/argocd
+  - name: quay.io/argoproj/argocd
     newName: cyrilix/argocd
