@@ -6,8 +6,11 @@ destination:
 source:
   repoURL: https://github.com/BinaryMan32/argocd.git
   targetRevision: main
+domain:
+  intranet: int.fivebytestudios.com
 ipAddress:
   kube: "192.168.6.99"
+  k8sGateway: "192.168.6.100"
   ingress: "192.168.6.101"
   ingressIntranet: "192.168.6.102"
   pihole: "192.168.6.103"
