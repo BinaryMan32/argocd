@@ -14,8 +14,9 @@ spec:
     helm:
       values: |
         domain: {{ .Values.domain.intranet }}
-        service:
-          loadBalancerIP: {{ .Values.ipAddress.k8sGateway }}
+      # 1.0.1 incorrectly adds loadBalancerIP to port, temporarily disable
+      # service:
+      #   loadBalancerIP: {{ .Values.ipAddress.k8sGateway }}
   destination:
     namespace: k8s-gateway
     server: {{ .Values.destination.server }}
