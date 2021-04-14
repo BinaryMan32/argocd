@@ -13,6 +13,9 @@ spec:
     targetRevision: 1.0.1
     helm:
       values: |
+        image:
+          # defaults to "latest" which didn't have an arm64 image
+          tag: dd610d7
         domain: {{ .Values.domain.intranet }}
       # 1.0.1 incorrectly adds loadBalancerIP to port, temporarily disable
       # service:
