@@ -10,6 +10,9 @@ patchesStrategicMerge:
   - load-balancer.yaml
   - argocd-cm.yaml
 
+resources:
+  - ingress.yaml
+
 images:
   - name: quay.io/argoproj/argocd
     newName: cyrilix/argocd
