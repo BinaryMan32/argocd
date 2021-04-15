@@ -6,3 +6,5 @@ destination:
 source:
   repoURL: https://github.com/BinaryMan32/argocd.git
   targetRevision: main
+domain:
+  intranet: int.fivebytestudios.com
