@@ -17,6 +17,8 @@ spec:
             cert-manager.io/cluster-issuer: intranet-ca
           hosts:
             - host: heimdall.{{ .Values.domain.intranet }}
+              paths:
+                - path: /
           tls:
             - hosts:
                 - host: heimdall.{{ .Values.domain.intranet }}
