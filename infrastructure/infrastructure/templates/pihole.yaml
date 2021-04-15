@@ -13,6 +13,11 @@ spec:
     targetRevision: 1.8.29
     helm:
       values: |
+        dnsmasq:
+          customDnsEntries:
+            - server=/{{ .Values.domain.intranet }}/{{ .Values.ipAddress.k8sGateway }}
+            - server=/6.168.192.in-addr.arpa/{{ .Values.ipAddress.k8sGateway }}
+
         persistentVolumeClaim:
           enabled: true
           storageClass: retain
