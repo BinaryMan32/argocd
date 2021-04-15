@@ -21,7 +21,7 @@ spec:
                 - path: /
           tls:
             - hosts:
-                - host: heimdall.{{ .Values.domain.intranet }}
+                - heimdall.{{ .Values.domain.intranet }}
               secretName: heimdall-tls
         dnsConfig:
           options:
