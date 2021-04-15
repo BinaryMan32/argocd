@@ -15,8 +15,18 @@ spec:
           repository: linuxserver/librespeed
           tag: version-5.2.2
         timezone: America/Chicago
-        service:
-          type: LoadBalancer
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: intranet-ca
+          hosts:
+            - host: librespeed.{{ .Values.domain.intranet }}
+              paths:
+                - path: /
+          tls:
+            - hosts:
+                - heimdall.{{ .Values.domain.intranet }}
+              secretName: librespeed-tls
   destination:
     namespace: librespeed
     server: {{ .Values.destination.server }}
