@@ -18,9 +18,9 @@ spec:
           hosts:
             - host: heimdall.{{ .Values.domain.intranet }}
           tls:
-            hosts:
-              - host: heimdall.{{ .Values.domain.intranet }}
-            secretName: heimdall-tls
+            - hosts:
+                - host: heimdall.{{ .Values.domain.intranet }}
+              secretName: heimdall-tls
         dnsConfig:
           options:
             - name: ndots
