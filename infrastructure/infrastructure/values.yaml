@@ -8,7 +8,9 @@ source:
   targetRevision: main
 domain:
   intranet: int.fivebytestudios.com
+  lan: lan.wildfreddy.fivebytestudios.com
 ipAddress:
+  router: "192.168.6.1"
   kube: "192.168.6.99"
   k8sGateway: "192.168.6.114"
   ingress: "192.168.6.101"
