@@ -8,6 +8,7 @@ source:
   targetRevision: main
 domain:
   intranet: int.fivebytestudios.com
+  dev: dev.wildfreddy.fivebytestudios.com
   lan: lan.wildfreddy.fivebytestudios.com
 ipAddress:
   router: "192.168.6.1"
