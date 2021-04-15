@@ -14,7 +14,7 @@ spec:
     helm:
       values: |
         whitelist:
-          - *.fivebytestudios.com
+          - "*.fivebytestudios.com"
         dnsmasq:
           customDnsEntries:
             - server=/{{ .Values.domain.intranet }}/{{ .Values.ipAddress.k8sGateway }}
