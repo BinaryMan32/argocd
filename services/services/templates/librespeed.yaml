@@ -20,10 +20,6 @@ spec:
             - host: librespeed.{{ .Values.domain.intranet }}
               paths:
                 - path: /
-          tls:
-            - hosts:
-                - librespeed.{{ .Values.domain.intranet }}
-              secretName: librespeed-tls
   destination:
     namespace: librespeed
     server: {{ .Values.destination.server }}
