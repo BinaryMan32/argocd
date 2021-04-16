@@ -22,7 +22,7 @@ spec:
                 - path: /
           tls:
             - hosts:
-                - heimdall.{{ .Values.domain.intranet }}
+                - librespeed.{{ .Values.domain.intranet }}
               secretName: librespeed-tls
   destination:
     namespace: librespeed
