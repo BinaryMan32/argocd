@@ -13,7 +13,28 @@ spec:
     targetRevision: 13.6.0
     helm:
       values: |
-
+        alertmanager:
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-ca
+            hosts:
+              - alertmanager.{{ .Values.domain.intranet }}
+            tls:
+              - hosts:
+                  - alertmanager.{{ .Values.domain.intranet }}
+                secretName: alertmanager-tls
+        server:
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-ca
+            hosts:
+              - prometheus.{{ .Values.domain.intranet }}
+            tls:
+              - hosts:
+                  - prometheus.{{ .Values.domain.intranet }}
+                secretName: prometheus-tls
   destination:
     namespace: {{ .Values.destination.namespace }}
     server: {{ .Values.destination.server }}
