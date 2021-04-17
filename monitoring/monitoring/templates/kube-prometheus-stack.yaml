@@ -76,3 +76,15 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+  ignoreDifferences:
+    # failurePolicy set to Fail but switches to Ignore after deploy
+    - group: admissionregistration
+      kind: MutatingWebhookConfiguration
+      name: kube-prometheus-stack-admission
+      jsonPointers:
+        - /webhooks/0/failurePolicy
+    - group: admissionregistration
+      kind: ValidatingWebhookConfiguration
+      name: kube-prometheus-stack-admission
+      jsonPointers:
+        - /webhooks/0/failurePolicy
