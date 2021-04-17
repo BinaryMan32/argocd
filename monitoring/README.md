@@ -5,8 +5,8 @@ Before installing, create a secret to log into grafana:
 kubectl create secret generic \
   --namespace=monitoring \
   grafana-login \
-  --from-literal=username=admin \
-  --from-literal=password='<password>'
+  --from-literal=admin-user=admin \
+  --from-literal=admin-password='<password>'
 ```
 
 To retrieve the credentials:
