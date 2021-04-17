@@ -36,6 +36,10 @@ spec:
         grafana:
           admin:
             existingSecret: "grafana-login"
+          persistence:
+            enabled: true
+            storageClassName: retain
+            size: 2Gi
           ingress:
             enabled: true
             annotations:
