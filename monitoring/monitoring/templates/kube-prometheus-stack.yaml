@@ -14,6 +14,15 @@ spec:
     helm:
       values: |
         alertmanager:
+          alertManagerSpec:
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: retain
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: 50Gi
           ingress:
             enabled: true
             annotations:
@@ -38,6 +47,15 @@ spec:
                   - grafana.{{ .Values.domain.intranet }}
                 secretName: grafana-tls
         prometheus:
+          prometheusSpec:
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: retain
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: 50Gi
           ingress:
             enabled: true
             annotations:
