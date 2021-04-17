@@ -78,11 +78,13 @@ spec:
       - CreateNamespace=true
   ignoreDifferences:
     # failurePolicy set to Fail but switches to Ignore after deploy
-    - kind: admissionregistration.k8s.io/MutatingWebhookConfiguration
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
       name: kube-prometheus-stack-admission
       jsonPointers:
         - /webhooks/0/failurePolicy
-    - kind: admissionregistration.k8s.io/ValidatingWebhookConfiguration
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
       name: kube-prometheus-stack-admission
       jsonPointers:
         - /webhooks/0/failurePolicy
