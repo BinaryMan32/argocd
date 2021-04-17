@@ -15,14 +15,14 @@ spec:
       values: |
         alertmanager:
           alertmanagerSpec:
-            storageSpec:
+            storage:
               volumeClaimTemplate:
                 spec:
                   storageClassName: retain
                   accessModes: ["ReadWriteOnce"]
                   resources:
                     requests:
-                      storage: 50Gi
+                      storage: 2Gi
           ingress:
             enabled: true
             annotations:
