@@ -14,7 +14,7 @@ spec:
     helm:
       values: |
         alertmanager:
-          alertManagerSpec:
+          alertmanagerSpec:
             storageSpec:
               volumeClaimTemplate:
                 spec:
