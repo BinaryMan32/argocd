@@ -24,7 +24,18 @@ spec:
               - hosts:
                   - alertmanager.{{ .Values.domain.intranet }}
                 secretName: alertmanager-tls
-        server:
+        grafana:
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-ca
+            hosts:
+              - grafana.{{ .Values.domain.intranet }}
+            tls:
+              - hosts:
+                  - grafana.{{ .Values.domain.intranet }}
+                secretName: grafana-tls
+        prometheus:
           ingress:
             enabled: true
             annotations:
