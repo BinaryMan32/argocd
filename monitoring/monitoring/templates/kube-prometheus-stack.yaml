@@ -25,6 +25,8 @@ spec:
                   - alertmanager.{{ .Values.domain.intranet }}
                 secretName: alertmanager-tls
         grafana:
+          admin:
+            existingSecret: "grafana-login"
           ingress:
             enabled: true
             annotations:
