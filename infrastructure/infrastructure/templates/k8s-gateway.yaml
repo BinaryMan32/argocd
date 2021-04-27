@@ -14,8 +14,7 @@ spec:
     helm:
       values: |
         image:
-          # defaults to "latest" which didn't have an arm64 image
-          tag: dd610d7
+          tag: v0.1.5
         domain: {{ .Values.domain.intranet }}
         loadBalancerIP: {{ .Values.ipAddress.k8sGateway }}
   destination:
