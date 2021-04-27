@@ -31,6 +31,7 @@ spec:
         serviceWeb:
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
           annotations:
+            coredns.io/hostname: pihole
             metallb.universe.tf/allow-shared-ip: pihole-svc
           type: LoadBalancer
 
