@@ -19,8 +19,13 @@ spec:
           customDnsEntries:
             - server=/{{ .Values.domain.intranet }}/{{ .Values.ipAddress.k8sGateway }}
             - server=/6.168.192.in-addr.arpa/{{ .Values.ipAddress.k8sGateway }}
+
             - server=/{{ .Values.domain.dev }}/{{ .Values.ipAddress.router }}
             - server=/5.168.192.in-addr.arpa/{{ .Values.ipAddress.router }}
+
+            - server=/{{ .Values.domain.iot }}/{{ .Values.ipAddress.router }}
+            - server=/3.168.192.in-addr.arpa/{{ .Values.ipAddress.router }}
+
             - server=/{{ .Values.domain.lan }}/{{ .Values.ipAddress.router }}
             - server=/0.168.192.in-addr.arpa/{{ .Values.ipAddress.router }}
 
