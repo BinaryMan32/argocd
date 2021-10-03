@@ -1,0 +1,60 @@
+# NFS provisioner
+
+This directory doesn't actually deploy anything, but it documents manual setup
+of the NFS server and verification.
+
+See [nfs-subdir-external-provisioner.yaml][] which uses
+[nfs-subdir-external-provisioner][] to provision volumes of class `nfs`.
+
+## Configuring nfs server
+
+Install the NFS service:
+```
+sudo apt update
+sudo apt install nfs-kernel-server
+```
+
+Create nfs directory and bind mount storage into it
+```
+sudo mkdir -p /srv/nfs/k8s
+echo "/mnt/raid/nfs/k8s /srv/nfs/k8s none bind 0 0" | sudo tee -a /etc/fstab
+sudo mount /srv/nfs/k8s
+```
+
+Configure exported shares in `/etc/exports`:
+```
+/srv/nfs     192.168.0.0/16(rw,fsid=0,no_subtree_check,sync)
+/srv/nfs/k8s 192.168.6.0/24(rw,nohide,insecure,no_subtree_check,sync) 192.168.0.0/24(rw,nohide,no_subtree_check,sync)
+```
+
+Reload config:
+```
+sudo service nfs-kernel-server reload
+```
+
+## Verification
+
+### Mounting
+
+Verify from a client:
+```
+sudo mkdir /mnt/nfs-test
+sudo mount -t nfs4 helios64:/k8s /mnt/nfs-test
+sudo umount /mnt/nfs-test
+```
+Note that you won't have permissions to actually write files.
+
+### From Kubernetes
+
+Deploy:
+```
+kubectl create -f test-claim.yaml -f test-pod.yaml
+```
+Now check your NFS Server for the file SUCCESS.
+```
+kubectl delete -f test-claim.yaml -f test-pod.yaml
+```
+Now check the folder has been deleted.
+
+[nfs-subdir-external-provisioner.yaml]: ../infrastructure/templates/nfs-subdir-external-provisioner.yaml
+[nfs-subdir-external-provisioner]: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
