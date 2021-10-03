@@ -10,11 +10,11 @@ spec:
   source:
     repoURL: https://ori-edge.github.io/k8s_gateway/
     chart: k8s-gateway
-    targetRevision: 1.0.2
+    targetRevision: 1.0.10
     helm:
       values: |
         image:
-          tag: v0.1.5
+          tag: v0.1.8
         domain: {{ .Values.domain.intranet }}
         loadBalancerIP: {{ .Values.ipAddress.k8sGateway }}
   destination:
