@@ -25,4 +25,4 @@ See the following cert-manager resources for additional information:
 
 [cert-manager]: https://github.com/jetstack/cert-manager
 [cert-manager-nginx]: https://cert-manager.io/docs/tutorials/acme/ingress/#step-5-deploy-cert-manager
-[cert-manager-helm]: https://cert-manager.io/docs/installation/kubernetes/#installing-with-helm
+[cert-manager-helm]: https://cert-manager.io/docs/installation/helm/
