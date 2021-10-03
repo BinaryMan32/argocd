@@ -9,7 +9,7 @@ spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: https://github.com/immanuelfodor/kube-karp
-    targetRevision: 1.0.1
+    targetRevision: 1.0.3
     path: helm
     helm:
       values: |
