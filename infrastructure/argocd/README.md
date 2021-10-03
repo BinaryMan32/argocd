@@ -36,7 +36,31 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 And then visit http://localhost:8080/
 
-Change the password right away since it's set to the name of the initial
-`argocd-server` pod which may change later.
+From [Argo CD Getting Started][argocd-getting-started], the initial `admin`
+password can be read using:
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+Change password using argocd client:
+```
+$ argocd login localhost:8080
+WARNING: server certificate had error: x509: certificate signed by unknown authority. Proceed insecurely (y/n)? y
+Username: admin
+Password:
+'admin:login' logged in successfully
+Context 'localhost:8080' updated
+$ argocd account update-password
+*** Enter current password:
+*** Enter new password:
+*** Confirm new password:
+Password updated
+```
+
+Delete the now unused secret:
+```
+kubectl -n argocd delete secret argocd-initial-admin-secret
+```
 
 [argocd-private]: https://argoproj.github.io/argo-cd/user-guide/private-repositories/
+[argocd-getting-started]: https://argo-cd.readthedocs.io/en/stable/getting_started/
