@@ -8,7 +8,7 @@ Add this token to a secret used by argocd to read the repository:
 kubectl create secret generic \
   --namespace=argocd \
   gitlab-disc-golf-fanatic \
-  --from-literal=username=<username> \
+  --from-literal=username=argocd-read \
   --from-literal=password=<token>
 ```
 
