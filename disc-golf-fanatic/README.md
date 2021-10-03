@@ -15,6 +15,21 @@ kubectl create secret generic \
 The [argocd configmap][] was updated to reference this secret.
 See argocd documentation on how to [read from private repositories][argocd-private].
 
+Create a [deploy token][] with has the scope `read_registry`.
+
+Add this token for use as an image pull secret:
+```
+for namespace in disc-golf-fanatic-{dev,prod}; do
+kubectl create namespace $namespace
+kubectl create secret docker-registry \
+    --namespace=$namespace \
+    dgf-docker-registry \
+    --docker-server=registry.gitlab.com \
+    --docker-username=kubernetes-pull \
+    --docker-password=<token>
+done
+```
+
 To start managing in argocd, run:
 ```
 kubectl apply -f project-app.yaml
