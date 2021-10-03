@@ -15,6 +15,12 @@ spec:
       valueFiles:
         - values.yaml
         - values-prod.yaml
+      values: |
+        mysql:
+          storageClassName: {{ .Values.mysql.storageClassName }}
+          backup:
+            storageClassName: {{ .Values.mysql.backup.storageClassName }}
+            storage: 5Gi
   destination:
     namespace: {{ .Values.destination.namespaces.prod }}
     server: {{ .Values.destination.server }}

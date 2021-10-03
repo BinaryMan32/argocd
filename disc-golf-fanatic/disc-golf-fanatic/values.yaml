@@ -7,3 +7,7 @@ destination:
 source:
   repoGroup: https://gitlab.com/disc-golf-fanatic
   targetRevision: master
+mysql:
+  storageClassName: nfs
+  backup:
+    storageClassName: nfs
