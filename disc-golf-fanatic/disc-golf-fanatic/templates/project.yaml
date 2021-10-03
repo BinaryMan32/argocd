@@ -11,6 +11,8 @@ spec:
   sourceRepos:
   - {{ .Values.source.repoGroup }}/*
   destinations:
+  - namespace: {{ .Values.destination.namespaces.dev }}
+    server: {{ .Values.destination.server }}
   - namespace: {{ .Values.destination.namespaces.prod }}
     server: {{ .Values.destination.server }}
   clusterResourceWhitelist:
