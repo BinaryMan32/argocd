@@ -15,6 +15,9 @@ spec:
       valueFiles:
         - values.yaml
         - values-dev.yaml
+      values: |
+        imagePullSecrets:
+          - name: {{ .Values.imagePullSecret }}
   destination:
     namespace: {{ .Values.destination.namespaces.dev }}
     server: {{ .Values.destination.server }}

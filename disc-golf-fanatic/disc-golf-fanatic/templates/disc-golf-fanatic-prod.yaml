@@ -16,6 +16,8 @@ spec:
         - values.yaml
         - values-prod.yaml
       values: |
+        imagePullSecrets:
+          - name: {{ .Values.imagePullSecret }}
         mysql:
           storageClassName: {{ .Values.mysql.storageClassName }}
           backup:

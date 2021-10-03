@@ -8,6 +8,7 @@ destination:
 source:
   repoGroup: https://gitlab.com/disc-golf-fanatic
   targetRevision: master
+imagePullSecret: dgf-docker-registry
 mysql:
   storageClassName: nfs
   backup:
