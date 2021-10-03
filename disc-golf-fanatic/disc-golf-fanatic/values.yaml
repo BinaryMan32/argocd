@@ -3,7 +3,8 @@ project:
 destination:
   server: https://kubernetes.default.svc
   namespaces:
-    prod: disc-golf-fanatic
+    dev: disc-golf-fanatic-dev
+    prod: disc-golf-fanatic-prod
 source:
   repoGroup: https://gitlab.com/disc-golf-fanatic
   targetRevision: master

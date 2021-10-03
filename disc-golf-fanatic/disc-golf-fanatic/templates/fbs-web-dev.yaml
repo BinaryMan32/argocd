@@ -16,7 +16,7 @@ spec:
         - values.yaml
         - values-dev.yaml
   destination:
-    namespace: {{ .Values.destination.namespaces.prod }}
+    namespace: {{ .Values.destination.namespaces.dev }}
     server: {{ .Values.destination.server }}
   syncPolicy:
     syncOptions:

@@ -21,7 +21,7 @@ spec:
           backup:
             storageClassName: {{ .Values.mysql.backup.storageClassName }}
   destination:
-    namespace: {{ .Values.destination.namespaces.prod }}
+    namespace: {{ .Values.destination.namespaces.dev }}
     server: {{ .Values.destination.server }}
   syncPolicy:
     syncOptions:
