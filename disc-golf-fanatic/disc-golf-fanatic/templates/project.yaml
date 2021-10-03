@@ -15,6 +15,3 @@ spec:
     server: {{ .Values.destination.server }}
   - namespace: {{ .Values.destination.namespaces.prod }}
     server: {{ .Values.destination.server }}
-  clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
