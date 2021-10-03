@@ -3,6 +3,7 @@ Deploy coredns to handle internal DNS and external queries.
 ## Bootstrapping
 
 ```
+helm dependency update
 helm install --namespace=kube-system coredns .
 ```
 
