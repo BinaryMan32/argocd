@@ -14,6 +14,13 @@ sudo apt update
 sudo apt install nfs-kernel-server
 ```
 
+`nfs-subdir-external-provisioner` will run as root, but the nfs server will map
+to the user `nobody` to avoid trusting remote `root` users which grants access
+to all files. Ensure that the provisioner has permission to create directories:
+```
+sudo chown nobody:nogroup /mnt/raid/nfs/k8s
+```
+
 Create nfs directory and bind mount storage into it
 ```
 sudo mkdir -p /srv/nfs/k8s
