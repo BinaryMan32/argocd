@@ -14,7 +14,11 @@ spec:
     helm:
       values: |
         controller:
-          ingressClass: public
+          ingressClassResource:
+            name: public
+            default: false
+            controllerValue: "k8s.io/ingress-nginx-public"
+          ingressClassByName: true
           service:
             loadBalancerIP: {{ .Values.ipAddress.ingress }}
   destination:
