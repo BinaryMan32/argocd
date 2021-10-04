@@ -32,8 +32,8 @@ storage:
   config:
     pvc: *home_assistant_claim
     size: 2Gi
-    storageClassName: retain
+    storageClassName: nfs
   mqtt:
     pvc: *mosquitto_claim
     size: 2Gi
-    storageClassName: retain
+    storageClassName: longhorn

@@ -18,7 +18,7 @@ spec:
             storage:
               volumeClaimTemplate:
                 spec:
-                  storageClassName: retain
+                  storageClassName: longhorn
                   accessModes: ["ReadWriteOnce"]
                   resources:
                     requests:
@@ -38,7 +38,7 @@ spec:
             existingSecret: "grafana-login"
           persistence:
             enabled: true
-            storageClassName: retain
+            storageClassName: longhorn
             size: 2Gi
           ingress:
             enabled: true
@@ -55,7 +55,7 @@ spec:
             storageSpec:
               volumeClaimTemplate:
                 spec:
-                  storageClassName: retain
+                  storageClassName: longhorn
                   accessModes: ["ReadWriteOnce"]
                   resources:
                     requests:

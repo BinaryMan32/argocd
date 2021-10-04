@@ -31,7 +31,7 @@ spec:
 
         persistentVolumeClaim:
           enabled: true
-          storageClass: retain
+          storageClass: longhorn
 
         serviceWeb:
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
