@@ -6,8 +6,9 @@ spec:
   isCA: true
   dnsNames:
   - {{ .Values.ca.dnsName }}
-  organization:
-  - {{ .Values.ca.organization | quote }}
+  subject:
+    organizations:
+    - {{ .Values.ca.organization | quote }}
   secretName: intranet-ca
   issuerRef:
     name: selfsigned-issuer
