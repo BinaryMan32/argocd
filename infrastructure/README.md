@@ -19,7 +19,7 @@ Copy self-signed root certificate from kubernetes secret to local directory:
 ```
 kubectl -n cert-manager get secret intranet-ca --template='{{index .data "tls.crt"}}' \
   | base64 -d \
-  | sudo tee -a /usr/local/share/ca-certificates/five_byte_studios_intranet_ca.crt
+  | sudo tee /usr/local/share/ca-certificates/five_byte_studios_intranet_ca.crt
 ```
 Create symlinks into `/etc/ssl/certs/`
 ```
