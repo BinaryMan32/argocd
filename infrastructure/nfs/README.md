@@ -18,7 +18,8 @@ sudo apt install nfs-kernel-server
 to the user `nobody` to avoid trusting remote `root` users which grants access
 to all files. Ensure that the provisioner has permission to create directories:
 ```
-sudo chown nobody:nogroup /mnt/raid/nfs/k8s
+sudo mkdir -p /mnt/raid/nfs/k8s/{volumes,longhorn-backup}
+sudo chown nobody:nogroup /mnt/raid/nfs/k8s/{volumes,longhorn-backup}
 ```
 
 Create nfs directory and bind mount storage into it
