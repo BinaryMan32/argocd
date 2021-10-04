@@ -16,7 +16,7 @@ spec:
         - values.yaml
       values: |
         ca:
-          commonName: {{ .Values.domain.intranet }}
+          dnsName: {{ .Values.domain.intranet }}
           organization: Five Byte Studios Intranet
   destination:
     namespace: cert-manager

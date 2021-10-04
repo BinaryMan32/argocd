@@ -4,5 +4,5 @@ cert-manager:
 email: fettinge@gmail.com
 
 ca:
-  commonName: intranet
+  dnsName: intranet
   organization: Intranet

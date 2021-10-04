@@ -4,7 +4,8 @@ metadata:
   name: intranet-ca
 spec:
   isCA: true
-  commonName: {{ .Values.ca.commonName }}
+  dnsNames:
+  - {{ .Values.ca.dnsName }}
   organization:
   - {{ .Values.ca.organization | quote }}
   secretName: intranet-ca
