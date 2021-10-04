@@ -21,6 +21,7 @@ spec:
           tls: true
         persistence:
           defaultClass: false
+          reclaimPolicy: Retain
         defaultSettings:
           backupTarget: nfs://{{ .Values.nfs.server }}:{{ .Values.nfs.path }}/longhorn-backup
   # helm template incorrectly sets nodePort for LoadBalancer
