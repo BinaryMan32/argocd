@@ -4,7 +4,9 @@ metadata:
   name: intranet-ca
 spec:
   isCA: true
-  commonName: intranet-system
+  commonName: {{ .Values.ca.commonName }}
+  organization:
+  - {{ .Values.ca.organization | quote }}
   secretName: intranet-ca
   issuerRef:
     name: selfsigned-issuer
