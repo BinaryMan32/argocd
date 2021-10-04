@@ -19,6 +19,8 @@ spec:
             cert-manager.io/cluster-issuer: intranet-ca
           host: longhorn.{{ .Values.domain.intranet }}
           tls: true
+        persistence:
+          defaultClass: false
   # helm template incorrectly sets nodePort for LoadBalancer
   ignoreDifferences:
     - kind: Service
