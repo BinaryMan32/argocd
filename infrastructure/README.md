@@ -43,30 +43,13 @@ Some changes require modifications to resources created by k3s. Since these
 aren't managed by any apps, these steps must be performed manually instead of
 updating deployment configuration.
 
-### Default Storage Class
+### Storage Classes
 
-After deploying all infrastructure apps, there are two default storage classes:
+After deploying all infrastructure apps, the storage classes should be:
 ```
 $ kubectl get storageclass
-NAME                   PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-local-path (default)   rancher.io/local-path   Delete          WaitForFirstConsumer   false                  4d10h
-longhorn (default)     driver.longhorn.io      Delete          Immediate              true                   29m
+NAME                   PROVISIONER                                     RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+local-path (default)   rancher.io/local-path                           Delete          WaitForFirstConsumer   false                  18h
+longhorn               driver.longhorn.io                              Retain          Immediate              true                   26m
+nfs                    cluster.local/nfs-subdir-external-provisioner   Delete          Immediate              true                   101m
 ```
-
-To fix this, mark `local-path` as non-default as described in
-[Kubernetes - Changing the default StorageClass][k8s-default-storageclass]:
-```
-$ kubectl patch storageclass local-path -p \
-  '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
-storageclass.storage.k8s.io/local-path patched
-```
-
-Now there is only a single default:
-```
-$ kubectl get storageclass
-NAME                 PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-local-path           rancher.io/local-path   Delete          WaitForFirstConsumer   false                  4d10h
-longhorn (default)   driver.longhorn.io      Delete          Immediate              true                   30m
-```
-
-[k8s-default-storageclass]: https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/#changing-the-default-storageclass
