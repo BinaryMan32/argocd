@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://mojo2600.github.io/pihole-kubernetes/
     chart: pihole
-    targetRevision: 1.8.29
+    targetRevision: 2.4.2
     helm:
       values: |
         whitelist:
@@ -41,6 +41,12 @@ spec:
           type: LoadBalancer
 
         serviceDns:
+          loadBalancerIP: {{ .Values.ipAddress.pihole }}
+          annotations:
+            metallb.universe.tf/allow-shared-ip: pihole-svc
+          type: LoadBalancer
+
+        serviceDhcp:
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
           annotations:
             metallb.universe.tf/allow-shared-ip: pihole-svc
