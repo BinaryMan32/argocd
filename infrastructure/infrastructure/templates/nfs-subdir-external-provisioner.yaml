@@ -15,7 +15,7 @@ spec:
       values: |
         nfs:
           server: {{ .Values.nfs.server }}
-          path: {{ .Values.nfs.path }}
+          path: {{ .Values.nfs.path }}/volumes
         storageClass:
           name: nfs
           pathPattern: ${.PVC.namespace}/${.PVC.name}
