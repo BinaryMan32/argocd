@@ -14,10 +14,10 @@ domain:
 ipAddress:
   router: "192.168.6.1"
   kube: "192.168.6.9"
-  k8sGateway: "192.168.6.114"
   ingress: "192.168.6.101"
   ingressIntranet: "192.168.6.102"
   pihole: "192.168.6.103"
+  k8sGateway: "192.168.6.104"
 nfs:
   server: helios64
   path: /k8s
