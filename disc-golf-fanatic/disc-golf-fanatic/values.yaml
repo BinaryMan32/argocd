@@ -10,6 +10,6 @@ source:
   targetRevision: master
 imagePullSecret: dgf-docker-registry
 mysql:
-  storageClassName: nfs
+  storageClassName: longhorn
   backup:
     storageClassName: nfs
