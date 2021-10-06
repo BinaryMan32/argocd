@@ -71,7 +71,7 @@ spec:
                   - prometheus.{{ .Values.domain.intranet }}
                 secretName: prometheus-tls
   destination:
-    namespace: {{ .Values.destination.namespace }}
+    namespace: kube-prometheus-stack
     server: {{ .Values.destination.server }}
   syncPolicy:
     syncOptions:
