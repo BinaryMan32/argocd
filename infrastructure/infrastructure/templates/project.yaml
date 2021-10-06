@@ -16,6 +16,7 @@ spec:
   - https://github.com/immanuelfodor/kube-karp
   - https://mojo2600.github.io/pihole-kubernetes/
   - https://ori-edge.github.io/k8s_gateway/
+  - https://prometheus-community.github.io/helm-charts
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}

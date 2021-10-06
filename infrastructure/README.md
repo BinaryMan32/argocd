@@ -43,6 +43,27 @@ Some changes require modifications to resources created by k3s. Since these
 aren't managed by any apps, these steps must be performed manually instead of
 updating deployment configuration.
 
+### Monitoring
+
+Prometheus Operator & Grafana provided by [kube-prometheus-stack][].
+
+Before installing, create a secret to log into grafana:
+```
+kubectl create secret generic \
+  --namespace=monitoring \
+  grafana-login \
+  --from-literal=admin-user=admin \
+  --from-literal=admin-password='<password>'
+```
+
+To retrieve the credentials:
+```
+kubectl -n monitoring get secret grafana-login \
+  --template='{{index .data "admin-user" | base64decode}}
+{{index .data "admin-password" | base64decode}}
+'
+```
+
 ### Storage Classes
 
 After deploying all infrastructure apps, the storage classes should be:
@@ -53,3 +74,5 @@ local-path (default)   rancher.io/local-path                           Delete   
 longhorn               driver.longhorn.io                              Retain          Immediate              true                   26m
 nfs                    cluster.local/nfs-subdir-external-provisioner   Delete          Immediate              true                   101m
 ```
+
+[kube-prometheus-stack]: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
