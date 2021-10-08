@@ -64,6 +64,14 @@ kubectl -n kube-prometheus-stack get secret grafana-login \
 '
 ```
 
+After deploying, prometheus wouldn't start due to a permission denied error.
+For some reason, the `fsGroup` setting didn't actually change ownership of
+the longhorn volume. To fix this, detach the volume in the longhorn UI and
+attach to one of the cluster nodes. SSH, mount the volume, and run:
+```
+sudo chown 1000:2000 .
+```
+
 ### Storage Classes
 
 After deploying all infrastructure apps, the storage classes should be:
