@@ -8,8 +8,9 @@ home-assistant:
 mosquitto:
   fullnameOverride: mqtt
   persistence:
-    enabled: true
-    existingClaim: &mosquitto_claim mqtt
+    config:
+      enabled: true
+      existingClaim: &mosquitto_claim mqtt
 
 storage:
   config:
