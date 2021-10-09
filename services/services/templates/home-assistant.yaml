@@ -31,8 +31,9 @@ spec:
                     - path: /
         mosquitto:
           service:
-            type: LoadBalancer
-            loadBalancerIP: {{ .Values.ipAddress.mosquitto }}
+            main:
+              type: LoadBalancer
+              loadBalancerIP: {{ .Values.ipAddress.mosquitto }}
   destination:
     namespace: home-assistant
     server: {{ .Values.destination.server }}
