@@ -6,7 +6,7 @@ kubeVersion: '>=1.19.0-0'
 dependencies:
 - name: home-assistant
   repository: https://k8s-at-home.com/charts/
-  version: 5.5.1
+  version: 11.0.4
 - name: mosquitto
   repository: https://k8s-at-home.com/charts/
-  version: 0.5.0
+  version: 4.0.1

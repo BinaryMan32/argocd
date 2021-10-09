@@ -15,19 +15,20 @@ spec:
       values: |
         home-assistant:
           ingress:
-            enabled: true
-            ingressClassName: public
-            annotations:
-              nginx.org/websocket-services: home-assistant
-              cert-manager.io/cluster-issuer: "letsencrypt-prod"
-            tls:
-              - secretName: home-assistant-tls
-                hosts:
-                - home-assistant.{{ .Values.domain.external }}
-            hosts:
-              - host: home-assistant.{{ .Values.domain.external }}
-                paths:
-                  - path: /
+            main:
+              enabled: true
+              ingressClassName: public
+              annotations:
+                nginx.org/websocket-services: home-assistant
+                cert-manager.io/cluster-issuer: "letsencrypt-prod"
+              tls:
+                - secretName: home-assistant-tls
+                  hosts:
+                  - home-assistant.{{ .Values.domain.external }}
+              hosts:
+                - host: home-assistant.{{ .Values.domain.external }}
+                  paths:
+                    - path: /
         mosquitto:
           service:
             type: LoadBalancer
