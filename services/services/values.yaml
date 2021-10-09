@@ -8,3 +8,6 @@ source:
   targetRevision: main
 domain:
   intranet: int.fivebytestudios.com
+  external: wildfreddy.fivebytestudios.com
+ipAddress:
+  mosquitto: 192.168.6.109

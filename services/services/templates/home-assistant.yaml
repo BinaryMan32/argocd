@@ -12,6 +12,26 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+      values: |
+        home-assistant:
+          ingress:
+            enabled: true
+            ingressClassName: public
+            annotations:
+              nginx.org/websocket-services: home-assistant
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            tls:
+              - secretName: home-assistant-tls
+                hosts:
+                - home-assistant.{{ .Values.domain.external }}
+            hosts:
+              - host: home-assistant.{{ .Values.domain.external }}
+                paths:
+                  - path: /
+        mosquitto:
+          service:
+            type: LoadBalancer
+            loadBalancerIP: {{ .Values.ipAddress.mosquitto }}
   destination:
     namespace: home-assistant
     server: {{ .Values.destination.server }}

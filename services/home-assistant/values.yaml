@@ -1,29 +1,12 @@
 home-assistant:
   env:
     TZ: America/Chicago
-  ingress:
-    enabled: true
-    ingressClassName: public
-    annotations:
-      nginx.org/websocket-services: home-assistant
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    tls:
-      - secretName: home-assistant-tls
-        hosts:
-        - home-assistant.wildfreddy.fivebytestudios.com
-    hosts:
-      - host: home-assistant.wildfreddy.fivebytestudios.com
-        paths:
-          - path: /
   persistence:
     config:
       enabled: true
       existingClaim: &home_assistant_claim config
 mosquitto:
   fullnameOverride: mqtt
-  service:
-    type: LoadBalancer
-    loadBalancerIP: 192.168.6.202
   persistence:
     enabled: true
     existingClaim: &mosquitto_claim mqtt
