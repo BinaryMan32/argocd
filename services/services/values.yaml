@@ -11,4 +11,3 @@ domain:
   external: wildfreddy.fivebytestudios.com
 ipAddress:
   mosquitto: 192.168.6.109
-podCIDR: 10.42.0.0/16

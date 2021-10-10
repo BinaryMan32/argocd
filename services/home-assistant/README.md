@@ -24,7 +24,7 @@ Log messages:
 ```
 
 As [documented in the home-assistant chart][home-assistant-bad-request], need to
-configure which ips are allowed to send requests.
+configure which ips are allowed to send requests in the home assistant config.
 ```yaml
 http:
   use_x_forwarded_for: true

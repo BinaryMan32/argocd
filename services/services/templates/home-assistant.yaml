@@ -29,10 +29,6 @@ spec:
                 - host: home-assistant.{{ .Values.domain.external }}
                   paths:
                     - path: /
-          http:
-            use_x_forwarded_for: true
-            trusted_proxies:
-            - {{ .Values.podCIDR }}
         mosquitto:
           service:
             main:
