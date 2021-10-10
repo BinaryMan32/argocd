@@ -1,6 +1,11 @@
 home-assistant:
   env:
     TZ: America/Chicago
+  common:
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "1"
   persistence:
     config:
       enabled: true
