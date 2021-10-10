@@ -8,14 +8,33 @@ And visit http://localhost:8123/
 
 Or use the ingress via https://home-assistant.wildfreddy.fivebytestudios.com/
 
-Only a single node has a SSD rather than a sdcard, but the microk8s storage
-addon could allocate a `PersistentVolume` from any node's disk. To avoid this,
-explicitly create `PersistentVolume` and `PersistentVolumeClaim` resources for
-home-assistant storage. To create directories for this storage:
-```
-ssh pegasus3 sudo mkdir -p /var/home-assistant/{config,mqtt}
-```
-See [Reserving a PersistentVolume][reserve-pv].
+## Reverse Proxy Error
 
-[k8s-at-home]: https://github.com/k8s-at-home/charts/tree/master/charts/home-assistant
-[reserve-pv]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reserving-a-persistentvolume
+Log messages:
+```
+2021-10-09 16:02:20 WARNING (MainThread) [homeassistant.components.http.forwarded] A request from a reverse proxy was received from 10.42.1.6, but your HTTP integration is not set-up for reverse proxies; This request will be blocked in Home Assistant 2021.7 unless you configure your HTTP integration to allow this header
+2021-10-09 16:02:20 WARNING (MainThread) [homeassistant.components.webhook] Received message for unregistered webhook eb011e1261e28caab006ef765835a8b7358c0cf8c5f9291aa0dfff2f5a291f68 from 10.42.1.6
+```
+
+As [documented in the home-assistant chart][home-assistant-bad-request], need to
+configure which ips are allowed to send requests.
+```yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+  - 10.42.0.0/16
+```
+See also [home-assistant-reverse-proxies][].
+
+Choose a CIDR which covers the `podCIDR` for all nodes:
+```
+$ kubectl get nodes -o=jsonpath='{range .items[*]}{.spec.podCIDR}{"\n"}{end}'
+10.42.0.0/24
+10.42.1.0/24
+10.42.2.0/24
+10.42.3.0/24
+```
+
+[k8s-at-home]: https://github.com/k8s-at-home/charts/tree/master/charts/stable/home-assistant
+[home-assistant-bad-request]: https://github.com/k8s-at-home/charts/tree/master/charts/stable/home-assistant#http-400-bad-request-while-accessing-from-your-browser
+[home-assistant-reverse-proxies]: https://www.home-assistant.io/integrations/http#reverse-proxies
