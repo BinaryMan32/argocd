@@ -8,6 +8,13 @@ And visit http://localhost:8123/
 
 Or use the ingress via https://home-assistant.wildfreddy.fivebytestudios.com/
 
+## Testing mqtt
+
+Subscribe to all messages:
+```
+mosquitto_sub --id test-$(hostname) --host mqtt.home-assistant.int.fivebytestudios.com --topic '#' --verbose
+```
+
 ## Reverse Proxy Error
 
 Log messages:
