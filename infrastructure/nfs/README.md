@@ -32,8 +32,9 @@ sudo mount /srv/nfs/k8s
 Configure exported shares in `/etc/exports`:
 ```
 /srv/nfs     192.168.0.0/16(rw,fsid=0,no_subtree_check,sync)
-/srv/nfs/k8s 192.168.6.0/24(rw,nohide,insecure,no_subtree_check,sync) 192.168.0.0/24(rw,nohide,no_subtree_check,sync)
+/srv/nfs/k8s 192.168.6.0/24(rw,nohide,insecure,no_subtree_check,sync) 192.168.0.0/24(rw,nohide,no_subtree_check,sync,all_squash)
 ```
+Note use of `all_squash` to ensure new files are owned by `nobody`/`nogroup`.
 
 Reload config:
 ```
