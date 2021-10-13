@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vulcan-certificate
+spec:
+  commonName: vulcan.iot.wildfreddy.fivebytestudios.com
+  dnsNames:
+  - vulcan.iot.wildfreddy.fivebytestudios.com
+  secretName: vulcan-certificate
+  issuerRef:
+    name: intranet-ca
+    kind: ClusterIssuer
+    group: cert-manager.io
+  usages:
+  - digital signature
+  - key encipherment
