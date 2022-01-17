@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud
+  namespace: argocd
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/nextcloud
+    helm:
+      valueFiles:
+        - values.yaml
+      values: |
+        nextcloud:
+          nextcloud:
+            host: nextcloud.{{ .Values.domain.external }}
+          ingress:
+            enabled: true
+            className: public
+            annotations:
+              nginx.org/websocket-services: nextcloud
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            tls:
+              - secretName: nextcloud-tls
+                hosts:
+                - nextcloud.{{ .Values.domain.external }}
+  destination:
+    namespace: nextcloud
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

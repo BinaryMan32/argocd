@@ -1,0 +1,32 @@
+apiVersion: kubegres.reactive-tech.io/v1
+kind: Kubegres
+metadata:
+  name: nextcloud-postgres
+spec:
+  replicas: 3
+  image: postgres:14.1
+
+  database:
+    size: 512Mi
+    storageClassName: local-path
+
+  customConfig: nextcloud-postgres-config
+
+  env:
+    - name: POSTGRES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Values.postgres.secretName }}
+        key: superUserPassword
+
+    - name: POSTGRES_REPLICATION_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.postgres.secretName }}
+          key: replicationUserPassword
+
+    - name: POSTGRES_MY_DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.postgres.secretName }}
+          key: nextcloudPassword

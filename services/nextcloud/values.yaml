@@ -1,0 +1,27 @@
+nextcloud:
+  existingSecret:
+    enabled: true
+    secretName: nextcloud-admin
+    usernameKey: username
+    passwordKey: password
+  internalDatabase:
+    enabled: false
+  externalDatabase:
+    enabled: true
+    type: postgresql
+    host: "nextcloud-postgres:5432"
+    existingSecret:
+      enabled: true
+      secretName: nextcloud-database
+      usernameKey: nextcloudUsername
+      passwordKey: nextcloudPassword
+  cronjob:
+    enabled: true
+  persistence:
+    enabled: true
+    storageClass: longhorn
+    nextcloudData:
+      enabled: true
+      storageClass: nfs
+postgres:
+  secretName: nextcloud-database
