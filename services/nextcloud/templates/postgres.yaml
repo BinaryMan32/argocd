@@ -14,10 +14,10 @@ spec:
 
   env:
     - name: POSTGRES_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: {{ .Values.postgres.secretName }}
-        key: superUserPassword
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.postgres.secretName }}
+          key: superUserPassword
 
     - name: POSTGRES_REPLICATION_PASSWORD
       valueFrom:
