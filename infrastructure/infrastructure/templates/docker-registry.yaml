@@ -20,7 +20,7 @@ spec:
           enabled: true
           annotations:
             cert-manager.io/cluster-issuer: intranet-ca
-            nginx.ingress.kubernetes.io/proxy-body-size: 128m
+            nginx.ingress.kubernetes.io/proxy-body-size: 192m
           hosts:
             - docker-registry.{{ .Values.domain.intranet }}
           tls:
