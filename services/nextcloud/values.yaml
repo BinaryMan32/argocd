@@ -1,9 +1,10 @@
 nextcloud:
-  existingSecret:
-    enabled: true
-    secretName: nextcloud-admin
-    usernameKey: username
-    passwordKey: password
+  nextcloud:
+    existingSecret:
+      enabled: true
+      secretName: nextcloud-admin
+      usernameKey: username
+      passwordKey: password
   internalDatabase:
     enabled: false
   externalDatabase:
