@@ -14,7 +14,6 @@ spec:
   - https://kubernetes-sigs.github.io/*
   - https://github.com/longhorn/longhorn
   - https://github.com/immanuelfodor/kube-karp
-  - https://helm.twun.io
   - https://mojo2600.github.io/pihole-kubernetes/
   - https://ori-edge.github.io/k8s_gateway/
   - https://prometheus-community.github.io/helm-charts
