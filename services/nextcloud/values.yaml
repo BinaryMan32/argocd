@@ -18,8 +18,5 @@ nextcloud:
       passwordKey: nextcloudPassword
   cronjob:
     enabled: true
-  persistence:
-    enabled: true
-    storageClass: nfs
 postgres:
   secretName: nextcloud-database
