@@ -60,3 +60,17 @@ sudo k3s ctr images import nextcloud_22.2.3-apache-fix-chown.tar
 
 [nextcloud helm]: https://github.com/nextcloud/helm/tree/master/charts/nextcloud
 [kubegres]: https://www.kubegres.io/doc/getting-started.html
+
+# Database
+
+Forward port:
+```
+kubectl -n nextcloud port-forward service/nextcloud-postgres 5432
+```
+
+Connect:
+```
+PGPASSWORD=$(kubectl -n nextcloud get secret nextcloud-database \
+  --template='{{.data.nextcloudPassword | base64decode}}') \
+  psql -h localhost nextcloud nextcloud
+```
