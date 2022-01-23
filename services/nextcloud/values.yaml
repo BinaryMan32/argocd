@@ -23,5 +23,6 @@ nextcloud:
     storageClass: nfs
   startupProbe:
     enabled: true
+    failureThreshold: 60
 postgres:
   secretName: nextcloud-database
