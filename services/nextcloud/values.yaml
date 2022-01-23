@@ -20,9 +20,6 @@ nextcloud:
     enabled: true
   persistence:
     enabled: true
-    storageClass: longhorn
-    nextcloudData:
-      enabled: true
-      storageClass: nfs
+    storageClass: nfs
 postgres:
   secretName: nextcloud-database
