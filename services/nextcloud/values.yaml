@@ -20,7 +20,10 @@ nextcloud:
     enabled: true
   persistence:
     enabled: true
-    storageClass: nfs
+    storageClass: longhorn
+    nextcloudData:
+      enabled: true
+      storageClass: nfs
   startupProbe:
     enabled: true
     failureThreshold: 180
