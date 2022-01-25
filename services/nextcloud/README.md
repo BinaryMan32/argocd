@@ -14,52 +14,24 @@ kubectl -n nextcloud get secret nextcloud-admin \
   --template='{{.data.password | base64decode | printf "%s\n"}}'
 ```
 
-# Upgrading
+# Initial Setup
 
 If using persistence on NFS, nextcloud will fail to do the initial install or
 upgrade with a message similar to:
 ```
 Initializing nextcloud 22.2.3.0 ...
 rsync: [generator] chown "/var/www/html/data" failed: Operation not permitted (1)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
 ```
-This occurs because NFS doesn't allow files to be owned by root.
-
-To work around this, build a new docker image using the following `Dockerfile`.
+The `entrypoint.sh` script exits on error when `rsync` fails. This would be
+fine if it retried since `chown` is expected to fail and unnecessary because of
+the `all_squash` server side NFS configuration. However, `entrypoint.sh` will
+try to copy the `data` directory every time it starts because the destination
+directory is empty, which is always the case because the source dir is empty as
+well. Creating a dummy file bypasses the issue.
 ```
-FROM nextcloud:22.2.3-apache
-RUN sed --in-place=.bak 's/\(rsync_options="-rlD\)[^"]\+/\1/' /entrypoint.sh
+touch /nfs/k8s/volumes/nextcloud/nextcloud-nextcloud-data/data/NOT_EMPTY
 ```
-The must be built on a machine with `arm64` architecture.
-```
-cat Dockerfile | docker build -t nextcloud:22.2.3-apache-fix-chown -
-```
-
-Patch the deployment to load the new image:
-```
-kubectl -n nextcloud patch deploy/nextcloud --patch '
-spec:
-  template:
-    spec:
-      containers:
-      - name: nextcloud
-        image: nextcloud:22.2.3-apache-fix-chown
-'
-```
-At this point, the pod will fail to start because the image only exists locally.
-
-Create a tarfile of the image:
-```
-docker save --output nextcloud_22.2.3-apache-fix-chown.tar \
-  nextcloud:22.2.3-apache-fix-chown
-```
-
-Copy the tarfile to the host which is trying to start the container and import:
-```
-sudo k3s ctr images import nextcloud_22.2.3-apache-fix-chown.tar
-```
-
-[nextcloud helm]: https://github.com/nextcloud/helm/tree/master/charts/nextcloud
-[kubegres]: https://www.kubegres.io/doc/getting-started.html
 
 # Database
 
@@ -74,3 +46,6 @@ PGPASSWORD=$(kubectl -n nextcloud get secret nextcloud-database \
   --template='{{.data.nextcloudPassword | base64decode}}') \
   psql -h localhost nextcloud nextcloud
 ```
+
+[nextcloud helm]: https://github.com/nextcloud/helm/tree/master/charts/nextcloud
+[kubegres]: https://www.kubegres.io/doc/getting-started.html
