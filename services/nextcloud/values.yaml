@@ -1,5 +1,11 @@
 nextcloud:
   nextcloud:
+    configs:
+      protocol.config.php: |-
+        <?php
+        $CONFIG = array (
+          'overwriteprotocol' => 'https'
+        );
     existingSecret:
       enabled: true
       secretName: nextcloud-admin
