@@ -1,4 +1,7 @@
 nextcloud:
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: 2g
   nextcloud:
     configs:
       protocol.config.php: |-
