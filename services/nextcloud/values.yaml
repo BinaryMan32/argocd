@@ -2,6 +2,8 @@ nextcloud:
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: 2g
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "180"
   nextcloud:
     configs:
       protocol.config.php: |-
