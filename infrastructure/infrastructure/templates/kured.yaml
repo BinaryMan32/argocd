@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kured
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://kubereboot.github.io/charts
+    chart: kured
+    targetRevision: 4.0.2
+    helm:
+      values: |
+        metrics:
+          create: true
+  destination:
+    namespace: kured
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
