@@ -4,7 +4,7 @@ metadata:
   name: nextcloud-postgres
 spec:
   replicas: 3
-  image: postgres:14.1
+  image: postgres:14.6
 
   database:
     size: 512Mi
