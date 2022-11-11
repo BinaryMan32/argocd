@@ -1,4 +1,4 @@
 namespace: kubegres
 
 resources:
-  - https://raw.githubusercontent.com/reactive-tech/kubegres/v1.15/kubegres.yaml
+  - https://raw.githubusercontent.com/reactive-tech/kubegres/v1.16/kubegres.yaml
