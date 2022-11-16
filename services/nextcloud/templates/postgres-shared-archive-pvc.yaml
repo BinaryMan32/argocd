@@ -1,0 +1,14 @@
+{{- with .Values.postgres.sharedArchive }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .pvc }}
+spec:
+  storageClassName: {{ .storageClassName }}
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .size }}
+{{- end }}
