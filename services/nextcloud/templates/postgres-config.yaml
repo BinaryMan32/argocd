@@ -25,3 +25,17 @@ data:
     EOSQL
 
     echo "$dt - Init script is completed";
+
+  postgres.conf: |
+    # Replication configs
+    listen_addresses = '*'
+    max_wal_senders = 10
+    wal_keep_segments = 48 #in Mb
+    max_connections = 100
+    shared_buffers = 128MB
+
+    # WAL Archiving https://www.postgresql.org/docs/14/continuous-archiving.html#BACKUP-ARCHIVING-WAL
+    # https://www.postgresql.org/docs/14/runtime-config-wal.html#GUC-ARCHIVE-COMMAND
+    archive_command = 'test ! -f /mnt/shared/archive/%f && cp "%p" /mnt/shared/archive/%f'
+    # https://www.postgresql.org/docs/14/runtime-config-wal.html#GUC-RESTORE-COMMAND
+    restore_command = 'cp /mnt/shared/archive/%f "%p"'
