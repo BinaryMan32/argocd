@@ -6,6 +6,9 @@ spec:
   replicas: 3
   image: postgres:14.6
 
+  failover:
+    isDisabled: true
+
   database:
     size: 512Mi
     storageClassName: local-path
