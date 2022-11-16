@@ -31,12 +31,12 @@ spec:
           name: {{ .Values.postgres.secretName }}
           key: nextcloudPassword
 
-  # Mount a sharedArchive NFS volume to all pods
+  # Mount a shared-archive PVC to all pods
   volume:
     volumes:
-      - name: sharedArchive
+      - name: shared-archive
         persistentVolumeClaim:
           claimName: {{ .Values.postgres.sharedArchive.pvc }}
     volumeMounts:
       - mountPath: /mnt/shared/archive
-        name: sharedArchive
+        name: shared-archive
