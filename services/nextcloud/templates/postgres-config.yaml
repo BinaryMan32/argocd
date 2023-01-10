@@ -30,7 +30,6 @@ data:
     # Replication configs
     listen_addresses = '*'
     max_wal_senders = 10
-    wal_keep_segments = 48 #in Mb
     max_connections = 100
     shared_buffers = 128MB
 
