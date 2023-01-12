@@ -47,5 +47,12 @@ PGPASSWORD=$(kubectl -n nextcloud get secret nextcloud-database \
   psql -h localhost nextcloud nextcloud
 ```
 
+Restore:
+```
+gzip -cd dump-nextcloud.sql.gz \
+  | kubectl exec -i -n nextcloud nextcloud-postgres-1-0 -- bash -c \
+  'PGPASSWORD=$POSTGRES_MY_DB_PASSWORD exec psql -U nextcloud'
+```
+
 [nextcloud helm]: https://github.com/nextcloud/helm/tree/master/charts/nextcloud
 [kubegres]: https://www.kubegres.io/doc/getting-started.html
