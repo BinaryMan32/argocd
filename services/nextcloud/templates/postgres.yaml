@@ -15,7 +15,7 @@ spec:
 
   backup:
     schedule: "0 0 * * *"
-    pvcName: {{ .Values.postgres.sharedArchive.pvc }}
+    pvcName: {{ .Values.postgres.backup.pvc }}
     volumeMount: /var/lib/backup
 
   customConfig: nextcloud-postgres-config
