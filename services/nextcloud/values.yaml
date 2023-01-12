@@ -39,6 +39,10 @@ nextcloud:
     enabled: true
 postgres:
   secretName: nextcloud-database
+  backup:
+    pvc: nextcloud-postgres-backup
+    size: 10Gi
+    storageClassName: nfs
   sharedArchive:
     pvc: nextcloud-postgres-shared-archive
     size: 2Gi

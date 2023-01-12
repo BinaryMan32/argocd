@@ -13,6 +13,11 @@ spec:
     size: 512Mi
     storageClassName: local-path
 
+  backup:
+    schedule: "0 0 * * *"
+    pvcName: {{ .Values.postgres.sharedArchive.pvc }}
+    volumeMount: /var/lib/backup
+
   customConfig: nextcloud-postgres-config
 
   env:
