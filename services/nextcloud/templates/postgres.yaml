@@ -14,7 +14,7 @@ spec:
     storageClassName: local-path
 
   backup:
-    schedule: "0 0 * * *"
+    schedule: "0 10 * * *"
     pvcName: {{ .Values.postgres.backup.pvc }}
     volumeMount: /var/lib/backup
 
