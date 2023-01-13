@@ -38,3 +38,9 @@ data:
     archive_command = 'test ! -f /mnt/shared/archive/%f && cp "%p" /mnt/shared/archive/%f'
     # https://www.postgresql.org/docs/14/runtime-config-wal.html#GUC-RESTORE-COMMAND
     restore_command = 'cp /mnt/shared/archive/%f "%p"'
+
+  backup_database.sh: |
+    #!/bin/bash -xe
+    fileDt=$(date '+%d_%m_%Y_%H_%M_%S');
+    backUpFilePath="$BACKUP_DESTINATION_FOLDER/$KUBEGRES_RESOURCE_NAME-backup-$fileDt.gz"
+    pg_dump -h $BACKUP_SOURCE_DB_HOST_NAME -U postgres nextcloud | gzip > $backUpFilePath
