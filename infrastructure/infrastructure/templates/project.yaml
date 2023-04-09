@@ -18,6 +18,7 @@ spec:
   - https://ori-edge.github.io/k8s_gateway/
   - https://prometheus-community.github.io/helm-charts
   - https://kubereboot.github.io/charts
+  - https://bitnami-labs.github.io/sealed-secrets
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
