@@ -8,68 +8,69 @@ metadata:
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    chart: kube-prometheus-stack
-    targetRevision: 19.0.2
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/kube-prometheus-stack
     helm:
       values: |
-        alertmanager:
-          alertmanagerSpec:
-            storage:
-              volumeClaimTemplate:
-                spec:
-                  storageClassName: longhorn
-                  accessModes: ["ReadWriteOnce"]
-                  resources:
-                    requests:
-                      storage: 2Gi
-          ingress:
-            enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
-            hosts:
-              - alertmanager.{{ .Values.domain.intranet }}
-            tls:
-              - hosts:
-                  - alertmanager.{{ .Values.domain.intranet }}
-                secretName: alertmanager-tls
-        grafana:
-          admin:
-            existingSecret: "grafana-login"
-          persistence:
-            enabled: true
-            storageClassName: longhorn
-            size: 2Gi
-          ingress:
-            enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
-            hosts:
-              - grafana.{{ .Values.domain.intranet }}
-            tls:
-              - hosts:
-                  - grafana.{{ .Values.domain.intranet }}
-                secretName: grafana-tls
-        prometheus:
-          prometheusSpec:
-            storageSpec:
-              volumeClaimTemplate:
-                spec:
-                  storageClassName: longhorn
-                  accessModes: ["ReadWriteOnce"]
-                  resources:
-                    requests:
-                      storage: 50Gi
-          ingress:
-            enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
-            hosts:
-              - prometheus.{{ .Values.domain.intranet }}
-            tls:
-              - hosts:
-                  - prometheus.{{ .Values.domain.intranet }}
-                secretName: prometheus-tls
+        kube-prometheus-stack:
+          alertmanager:
+            alertmanagerSpec:
+              storage:
+                volumeClaimTemplate:
+                  spec:
+                    storageClassName: longhorn
+                    accessModes: ["ReadWriteOnce"]
+                    resources:
+                      requests:
+                        storage: 2Gi
+            ingress:
+              enabled: true
+              annotations:
+                cert-manager.io/cluster-issuer: intranet-ca
+              hosts:
+                - alertmanager.{{ .Values.domain.intranet }}
+              tls:
+                - hosts:
+                    - alertmanager.{{ .Values.domain.intranet }}
+                  secretName: alertmanager-tls
+          grafana:
+            admin:
+              existingSecret: "grafana-login"
+            persistence:
+              enabled: true
+              storageClassName: longhorn
+              size: 2Gi
+            ingress:
+              enabled: true
+              annotations:
+                cert-manager.io/cluster-issuer: intranet-ca
+              hosts:
+                - grafana.{{ .Values.domain.intranet }}
+              tls:
+                - hosts:
+                    - grafana.{{ .Values.domain.intranet }}
+                  secretName: grafana-tls
+          prometheus:
+            prometheusSpec:
+              storageSpec:
+                volumeClaimTemplate:
+                  spec:
+                    storageClassName: longhorn
+                    accessModes: ["ReadWriteOnce"]
+                    resources:
+                      requests:
+                        storage: 50Gi
+            ingress:
+              enabled: true
+              annotations:
+                cert-manager.io/cluster-issuer: intranet-ca
+              hosts:
+                - prometheus.{{ .Values.domain.intranet }}
+              tls:
+                - hosts:
+                    - prometheus.{{ .Values.domain.intranet }}
+                  secretName: prometheus-tls
   destination:
     namespace: kube-prometheus-stack
     server: {{ .Values.destination.server }}
