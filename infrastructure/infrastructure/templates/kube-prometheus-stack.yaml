@@ -77,6 +77,7 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
   ignoreDifferences:
     # failurePolicy set to Fail but switches to Ignore after deploy
     - group: admissionregistration.k8s.io
