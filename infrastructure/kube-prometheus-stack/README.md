@@ -15,3 +15,11 @@ echo -n 'WEBHOOK_URL' \
   | kubeseal --format yaml \
     >infrastructure/kube-prometheus-stack/templates/slack-api-secret.yaml
 ```
+
+Send test alert:
+```sh
+curl -H 'Content-Type: application/json' -d '[{"labels":{"alertname":"myalert"}}]' https://alertmanager.int.fivebytestudios.com/api/v1/alerts
+```
+```json
+{"status":"success"}
+```
