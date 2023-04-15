@@ -27,8 +27,8 @@ spec:
                     resources:
                       requests:
                         storage: 2Gi
-                secrets:
-                  - slack-api
+              secrets:
+                - slack-api
             ingress:
               enabled: true
               annotations:
