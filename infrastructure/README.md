@@ -84,3 +84,19 @@ nfs                    cluster.local/nfs-subdir-external-provisioner   Delete   
 ```
 
 [kube-prometheus-stack]: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
+
+## Sealed Secrets
+
+Install `kubeseal` client binary:
+```
+wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.20.2/kubeseal-0.20.2-linux-amd64.tar.gz
+tar -xvzf kubeseal-0.20.2-linux-amd64.tar.gz kubeseal
+sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+rm kubeseal-0.20.2-linux-amd64.tar.gz
+```
+
+See [kube-prometheus-stack](./kube-prometheus-stack/README.md) for example of creating a sealed secret.
+
+See [sealed-secrets][] for additional details.
+
+[sealed-secrets]: https://github.com/bitnami-labs/sealed-secrets
