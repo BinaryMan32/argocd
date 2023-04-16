@@ -6,4 +6,3 @@ resources:
   - default-l2advertisement.yaml
   - reserved-address-pool.yaml
   - reserved-l2advertisement.yaml
-  - secret.yaml
