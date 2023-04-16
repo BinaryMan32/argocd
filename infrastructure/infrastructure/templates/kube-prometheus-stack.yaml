@@ -15,40 +15,6 @@ spec:
       values: |
         kube-prometheus-stack:
           alertmanager:
-            config:
-              global:
-                slack_api_url_file: /etc/alertmanager/secrets/slack-api/url
-              receivers:
-                - name: "null"
-                - name: fbs-slack
-                  slack_configs:
-                    - channel: #devops
-                      send_resolved: true
-              # https://prometheus.io/docs/alerting/latest/configuration/#route
-              route:
-                group_by: ['namespace']
-                group_wait: 30s
-                group_interval: 5m
-                repeat_interval: 2h
-                receiver: fbs-slack
-                routes:
-                  # Some alert types should be sent to null
-                  # https://runbooks.prometheus-operator.dev/runbooks/general/infoinhibitor/
-                  # https://runbooks.prometheus-operator.dev/runbooks/general/watchdog/
-                  - receiver: 'null'
-                    matchers:
-                      - alertname =~ "InfoInhibitor|Watchdog"
-            alertmanagerSpec:
-              storage:
-                volumeClaimTemplate:
-                  spec:
-                    storageClassName: longhorn
-                    accessModes: ["ReadWriteOnce"]
-                    resources:
-                      requests:
-                        storage: 2Gi
-              secrets:
-                - slack-api
             ingress:
               enabled: true
               annotations:
@@ -60,12 +26,6 @@ spec:
                     - alertmanager.{{ .Values.domain.intranet }}
                   secretName: alertmanager-tls
           grafana:
-            admin:
-              existingSecret: "grafana-login"
-            persistence:
-              enabled: true
-              storageClassName: longhorn
-              size: 2Gi
             ingress:
               enabled: true
               annotations:
@@ -77,15 +37,6 @@ spec:
                     - grafana.{{ .Values.domain.intranet }}
                   secretName: grafana-tls
           prometheus:
-            prometheusSpec:
-              storageSpec:
-                volumeClaimTemplate:
-                  spec:
-                    storageClassName: longhorn
-                    accessModes: ["ReadWriteOnce"]
-                    resources:
-                      requests:
-                        storage: 50Gi
             ingress:
               enabled: true
               annotations:
