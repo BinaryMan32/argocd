@@ -32,9 +32,12 @@ spec:
                 repeat_interval: 2h
                 receiver: fbs-slack
                 routes:
-                - receiver: fbs-slack
-                  matchers:
-                    - alertname =~ "InfoInhibitor|Watchdog"
+                  # Some alert types should be sent to null
+                  # https://runbooks.prometheus-operator.dev/runbooks/general/infoinhibitor/
+                  # https://runbooks.prometheus-operator.dev/runbooks/general/watchdog/
+                  - receiver: 'null'
+                    matchers:
+                      - alertname =~ "InfoInhibitor|Watchdog"
             alertmanagerSpec:
               storage:
                 volumeClaimTemplate:
