@@ -29,11 +29,7 @@ kube-prometheus-stack:
                 {{ range .Alerts -}}
                 *Alert:* {{ .Annotations.summary }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
 
-                *Description:* {{ .Annotations.description }}
-
-                {{- if .Annotations.runbook_url -}}
-                *Runbook:* {{ .Annotations.runbook_url }}
-                {{- end -}}
+                *Description:* {{ .Annotations.description }} {{ if .Annotations.runbook_url }}(<{{ .Annotations.runbook_url }}|Runbook>){{ end }}
 
                 *Details:*
                   {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
