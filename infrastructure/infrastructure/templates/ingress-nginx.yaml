@@ -18,6 +18,7 @@ spec:
             name: public
             default: false
             controllerValue: "k8s.io/ingress-nginx-public"
+          ingressClass: public
           ingressClassByName: true
           service:
             loadBalancerIP: {{ .Values.ipAddress.ingress }}
