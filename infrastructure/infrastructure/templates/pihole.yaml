@@ -47,7 +47,8 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: intranet-ca
             cert-manager.io/common-name: pihole.{{ .Values.domain.intranet }}
-          host: pihole.{{ .Values.domain.intranet }}
+          hosts:
+            - pihole.{{ .Values.domain.intranet }}
           tls:
             - secretName: pihole-tls
               hosts:
