@@ -31,7 +31,9 @@ kube-prometheus-stack:
 
                 *Description:* {{ .Annotations.description }}
 
+                {{- if .Annotations.runbook_url -}}
                 *Runbook:* {{ .Annotations.runbook_url }}
+                {{- end -}}
 
                 *Details:*
                   {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
