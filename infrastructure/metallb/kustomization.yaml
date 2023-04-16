@@ -2,5 +2,8 @@ namespace: metallb-system
 
 resources:
   - github.com/metallb/metallb//manifests?ref=v0.13.9
-  - configmap.yaml 
+  - default-address-pool.yaml
+  - default-l2advertisement.yaml
+  - reserved-address-pool.yaml
+  - reserved-l2advertisement.yaml
   - secret.yaml
