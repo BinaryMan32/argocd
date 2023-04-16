@@ -62,10 +62,7 @@ spec:
           type: LoadBalancer
 
         serviceDhcp:
-          loadBalancerIP: {{ .Values.ipAddress.pihole }}
-          annotations:
-            metallb.universe.tf/allow-shared-ip: pihole-svc
-          type: LoadBalancer
+          enabled: false
   destination:
     namespace: pihole
     server: {{ .Values.destination.server }}
