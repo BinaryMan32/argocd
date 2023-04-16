@@ -51,7 +51,7 @@ spec:
           tls:
             - secretName: pihole-tls
               hosts:
-              - pihole.{{ .Values.domain.external }}
+              - pihole.{{ .Values.domain.intranet }}
 
         serviceDns:
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
