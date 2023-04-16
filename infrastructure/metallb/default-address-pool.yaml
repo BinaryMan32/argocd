@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default-address-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 192.168.6.110-192.168.6.255
+  avoidBuggyIPs: true
