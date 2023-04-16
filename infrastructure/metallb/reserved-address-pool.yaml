@@ -1,7 +1,7 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: reserved-address-pool
+  name: reserved
   namespace: metallb-system
 spec:
   addresses:
