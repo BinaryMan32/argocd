@@ -2,4 +2,5 @@ namespace: system-upgrade
 
 resources:
   - https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
-  
+  - system-plan.yaml
+  - agent-plan.yaml
