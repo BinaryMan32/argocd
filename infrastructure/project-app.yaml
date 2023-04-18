@@ -17,17 +17,3 @@ spec:
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
-  ignoreDifferences:
-    # apps using kustomize with no options are always out of sync
-    - group: argoproj.io
-      kind: Application
-      namespace: argocd
-      name: argocd
-      jsonPointers:
-        - /spec/source/kustomize
-    - group: argoproj.io
-      kind: Application
-      namespace: argocd
-      name: kubegres
-      jsonPointers:
-        - /spec/source/kustomize
