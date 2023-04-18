@@ -31,9 +31,3 @@ spec:
       name: kubegres
       jsonPointers:
         - /spec/source/kustomize
-    - group: argoproj.io
-      kind: Application
-      namespace: argocd
-      name: metallb
-      jsonPointers:
-        - /spec/source/kustomize
