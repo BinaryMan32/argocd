@@ -18,6 +18,10 @@ spec:
           startTime: 22:00
           endTime: 23:59:59
           timeZone: "America/Chicago"
+          # TODO prometheusUrl would allow kured to verify that no alerts are happening before reboot
+          # However, DaemonSet/Pod dnsPolicy act as if set to "Default" even though k8s shows "ClusterFirst"
+          # and the address can't be resolved outside the cluster
+          # prometheusUrl: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local
         metrics:
           create: true
   destination:
