@@ -18,9 +18,12 @@ spec:
           startTime: 22:00
           endTime: 23:59:59
           timeZone: "America/Chicago"
-          # TODO prometheusUrl would allow kured to verify that no alerts are happening before reboot
+          # prometheusUrl would allow kured to verify that no alerts are happening before reboot
           # However, DaemonSet/Pod dnsPolicy act as if set to "Default" even though k8s shows "ClusterFirst"
-          # and the address can't be resolved outside the cluster
+          # and the address can't be resolved outside the cluster.
+          # This is because "hostNetwork: true" which effectively overrides the dns policy since it doesn't
+          # make sense to use cluster DNS with the host network because the DNS server would be unreachable.
+          # Unclear whether it's reasonable to set "hostNetwork: false" for kured.
           # prometheusUrl: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local
         metrics:
           create: true
