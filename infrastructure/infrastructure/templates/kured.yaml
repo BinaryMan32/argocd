@@ -15,6 +15,9 @@ spec:
       values: |
         configuration:
           drainTimeout: 1h
+          startTime: 22:00
+          endTime: 23:59:59
+          timeZone: "America/Chicago"
         metrics:
           create: true
   destination:
