@@ -13,6 +13,8 @@ spec:
     targetRevision: 4.4.2
     helm:
       values: |
+        configuration:
+          drainTimeout: 1h
         metrics:
           create: true
   destination:
