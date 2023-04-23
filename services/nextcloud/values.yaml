@@ -1,6 +1,4 @@
 nextcloud:
-  image:
-    tag: 22.2.10
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: 2g
