@@ -1,4 +1,9 @@
 nextcloud:
+  # use nginx to serve files instead of apache
+  image:
+    flavor: fpm-alpine
+  nginx:
+    enabled: true
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: 2g
