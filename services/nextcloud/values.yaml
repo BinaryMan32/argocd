@@ -42,6 +42,8 @@ nextcloud:
       storageClass: nfs
   startupProbe:
     enabled: true
+  metrics:
+    enabled: true
 postgres:
   secretName: nextcloud-database
   backup:
