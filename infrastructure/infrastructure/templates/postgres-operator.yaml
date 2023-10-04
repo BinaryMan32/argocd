@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-gateway
+  namespace: postgres-operator
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://opensource.zalando.com/postgres-operator/charts
+    chart: postgres-operator
+    targetRevision: 1.10.1
+    helm:
+      values: {}
+  destination:
+    namespace: postgres-operator
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
