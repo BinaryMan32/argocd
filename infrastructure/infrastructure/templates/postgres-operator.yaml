@@ -11,7 +11,13 @@ spec:
     repoURL: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
     chart: postgres-operator
     targetRevision: 1.10.1
-    helm: {}
+    helm:
+      values: |
+        # override image to support arm64
+        # https://github.com/zalando/postgres-operator/issues/1940
+        image:
+          registry: ghcr.io
+          repository: zalando/postgres-operator
   destination:
     namespace: postgres-operator
     server: {{ .Values.destination.server }}
