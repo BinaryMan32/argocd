@@ -11,8 +11,7 @@ spec:
     repoURL: https://opensource.zalando.com/postgres-operator/charts
     chart: postgres-operator
     targetRevision: 1.10.1
-    helm:
-      values: {}
+    helm: {}
   destination:
     namespace: postgres-operator
     server: {{ .Values.destination.server }}
