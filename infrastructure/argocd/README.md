@@ -15,7 +15,6 @@ kustomize build | kubectl apply -f -
 
 The `kustomization.yaml` includes the following changes:
 * set namespace to `argocd`
-* Use arm64 images instead of amd64
 * [load-balancer](./load-balancer.yaml): enabled load balancer as described in
   [Getting Started](https://argoproj.github.io/argo-cd/getting_started/#3-access-the-argo-cd-api-server)
 * [argocd-cm.yaml](./argocd-cm.yaml): specify secrets used to
