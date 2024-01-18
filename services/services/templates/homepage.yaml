@@ -34,6 +34,24 @@ spec:
               - secretName: homepage-tls
                 hosts:
                 - homepage.{{ .Values.domain.intranet }}
+        config:
+          widgets:
+            - kubernetes:
+                cluster:
+                  # Shows cluster-wide statistics with hardcoded label "cluster"
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+                  label: "cluster"
+                nodes:
+                  # Shows node-specific statistics with node name label
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+          kubernetes:
+            mode: cluster
   destination:
     namespace: homepage
     server: {{ .Values.destination.server }}
