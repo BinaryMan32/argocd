@@ -13,6 +13,7 @@ spec:
       values: |
         # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
         image:
+          repository: ghcr.io/gethomepage/homepage
           # https://github.com/gethomepage/homepage/tags
           tag: v0.8.4
         enableRbac: true
