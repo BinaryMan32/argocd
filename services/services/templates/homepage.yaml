@@ -31,7 +31,8 @@ spec:
                   - path: /
                     pathType: Prefix
             tls:
-              - hosts:
+              - secretName: homepage-tls
+                hosts:
                 - homepage.{{ .Values.domain.intranet }}
   destination:
     namespace: homepage
