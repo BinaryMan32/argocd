@@ -15,6 +15,9 @@ spec:
         image:
           # https://github.com/gethomepage/homepage/tags
           tag: v0.8.4
+        enableRbac: true
+        serviceAccount:
+          create: true
         ingress:
           main:
             enabled: true
