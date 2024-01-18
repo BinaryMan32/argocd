@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homepage
+  namespace: argocd
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://jameswynn.github.io/helm-charts/
+    chart: homepage
+    targetRevision: 1.2.3
+    helm:
+      values: |
+        # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
+        image:
+          # https://github.com/gethomepage/homepage/tags
+          tag: v0.8.4
+        ingress:
+          main:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-ca
+            ingressClassName: nginx
+            hosts:
+              - host: homepage.{{ .Values.domain.intranet }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              - hosts:
+                - homepage.{{ .Values.domain.intranet }}
+  destination:
+    namespace: homepage
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

@@ -12,6 +12,7 @@ spec:
   - {{ .Values.source.repoURL }}
   - https://k8s-at-home.com/charts/
   - https://kubernetes.github.io/dashboard
+  - https://jameswynn.github.io/helm-charts/
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
