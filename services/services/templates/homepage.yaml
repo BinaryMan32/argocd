@@ -65,7 +65,7 @@ spec:
                   description: Continuous Deployment
                   namespace: argocd
                   app: argocd-server
-    destination:
+  destination:
     namespace: homepage
     server: {{ .Values.destination.server }}
   syncPolicy:
