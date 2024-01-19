@@ -77,6 +77,7 @@ spec:
                   href: "https://longhorn.{{ .Values.domain.intranet }}/"
                   description: Distributed Kubernetes Volumes
                   namespace: longhorn-system
+                  app: longhorn
                   # select all pods in namespace
                   pod-selector: ""
               - Pihole:
@@ -84,6 +85,7 @@ spec:
                   href: "https://pihole.{{ .Values.domain.intranet }}/"
                   description: DNS Blocker
                   namespace: pihole
+                  app: pihole
                   # select all pods in namespace
                   pod-selector: ""
               - ArgoCD:
@@ -91,6 +93,7 @@ spec:
                   href: "https://argocd.{{ .Values.domain.intranet }}/"
                   description: Continuous Deployment
                   namespace: argocd
+                  app: argocd
                   # select all pods in namespace
                   pod-selector: ""
             - Metrics:
