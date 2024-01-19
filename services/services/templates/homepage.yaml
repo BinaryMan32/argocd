@@ -60,12 +60,12 @@ spec:
             # icons from https://github.com/walkxcode/dashboard-icons
             - Group:
               - ArgoCD:
-                icon: argocd.png
-                href: "https://argocd.{{ .Values.domain.intranet }}/"
-                description: Continuous Deployment
-                namespace: argocd
-                app: argocd-server
-  destination:
+                  icon: argocd.png
+                  href: "https://argocd.{{ .Values.domain.intranet }}/"
+                  description: Continuous Deployment
+                  namespace: argocd
+                  app: argocd-server
+    destination:
     namespace: homepage
     server: {{ .Values.destination.server }}
   syncPolicy:
