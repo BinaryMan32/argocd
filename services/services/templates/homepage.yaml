@@ -79,7 +79,7 @@ spec:
                   namespace: longhorn
                   app: longhorn-ui
               - Pihole:
-                  icon: pihole.png
+                  icon: pi-hole.png
                   href: "https://pihole.{{ .Values.domain.intranet }}/"
                   description: DNS Blocker
                   namespace: pihole
