@@ -59,13 +59,13 @@ spec:
           services:
             # icons from https://github.com/walkxcode/dashboard-icons
             - External:
-              - NextCloud
+              - NextCloud:
                   icon: nextcloud.png
                   href: "https://nextcloud.{{ .Values.domain.external }}/"
                   description: Private Cloud
                   namespace: nextcloud
                   app: nextcloud
-              - Home Assistant
+              - Home Assistant:
                   icon: home-assistant.png
                   href: "https://home-assistant.{{ .Values.domain.external }}/"
                   description: Home Automation
