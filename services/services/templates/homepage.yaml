@@ -76,39 +76,53 @@ spec:
                   icon: longhorn.png
                   href: "https://longhorn.{{ .Values.domain.intranet }}/"
                   description: Distributed Kubernetes Volumes
-                  namespace: longhorn
-                  app: longhorn-ui
+                  namespace: longhorn-system
+                  # select all pods in namespace
+                  pod-selector: ""
               - Pihole:
                   icon: pi-hole.png
                   href: "https://pihole.{{ .Values.domain.intranet }}/"
                   description: DNS Blocker
                   namespace: pihole
-                  app: pihole
+                  # select all pods in namespace
+                  pod-selector: ""
               - ArgoCD:
                   icon: argocd.png
                   href: "https://argocd.{{ .Values.domain.intranet }}/"
                   description: Continuous Deployment
                   namespace: argocd
-                  app: argocd-server
+                  # select all pods in namespace
+                  pod-selector: ""
             - Metrics:
               - Prometheus:
                   icon: prometheus.png
                   href: "https://prometheus.{{ .Values.domain.intranet }}/"
-                  description: Continuous Deployment
-                  namespace: Metric Collection
-                  app: kube-prometheus-stack-prometheus
+                  description: Metric Collection
+                  namespace: kube-prometheus-stack
+                  pod-selector: >-
+                    app.kubernetes.io/name in (
+                      prometheus-node-exporter,
+                      kube-state-metrics,
+                      prometheus
+                    )
               - Grafana:
                   icon: grafana.png
                   href: "https://grafana.{{ .Values.domain.intranet }}/"
                   description: Visualization
                   namespace: kube-prometheus-stack
-                  app: kube-prometheus-stack-grafana
+                  pod-selector: >-
+                    app.kubernetes.io/name in (
+                      grafana
+                    )
               - Alert Manager:
                   icon: alertmanager.png
                   href: "https://alertmanager.{{ .Values.domain.intranet }}/"
                   description: Alerts
                   namespace: kube-prometheus-stack
-                  app: kube-prometheus-stack-alertmanager
+                  pod-selector: >-
+                    app.kubernetes.io/name in (
+                      alertmanager
+                    )
   destination:
     namespace: homepage
     server: {{ .Values.destination.server }}
