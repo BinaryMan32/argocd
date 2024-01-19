@@ -35,6 +35,10 @@ spec:
                 hosts:
                 - homepage.{{ .Values.domain.intranet }}
         config:
+          settings:
+            title: Five Byte Studios
+            theme: dark
+            color: slate
           widgets:
             - kubernetes:
                 cluster:
