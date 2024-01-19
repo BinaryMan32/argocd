@@ -131,6 +131,11 @@ spec:
                     app.kubernetes.io/name in (
                       alertmanager
                     )
+          bookmarks:
+            - Developer:
+              - Github:
+                  - icon: github-light.png
+                    href: https://github.com/BinaryMan32/argocd
   destination:
     namespace: homepage
     server: {{ .Values.destination.server }}
