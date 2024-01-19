@@ -82,26 +82,29 @@ spec:
                   pod-selector: ""
               - Pihole:
                   icon: pi-hole.png
-                  href: "https://pihole.{{ .Values.domain.intranet }}/"
+                  href: "https://pihole.{{ .Values.domain.intranet }}/admin"
                   description: DNS Blocker
                   namespace: pihole
                   app: pihole
-                  # select all pods in namespace
-                  pod-selector: ""
               - ArgoCD:
                   icon: argocd.png
                   href: "https://argocd.{{ .Values.domain.intranet }}/"
                   description: Continuous Deployment
                   namespace: argocd
                   app: argocd
-                  # select all pods in namespace
-                  pod-selector: ""
+                  pod-selector: >-
+                    app.kubernetes.io/name in (
+                      argocd-server,
+                      argocd-repo-server,
+                      argocd-dex-server
+                    )
             - Metrics:
               - Prometheus:
                   icon: prometheus.png
                   href: "https://prometheus.{{ .Values.domain.intranet }}/"
                   description: Metric Collection
                   namespace: kube-prometheus-stack
+                  app: prometheus
                   pod-selector: >-
                     app.kubernetes.io/name in (
                       prometheus-node-exporter,
@@ -113,6 +116,7 @@ spec:
                   href: "https://grafana.{{ .Values.domain.intranet }}/"
                   description: Visualization
                   namespace: kube-prometheus-stack
+                  app: grafana
                   pod-selector: >-
                     app.kubernetes.io/name in (
                       grafana
@@ -122,6 +126,7 @@ spec:
                   href: "https://alertmanager.{{ .Values.domain.intranet }}/"
                   description: Alerts
                   namespace: kube-prometheus-stack
+                  app: alertmanager
                   pod-selector: >-
                     app.kubernetes.io/name in (
                       alertmanager
