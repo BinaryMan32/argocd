@@ -20,6 +20,7 @@ spec:
   - https://kubereboot.github.io/charts
   - https://bitnami-labs.github.io/sealed-secrets
   - https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+  - https://cloudnative-pg.github.io/charts
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
