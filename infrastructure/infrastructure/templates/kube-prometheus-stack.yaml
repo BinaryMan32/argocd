@@ -65,3 +65,13 @@ spec:
       name: kube-prometheus-stack-admission
       jsonPointers:
         - /webhooks/0/clientConfig/caBundle
+    - group: monitoring.coreos.com
+      kind: ServiceMonitor
+      name: kube-prometheus-stack-kube-state-metrics
+      jsonPointers:
+        - /metadata/annotations
+    - group: monitoring.coreos.com
+      kind: ServiceMonitor
+      name: kube-prometheus-stack-kubelet
+      jsonPointers:
+        - /metadata/annotations
