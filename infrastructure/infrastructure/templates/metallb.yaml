@@ -17,13 +17,11 @@ spec:
   ignoreDifferences:
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
-      namespace: metallb-system
       name: addresspools.metallb.io
       jsonPointers:
         - /spec/conversion/webhook/clientConfig/caBundle
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
-      namespace: metallb-system
       name: bgppeers.metallb.io
       jsonPointers:
         - /spec/conversion/webhook/clientConfig/caBundle
