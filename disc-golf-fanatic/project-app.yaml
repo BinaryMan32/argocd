@@ -9,7 +9,7 @@ spec:
     automated: {}
   source:
     repoURL: https://github.com/BinaryMan32/argocd.git
-    targetRevision: migration
+    targetRevision: main
     path: disc-golf-fanatic/disc-golf-fanatic
     helm:
       valueFiles:
