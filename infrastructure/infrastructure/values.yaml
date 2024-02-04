@@ -5,7 +5,7 @@ destination:
   server: https://kubernetes.default.svc
 source:
   repoURL: https://github.com/BinaryMan32/argocd.git
-  targetRevision: main
+  targetRevision: migration
 domain:
   intranet: int.fivebytestudios.com
   k8s: k8s.wildfreddy.fivebytestudios.com

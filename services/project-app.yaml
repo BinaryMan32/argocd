@@ -9,7 +9,7 @@ spec:
     automated: {}
   source:
     repoURL: https://github.com/BinaryMan32/argocd.git
-    targetRevision: main
+    targetRevision: migration
     path: services/services
     helm:
       valueFiles:
