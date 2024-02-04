@@ -10,8 +10,7 @@ spec:
   source:
     repoURL: https://kubernetes.github.io/ingress-nginx
     chart: ingress-nginx
-    # Don't upgrade to 4.4.x until kubernetes 1.23+
-    targetRevision: 4.3.0
+    targetRevision: 4.9.1
     helm:
       values: |
         controller:
