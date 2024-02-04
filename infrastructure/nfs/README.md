@@ -18,8 +18,8 @@ sudo apt install nfs-kernel-server
 to the user `nobody` to avoid trusting remote `root` users which grants access
 to all files. Ensure that the provisioner has permission to create directories:
 ```
-sudo mkdir -p /mnt/raid/nfs/k8s/{volumes,longhorn-backup}
-sudo chown nobody:nogroup /mnt/raid/nfs/k8s/{volumes,longhorn-backup}
+sudo mkdir -p /mnt/raid/nfs/k8s/griffin/{volumes,longhorn-backup}
+sudo chown nobody:nogroup /mnt/raid/nfs/k8s/griffin/{volumes,longhorn-backup}
 ```
 
 Create nfs directory and bind mount storage into it
@@ -32,7 +32,7 @@ sudo mount /srv/nfs/k8s
 Configure exported shares in `/etc/exports`:
 ```
 /srv/nfs     192.168.0.0/16(rw,fsid=0,no_subtree_check,sync)
-/srv/nfs/k8s 192.168.6.0/24(rw,nohide,insecure,no_subtree_check,sync,all_squash) 192.168.0.0/24(rw,nohide,no_subtree_check,sync,all_squash)
+/srv/nfs/k8s 192.168.8.0/24(rw,nohide,insecure,no_subtree_check,sync,all_squash) 192.168.0.0/24(rw,nohide,no_subtree_check,sync,all_squash)
 ```
 Note use of `all_squash` to ensure new files are owned by `nobody`/`nogroup`.
 
