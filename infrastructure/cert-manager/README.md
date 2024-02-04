@@ -17,6 +17,15 @@ annotations:
 
 [cert-manager-ca]: https://cert-manager.io/docs/configuration/selfsigned/
 
+## Troubleshooting
+
+Print certificate details:
+```
+kubectl -n cert-manager get secret intranet-ca --template='{{index .data "tls.crt"}}' \
+  | base64 -d \
+  | openssl x509 -text -noout
+```
+
 ## References
 
 See the following cert-manager resources for additional information:
