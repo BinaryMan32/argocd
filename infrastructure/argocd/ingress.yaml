@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: argocd.int.fivebytestudios.com
+  - host: argocd.intold.fivebytestudios.com
     http:
       paths:
       - pathType: Prefix
@@ -25,5 +25,5 @@ spec:
               name: https
   tls:
   - hosts:
-    - argocd.int.fivebytestudios.com
+    - argocd.intold.fivebytestudios.com
     secretName: argocd-secret # do not change, this is provided by Argo CD

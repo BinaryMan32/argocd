@@ -12,7 +12,7 @@ Or use the ingress via https://home-assistant.wildfreddy.fivebytestudios.com/
 
 Subscribe to all messages:
 ```
-mosquitto_sub --id test-$(hostname) --host mqtt.home-assistant.int.fivebytestudios.com --topic '#' --verbose
+mosquitto_sub --id test-$(hostname) --host mqtt.home-assistant.intold.fivebytestudios.com --topic '#' --verbose
 ```
 
 ## Reverse Proxy Error
