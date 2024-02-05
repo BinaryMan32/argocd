@@ -25,6 +25,9 @@ spec:
           reclaimPolicy: Retain
         defaultSettings:
           backupTarget: nfs://{{ .Values.nfs.server }}:{{ .Values.nfs.path }}/longhorn-backup
+        serviceAccount:
+          annotations:
+            argocd.argoproj.io/sync-wave: "-1"
   # helm template incorrectly sets nodePort for LoadBalancer
   ignoreDifferences:
     - kind: Service
