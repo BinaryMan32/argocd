@@ -9,6 +9,37 @@ See the `README.md` files for each app:
 1. [coredns](./coredns/)
 2. [argocd](./argocd/)
 
+At this point you can use argocd via port forwarding.
+
+Deploy infrastructure parent app project by running in `infrastructure/`:
+```sh
+kubectl apply -f project-app.yaml
+```
+All of the apps will appear in the ArgoCD UI.
+Sync ArgoCD so that it can take ownership of deployed resources, but it may
+show as `Progressing` since nothing exists to handle the ingress yet.
+
+Deploy the following which enable access to intranet services through ingress.
+1. [ingress-nginx-intranet](./infrastructure/templates/ingress-nginx-intranet.yaml)
+2. [metallb](./metallb/) (can now use ArgoCD load balancer instead of port forward)
+3. [longhorn](./infrastructure/templates/longhorn.yaml) (needs ingress)
+   Manually sync some resources beforehand: ServiceAccount, ClusterRole, ClusterRoleBinding
+4. [k8s-gateway](./infrastructure/templates/k8s-gateway.yaml) (needs ingress)
+5. [pihole](./infrastructure/templates/pihole.yaml) (needs longhorn)
+6. [sealed-secrets](./infrastructure/templates/sealed-secrets.yaml)
+7. [kube-prometheus-stack](./kube-prometheus-stack/) (needs longhorn, sealed-secrets)
+8. [cert-manager](./cert-manager/) (needs prometheus)
+
+Tools for accessing and maintaining cluster nodes.
+- [kube-karp](./infrastructure/templates/kube-karp.yaml)
+- [kured](./infrastructure/templates/kured.yaml)
+
+Additional infrastructure used only by non-infrastructure projects.
+- [nfs-subdir-external-provisioner](./infrastructure/templates/nfs-subdir-external-provisioner.yaml)
+- [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
+- [kubegres](./kubegres/)
+- [ingress-nginx](./infrastructure/templates/ingress-nginx.yaml) (don't deploy until router port-forward)
+
 ## Install Intranet CA Root Certificate
 
 See [cert-manager](./cert-manager) for details on the intranet CA.
@@ -97,6 +128,8 @@ rm kubeseal-0.20.2-linux-amd64.tar.gz
 
 See [kube-prometheus-stack](./kube-prometheus-stack/README.md) for example of creating a sealed secret.
 
-See [sealed-secrets][] for additional details.
+See [sealed-secrets][] for additional details, in particular how to
+[backup][sealed-secrets-backup] and restore sealing secrets.
 
 [sealed-secrets]: https://github.com/bitnami-labs/sealed-secrets
+[sealed-secrets-backup]:https://github.com/bitnami-labs/sealed-secrets?tab=readme-ov-file#how-can-i-do-a-backup-of-my-sealedsecrets
