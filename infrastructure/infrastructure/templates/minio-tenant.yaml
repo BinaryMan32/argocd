@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio-tenant
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://operator.min.io
+    chart: tenant
+    targetRevision: 5.0.12
+    helm:
+      # https://github.com/minio/operator/blob/master/helm/tenant/values.yaml
+      values: |
+        ingress:
+          api:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-ca
+              cert-manager.io/common-name: minio.{{ .Values.domain.intranet }}
+            host: minio.{{ .Values.domain.intranet }}
+            tls: 
+              - hosts:
+                  - minio.{{ .Values.domain.intranet }}
+                secretName: minio-tls
+          console:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-ca
+              cert-manager.io/common-name: console.minio.{{ .Values.domain.intranet }}
+            host: console.minio.{{ .Values.domain.intranet }}
+            tls: 
+              - hosts:
+                  - console.minio.{{ .Values.domain.intranet }}
+                secretName: minio-console-tls                
+  destination:
+    namespace: minio-tenant
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

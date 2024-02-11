@@ -20,6 +20,7 @@ spec:
   - https://kubereboot.github.io/charts
   - https://bitnami-labs.github.io/sealed-secrets
   - https://cloudnative-pg.github.io/charts
+  - https://operator.min.io
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}

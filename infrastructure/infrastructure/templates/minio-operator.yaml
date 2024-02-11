@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://operator.min.io
+    chart: operator
+    targetRevision: 5.0.12
+    helm:
+      # https://github.com/minio/operator/blob/master/helm/operator/values.yaml
+      values: |
+        # empty
+  destination:
+    namespace: minio-operator
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

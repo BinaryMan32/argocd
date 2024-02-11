@@ -98,6 +98,10 @@ spec:
                       argocd-repo-server,
                       argocd-dex-server
                     )
+              - MinIO Console:
+                  icon: minio-light.png
+                  href: "https://console.minio.{{ .Values.domain.intranet }}/"
+                  description: Object Storage
             - Metrics:
               - Prometheus:
                   icon: prometheus.png
