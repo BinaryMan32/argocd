@@ -35,10 +35,11 @@ Tools for accessing and maintaining cluster nodes.
 - [kured](./infrastructure/templates/kured.yaml)
 
 Additional infrastructure used only by non-infrastructure projects.
-- [nfs-subdir-external-provisioner](./infrastructure/templates/nfs-subdir-external-provisioner.yaml)
-- [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
-- [kubegres](./kubegres/)
-- [ingress-nginx](./infrastructure/templates/ingress-nginx.yaml) (don't deploy until router port-forward)
+1. [nfs-subdir-external-provisioner](./infrastructure/templates/nfs-subdir-external-provisioner.yaml)
+2. [minio-operator](./infrastructure/templates/minio-operator.yaml)
+3. [minio-tenant](./infrastructure/templates/minio-tenant.yaml)
+4. [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
+5. [ingress-nginx](./infrastructure/templates/ingress-nginx.yaml) (don't deploy until router port-forward)
 
 ## Install Intranet CA Root Certificate
 
