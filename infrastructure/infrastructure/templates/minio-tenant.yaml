@@ -45,6 +45,7 @@ spec:
               storageClassName: local-path
           metrics:
             enabled: true
+          prometheusOperator: true
   destination:
     namespace: minio-tenant
     server: {{ .Values.destination.server }}
