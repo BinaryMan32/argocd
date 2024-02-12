@@ -18,6 +18,7 @@ spec:
             default: true
           service:
             loadBalancerIP: {{ .Values.ipAddress.ingressIntranet }}
+          # minio ingress needs snippet annotations
           allowSnippetAnnotations: true
   destination:
     namespace: ingress-nginx-intranet
