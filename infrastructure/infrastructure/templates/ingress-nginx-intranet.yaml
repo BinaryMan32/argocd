@@ -18,7 +18,7 @@ spec:
             default: true
           service:
             loadBalancerIP: {{ .Values.ipAddress.ingressIntranet }}
-          enableSnippets: true
+          allowSnippetAnnotations: true
   destination:
     namespace: ingress-nginx-intranet
     server: {{ .Values.destination.server }}
