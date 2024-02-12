@@ -21,7 +21,7 @@ spec:
               cert-manager.io/cluster-issuer: intranet-ca
               cert-manager.io/common-name: minio.{{ .Values.domain.intranet }}
             host: minio.{{ .Values.domain.intranet }}
-            tls: 
+            tls:
               - hosts:
                   - minio.{{ .Values.domain.intranet }}
                 secretName: minio-tls
@@ -31,10 +31,20 @@ spec:
               cert-manager.io/cluster-issuer: intranet-ca
               cert-manager.io/common-name: console.minio.{{ .Values.domain.intranet }}
             host: console.minio.{{ .Values.domain.intranet }}
-            tls: 
+            tls:
               - hosts:
                   - console.minio.{{ .Values.domain.intranet }}
-                secretName: minio-console-tls                
+                secretName: minio-console-tls
+        tenant:
+          pools:
+            - servers: 8
+              name: pool-0
+              volumesPerServer: 2
+              # The capacity per volume requested per MinIO Tenant Pod.
+              size: 500Gi
+              storageClassName: local-path
+          metrics:
+            enabled: true
   destination:
     namespace: minio-tenant
     server: {{ .Values.destination.server }}
