@@ -14,7 +14,17 @@ spec:
     helm:
       # https://github.com/minio/operator/blob/master/helm/operator/values.yaml
       values: |
-        # empty
+        operator:
+          # https://github.com/minio/operator/blob/master/docs/env-variables.md
+          env:
+            - name: OPERATOR_STS_ENABLED
+              value: "on"
+              # Following suggests setting PROMETHEUS_NAMESPACE but doesn't specify operator or tenant
+              # https://github.com/minio/operator/blob/master/UPGRADE.md#v439---v440
+              # Below code seems to generate operator template and set env var
+              # https://github.com/minio/operator/blob/7a4d4263024539f69d4adbd917725354fbc6ca82/kubectl-minio/cmd/init.go#L207-L216
+            - name: PROMETHEUS_NAMESPACE
+              value: "kube-prometheus-stack"
   destination:
     namespace: minio-operator
     server: {{ .Values.destination.server }}
