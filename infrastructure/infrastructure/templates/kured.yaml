@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://kubereboot.github.io/charts
     chart: kured
-    targetRevision: 5.4.2
+    targetRevision: 5.4.5
     helm:
       values: |
         configuration:
