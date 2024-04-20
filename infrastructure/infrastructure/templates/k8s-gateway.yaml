@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://ori-edge.github.io/k8s_gateway/
     chart: k8s-gateway
-    targetRevision: 2.3.0
+    targetRevision: 2.4.0
     helm:
       values: |
         image:
