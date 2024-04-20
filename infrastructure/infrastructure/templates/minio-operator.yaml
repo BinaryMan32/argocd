@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://operator.min.io
     chart: operator
-    targetRevision: 5.0.12
+    targetRevision: 5.0.14
     helm:
       # https://github.com/minio/operator/blob/master/helm/operator/values.yaml
       values: |
