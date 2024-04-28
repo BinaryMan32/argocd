@@ -102,6 +102,8 @@ spec:
                   icon: minio-light.png
                   href: "https://console.minio.{{ .Values.domain.intranet }}/"
                   description: Object Storage
+                  namespace: minio-tenant
+                  app: minio
             - Metrics:
               - Prometheus:
                   icon: prometheus.png
