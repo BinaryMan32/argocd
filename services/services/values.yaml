@@ -10,5 +10,5 @@ domain:
   intranet: int.fivebytestudios.com
   external: wildfreddy.fivebytestudios.com
 ipAddress:
+  homeAssistant: 192.168.8.108
   mosquitto: 192.168.8.109
-  homeAssistant: 192.168.8.110
