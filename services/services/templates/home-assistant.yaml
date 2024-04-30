@@ -20,6 +20,7 @@ spec:
               loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
               ports:
                 coiot:
+                  enabled: true
                   protocol: UDP
                   port: 5683
           ingress:
