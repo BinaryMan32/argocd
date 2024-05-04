@@ -12,6 +12,7 @@ spec:
     chart: nfs-subdir-external-provisioner
     targetRevision: 4.0.18
     helm:
+      # https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/charts/nfs-subdir-external-provisioner/values.yaml
       values: |
         nfs:
           server: {{ .Values.nfs.server }}
