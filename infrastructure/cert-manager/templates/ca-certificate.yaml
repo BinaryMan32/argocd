@@ -4,6 +4,7 @@ metadata:
   name: intranet-ca
 spec:
   isCA: true
+  duration: 87600h # 10 years
   dnsNames:
   - {{ .Values.ca.dnsName }}
   subject:
