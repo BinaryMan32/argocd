@@ -23,7 +23,7 @@
     {
       "description": "Update docker image versions",
       "fileMatch": ["templates/.+\\.yaml$"],
-      "matchStrings": ["#\\s*renovate:\\s*image=(?<depName>.*?)\\s+tag:\\s*(?<currentValue>.*?)\\s+"],
+      "matchStrings": ["#\\s*renovate:\\s*image=(?<depName>\\S+?)\\s+tag:\\s*(?<currentValue>v.*?)\\s+"],
       "datasourceTemplate": "docker"
     }
   ]
