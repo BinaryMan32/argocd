@@ -15,6 +15,7 @@ spec:
         image:
           repository: ghcr.io/gethomepage/homepage
           # https://github.com/gethomepage/homepage/tags
+          # renovate image=ghcr.io/gethomepage/homepage
           tag: v0.8.4
         enableRbac: true
         serviceAccount:
