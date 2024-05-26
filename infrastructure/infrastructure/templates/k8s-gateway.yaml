@@ -13,8 +13,6 @@ spec:
     targetRevision: 2.4.0
     helm:
       values: |
-        image:
-          tag: v0.3.4
         domain: {{ .Values.domain.intranet }}
         service:
           loadBalancerIP: {{ .Values.ipAddress.k8sGateway }}
