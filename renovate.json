@@ -9,9 +9,16 @@
   },
   "regexManagers": [
     {
+      "description": "kustomize referencing files in repository",
       "fileMatch": "kustomization.yaml",
       "matchStrings": ["https:\/\/raw\\.githubusercontent\\.com\/(?<depName>[^\/]*\/[^\/]*)\/(?<currentValue>.*?)\/"],
       "datasourceTemplate": "github-tags"
+    },
+    {
+      "description": "kustomize referencing files in release artifacts",
+      "fileMatch": "kustomization.yaml",
+      "matchStrings": ["https:\/\/github\\.com\/(?<depName>[^\/]*\/[^\/]*)\/.*?(?<currentValue>v[0-9.]+)"],
+      "datasourceTemplate": "github-releases"
     }
   ]  
 }
