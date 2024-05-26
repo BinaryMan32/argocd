@@ -21,9 +21,9 @@
       "datasourceTemplate": "github-releases"
     },
     {
-      "description": "Update docker image versions",
-      "fileMatch": ["templates/.+\\.yaml$"],
-      "matchStrings": ["#\\s*renovate:\\s*image=(?<depName>\\S+?)\\s+tag:\\s*(?<currentValue>v.*?)\\s+"],
+      "description": "Update docker image version",
+      "fileMatch": "templates/.+\\.yaml$",
+      "matchStrings": ["#\\s*renovate:\\s*image=(?<depName>\\S+?)\\s+tag:\\s*(?<currentValue>v[0-9.]+)"],
       "datasourceTemplate": "docker"
     }
   ]
