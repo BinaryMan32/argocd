@@ -22,6 +22,16 @@ spec:
           # minio ingress needs snippet annotations
           allowSnippetAnnotations: true
           replicaCount: 2
+          # try to keep replicas in different node availability zones
+          topologySpreadConstraints:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: '{{"{{"}} include "ingress-nginx.name" . {{"}}"}}'
+                  app.kubernetes.io/instance: '{{"{{"}} .Release.Name {{"}}"}}'
+                  app.kubernetes.io/component: controller
+              topologyKey: topology.kubernetes.io/zone
+              maxSkew: 1
+              whenUnsatisfiable: ScheduleAnyway
   destination:
     namespace: ingress-nginx-intranet
     server: {{ .Values.destination.server }}
