@@ -23,8 +23,15 @@
     {
       "description": "Update docker image version",
       "fileMatch": ["templates/.+\\.yaml$"],
-      "matchStrings": ["#\\s*renovate:\\s*image=(?<depName>\\S+?)\\s+tag:\\s*(?<currentValue>v[0-9.]+)"],
+      "matchStrings": ["#\\s*renovate:\\s*image=(?<depName>\\S+)\\s+tag:\\s*(?<currentValue>v[0-9.]+)"],
       "datasourceTemplate": "docker"
-    }
+    },
+    {
+      "description": "Update kubernetes version",
+      "fileMatch": "system-upgrade/.+-plan.yaml",
+      "matchStrings": ["#\\s*renovate\\s+version:\\s*(?<currentValue>v\\S+)"],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "k3s-io/k3s"
+    }    
   ]
 }

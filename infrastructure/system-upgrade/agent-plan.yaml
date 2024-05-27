@@ -22,5 +22,6 @@ spec:
   upgrade:
     image: rancher/k3s-upgrade
   # version from https://github.com/k3s-io/k3s
+  # renovate
   version: v1.29.5+k3s1
   # channel: https://update.k3s.io/v1-release/channels/v1.28
