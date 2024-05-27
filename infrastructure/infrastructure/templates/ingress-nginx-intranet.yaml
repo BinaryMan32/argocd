@@ -12,6 +12,7 @@ spec:
     chart: ingress-nginx
     targetRevision: 4.10.1
     helm:
+      # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
       values: |
         controller:
           ingressClassResource:
@@ -20,6 +21,7 @@ spec:
             loadBalancerIP: {{ .Values.ipAddress.ingressIntranet }}
           # minio ingress needs snippet annotations
           allowSnippetAnnotations: true
+          replicaCount: 2
   destination:
     namespace: ingress-nginx-intranet
     server: {{ .Values.destination.server }}
