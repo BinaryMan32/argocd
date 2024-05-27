@@ -12,6 +12,7 @@ spec:
     chart: ingress-nginx
     targetRevision: 4.10.1
     helm:
+      # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
       values: |
         controller:
           ingressClassResource:
@@ -22,6 +23,7 @@ spec:
           ingressClassByName: true
           service:
             loadBalancerIP: {{ .Values.ipAddress.ingress }}
+          replicaCount: 2
   destination:
     namespace: ingress-nginx
     server: {{ .Values.destination.server }}
