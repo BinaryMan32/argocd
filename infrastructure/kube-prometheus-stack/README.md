@@ -18,8 +18,16 @@ echo -n 'WEBHOOK_URL' \
 
 Send test alert:
 ```sh
-curl -H 'Content-Type: application/json' -d '[{"labels":{"alertname":"myalert"}}]' https://alertmanager.int.fivebytestudios.com/api/v1/alerts
-```
-```json
-{"status":"success"}
+curl -iH 'Content-Type: application/json' https://alertmanager.int.fivebytestudios.com/api/v2/alerts -d '[{
+  "labels": {
+    "alertname": "testing",
+    "namespace": "default",
+    "severity": "critical",
+    "status": "open"
+  },
+  "annotations": {
+    "summary": "Test alert",
+    "description": "This is a mock alert for testing"
+  }
+}]'
 ```
