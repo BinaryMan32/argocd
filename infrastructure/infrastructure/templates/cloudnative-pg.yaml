@@ -21,3 +21,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      name: cnpg-mutating-webhook-configuration
+      jsonPointers:
+        - /webhooks/*/clientConfig/caBundle
