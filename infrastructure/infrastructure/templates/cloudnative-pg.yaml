@@ -27,3 +27,8 @@ spec:
       name: cnpg-mutating-webhook-configuration
       jsonPointers:
         - /webhooks/*/clientConfig/caBundle
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      name: cnpg-validating-webhook-configuration
+      jsonPointers:
+        - /webhooks/*/clientConfig/caBundle
