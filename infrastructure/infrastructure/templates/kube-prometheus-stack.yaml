@@ -75,3 +75,9 @@ spec:
       name: kube-prometheus-stack-kubelet
       jsonPointers:
         - /metadata/annotations
+    - group: apps
+      kind: DaemonSet
+      name: kube-prometheus-stack-prometheus-node-exporter
+      jsonPointers:
+        # empty object {} in live manifest but missing from desired
+        - /spec/template/spec/containers/0/resources
