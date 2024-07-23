@@ -1,7 +1,7 @@
 namespace: metallb-system
 
 resources:
-  - github.com/metallb/metallb//config/native?ref=v0.14.7
+  - github.com/metallb/metallb//config/native?ref=v0.14.8
   - default-address-pool.yaml
   - default-l2advertisement.yaml
   - reserved-address-pool.yaml
