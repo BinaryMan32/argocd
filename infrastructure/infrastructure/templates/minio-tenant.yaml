@@ -59,9 +59,9 @@ spec:
           pools:
             - servers: 8
               name: pool-0
-              volumesPerServer: 2
+              volumesPerServer: 1
               # The capacity per volume requested per MinIO Tenant Pod.
-              size: 500Gi
+              size: 1000Gi
               storageClassName: local-path
           metrics:
             enabled: true
