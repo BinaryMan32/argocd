@@ -1,5 +1,0 @@
-apiVersion: v2
-name: Disc Golf Fanatic
-description: Disc Golf Fanatic Website and API
-type: application
-version: 0.1.0
