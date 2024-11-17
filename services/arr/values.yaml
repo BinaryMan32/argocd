@@ -62,6 +62,7 @@ qbittorrent:
     config:
       type: persistentVolumeClaim
       storageClass: longhorn
+      accessMode: ReadWriteOnce
       size: 1Gi
       advancedMounts:
         main:
