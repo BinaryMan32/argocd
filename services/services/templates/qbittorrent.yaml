@@ -7,8 +7,8 @@ spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: https://bjw-s.github.io/helm-charts/
+    chart: app-template
     targetRevision: 3.5.1
-    path: app-template
     helm:
       # https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
       values: |
