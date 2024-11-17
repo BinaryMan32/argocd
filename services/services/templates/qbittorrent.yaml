@@ -84,7 +84,8 @@ spec:
                       identifier: main
                       port: http
             tls:
-              - hosts:
+              - secretName: qbittorrent-tls
+                hosts:
                   - qbittorrent.{{ .Values.domain.intranet }}
 
         persistence:
