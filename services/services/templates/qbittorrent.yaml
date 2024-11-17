@@ -72,7 +72,9 @@ spec:
 
         ingress:
           main:
-            className: intranet-ca
+            className: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-ca
             hosts:
               - host: qbittorrent.{{ .Values.domain.intranet }}
                 paths:
