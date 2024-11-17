@@ -4,6 +4,6 @@ description: Arr Stack
 version: 0.1.0
 dependencies:
 - alias: qbittorrent
-  name: common
+  name: app-template
   repository: https://bjw-s.github.io/helm-charts/
   version: 3.5.1
