@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: arr
+  namespace: argocd
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/arr
+    helm:
+      valueFiles:
+        - values.yaml
+      values: |
+        qbittorrent:
+          ingress:
+            main:
+              className: intranet-ca
+              hosts:
+                - host: qbittorrent.{{ .Values.domain.intranet }}
+                  paths:
+                    - path: /
+                      pathType: Prefix
+                      service:
+                        identifier: main
+                        port: http
+              tls:
+                - hosts:
+                    - qbittorrent.{{ .Values.domain.intranet }}
+  destination:
+    namespace: arr
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

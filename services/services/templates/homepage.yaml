@@ -72,6 +72,13 @@ spec:
                   description: Home Automation
                   namespace: home-assistant
                   app: home-assistant
+            - Media:
+              - QBittorrent:
+                  icon: qbittorrent.png
+                  href: "https://qbittorrent.{{ .Values.domain.intranet }}/"
+                  description: Torrent Downloader
+                  namespace: arr
+                  app: qbittorrent
             - Infrastructure:
               - Longhorn:
                   icon: longhorn.png
