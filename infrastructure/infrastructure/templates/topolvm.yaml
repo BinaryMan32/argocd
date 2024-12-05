@@ -16,8 +16,6 @@ spec:
       # https://geek-cookbook.funkypenguin.co.nz/kubernetes/persistence/topolvm/
       # https://github.com/topolvm/topolvm/blob/main/charts/topolvm/values.yaml
       values: |
-        cert-manager:
-          enabled: true
         lvmd:
           deviceClasses:
             - name: ssd
