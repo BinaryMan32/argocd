@@ -21,6 +21,7 @@ spec:
   - https://bitnami-labs.github.io/sealed-secrets
   - https://cloudnative-pg.github.io/charts
   - https://operator.min.io
+  - https://topolvm.github.io/topolvm
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}

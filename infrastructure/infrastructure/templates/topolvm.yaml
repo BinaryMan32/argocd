@@ -1,0 +1,73 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: topolvm
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://topolvm.github.io/topolvm
+    chart: topolvm
+    targetRevision: v15.5.0
+    helm:
+      # https://github.com/topolvm/topolvm/blob/main/docs/getting-started.md
+      # https://geek-cookbook.funkypenguin.co.nz/kubernetes/persistence/topolvm/
+      # https://github.com/topolvm/topolvm/blob/main/charts/topolvm/values.yaml
+      values: |
+        cert-manager:
+          enabled: true
+        lvmd:
+          deviceClasses:
+            - name: ssd
+              volume-group: vg-topolvm
+              default: true
+              spare-gb: 10
+          nodeSelector:
+            topolvm: ssd
+          prometheus:
+            podMonitor:
+              enabled: true
+        node:
+          prometheus:
+            podMonitor:
+              enabled: true
+          nodeSelector:
+            topolvm: ssd
+        controller:
+          prometheus:
+            podMonitor:
+              enabled: true
+        storageClasses:
+          - name: topolvm-xfs
+            storageClass:
+              fsType: xfs
+              reclaimPolicy: Retain
+              annotations: {}
+              isDefaultClass: false
+              volumeBindingMode: WaitForFirstConsumer
+              allowVolumeExpansion: true
+              additionalParameters: {}
+              topolvm.io/device-class: ssd
+              mountOptions: []
+          - name: topolvm-ext4
+            storageClass:
+              fsType: ext4
+              reclaimPolicy: Retain
+              annotations: {}
+              isDefaultClass: false
+              volumeBindingMode: WaitForFirstConsumer
+              allowVolumeExpansion: true
+              additionalParameters: {}
+              topolvm.io/device-class: ssd
+              mountOptions: []
+  destination:
+    namespace: topolvm-system
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        topolvm.io/webhook: ignore
+    syncOptions:
+      - CreateNamespace=true

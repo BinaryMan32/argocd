@@ -104,6 +104,16 @@ attach to one of the cluster nodes. SSH, mount the volume, and run:
 sudo chown 1000:2000 .
 ```
 
+### TopoLVM
+
+TopoLVM uses webhooks. To work webhooks properly, add a label to the target namespace. We also recommend to use a dedicated namespace.
+
+```
+kubectl label namespace kube-system topolvm.io/webhook=ignore
+```
+
+The same change will be applied to the `topolvm-system` automatically when it's created by ArgoCD.
+
 ### Storage Classes
 
 After deploying all infrastructure apps, the storage classes should be:
