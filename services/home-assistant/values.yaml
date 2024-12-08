@@ -1,7 +1,6 @@
 # https://github.com/pajikos/home-assistant-helm-chart?tab=readme-ov-file#configuration
 # https://github.com/pajikos/home-assistant-helm-chart/blob/main/charts/home-assistant/values.yaml
 home-assistant:
-  fullnameOverride: home-assistant
   env:
     - name: TZ
       value: America/Chicago
