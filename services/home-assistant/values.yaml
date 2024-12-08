@@ -34,6 +34,9 @@ mqtt:
             repository: eclipse-mosquitto
   service:
     main:
+      enabled: true
+      primary: true
+      controller: main
       ports:
         mqtt:
           enabled: true
