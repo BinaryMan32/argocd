@@ -12,6 +12,8 @@ home-assistant:
     enabled: true
     size: 2Gi
     storageClass: nfs
+  serviceAccount:
+    create: false
 
 # https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
 # https://hub.docker.com/_/eclipse-mosquitto
