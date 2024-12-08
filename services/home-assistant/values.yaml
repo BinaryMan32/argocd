@@ -13,15 +13,32 @@ home-assistant:
     storageClass: nfs
 
 # https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
-mosquitto:
-  fullnameOverride: mqtt
-  persistence:
-    config:
+# https://hub.docker.com/_/eclipse-mosquitto
+mqtt:
+  controllers:
+    main:
       enabled: true
-      existingClaim: &mosquitto_claim mqtt
-
-storage:
-  mqtt:
-    pvc: *mosquitto_claim
-    size: 2Gi
-    storageClassName: longhorn
+      type: statefulset
+      statefulset:
+        volumeClaimTemplates:
+          - name: data
+            accessMode: "ReadWriteOnce"
+            storageClass: longhorn
+            size: 2Gi
+            globalMounts:
+              - path: /mosquitto/data
+      containers:
+        main:
+          image:
+            repository: eclipse-mosquitto
+  service:
+    main:
+      ports:
+        http:
+          enabled: false
+          primary: false
+        mqtt:
+          enabled: true
+          primary: true
+          port: 1883
+          protocol: TCP

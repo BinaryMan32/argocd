@@ -46,11 +46,12 @@ spec:
                 paths:
                   - path: /
                     pathType: ImplementationSpecific
-        mosquitto:
+        mqtt:
           service:
             main:
               type: LoadBalancer
-              loadBalancerIP: {{ .Values.ipAddress.mosquitto }}
+              annotations:
+                metallb.universe.tf/loadBalancerIPs: {{ .Values.ipAddress.mqtt }}
   destination:
     namespace: home-assistant
     server: {{ .Values.destination.server }}
