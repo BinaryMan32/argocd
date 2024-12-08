@@ -11,4 +11,3 @@ dependencies:
   alias: mqtt
   repository: https://bjw-s.github.io/helm-charts/
   version: 3.5.1
-  appVersion: 2.0.20
