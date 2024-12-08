@@ -17,18 +17,18 @@ spec:
           service:
             type: LoadBalancer
             loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
-            # Enable COIOT for Shelly
-            additionalPorts:
-              - name: coiot
-                containerPort: 5683
-                protocol: UDP
-            additionalServices:
-              - name: coiot
-                port: 5683
-                targetPort: coiot
-                type: LoadBalancer
-                protocol: UDP
-                loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
+          # Enable COIOT for Shelly
+          additionalPorts:
+            - name: coiot
+              containerPort: 5683
+              protocol: UDP
+          additionalServices:
+            - name: coiot
+              port: 5683
+              targetPort: coiot
+              type: LoadBalancer
+              protocol: UDP
+              loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
           ingress:
             enabled: true
             className: public
