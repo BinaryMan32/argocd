@@ -2,7 +2,8 @@
 # https://github.com/pajikos/home-assistant-helm-chart/blob/main/charts/home-assistant/values.yaml
 home-assistant:
   env:
-    TZ: America/Chicago
+    - name: TZ
+      value: America/Chicago
   dnsConfig:
     options:
       - name: ndots
