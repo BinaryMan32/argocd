@@ -18,6 +18,7 @@ spec:
             type: LoadBalancer
             annotations:
               metallb.universe.tf/loadBalancerIPs: {{ .Values.ipAddress.homeAssistant }}
+              metallb.universe.tf/allow-shared-ip: home-assistant
           # Enable COIOT for Shelly
           additionalPorts:
             - name: coiot
@@ -31,6 +32,7 @@ spec:
               protocol: UDP
               annotations:
                 metallb.universe.tf/loadBalancerIPs: {{ .Values.ipAddress.homeAssistant }}
+                metallb.universe.tf/allow-shared-ip: home-assistant
           ingress:
             enabled: true
             className: public
