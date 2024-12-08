@@ -34,9 +34,6 @@ mqtt:
   service:
     main:
       ports:
-        http:
-          enabled: false
-          primary: false
         mqtt:
           enabled: true
           primary: true
