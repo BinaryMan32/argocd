@@ -16,7 +16,8 @@ spec:
         home-assistant:
           service:
             type: LoadBalancer
-            loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
+            annotations:
+              metallb.universe.tf/loadBalancerIPs: {{ .Values.ipAddress.homeAssistant }}
           # Enable COIOT for Shelly
           additionalPorts:
             - name: coiot
@@ -28,7 +29,8 @@ spec:
               targetPort: coiot
               type: LoadBalancer
               protocol: UDP
-              loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
+              annotations:
+                metallb.universe.tf/loadBalancerIPs: {{ .Values.ipAddress.homeAssistant }}
           ingress:
             enabled: true
             className: public
