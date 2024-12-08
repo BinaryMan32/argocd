@@ -5,8 +5,10 @@ version: 0.1.0
 kubeVersion: '>=1.19.0-0'
 dependencies:
 - name: home-assistant
-  repository: https://k8s-at-home.com/charts/
-  version: 13.4.2
-- name: mosquitto
-  repository: https://k8s-at-home.com/charts/
-  version: 4.8.2
+  repository: https://pajikos.github.io/home-assistant-helm-chart/
+  version: 0.2.91
+- name: app-template
+  alias: mqtt
+  repository: https://bjw-s.github.io/helm-charts/
+  version: 3.5.1
+  appVersion: 2.0.20

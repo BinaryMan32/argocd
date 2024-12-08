@@ -15,29 +15,35 @@ spec:
       values: |
         home-assistant:
           service:
-            main:
-              type: LoadBalancer
-              loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
-              ports:
-                coiot:
-                  enabled: true
-                  protocol: UDP
-                  port: 5683
+            type: LoadBalancer
+            loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
+            # Enable COIOT for Shelly
+            additionalPorts:
+              - name: coiot
+                containerPort: 5683
+                protocol: UDP
+            additionalServices:
+              - name: coiot
+                port: 5683
+                targetPort: coiot
+                type: LoadBalancer
+                protocol: UDP
+                loadBalancerIP: {{ .Values.ipAddress.homeAssistant }}
           ingress:
-            main:
-              enabled: true
-              ingressClassName: public
-              annotations:
-                nginx.org/websocket-services: home-assistant
-                cert-manager.io/cluster-issuer: "letsencrypt-prod"
-              tls:
-                - secretName: home-assistant-tls
-                  hosts:
-                  - home-assistant.{{ .Values.domain.external }}
-              hosts:
-                - host: home-assistant.{{ .Values.domain.external }}
-                  paths:
-                    - path: /
+            enabled: true
+            className: public
+            annotations:
+              nginx.org/websocket-services: home-assistant
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            tls:
+              - secretName: home-assistant-tls
+                hosts:
+                - home-assistant.{{ .Values.domain.external }}
+            hosts:
+              - host: home-assistant.{{ .Values.domain.external }}
+                paths:
+                  - path: /
+                    pathType: ImplementationSpecific
         mosquitto:
           service:
             main:

@@ -1,15 +1,18 @@
+# https://github.com/pajikos/home-assistant-helm-chart?tab=readme-ov-file#configuration
+# https://github.com/pajikos/home-assistant-helm-chart/blob/main/charts/home-assistant/values.yaml
 home-assistant:
   env:
     TZ: America/Chicago
-  common:
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+  dnsConfig:
+    options:
+      - name: ndots
+        value: "1"
   persistence:
-    config:
-      enabled: true
-      existingClaim: &home_assistant_claim config
+    enabled: true
+    size: 2Gi
+    storageClass: nfs
+
+# https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
 mosquitto:
   fullnameOverride: mqtt
   persistence:
@@ -18,10 +21,6 @@ mosquitto:
       existingClaim: &mosquitto_claim mqtt
 
 storage:
-  config:
-    pvc: *home_assistant_claim
-    size: 2Gi
-    storageClassName: nfs
   mqtt:
     pvc: *mosquitto_claim
     size: 2Gi
