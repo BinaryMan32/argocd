@@ -48,6 +48,7 @@ mqtt:
   persistence:
     config:
       type: configMap
+      name: config
       globalMounts:
         - path: /mosquitto/config/
           readOnly: true
