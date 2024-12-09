@@ -36,6 +36,21 @@ mqtt:
           image:
             repository: eclipse-mosquitto
             tag: 2.0.19
+  configMaps:
+    config:
+      data:
+        # https://github.com/eclipse-mosquitto/mosquitto/blob/master/mosquitto.conf
+        mosquitto.conf: |
+          persistence true
+          persistence_location /mosquitto/data/
+          log_dest stdout
+          listener 1883
+  persistence:
+    config:
+      type: configMap
+      globalMounts:
+        - path: /mosquitto/config/
+          readOnly: true
   service:
     main:
       enabled: true
