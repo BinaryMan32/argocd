@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://topolvm.github.io/topolvm
     chart: topolvm
-    targetRevision: v15.5.0
+    targetRevision: 15.5.1
     helm:
       # https://github.com/topolvm/topolvm/blob/main/docs/getting-started.md
       # https://geek-cookbook.funkypenguin.co.nz/kubernetes/persistence/topolvm/
