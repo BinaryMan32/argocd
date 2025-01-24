@@ -40,7 +40,7 @@ spec:
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
           annotations:
             coredns.io/hostname: pihole
-            metallb.universe.tf/allow-shared-ip: pihole-svc
+            metallb.io/allow-shared-ip: pihole-svc
           type: LoadBalancer
 
         ingress:
@@ -58,7 +58,7 @@ spec:
         serviceDns:
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
           annotations:
-            metallb.universe.tf/allow-shared-ip: pihole-svc
+            metallb.io/allow-shared-ip: pihole-svc
           type: LoadBalancer
 
         serviceDhcp:
