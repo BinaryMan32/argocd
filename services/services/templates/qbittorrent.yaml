@@ -114,5 +114,6 @@ spec:
     namespace: arr
     server: {{ .Values.destination.server }}
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true

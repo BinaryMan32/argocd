@@ -17,3 +17,5 @@ spec:
   destination:
     namespace: kube-system
     server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}

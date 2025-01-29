@@ -64,6 +64,7 @@ spec:
     namespace: topolvm-system
     server: {{ .Values.destination.server }}
   syncPolicy:
+    automated: {}
     managedNamespaceMetadata:
       labels:
         topolvm.io/webhook: ignore

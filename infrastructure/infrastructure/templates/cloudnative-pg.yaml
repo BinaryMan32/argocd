@@ -18,6 +18,7 @@ spec:
     namespace: cnpg-system
     server: {{ .Values.destination.server }}
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true

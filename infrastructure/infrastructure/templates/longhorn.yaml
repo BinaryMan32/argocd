@@ -36,5 +36,6 @@ spec:
     namespace: longhorn-system
     server: {{ .Values.destination.server }}
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true

@@ -67,5 +67,6 @@ spec:
     namespace: pihole
     server: {{ .Values.destination.server }}
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true
