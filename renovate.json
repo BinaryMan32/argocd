@@ -6,39 +6,57 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch"],
+      "matchUpdateTypes": [
+        "patch"
+      ],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
     }
   ],
   "argocd": {
-    "fileMatch": ["templates/.+\\.yaml$"]
+    "fileMatch": [
+      "templates/.+\\.yaml$"
+    ]
   },
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "description": "kustomize referencing files in repository",
       "fileMatch": "kustomization.yaml",
-      "matchStrings": ["https:\/\/raw\\.githubusercontent\\.com\/(?<depName>[^\/]*\/[^\/]*)\/(?<currentValue>.*?)\/"],
+      "matchStrings": [
+        "https://raw\\.githubusercontent\\.com/(?<depName>[^/]*/[^/]*)/(?<currentValue>.*?)/"
+      ],
       "datasourceTemplate": "github-tags"
     },
     {
+      "customType": "regex",
       "description": "kustomize referencing files in release artifacts",
       "fileMatch": "kustomization.yaml",
-      "matchStrings": ["https:\/\/github\\.com\/(?<depName>[^\/]*\/[^\/]*)\/.*?(?<currentValue>v[0-9.]+)"],
+      "matchStrings": [
+        "https://github\\.com/(?<depName>[^/]*/[^/]*)/.*?(?<currentValue>v[0-9.]+)"
+      ],
       "datasourceTemplate": "github-releases"
     },
     {
+      "customType": "regex",
       "description": "Update docker image version",
-      "fileMatch": ["templates/.+\\.yaml$"],
-      "matchStrings": ["#\\s*renovate:\\s*image=(?<depName>\\S+)\\s+tag:\\s*(?<currentValue>v[0-9.]+)"],
+      "fileMatch": [
+        "templates/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*image=(?<depName>\\S+)\\s+tag:\\s*(?<currentValue>v[0-9.]+)"
+      ],
       "datasourceTemplate": "docker"
     },
     {
+      "customType": "regex",
       "description": "Update kubernetes version",
       "fileMatch": "system-upgrade/.+-plan.yaml",
-      "matchStrings": ["#\\s*renovate\\s+version:\\s*(?<currentValue>v\\S+)"],
+      "matchStrings": [
+        "#\\s*renovate\\s+version:\\s*(?<currentValue>v\\S+)"
+      ],
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "k3s-io/k3s"
-    }    
+    }
   ]
 }
