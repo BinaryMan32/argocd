@@ -4,6 +4,13 @@
     "config:recommended",
     ":separateMultipleMajorReleases"
   ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
+    }
+  ],
   "argocd": {
     "fileMatch": ["templates/.+\\.yaml$"]
   },
