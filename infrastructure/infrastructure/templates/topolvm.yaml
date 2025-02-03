@@ -19,7 +19,7 @@ spec:
         lvmd:
           deviceClasses:
             - name: ssd
-              volume-group: vg-topolvm
+              volume-group: vg-topolvm-ssd
               default: true
               spare-gb: 10
           nodeSelector:
