@@ -63,7 +63,7 @@ mqtt:
           log_dest stdout
           listener 1883
           acl_file /mosquitto/config/mosquitto_acl
-          password_file /mosquitto/mosquitto_password
+          password_file /mosquitto/password/mosquitto_password
         mosquitto_acl: |
           topic read #
           user home-assistant
@@ -73,7 +73,7 @@ mqtt:
       data:
         password.sh: |
           #!/bin/sh
-          PASSWORD_FILE=/mosquitto/mosquitto_password
+          PASSWORD_FILE=/mosquitto/password/mosquitto_password
           mosquitto_passwd -b $PASSWORD_FILE $HOME_ASSISTANT_USERNAME $HOME_ASSISTANT_PASSWORD
   persistence:
     init:
@@ -91,13 +91,11 @@ mqtt:
       advancedMounts:
         main:
           password:
-            - path: /mosquitto/mosquitto_password
+            - path: /mosquitto/password
               readOnly: false
-              subPath: mosquitto_password
           main:
-            - path: /mosquitto/mosquitto_password
+            - path: /mosquitto/password
               readOnly: true
-              subPath: mosquitto_password
     config:
       type: configMap
       name: mqtt-config
