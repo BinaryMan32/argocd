@@ -1,0 +1,6 @@
+mqtt:
+  secretName: mqtt
+  homeAssistant:
+    prefix: home-assistant-
+    username: home-assistant
+    passwordLength: 32

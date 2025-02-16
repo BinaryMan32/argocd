@@ -36,6 +36,21 @@ mqtt:
           image:
             repository: eclipse-mosquitto
             tag: 2.0.20
+      initContainers:
+        password:
+          image:
+            repository: eclipse-mosquitto
+            tag: 2.0.20
+          command: /init_password.sh
+          env:
+            HOME_ASSISTANT_USERNAME:
+              valueFrom:
+                secretKeyRef: mqtt
+                key: home-assistant-username
+            HOME_ASSISTANT_PASSWORD:
+              valueFrom:
+                secretKeyRef: mqtt
+                key: home-assistant-password
   configMaps:
     config:
       data:
@@ -46,11 +61,41 @@ mqtt:
           log_dest stdout
           listener 1883
           acl_file /mosquitto/config/mosquitto_acl
+          password_file /mosquitto/mosquitto_password
         mosquitto_acl: |
           topic read #
           user home-assistant
           topic readwrite #
+    # https://mosquitto.org/man/mosquitto_passwd-1.html
+    init:
+      data:
+        password.sh: |
+          #!/bin/sh
+          PASSWORD_FILE=/mosquitto/mosquitto_password
+          mosquitto_passwd -b $PASSWORD_FILE $HOME_ASSISTANT_USERNAME $HOME_ASSISTANT_PASSWORD
   persistence:
+    init:
+      type: configMap
+      name: mqtt-init
+      advancedMounts:
+        main:
+          password:
+            - path: /init_password.sh
+              readOnly: true
+              subpath: password.sh
+    password:
+      type: emptyDir
+      name: mqtt-password
+      advancedMounts:
+        main:
+          password:
+            - path: /mosquitto/mosquitto_password
+              readOnly: false
+              subpath: mosquitto_password
+          main:
+            - path: /mosquitto/mosquitto_password
+              readOnly: true
+              subpath: mosquitto_password
     config:
       type: configMap
       name: mqtt-config

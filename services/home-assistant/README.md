@@ -8,7 +8,14 @@ And visit http://localhost:8123/
 
 Or use the ingress via https://home-assistant.wildfreddy.fivebytestudios.com/
 
-## Testing mqtt
+## Secrets
+
+From the `home-assistant-secrets` subdir run:
+```
+helm install -n home-assistant --create-namespace home-assistant-secrets .
+```
+
+## Testing MQTT (Mosquitto)
 
 Subscribe to all messages:
 ```

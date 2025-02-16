@@ -1,0 +1,14 @@
+{{- with .Values.mqtt }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .secretName }}
+  annotations:
+    "helm.sh/resource-policy": keep
+type: Opaque
+data:
+{{- with .homeAssistant }}
+  {{ .prefix }}username: {{ .username | b64enc | quote }}
+  {{ .prefix }}password: {{ .passwordLength | int | randAlphaNum | b64enc | quote }}
+{{- end }}
+{{- end }}
