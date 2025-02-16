@@ -45,7 +45,7 @@ mqtt:
           persistence_location /mosquitto/data/
           log_dest stdout
           listener 1883
-          acl_file mosquitto_acl
+          acl_file /mosquitto/config/mosquitto_acl
         mosquitto_acl: |
           topic read #
           user home-assistant
