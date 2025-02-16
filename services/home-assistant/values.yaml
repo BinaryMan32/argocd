@@ -45,12 +45,14 @@ mqtt:
           env:
             HOME_ASSISTANT_USERNAME:
               valueFrom:
-                secretKeyRef: mqtt
-                key: home-assistant-username
+                secretKeyRef: 
+                  name: mqtt
+                  key: home-assistant-username
             HOME_ASSISTANT_PASSWORD:
               valueFrom:
-                secretKeyRef: mqtt
-                key: home-assistant-password
+                secretKeyRef:
+                  name: mqtt
+                  key: home-assistant-password
   configMaps:
     config:
       data:
