@@ -79,6 +79,7 @@ mqtt:
     init:
       type: configMap
       name: mqtt-init
+      defaultMode: 0700
       advancedMounts:
         main:
           password:
