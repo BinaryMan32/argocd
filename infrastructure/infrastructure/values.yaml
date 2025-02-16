@@ -14,7 +14,7 @@ domain:
   iot: iot.wildfreddy.fivebytestudios.com
 ipAddress:
   router: "192.168.8.1"
-  kube: "192.168.8.8"
+  kubernetes: "192.168.8.8"
   ingress: "192.168.8.101"
   ingressIntranet: "192.168.8.102"
   pihole: "192.168.8.103"
