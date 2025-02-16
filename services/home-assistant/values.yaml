@@ -82,7 +82,7 @@ mqtt:
           password:
             - path: /init_password.sh
               readOnly: true
-              subpath: password.sh
+              subPath: password.sh
     password:
       type: emptyDir
       name: mqtt-password
@@ -91,11 +91,11 @@ mqtt:
           password:
             - path: /mosquitto/mosquitto_password
               readOnly: false
-              subpath: mosquitto_password
+              subPath: mosquitto_password
           main:
             - path: /mosquitto/mosquitto_password
               readOnly: true
-              subpath: mosquitto_password
+              subPath: mosquitto_password
     config:
       type: configMap
       name: mqtt-config
