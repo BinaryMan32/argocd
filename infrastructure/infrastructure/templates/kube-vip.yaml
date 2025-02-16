@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-vip
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://kube-vip.github.io/helm-charts
+    chart: kube-vip
+    targetRevision: 0.6.6
+    helm:
+      # https://github.com/kube-vip/helm-charts/blob/main/charts/kube-vip/values.yaml
+      # https://kube-vip.io/docs/installation/flags/
+      values: |
+        config:
+          address: {{ .Values.ipAddress.kubernetes }}
+        env:
+          vip_interface: "eth0"
+          vip_arp: "true"
+          lb_enable: "true"
+          lb_port: "6443"
+          vip_cidr: "32"
+          cp_enable: "true"
+          svc_enable: "false"
+          vip_leaderelection: "true"
+        podMonitor:
+          enabled: true
+  destination:
+    namespace: kube-vip
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
