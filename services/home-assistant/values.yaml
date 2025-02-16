@@ -45,6 +45,11 @@ mqtt:
           persistence_location /mosquitto/data/
           log_dest stdout
           listener 1883
+          acl_file mosquitto_acl
+        mosquitto_acl: |
+          topic read #
+          user home-assistant
+          topic readwrite #
   persistence:
     config:
       type: configMap
