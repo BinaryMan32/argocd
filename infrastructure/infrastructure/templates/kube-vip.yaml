@@ -28,6 +28,16 @@ spec:
           svc_enable: "false"
           vip_leaderelection: "true"
           cp_namespace: kube-vip
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/master
+                  operator: Exists
+              - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: Exists
         podMonitor:
           enabled: true
   destination:
