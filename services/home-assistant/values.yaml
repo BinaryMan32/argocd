@@ -87,7 +87,8 @@ mqtt:
               subPath: password.sh
     password:
       type: emptyDir
-      name: mqtt-password
+      sizeLimit: 1Mi
+      medium: Memory
       advancedMounts:
         main:
           password:
