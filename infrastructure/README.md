@@ -31,7 +31,6 @@ Deploy the following which enable access to intranet services through ingress.
 8. [cert-manager](./cert-manager/) (needs prometheus)
 
 Tools for accessing and maintaining cluster nodes.
-- [kube-karp](./infrastructure/templates/kube-karp.yaml)
 - [kured](./infrastructure/templates/kured.yaml)
 
 Additional infrastructure used only by non-infrastructure projects.
