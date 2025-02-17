@@ -85,7 +85,7 @@ mqtt:
           user home-assistant
           topic readwrite #
           user tasmota
-          topic readwrite tasmota/+
+          topic readwrite #
     # https://mosquitto.org/man/mosquitto_passwd-1.html
     init:
       data:
