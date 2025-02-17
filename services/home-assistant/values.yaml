@@ -19,6 +19,10 @@ home-assistant:
 # https://hub.docker.com/_/eclipse-mosquitto
 mqtt:
   fullnameOverride: mqtt
+  defaultPodOptions:
+    securityContext:
+      # Attached configmap volumes should be owned by mosquitto user
+      fsGroup: 1883
   controllers:
     main:
       enabled: true
