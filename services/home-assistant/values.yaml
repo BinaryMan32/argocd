@@ -119,6 +119,7 @@ mqtt:
     config:
       type: configMap
       name: mqtt-config
+      defaultMode: 0660
       globalMounts:
         - path: /mosquitto/config/
           readOnly: true
