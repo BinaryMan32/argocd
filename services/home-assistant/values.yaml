@@ -36,6 +36,9 @@ mqtt:
           image:
             repository: eclipse-mosquitto
             tag: 2.0.20
+        securityContext:
+          # Attached configmap volumes should be owned by mosquitto user
+          fsGroup: 1883
       initContainers:
         password:
           image:
