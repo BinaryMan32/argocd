@@ -53,6 +53,16 @@ mqtt:
                 secretKeyRef:
                   name: mqtt
                   key: home-assistant-password
+            TASMOTA_USERNAME:
+              valueFrom:
+                secretKeyRef: 
+                  name: mqtt
+                  key: tasmota-username
+            TASMOTA_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: mqtt
+                  key: tasmota-password
   configMaps:
     config:
       data:
@@ -68,13 +78,16 @@ mqtt:
           topic read #
           user home-assistant
           topic readwrite #
+          user tasmota
+          topic readwrite tasmota/+
     # https://mosquitto.org/man/mosquitto_passwd-1.html
     init:
       data:
         password.sh: |
           #!/bin/sh
           PASSWORD_FILE=/mosquitto/password/mosquitto_password
-          mosquitto_passwd -b $PASSWORD_FILE $HOME_ASSISTANT_USERNAME $HOME_ASSISTANT_PASSWORD
+          mosquitto_passwd -c -b $PASSWORD_FILE $HOME_ASSISTANT_USERNAME $HOME_ASSISTANT_PASSWORD
+          mosquitto_passwd -b $PASSWORD_FILE $TASMOTA_USERNAME $TASMOTA_PASSWORD
   persistence:
     init:
       type: configMap

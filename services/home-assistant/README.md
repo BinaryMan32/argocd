@@ -1,7 +1,7 @@
 Deploys home-assistant using [k8s-at-home helm chart][k8s-at-home].
 
 Once it's deployed, forward a local port to the service:
-```
+```sh
 kubectl -n home-assistant port-forward svc/home-assistant 8123:8123
 ```
 And visit http://localhost:8123/
@@ -11,14 +11,21 @@ Or use the ingress via https://home-assistant.wildfreddy.fivebytestudios.com/
 ## Secrets
 
 From the `home-assistant-secrets` subdir run:
-```
+```sh
 helm install -n home-assistant --create-namespace home-assistant-secrets .
+```
+
+## Configuring Devices
+
+To set client credentials on all tasmota devices, run:
+```sh
+./configure-tasmota.py --credentials
 ```
 
 ## Testing MQTT (Mosquitto)
 
 Subscribe to all messages:
-```
+```sh
 mosquitto_sub --id test-$(hostname) --host mqtt.home-assistant.int.fivebytestudios.com --topic '#' --verbose
 ```
 

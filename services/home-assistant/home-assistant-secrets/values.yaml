@@ -1,6 +1,9 @@
 mqtt:
   secretName: mqtt
-  homeAssistant:
-    prefix: home-assistant-
-    username: home-assistant
-    passwordLength: 32
+  users:
+    - prefix: home-assistant-
+      username: home-assistant
+      passwordLength: 32
+    - prefix: tasmota-
+      username: tasmota
+      passwordLength: 32

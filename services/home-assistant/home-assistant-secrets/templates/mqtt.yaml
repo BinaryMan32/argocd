@@ -7,7 +7,7 @@ metadata:
     "helm.sh/resource-policy": keep
 type: Opaque
 data:
-{{- with .homeAssistant }}
+{{- range .users }}
   {{ .prefix }}username: {{ .username | b64enc | quote }}
   {{ .prefix }}password: {{ .passwordLength | int | randAlphaNum | b64enc | quote }}
 {{- end }}
