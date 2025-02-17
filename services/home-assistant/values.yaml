@@ -78,6 +78,8 @@ mqtt:
           listener 1883
           acl_file /mosquitto/config/mosquitto_acl
           password_file /mosquitto/password/mosquitto_password
+          # anonymous configured as read only by mosquitto_acl config before first user
+          allow_anonymous
         mosquitto_acl: |
           topic read #
           user home-assistant
