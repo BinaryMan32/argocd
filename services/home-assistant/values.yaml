@@ -31,7 +31,7 @@ home-assistant:
   initContainers:
     - name: setup-config
       image: bash:3.1.23
-      command: ["/bin/sh", "-c"]
+      command: ["/bin/sh"]
       args:
         - /mnt/init/init.sh
       volumeMounts:
