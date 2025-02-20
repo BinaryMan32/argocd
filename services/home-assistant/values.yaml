@@ -1,3 +1,10 @@
+configuration:
+  trusted_proxies:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - 127.0.0.0/8
+
 # https://github.com/pajikos/home-assistant-helm-chart?tab=readme-ov-file#configuration
 # https://github.com/pajikos/home-assistant-helm-chart/blob/main/charts/home-assistant/values.yaml
 home-assistant:
@@ -14,6 +21,28 @@ home-assistant:
     storageClass: nfs
   serviceAccount:
     create: false
+  additionalVolumes:
+    - name: init-volume
+      configMap:
+        name: home-assistant-init
+    - name: config-volume
+      configMap:
+        name: home-assistant-config
+  initContainers:
+    - name: setup-config
+      image: bash:3.1.23
+      command: ["/bin/sh", "-c"]
+      args:
+        - /mnt/init/init.sh
+      volumeMounts:
+        - name: init-volume
+          mountPath: /mnt/init/init.sh
+          subPath: init.sh
+        - name: config-volume
+          mountPath: /config-templates
+        - mountPath: /config
+          # volume created by statefulset volumeClaimTemplates
+          name: home-assistant
 
 # https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
 # https://hub.docker.com/_/eclipse-mosquitto

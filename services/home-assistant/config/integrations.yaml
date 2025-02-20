@@ -1,0 +1,6 @@
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    {{- range .Values.configuration.trusted_proxies }}
+    - {{ . }}
+    {{- end }}
