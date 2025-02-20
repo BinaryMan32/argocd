@@ -2,7 +2,7 @@
 default_config:
 
 # Custom integrations
-http: !include integrations/http.yaml
+http: !include http.yaml
 
 # Load frontend themes from the themes folder
 frontend:
