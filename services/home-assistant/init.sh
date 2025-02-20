@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+apk add --no-cache rsync
+
 # Copy the config from the configmap over the config in the persistent volume
 # This allows temporary edits for experimentation which are discarded when the pod restarts
-cp -r /config-templates /config
+rsync -rv /config-templates/ /config
