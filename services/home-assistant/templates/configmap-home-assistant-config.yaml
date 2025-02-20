@@ -4,4 +4,7 @@ metadata:
   name: home-assistant-config
   namespace: {{ .Release.Namespace }}
 data:
-{{ (tpl (.Files.Glob "config/**.yaml").AsConfig .) | indent 2 }}
+{{- range $path, $_ := .Files.Glob "config/**.yaml" }}
+  {{ $path | trimPrefix "config/" }}: |
+    {{- tpl ($.Files.Get $path) $ | nindent 4 }}
+{{- end }}
