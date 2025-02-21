@@ -47,6 +47,19 @@ Add the `MQTT` integration with parameters:
 - user: from `mqtt` secret, key `home-assistant-username`
 - password: from `mqtt` secret, key `home-assistant-password`
 
+### Tasmota
+
+The `Tasmota` integration should be automatically detected.
+Add it and then set the `Area` for each device as noted below.
+
+| Device             | Area (icon)       |
+| ------------------ | ----------------- |
+| Tasmota_Bench      | Lab (`mdi:tools`) |
+| Tasmota_Desktop    | Bedroom           |
+| Tasmota_FlashForge | Lab (`mdi:tools`) |
+| Tasmota_Music      | Living Room       |
+| Tasmota_TV         | Living Room       |
+
 ## Reverse Proxy Error
 
 Log messages:
