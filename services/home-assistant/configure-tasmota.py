@@ -38,8 +38,15 @@ DEVICES = [
 
 
 def get_credentials(secret_name, prefix):
-  command = ['kubectl', '--namespace=home-assistant', 'get', 'secret', secret_name, '--output=json']
-  data = json.loads(subprocess.run(command, check=True, capture_output=True).stdout)['data']
+  command = ['kubectl', '--context=griffin', '--namespace=home-assistant', 'get', 'secret', secret_name, '--output=json']
+  try:
+      process = subprocess.run(command, check=True, capture_output=True)
+  except subprocess.CalledProcessError as e:
+      print(e)
+      print(f'stdout:\n{e.stdout}')
+      print(f'stderr:\n{e.stderr}')
+      raise
+  data = json.loads(process.stdout)['data']
   return { key: base64.b64decode(data[prefix + key]).decode('ascii') for key in ['username', 'password'] }
 
 
