@@ -38,6 +38,17 @@ mosquitto_sub --id test-$(hostname) --host mqtt.home-assistant.int.fivebytestudi
 
 ## Setup
 
+### Areas
+
+| Name        | Icon                  |
+| ----------- | --------------------- |
+| Bedroom     | `mdi:bed`             |
+| Kitchen     | `mdi:pot-steam`       |
+| Lab         | `mdi:desk`            |
+| Living Room | `mdi:sofa`            |
+| Rack        | `mdi:server`          |
+| Utility     | `mdi:washing-machine` |
+
 ### MQTT
 
 Add the `MQTT` integration with parameters:
@@ -52,13 +63,13 @@ Add the `MQTT` integration with parameters:
 The `Tasmota` integration should be automatically detected.
 Add it and then set the `Area` for each device as noted below.
 
-| Device             | Area (icon)       |
-| ------------------ | ----------------- |
-| Tasmota_Bench      | Lab (`mdi:tools`) |
-| Tasmota_Desktop    | Bedroom           |
-| Tasmota_FlashForge | Lab (`mdi:tools`) |
-| Tasmota_Music      | Living Room       |
-| Tasmota_TV         | Living Room       |
+| Device             | Area        |
+| ------------------ | ----------- |
+| Tasmota_Bench      | Lab         |
+| Tasmota_Desktop    | Bedroom     |
+| Tasmota_FlashForge | Lab         |
+| Tasmota_Music      | Living Room |
+| Tasmota_TV         | Living Room |
 
 ### Shelly
 
@@ -68,11 +79,12 @@ Add `Shelly` integration:
 - port: leave at default `80`
 
 Device `shelly3em` should be auto recognized.
+Use area `Utility`.
 
 ### TP-Link Kasa
 
 Add TP-Link Kasa `HS300` power strips with the integration `TP-Link Smart Home`.
-Use area Rack (`mdi:server`).
+Use area `Rack`.
 
 - `192.168.3.100`
 
