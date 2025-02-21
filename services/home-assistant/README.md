@@ -17,7 +17,7 @@ Or use the ingress via <https://home-assistant.wildfreddy.fivebytestudios.com/>
 From the `home-assistant-secrets` subdir run:
 
 ```sh
-helm install -n home-assistant --create-namespace home-assistant-secrets .
+helm --kube-context=griffin install --namespace home-assistant --create-namespace home-assistant-secrets .
 ```
 
 ## Configuring Devices
