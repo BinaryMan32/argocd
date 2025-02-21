@@ -7,3 +7,6 @@ mqtt:
     - prefix: tasmota-
       username: tasmota
       passwordLength: 32
+    - prefix: flashforge-
+      username: flashforge
+      passwordLength: 32

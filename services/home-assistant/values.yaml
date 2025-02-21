@@ -96,6 +96,16 @@ mqtt:
                 secretKeyRef:
                   name: mqtt
                   key: tasmota-password
+            FLASHFORGE_USERNAME:
+              valueFrom:
+                secretKeyRef: 
+                  name: mqtt
+                  key: flashforge-username
+            FLASHFORGE_PASSWORD:
+              valueFrom:
+                secretKeyRef:
+                  name: mqtt
+                  key: flashforge-password
   configMaps:
     config:
       data:
@@ -114,6 +124,8 @@ mqtt:
           user home-assistant
           topic readwrite #
           user tasmota
+          topic readwrite #
+          user flashforge
           topic readwrite #
     # https://mosquitto.org/man/mosquitto_passwd-1.html
     init:
