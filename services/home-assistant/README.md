@@ -60,6 +60,22 @@ Add it and then set the `Area` for each device as noted below.
 | Tasmota_Music      | Living Room       |
 | Tasmota_TV         | Living Room       |
 
+### Shelly
+
+Add `Shelly` integration:
+
+- host: `192.168.3.160`
+- port: leave at default `80`
+
+Device `shelly3em` should be auto recognized.
+
+### TP-Link Kasa
+
+Add TP-Link Kasa `HS300` power strips with the integration `TP-Link Smart Home`.
+Use area Rack (`mdi:server`).
+
+- `192.168.3.100`
+
 ## Reverse Proxy Error
 
 Log messages:
