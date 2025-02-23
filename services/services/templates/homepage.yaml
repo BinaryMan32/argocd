@@ -100,7 +100,7 @@ spec:
                   description: Continuous Deployment
                   namespace: argocd
                   app: argocd
-                  pod-selector: >-
+                  podSelector: >-
                     app.kubernetes.io/name in (
                       argocd-server,
                       argocd-repo-server,
@@ -119,7 +119,7 @@ spec:
                   description: Metric Collection
                   namespace: kube-prometheus-stack
                   app: prometheus
-                  pod-selector: >-
+                  podSelector: >-
                     app.kubernetes.io/name in (
                       prometheus-node-exporter,
                       kube-state-metrics,
