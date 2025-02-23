@@ -95,7 +95,7 @@ spec:
                   namespace: pihole
                   app: pihole
               - ArgoCD:
-                  icon: argocd.png
+                  icon: argo-cd.png
                   href: "https://argocd.{{ .Values.domain.intranet }}/"
                   description: Continuous Deployment
                   namespace: argocd
