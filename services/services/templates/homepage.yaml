@@ -99,7 +99,6 @@ spec:
                   href: "https://argocd.{{ .Values.domain.intranet }}/"
                   description: Continuous Deployment
                   namespace: argocd
-                  app: argocd
                   podSelector: >-
                     app.kubernetes.io/name in (
                       argocd-server,
