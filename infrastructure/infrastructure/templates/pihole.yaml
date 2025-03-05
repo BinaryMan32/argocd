@@ -12,7 +12,10 @@ spec:
     chart: pihole
     targetRevision: 2.27.0
     helm:
+      # https://github.com/MoJo2600/pihole-kubernetes/blob/main/charts/pihole/values.yaml
       values: |
+        admin:
+          existingSecret: pihole-admin
         whitelist:
           - "*.fivebytestudios.com"
         dnsmasq:

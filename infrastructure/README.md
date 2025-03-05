@@ -74,6 +74,16 @@ Some changes require modifications to resources created by k3s. Since these
 aren't managed by any apps, these steps must be performed manually instead of
 updating deployment configuration.
 
+### Pihole
+
+Before installing, create admin password secret:
+```
+kubectl create secret generic \
+  --namespace=pihole \
+  pihole-admin \
+  --from-literal=password='PASSWORD'
+```
+
 ### Monitoring
 
 Prometheus Operator & Grafana provided by [kube-prometheus-stack][].
