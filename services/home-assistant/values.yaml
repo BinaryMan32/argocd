@@ -68,12 +68,12 @@ mqtt:
         main:
           image:
             repository: eclipse-mosquitto
-            tag: 2.0.20
+            tag: 2.0.21
       initContainers:
         password:
           image:
             repository: eclipse-mosquitto
-            tag: 2.0.20
+            tag: 2.0.21
           command: /init_password.sh
           env:
             HOME_ASSISTANT_USERNAME:
