@@ -6,7 +6,7 @@ kubeVersion: '>=1.19.0-0'
 dependencies:
 - name: home-assistant
   repository: https://pajikos.github.io/home-assistant-helm-chart/
-  version: 0.2.113
+  version: 0.2.114
 - name: app-template
   alias: mqtt
   repository: https://bjw-s.github.io/helm-charts/
