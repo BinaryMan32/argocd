@@ -97,7 +97,6 @@ kube-prometheus-stack:
       size: 2Gi
     deploymentStrategy:
       type: Recreate
-      rollingUpdate: null
 
   prometheus:
     prometheusSpec:
