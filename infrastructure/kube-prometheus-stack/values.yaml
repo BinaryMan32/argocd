@@ -87,11 +87,13 @@ kube-prometheus-stack:
       secrets:
         - slack-api
 
+  # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
   grafana:
     admin:
       existingSecret: "grafana-login"
     persistence:
       enabled: true
+      type: statefulset
       storageClassName: longhorn
       size: 2Gi
 
