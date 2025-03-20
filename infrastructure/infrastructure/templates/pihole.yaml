@@ -59,6 +59,7 @@ spec:
               - pihole.{{ .Values.domain.intranet }}
 
         serviceDns:
+          mixedService: true
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
           annotations:
             metallb.io/allow-shared-ip: pihole-svc
