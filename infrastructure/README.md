@@ -84,6 +84,10 @@ kubectl create secret generic \
   --from-literal=password='PASSWORD'
 ```
 
+After installing, go to <http://192.168.8.103/admin> and pick `Settings`
+
+- under `DNS`, change to `Potentially dangerous options` - `Permit all origins`.
+
 ### Monitoring
 
 Prometheus Operator & Grafana provided by [kube-prometheus-stack][].
