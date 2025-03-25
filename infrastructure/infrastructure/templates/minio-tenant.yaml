@@ -57,7 +57,7 @@ spec:
                 secretName: minio-console-tls
         tenant:
           pools:
-            - servers: 8
+            - servers: 9
               name: pool-0
               volumesPerServer: 1
               # The capacity per volume requested per MinIO Tenant Pod.
