@@ -61,7 +61,7 @@ spec:
               name: pool-0
               volumesPerServer: 1
               # The capacity per volume requested per MinIO Tenant Pod.
-              size: 1000Gi
+              size: 1200Gi
               storageClassName: topolvm-ssd-xfs
           metrics:
             enabled: true
