@@ -62,7 +62,7 @@ spec:
               volumesPerServer: 1
               # The capacity per volume requested per MinIO Tenant Pod.
               size: 1000Gi
-              storageClassName: local-path
+              storageClassName: topolvm-ssd-xfs
           metrics:
             enabled: true
           prometheusOperator: true
