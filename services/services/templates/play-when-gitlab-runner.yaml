@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: play-when-gitlab-runner
+  namespace: argocd
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://charts.gitlab.io
+    chart: gitlab-runner
+    targetRevision: 0.73.4
+    helm:
+      # https://docs.gitlab.com/runner/install/kubernetes/#configure-gitlab-runner-with-the-helm-chart
+      # https://gitlab.com/gitlab-org/charts/gitlab-runner/-/blob/main/values.yaml
+      values: |
+        gitlabUrl: https://gitlab.com
+        rbac:
+          create: true
+        serviceAccount:
+          create: true
+        runners:
+          secret: gitlab-runner
+  destination:
+    namespace: play-when-gitlab
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

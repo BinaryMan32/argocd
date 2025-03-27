@@ -12,6 +12,7 @@ spec:
   - {{ .Values.source.repoURL }}
   - https://k8s-at-home.com/charts/
   - https://bjw-s.github.io/helm-charts/
+  - https://charts.gitlab.io
   - https://kubernetes.github.io/dashboard
   - https://jameswynn.github.io/helm-charts/
   - https://pajikos.github.io/home-assistant-helm-chart/

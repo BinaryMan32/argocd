@@ -1,5 +1,24 @@
 # Services
 
+## Play When Gitlab Runner
+
+Follow instructions to create a [group runner](https://docs.gitlab.com/ci/runners/runners_scope/#group-runners).
+
+Create namespace:
+
+```sh
+kubectl create namespace play-when-gitlab
+```
+
+Create a secret with the runner `TOKEN` using the command:
+
+```sh
+kubectl create secret generic \
+  --namespace=play-when-gitlab \
+  gitlab-runner \
+  --from-literal=runner-token='TOKEN'
+```
+
 ## Kubernetes Dashboard
 
 1. In a terminal, run
