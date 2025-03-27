@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.gitlab.io
     chart: gitlab-runner
-    targetRevision: 0.73.4
+    targetRevision: 0.75.1
     helm:
       # https://docs.gitlab.com/runner/install/kubernetes/#configure-gitlab-runner-with-the-helm-chart
       # https://gitlab.com/gitlab-org/charts/gitlab-runner/-/blob/main/values.yaml
