@@ -20,6 +20,12 @@ spec:
           create: true
         runners:
           secret: gitlab-runner
+          config: |
+            [[runners]]
+              [runners.kubernetes]
+                namespace = "{{.Release.Namespace}}"
+                image = "alpine"
+                helper_image = "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:arm64-latest"
   destination:
     namespace: play-when-gitlab
     server: {{ .Values.destination.server }}
