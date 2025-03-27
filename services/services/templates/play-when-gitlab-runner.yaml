@@ -23,7 +23,7 @@ spec:
           config: |
             [[runners]]
               [runners.kubernetes]
-                namespace = "{{.Release.Namespace}}"
+                namespace = "play-when-gitlab"
                 image = "alpine"
                 helper_image = "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:arm64-latest"
   destination:
