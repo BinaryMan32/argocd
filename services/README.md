@@ -16,8 +16,12 @@ Create a secret with the runner `TOKEN` using the command:
 kubectl create secret generic \
   --namespace=play-when-gitlab \
   gitlab-runner \
+  --from-literal=runner-registration-token='' \
   --from-literal=runner-token='TOKEN'
 ```
+
+For reference, see the [gitlab runner secret template](https://gitlab.com/gitlab-org/charts/gitlab-runner/-/blob/main/templates/secrets.yaml).
+Although `runner-registration-token` is deprecated, it must still be set to an empty string in the secret as of `v0.73.4`.
 
 ## Kubernetes Dashboard
 
