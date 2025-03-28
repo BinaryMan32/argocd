@@ -8,7 +8,7 @@ metadata:
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: {{ .Values.source.repoGroup }}/play-when-gitlab.git
+    repoURL: {{ .Values.source.repoGroup }}/play-when-gitlab-chart.git
     targetRevision: {{ .Values.source.targetRevision }}
     path: play-when-gitlab
     helm:
