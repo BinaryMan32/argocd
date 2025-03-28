@@ -32,15 +32,13 @@ Apply a label to the secret so that ArgoCD will use it when fetching repositorie
 kubectl label secret \
   --namespace=argocd \
   play-when-gitlab-read-repository \
-  argocd.argoproj.io/secret-type=repository
+  argocd.argoproj.io/secret-type=repo-creds
 ```
 
-The [argocd configmap][] was updated to reference this secret.
 See argocd documentation on how to [read from private repositories][argocd-private].
 
 [deploy token]: https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html#creating-a-deploy-token
 [play-when-group]: https://gitlab.com/play-when
 [play-when-settings-deploy]: https://gitlab.com/groups/play-when/-/settings/repository#js-deploy-tokens
 [play-when-gitlab-chart]: https://gitlab.com/play-when/play-when-gitlab-chart
-[argocd configmap]: ../infrastructure/argocd/argocd-cm.yaml
-[argocd-private]: https://argoproj.github.io/argo-cd/user-guide/private-repositories/
+[argocd-private]: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repository-credentials
