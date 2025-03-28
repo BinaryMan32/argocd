@@ -1,0 +1,5 @@
+apiVersion: v2
+name: Play When
+description: Play When Project
+type: application
+version: 0.1.0

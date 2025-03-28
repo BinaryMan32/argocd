@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: play-when-project-app
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated: {}
+  source:
+    repoURL: https://github.com/BinaryMan32/argocd.git
+    targetRevision: main
+    path: play-when/play-when
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    namespace: play-when
+    server: https://kubernetes.default.svc

@@ -1,0 +1,9 @@
+project:
+  name: play-when
+destination:
+  server: https://kubernetes.default.svc
+  namespaces:
+    gitlab: play-when-gitlab
+source:
+  repoGroup: https://gitlab.com/play-when
+  targetRevision: main
