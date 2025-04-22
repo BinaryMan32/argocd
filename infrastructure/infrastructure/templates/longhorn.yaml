@@ -12,6 +12,7 @@ spec:
     targetRevision: v1.6.4
     path: chart
     helm:
+      # https://github.com/longhorn/longhorn/blob/master/chart/values.yaml
       values: |
         ingress:
           enabled: true
@@ -25,6 +26,7 @@ spec:
           reclaimPolicy: Retain
         defaultSettings:
           backupTarget: nfs://{{ .Values.nfs.server }}:{{ .Values.nfs.path }}/longhorn-backup
+          concurrentAutomaticEngineUpgradePerNodeLimit: 1
   # helm template incorrectly sets nodePort for LoadBalancer
   ignoreDifferences:
     - kind: Service
