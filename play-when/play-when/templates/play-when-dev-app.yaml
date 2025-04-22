@@ -10,7 +10,9 @@ spec:
   source:
     repoURL: {{ .Values.source.repoGroup }}/play-when-argocd.git
     targetRevision: main
-    path: application-sets/play-when-dev.yaml
+    path: application-sets
+    directory:
+      include: play-when-dev.yaml
   destination:
     namespace: play-when-dev
     server: {{ .Values.destination.server }}
