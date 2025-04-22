@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: play-when-dev
+  namespace: play-when-dev
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: play-when-dev
+  source:
+    repoURL: {{ .Values.source.repoGroup }}/play-when-argocd.git
+    targetRevision: main
+    path: application-sets/play-when-dev
+  destination:
+    namespace: play-when-dev
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
