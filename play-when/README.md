@@ -6,7 +6,9 @@ Deploys the [Play When][play-when-group] application, which includes:
 
 ## Setup
 
-Create a [deploy token][] from [Play When Settings][play-when-settings-deploy]:
+### Read Repositories
+
+Create a [deploy token][deploy-token] from [Play When Settings][play-when-settings-deploy]:
 
 - Name: `play-when-gitlab-read-repository`
 - Expiration date: leave blank
@@ -37,7 +39,29 @@ kubectl label secret \
 
 See argocd documentation on how to [read from private repositories][argocd-private].
 
-[deploy token]: https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html#creating-a-deploy-token
+### Pull Images
+
+Create a [deploy token][deploy-token] from [Play When Settings][play-when-settings-deploy]:
+
+- Name: `play-when-read-container-registry-kubernetes`
+- Expiration date: leave blank
+- Username: `kubernetes-pull`
+- Scopes: `read_registry`
+
+Add this token for use as an image pull secret:
+
+```sh
+for namespace in play-when-{dev,stage,prod}; do
+kubectl create secret docker-registry \
+    --namespace=$namespace \
+    play-when-read-container-registry \
+    --docker-server=registry.gitlab.com \
+    --docker-username=kubernetes-pull \
+    --docker-password=<token>
+done
+```
+
+[deploy-token]: https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html#creating-a-deploy-token
 [play-when-group]: https://gitlab.com/play-when
 [play-when-settings-deploy]: https://gitlab.com/groups/play-when/-/settings/repository#js-deploy-tokens
 [play-when-gitlab-chart]: https://gitlab.com/play-when/play-when-gitlab-chart
