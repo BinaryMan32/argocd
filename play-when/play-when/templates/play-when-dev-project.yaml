@@ -10,7 +10,10 @@ spec:
   description: Play When Dev
   sourceRepos:
   - {{ .Values.source.repoGroup }}/play-when-argocd.git
+  - {{ .Values.source.repoGroup }}/play-when-auth-chart.git
+  - {{ .Values.source.repoGroup }}/play-when-backend-chart.git
   - {{ .Values.source.repoGroup }}/play-when-discord-bot-chart.git
+  - {{ .Values.source.repoGroup }}/play-when-frontend-chart.git
   sourceNamespaces:
   - play-when-dev
   destinations:
