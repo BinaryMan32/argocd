@@ -3,5 +3,7 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
+  # allow applications to be created in other namespaces
+  application.namespaces: play-when-dev
   repositories: ""
   repository.credentials: ""
