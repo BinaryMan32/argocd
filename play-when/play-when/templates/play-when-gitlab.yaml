@@ -6,16 +6,16 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: {{ .Values.project.name }}
+  project: play-when
   source:
     repoURL: {{ .Values.source.repoGroup }}/play-when-gitlab-chart.git
-    targetRevision: {{ .Values.source.targetRevision }}
+    targetRevision: main
     path: play-when-gitlab
     helm:
       valueFiles:
         - values.yaml
   destination:
-    namespace: {{ .Values.destination.namespaces.gitlab }}
+    namespace: play-when-gitlab
     server: {{ .Values.destination.server }}
   syncPolicy:
     automated: {}
