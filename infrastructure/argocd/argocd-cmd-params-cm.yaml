@@ -5,3 +5,9 @@ metadata:
 data:
   # allow applications to be created in other namespaces
   application.namespaces: play-when-dev
+  # disable all SCM / PR generators
+  # see https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Appset-Any-Namespace/#scm-providers-secrets-consideration
+  applicationsetcontroller.enable.scm.providers: "false"
+  # SCM provider secrets must have label `argocd.argoproj.io/secret-type: scm-creds`
+  # see https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Appset-Any-Namespace/#tokenref-restrictions
+  applicationsetcontroller.tokenref.strict.mode: "true"
