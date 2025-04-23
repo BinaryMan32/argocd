@@ -8,12 +8,13 @@ metadata:
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: {{ .Values.source.repoURL }}
-    targetRevision: {{ .Values.source.targetRevision }}
-    path: {{ .Values.project.path }}/coredns
+    repoURL: https://coredns.github.io/helm/
+    targetRevision: 1.40.0
     helm:
-      valueFiles:
-        - values.yaml
+      valuesObject:
+        service:
+          # K3S seems to look for this address
+          clusterIP: 10.43.0.10
   destination:
     namespace: kube-system
     server: {{ .Values.destination.server }}
