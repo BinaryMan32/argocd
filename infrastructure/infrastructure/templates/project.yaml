@@ -10,17 +10,18 @@ spec:
   description: Network Infrastructure
   sourceRepos:
   - {{ .Values.source.repoURL }}
-  - https://kubernetes.github.io/*
-  - https://kubernetes-sigs.github.io/*
-  - https://github.com/longhorn/longhorn
-  - https://kube-vip.github.io/helm-charts
-  - https://mojo2600.github.io/pihole-kubernetes/
-  - https://ori-edge.github.io/k8s_gateway/
-  - https://prometheus-community.github.io/helm-charts
-  - https://kubereboot.github.io/charts
   - https://bitnami-labs.github.io/sealed-secrets
   - https://cloudnative-pg.github.io/charts
+  - https://coredns.github.io/helm
+  - https://github.com/longhorn/longhorn
+  - https://kube-vip.github.io/helm-charts
+  - https://kubereboot.github.io/charts
+  - https://kubernetes-sigs.github.io/*
+  - https://kubernetes.github.io/*
+  - https://mojo2600.github.io/pihole-kubernetes/
   - https://operator.min.io
+  - https://ori-edge.github.io/k8s_gateway/
+  - https://prometheus-community.github.io/helm-charts
   - https://topolvm.github.io/topolvm
   destinations:
   - namespace: '*'
