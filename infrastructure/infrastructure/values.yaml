@@ -12,8 +12,6 @@ domain:
   dev: dev.wildfreddy.fivebytestudios.com
   lan: lan.wildfreddy.fivebytestudios.com
   iot: iot.wildfreddy.fivebytestudios.com
-clusterIpAddress:
-  k8sGateway: "10.43.0.20"
 ipAddress:
   router: "192.168.8.1"
   kubernetes: "192.168.8.8"
