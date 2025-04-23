@@ -9,6 +9,7 @@ spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: https://coredns.github.io/helm/
+    chart: coredns
     targetRevision: 1.40.0
     helm:
       valuesObject:
