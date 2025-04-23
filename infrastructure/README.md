@@ -190,6 +190,18 @@ Address: 10.43.0.1
 pod "dns-test" deleted
 ```
 
+Test forwarding queries to k8s-gateway
+
+```sh
+kubectl run -i -t intranet-dns-test --image=alpine --restart=Never --rm -- nslookup argocd.int.fivebytestudios.com
+```
+
+Test external queries
+
+```sh
+kubectl run -i -t external-dns-test --image=alpine --restart=Never --rm -- nslookup google.com
+```
+
 ### References
 
 See the following resources:
