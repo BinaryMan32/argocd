@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://operator.min.io
     chart: tenant
-    targetRevision: 7.1.0
+    targetRevision: 7.1.1
     helm:
       # https://github.com/minio/operator/blob/master/helm/tenant/values.yaml
       values: |
