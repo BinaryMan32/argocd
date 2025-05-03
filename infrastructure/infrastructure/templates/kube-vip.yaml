@@ -14,7 +14,7 @@ spec:
     helm:
       # https://github.com/kube-vip/helm-charts/blob/main/charts/kube-vip/values.yaml
       # https://kube-vip.io/docs/installation/flags/
-      values: |
+      valuesObject:
         config:
           address: {{ .Values.ipAddress.kubernetes }}
         # https://github.com/kube-vip/kube-vip/blob/main/pkg/kubevip/config_envvar.go

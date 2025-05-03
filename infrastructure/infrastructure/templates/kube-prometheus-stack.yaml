@@ -12,7 +12,7 @@ spec:
     targetRevision: {{ .Values.source.targetRevision }}
     path: {{ .Values.project.path }}/kube-prometheus-stack
     helm:
-      values: |
+      valuesObject:
         kube-prometheus-stack:
           alertmanager:
             ingress:

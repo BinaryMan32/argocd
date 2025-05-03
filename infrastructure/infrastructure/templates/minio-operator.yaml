@@ -13,7 +13,7 @@ spec:
     targetRevision: 7.1.1
     helm:
       # https://github.com/minio/operator/blob/master/helm/operator/values.yaml
-      values: |
+      valuesObject:
         operator:
           # https://github.com/minio/operator/blob/master/docs/env-variables.md
           env:

@@ -12,7 +12,7 @@ spec:
     chart: kured
     targetRevision: 5.6.1
     helm:
-      values: |
+      valuesObject:
         configuration:
           drainTimeout: 1h
           startTime: 22:00
