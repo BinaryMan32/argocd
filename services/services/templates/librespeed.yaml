@@ -10,7 +10,7 @@ spec:
     chart: librespeed
     targetRevision: 5.4.2
     helm:
-      values: |
+      valuesObject:
         ingress:
           main:
             enabled: true

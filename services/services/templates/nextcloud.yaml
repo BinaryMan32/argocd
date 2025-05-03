@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-      values: |
+      valuesObject:
         nextcloud:
           nextcloud:
             host: nextcloud.{{ .Values.domain.external }}

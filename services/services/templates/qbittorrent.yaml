@@ -11,7 +11,7 @@ spec:
     targetRevision: 3.7.3
     helm:
       # https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
-      values: |
+      valuesObject:
         defaultPodOptions:
           automountServiceAccountToken: false
 

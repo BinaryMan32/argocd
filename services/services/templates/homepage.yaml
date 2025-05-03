@@ -10,7 +10,7 @@ spec:
     chart: homepage
     targetRevision: 2.0.2
     helm:
-      values: |
+      valuesObject:
         # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
         image:
           repository: ghcr.io/gethomepage/homepage
