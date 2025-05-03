@@ -15,7 +15,7 @@ spec:
       # https://github.com/topolvm/topolvm/blob/main/docs/getting-started.md
       # https://geek-cookbook.funkypenguin.co.nz/kubernetes/persistence/topolvm/
       # https://github.com/topolvm/topolvm/blob/main/charts/topolvm/values.yaml
-      values: |
+      valuesObject:
         lvmd:
           deviceClasses:
             - name: ssd
