@@ -13,7 +13,7 @@ spec:
     targetRevision: 2.30.0
     helm:
       # https://github.com/MoJo2600/pihole-kubernetes/blob/main/charts/pihole/values.yaml
-      values: |
+      valuesObject:
         admin:
           existingSecret: pihole-admin
         whitelist:

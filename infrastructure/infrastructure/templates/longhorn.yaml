@@ -13,7 +13,7 @@ spec:
     path: chart
     helm:
       # https://github.com/longhorn/longhorn/blob/master/chart/values.yaml
-      values: |
+      valuesObject:
         ingress:
           enabled: true
           annotations:

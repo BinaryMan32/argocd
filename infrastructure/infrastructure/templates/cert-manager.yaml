@@ -14,7 +14,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-      values: |
+      valuesObject:
         ca:
           dnsName: {{ .Values.domain.intranet }}
           organization: Five Byte Studios Intranet
