@@ -6,11 +6,11 @@ metadata:
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: https://bjw-s.github.io/helm-charts/
+    repoURL: https://bjw-s-labs.github.io/helm-charts/
     chart: app-template
     targetRevision: 3.7.3
     helm:
-      # https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
+      # https://github.com/bjw-s-labs/helm-charts/blob/main/charts/library/common/values.yaml
       valuesObject:
         defaultPodOptions:
           automountServiceAccountToken: false

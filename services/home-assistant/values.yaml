@@ -44,7 +44,7 @@ home-assistant:
           # volume created by statefulset volumeClaimTemplates
           name: home-assistant
 
-# https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
+# https://github.com/bjw-s-labs/helm-charts/blob/main/charts/library/common/values.yaml
 # https://hub.docker.com/_/eclipse-mosquitto
 mqtt:
   fullnameOverride: mqtt

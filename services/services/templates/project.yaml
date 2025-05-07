@@ -11,7 +11,7 @@ spec:
   sourceRepos:
   - {{ .Values.source.repoURL }}
   - https://k8s-at-home.com/charts/
-  - https://bjw-s.github.io/helm-charts/
+  - https://bjw-s-labs.github.io/helm-charts/
   - https://charts.gitlab.io
   - https://kubernetes.github.io/dashboard
   - https://jameswynn.github.io/helm-charts/
