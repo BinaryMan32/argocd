@@ -21,6 +21,8 @@ spec:
         servers:
           - zones:
             - zone: .
+              scheme: dns://
+              use_tcp: true
             port: 53
             # -- expose the service on a different port
             # servicePort: 5353
