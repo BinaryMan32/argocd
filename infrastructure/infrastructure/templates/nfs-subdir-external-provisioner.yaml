@@ -15,8 +15,8 @@ spec:
       # https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/charts/nfs-subdir-external-provisioner/values.yaml
       valuesObject:
         nfs:
-          server: {{ .Values.nfs.server }}
-          path: {{ .Values.nfs.path }}/volumes
+          server: {{ .Values.nfsOld.server }}
+          path: {{ .Values.nfsOld.path }}/volumes
         storageClass:
           name: nfs
           pathPattern: ${.PVC.namespace}/${.PVC.name}
