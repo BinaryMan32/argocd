@@ -13,20 +13,24 @@
       "automerge": true
     },
     {
-      "matchPackageNames": ["https://github.com/longhorn/longhorn"],
+      "matchPackageNames": [
+        "https://github.com/longhorn/longhorn"
+      ],
       "separateMultipleMinor": true
     }
   ],
   "argocd": {
-    "fileMatch": [
-      "templates/.+\\.yaml$"
+    "managerFilePatterns": [
+      "/templates/.+\\.yaml$/"
     ]
   },
   "customManagers": [
     {
       "customType": "regex",
       "description": "kustomize referencing files in repository",
-      "fileMatch": "kustomization.yaml",
+      "managerFilePatterns": [
+        "/kustomization.yaml/"
+      ],
       "matchStrings": [
         "https://raw\\.githubusercontent\\.com/(?<depName>[^/]*/[^/]*)/(?<currentValue>.*?)/"
       ],
@@ -35,7 +39,9 @@
     {
       "customType": "regex",
       "description": "kustomize referencing files in release artifacts",
-      "fileMatch": "kustomization.yaml",
+      "managerFilePatterns": [
+        "/kustomization.yaml/"
+      ],
       "matchStrings": [
         "https://github\\.com/(?<depName>[^/]*/[^/]*)/.*?(?<currentValue>v[0-9.]+)"
       ],
@@ -44,8 +50,8 @@
     {
       "customType": "regex",
       "description": "Update docker image version",
-      "fileMatch": [
-        "templates/.+\\.yaml$"
+      "managerFilePatterns": [
+        "/templates/.+\\.yaml$/"
       ],
       "matchStrings": [
         "#\\s*renovate:\\s*image=(?<depName>\\S+)\\s+tag:\\s*(?<currentValue>v[0-9.]+)"
@@ -55,7 +61,9 @@
     {
       "customType": "regex",
       "description": "Update kubernetes version",
-      "fileMatch": "system-upgrade/.+-plan.yaml",
+      "managerFilePatterns": [
+        "/system-upgrade/.+-plan.yaml/"
+      ],
       "matchStrings": [
         "#\\s*renovate\\s+version:\\s*(?<currentValue>v\\S+)"
       ],
