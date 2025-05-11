@@ -22,3 +22,6 @@ ipAddress:
 nfsOld:
   server: helios64
   path: /k8s/griffin
+nfs:
+  server: mercury
+  path: /mnt/mercury/griffin
