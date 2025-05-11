@@ -23,7 +23,7 @@
     {
       "description": "ignore old/large qbittorrent major versions",
       "matchPackageNames": ["linuxserver/qbittorrent"],
-      "allowedVersions": "!/^1[34]\\./"
+      "allowedVersions": "!/^(13|14|20)\\./"
     }
  ],
   "argocd": {
