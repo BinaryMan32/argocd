@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qbittorrent
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector: {}
+  template:
+    spec: 
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      securityContext: 
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+      containers: 
+        - image: ghcr.io/onedr0p/qbittorrent:5.0.1
+          name: main
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          securityContext:
+            runAsGroup: 568
+            runAsUser: 568
+          volumeMounts:
+          - mountPath: /config
+            name: config
+      volumes: 
+        - name: config
+          persistentVolumeClaim:
+            claimName: qbittorrent-config
