@@ -20,4 +20,4 @@ spec:
               service:
                 name: qbittorrent
                 port:
-                  name: http
+                  name: webui
