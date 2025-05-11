@@ -14,7 +14,7 @@ labels:
 images:
   - name: qbittorrent
     newName: linuxserver/qbittorrent
-    newTag: 5.0.1
+    newTag: 5.1.0
 replacements:
 # avoid repeating the host name in the ingress tls config 
 - source:
