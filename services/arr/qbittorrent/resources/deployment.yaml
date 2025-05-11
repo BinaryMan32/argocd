@@ -13,9 +13,6 @@ spec:
       enableServiceLinks: false
       serviceAccountName: default
       automountServiceAccountToken: false
-      securityContext: 
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
       containers: 
         - image: qbittorrent
           name: qbittorrent
@@ -23,9 +20,6 @@ spec:
             - name: webui
               protocol: TCP
               containerPort: 8080
-          securityContext:
-            runAsGroup: 568
-            runAsUser: 568
           volumeMounts:
           - mountPath: /config
             name: config
