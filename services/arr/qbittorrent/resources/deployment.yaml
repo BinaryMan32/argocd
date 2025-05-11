@@ -16,6 +16,13 @@ spec:
       containers: 
         - image: qbittorrent
           name: qbittorrent
+          env:
+            - name: PUID
+              value: "2000"
+            - name: PGID
+              value: "2000"
+            - name: TZ
+              value: America/Chicago
           ports:
             - name: webui
               protocol: TCP
