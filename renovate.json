@@ -6,6 +6,7 @@
   ],
   "packageRules": [
     {
+      "description": "automatically merge all patch updates",
       "matchUpdateTypes": [
         "patch"
       ],
@@ -13,12 +14,18 @@
       "automerge": true
     },
     {
+      "description": "longhorn recommends migrating to each minor version separately",
       "matchPackageNames": [
         "https://github.com/longhorn/longhorn"
       ],
       "separateMultipleMinor": true
+    },
+    {
+      "description": "ignore old/large qbittorrent major versions",
+      "matchPackageNames": ["linuxserver/qbittorrent"],
+      "allowedVersions": "!/^1[34]\\./"
     }
-  ],
+ ],
   "argocd": {
     "managerFilePatterns": [
       "/templates/.+\\.yaml$/"
