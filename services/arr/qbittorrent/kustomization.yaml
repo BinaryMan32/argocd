@@ -11,6 +11,10 @@ labels:
     pairs:
       app.kubernetes.io/instance: qbittorrent
       app.kubernetes.io/name: qbittorrent
+images:
+  - name: qbittorrent
+    newName: linuxserver/qbittorrent
+    newTag: 5.0.1
 replacements:
 # avoid repeating the host name in the ingress tls config 
 - source:

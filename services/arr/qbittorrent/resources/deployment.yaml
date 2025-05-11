@@ -17,8 +17,8 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
       containers: 
-        - image: linuxserver/qbittorrent:5.0.1
-          name: main
+        - image: qbittorrent
+          name: qbittorrent
           ports:
             - containerPort: 8080
               name: http
