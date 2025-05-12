@@ -8,3 +8,9 @@ See the [kustomization file documentation][kustomization]
 
 [k8s-media]: https://merox.dev/blog/kubernetes-media-server/
 [kustomization]: https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/
+
+## Secrets
+
+Run `./create-protonvpn-sealed-secret.sh` to update ProtonVPN credentials in [sealed-secret-protonvpn-credentials.yaml][].
+
+[sealed-secret-protonvpn-credentials.yaml]: ./resources/sealed-secret-protonvpn-credentials.yaml
