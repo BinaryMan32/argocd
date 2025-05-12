@@ -27,6 +27,10 @@ spec:
             - name: gluetun
               containerPort: 8000
               protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /v1/publicip/ip
+              port: gluetun
           env:
             # https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md
             - name: VPN_SERVICE_PROVIDER
