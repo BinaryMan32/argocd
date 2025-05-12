@@ -16,6 +16,9 @@ images:
   - name: qbittorrent
     newName: linuxserver/qbittorrent
     newTag: 5.1.0
+  - name: gluetun
+    newName: qmcgaw/gluetun
+    newTag: v3.40.0
 replacements:
 # avoid repeating the host name in the ingress tls config
 - source:

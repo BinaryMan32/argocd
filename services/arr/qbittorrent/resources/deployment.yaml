@@ -12,9 +12,39 @@ spec:
       enableServiceLinks: false
       serviceAccountName: default
       automountServiceAccountToken: false
+      initContainers:
+        - name: gluetun
+          image: gluetun
+          restartPolicy: Always
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          ports:
+            - name: gluetun
+              containerPort: 8000
+              protocol: TCP
+          env:
+            # https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md
+            - name: VPN_SERVICE_PROVIDER
+              value: protonvpn
+            - name: VPN_TYPE
+              value: wireguard
+            - name: WIREGUARD_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: protonvpn-credentials
+                  key: wireguard_private_key
+            - name: SERVER_COUNTRIES
+              value: United States
+            - name: SERVER_CITIES
+              value: Chicago
+            # Allow access to webui
+            # - name: FIREWALL_INPUT_PORTS
+            #  value: "8080"
       containers:
-        - image: qbittorrent
-          name: qbittorrent
+        - name: qbittorrent
+          image: qbittorrent
           env:
             - name: PUID
               value: "2000"
