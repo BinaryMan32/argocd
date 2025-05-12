@@ -9,6 +9,18 @@ spec:
     - Ingress
     - Egress
   ingress:
+    # Requests from ingress controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx-intranet
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/part-of: ingress-nginx
+              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/instance: ingress-nginx-intranet
+              app.kubernetes.io/component: controller
+
     # Requests from -arr services which use qBittorrent
     - from:
         - podSelector:
