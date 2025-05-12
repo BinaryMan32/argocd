@@ -2,4 +2,4 @@
 [[roles]]
 name = "healthcheck"
 auth = "none"
-routes = ["GET /v1/openvpn/status", "GET /v1/dns/status"]
+routes = ["GET /v1/publicip/ip", "GET /v1/openvpn/status", "GET /v1/dns/status"]
