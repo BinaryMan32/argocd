@@ -42,6 +42,11 @@ spec:
             # Allow access to webui
             # - name: FIREWALL_INPUT_PORTS
             #  value: "8080"
+            - name: HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH
+              value: /config/auth.toml
+          volumeMounts:
+            - mountPath: /config
+              name: gluetun-config
       containers:
         - name: qbittorrent
           image: qbittorrent
@@ -68,3 +73,6 @@ spec:
         - name: downloads
           persistentVolumeClaim:
             claimName: qbittorrent-downloads
+        - name: gluetun-config
+          configMap:
+            name: qbittorrent-gluetun-config

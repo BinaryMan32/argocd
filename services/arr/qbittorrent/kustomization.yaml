@@ -19,6 +19,12 @@ images:
   - name: gluetun
     newName: qmcgaw/gluetun
     newTag: v3.40.0
+configMapGenerator:
+  - name: qbittorrent-gluetun-config
+    files:
+      - configmap/gluetun/auth.toml
+    options:
+      disableNameSuffixHash: true
 replacements:
 # avoid repeating the host name in the ingress tls config
 - source:

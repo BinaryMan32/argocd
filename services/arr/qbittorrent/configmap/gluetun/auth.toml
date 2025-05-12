@@ -1,0 +1,5 @@
+# https://github.com/qdm12/gluetun-wiki/blob/main/setup/advanced/control-server.md
+[[roles]]
+name = "healthcheck"
+auth = "none"
+routes = ["GET /v1/openvpn/status", "GET /v1/dns/status"]
