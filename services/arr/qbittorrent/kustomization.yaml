@@ -17,7 +17,7 @@ images:
     newName: linuxserver/qbittorrent
     newTag: 5.1.0
 replacements:
-# avoid repeating the host name in the ingress tls config 
+# avoid repeating the host name in the ingress tls config
 - source:
     kind: Ingress
     fieldPath: spec.rules.0.host
