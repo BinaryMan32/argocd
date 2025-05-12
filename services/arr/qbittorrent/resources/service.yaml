@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: qbittorrent
 spec:
+  selector:
+    app.kubernetes.io/instance: qbittorrent
+    app.kubernetes.io/name: qbittorrent
   type: ClusterIP
   ports:
     - name: webui

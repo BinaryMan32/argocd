@@ -6,7 +6,10 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector: {}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: qbittorrent
+      app.kubernetes.io/name: qbittorrent
   template:
     spec:
       enableServiceLinks: false
