@@ -2,7 +2,7 @@
 
 Deploys the `*arr` stack of services.
 I couldn't find helm charts for most of these components.
-This is based on the blog [Deploying a Kubernetes-Based Media Server][k8s-media].
+This is based on the blog [Deploying a Kubernetes-Based Media Server][k8s-media] as well as [catvec's funkyboy.zone media-server](https://github.com/catvec/funkyboy.zone/tree/f95c01b6d1f16dd937898d9f3753cf28f17353a3/kubernetes/base/media-server).
 It was easier to use `kustomize` instead of creating helm charts, since it's only for this deployment so the configuration doesn't need to be generalized.
 See the [kustomization file documentation][kustomization]
 
