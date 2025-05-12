@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: qbittorrent
 spec:
-  revisionHistoryLimit: 3
   replicas: 1
   strategy:
     type: Recreate
