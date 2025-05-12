@@ -52,6 +52,9 @@ spec:
             - name: HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH
               value: /config/auth.toml
           volumeMounts:
+            # if working, startup log should show: INFO [wireguard] Using available kernelspace implementation
+            - mountPath: "/dev/net/tun"
+              name: dev-net-tun
             - mountPath: /config
               name: gluetun-config
       containers:
@@ -83,3 +86,6 @@ spec:
         - name: gluetun-config
           configMap:
             name: qbittorrent-gluetun-config
+        - name: dev-net-tun
+          hostPath:
+            path: /dev/net/tun
