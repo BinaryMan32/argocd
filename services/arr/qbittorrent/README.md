@@ -1,4 +1,4 @@
-# QBitTorrent
+# QBittorrent
 
 See [dockerhub](https://hub.docker.com/r/linuxserver/qbittorrent)
 
