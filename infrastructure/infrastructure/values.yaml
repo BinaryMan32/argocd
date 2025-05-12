@@ -23,5 +23,5 @@ nfsOld:
   server: helios64
   path: /k8s/griffin
 nfs:
-  server: mercury
+  server: 192.168.8.9
   path: /mnt/mercury/griffin
