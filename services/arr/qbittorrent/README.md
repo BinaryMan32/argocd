@@ -18,3 +18,11 @@ To set the password:
 2. Go to **Tools** > **Options...**
 3. Click the **WebUI** tab
 4. Set password using password manager
+
+## Update Settings
+
+Documents other manual configuration in **Tools** > **Options...**
+
+- **WebUI**
+    - **Authentication**
+        - check **Bypass authentication for clients on localhost** (allows gluetun sidecar to set port forward)
