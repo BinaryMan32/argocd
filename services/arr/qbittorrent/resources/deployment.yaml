@@ -46,11 +46,21 @@ spec:
               value: United States
             - name: SERVER_CITIES
               value: Chicago
+            - name: PORT_FORWARD_ONLY
+              value: "on"
             # Allow access to webui
             # - name: FIREWALL_INPUT_PORTS
             #  value: "8080"
             - name: HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH
               value: /config/auth.toml
+            # https://github.com/qdm12/gluetun-wiki/blob/main/setup/options/port-forwarding.md
+            - name: VPN_PORT_FORWARDING
+              value: "on"
+            - name: VPN_PORT_FORWARDING_LISTENING_PORT
+              value: "6881"
+            # https://github.com/qdm12/gluetun-wiki/blob/main/setup/advanced/vpn-port-forwarding.md
+            - name: VPN_PORT_FORWARDING_UP_COMMAND
+              value: /bin/sh /config/update-qbittorrent-ports.sh "{{PORTS}}"
           volumeMounts:
             # from https://gitlab.breakglass.io/shared/talos/-/blob/6315448f47b46f8157caf3791518436b66a358d8/workloads/gluetun/deployment.yaml
             # if working, startup log should show: INFO [wireguard] Using available kernelspace implementation
@@ -72,6 +82,12 @@ spec:
             - name: webui
               protocol: TCP
               containerPort: 8080
+            - name: torrent
+              protocol: TCP
+              containerPort: 6881
+            - name: torrent
+              protocol: UDP
+              containerPort: 6881
           readinessProbe:
             httpGet:
               path: /
