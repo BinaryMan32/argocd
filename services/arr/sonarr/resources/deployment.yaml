@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: sonarr
+      app.kubernetes.io/name: sonarr
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: sonarr
+          image: sonarr
+          env:
+            - name: PUID
+              value: "2000"
+            - name: PGID
+              value: "2000"
+            - name: TZ
+              value: America/Chicago
+          ports:
+            - name: webui
+              protocol: TCP
+              containerPort: 8989
+          readinessProbe:
+            httpGet:
+              path: /
+              port: webui
+          volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /data
+            name: data
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: sonarr-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: sonarr-data
