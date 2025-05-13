@@ -9,6 +9,6 @@ spec:
     - ReadWriteOnce
   nfs:
     server: 192.168.8.9
-    path: /mnt/mercury/griffin/media/torrents
+    path: /mnt/mercury/media/torrents
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""
