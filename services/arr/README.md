@@ -23,6 +23,30 @@ Run `./create-protonvpn-sealed-secret.sh` to update ProtonVPN credentials in [se
 
 [sealed-secret-protonvpn-credentials.yaml]: ./resources/sealed-secret-protonvpn-credentials.yaml
 
+## Hard Links
+
+If you store torrents and media on the same volume, radarr and sonarr can use hard links when copying from `torrents/` to `media/`.
+
+The high-level directory structure:
+
+```text
+media/
+    torrents/
+        movies/
+        tv/
+    media/
+        movies/
+        tv/
+```
+
+what each component mounts:
+
+- qbittorrent `media/torrents/`
+- radarr/sonarr `media/`
+- jellyfin `media/media/`
+
+For more info, see the [servarr wiki](https://wiki.servarr.com/docker-guide#consistent-and-well-planned-paths).
+
 ## Linuxserver Tags
 
 Unfortunately, renovate expects container image tags to follow semver, and the linuxserver team doesn't use semver.

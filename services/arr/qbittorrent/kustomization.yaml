@@ -5,7 +5,8 @@ resources:
   - ./resources/ingress.yaml
   - ./resources/network-policy.yaml
   - ./resources/pvc-config.yaml
-  - ./resources/pvc-downloads.yaml
+  - ./resources/pvc-data.yaml
+  - ./resources/pv-data.yaml
   - ./resources/service.yaml
 labels:
   - includeTemplates: true

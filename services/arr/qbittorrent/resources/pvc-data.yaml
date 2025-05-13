@@ -1,11 +1,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: qbittorrent-downloads
+  name: qbittorrent-data
 spec:
   accessModes:
     - "ReadWriteOnce"
   resources:
     requests:
       storage: "400Gi"
-  storageClassName: mercury-nfs
+  volumeName: qbittorrent-data
+  storageClassName: ""
