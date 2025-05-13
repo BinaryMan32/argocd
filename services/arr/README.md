@@ -23,11 +23,6 @@ Run `./create-protonvpn-sealed-secret.sh` to update ProtonVPN credentials in [se
 
 [sealed-secret-protonvpn-credentials.yaml]: ./resources/sealed-secret-protonvpn-credentials.yaml
 
-GH
-regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)-ls(?<revision>\\d+)$
-regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-ls(?<build>.+)$"
-renovate
-
 ## Linuxserver Tags
 
 Unfortunately, renovate expects container image tags to follow semver, and the linuxserver team doesn't use semver.
