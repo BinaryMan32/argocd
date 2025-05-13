@@ -23,6 +23,7 @@ configMapGenerator:
   - name: qbittorrent-gluetun-config
     files:
       - configmap/gluetun/auth.toml
+      - configmap/gluetun/update-qbittorrent-ports.sh
     options:
       disableNameSuffixHash: true
 replacements:
