@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: radarr
+      app.kubernetes.io/name: radarr
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: radarr
+          image: radarr
+          env:
+            - name: PUID
+              value: "2000"
+            - name: PGID
+              value: "2000"
+            - name: TZ
+              value: America/Chicago
+          ports:
+            - name: webui
+              protocol: TCP
+              containerPort: 7878
+          readinessProbe:
+            httpGet:
+              path: /
+              port: webui
+          volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /data
+            name: data
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: radarr-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: radarr-data

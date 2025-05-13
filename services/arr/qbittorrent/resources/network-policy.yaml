@@ -35,7 +35,7 @@ spec:
               app.kubernetes.io/name: sonarr
       ports:
         - protocol: TCP
-          port: 8080
+          port: webui
   
   egress:
     # Responses to -arr services which use qBittorrent
@@ -50,7 +50,7 @@ spec:
               app.kubernetes.io/name: sonarr
       ports:
         - protocol: TCP
-          port: 8080
+          port: webui
 
     # ProtonVPN US Chicago servers
     # curl https://raw.githubusercontent.com/qdm12/gluetun/v3.40.0/internal/storage/servers.json | yq --yaml-output '.protonvpn.servers | map(select(.country == "United States" and .city == "Chicago" and .vpn == "wireguard" and .port_forward).ips[]) | sort | map({ipBlock: {cidr: (. + "/32")}}) | [{to: .}]'
