@@ -82,7 +82,7 @@ spec:
                   description: Torrent Downloader
                   namespace: arr
                   app: qbittorrent
-              - Radarr:
+              - Prowlarr:
                   icon: prowlarr.png
                   href: "https://prowlarr.{{ .Values.domain.intranet }}/"
                   description: Movie Manager
