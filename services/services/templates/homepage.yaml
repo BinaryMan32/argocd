@@ -85,7 +85,7 @@ spec:
               - Prowlarr:
                   icon: prowlarr.png
                   href: "https://prowlarr.{{ .Values.domain.intranet }}/"
-                  description: Movie Manager
+                  description: Indexing Manager
                   namespace: arr
                   app: prowlarr
               - Radarr:
@@ -100,6 +100,12 @@ spec:
                   description: TV Manager
                   namespace: arr
                   app: sonarr
+              - Jellyseerr:
+                  icon: jellyseerr.png
+                  href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
+                  description: Request Manager
+                  namespace: arr
+                  app: jellyseerr
             - Infrastructure:
               - Longhorn:
                   icon: longhorn.png

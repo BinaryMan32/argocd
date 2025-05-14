@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jellyseerr
+  namespace: argocd
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: ghcr.io/fallenbagel/jellyseerr
+    chart: jellyseerr-chart
+    targetRevision: 2.4.0
+    helm:
+      releaseName: jellyseer
+      valuesObject:
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: intranet-ca
+          hosts:
+            - host: jellyseerr.{{ .Values.domain.intranet }}
+              paths:
+                - path: /
+          tls:
+            - secretName: jellyseerr-tls
+              hosts:
+              - jellyseerr.{{ .Values.domain.intranet }}
+  destination:
+    namespace: arr
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
