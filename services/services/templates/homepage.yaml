@@ -105,7 +105,7 @@ spec:
                   href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
                   description: Request Manager
                   namespace: arr
-                  app: jellyseerr
+                  app: jellyseerr-chart
             - Infrastructure:
               - Longhorn:
                   icon: longhorn.png
