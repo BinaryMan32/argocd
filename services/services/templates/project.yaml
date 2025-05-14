@@ -16,6 +16,7 @@ spec:
   - https://kubernetes.github.io/dashboard
   - https://jameswynn.github.io/helm-charts/
   - https://pajikos.github.io/home-assistant-helm-chart/
+  - ghcr.io/fallenbagel/jellyseerr
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
