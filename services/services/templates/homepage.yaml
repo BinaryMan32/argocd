@@ -82,6 +82,18 @@ spec:
                   description: Torrent Downloader
                   namespace: arr
                   app: qbittorrent
+              - Radarr:
+                  icon: radarr.png
+                  href: "https://radarr.{{ .Values.domain.intranet }}/"
+                  description: Movie Manager
+                  namespace: arr
+                  app: radarr
+              - Sonarr:
+                  icon: sonarr.png
+                  href: "https://sonarr.{{ .Values.domain.intranet }}/"
+                  description: TV Manager
+                  namespace: arr
+                  app: sonarr
             - Infrastructure:
               - Longhorn:
                   icon: longhorn.png
