@@ -11,6 +11,7 @@ spec:
     targetRevision: 2.4.0
     helm:
       releaseName: jellyseer
+      # https://github.com/Fallenbagel/jellyseerr/tree/develop/charts/jellyseerr-chart
       valuesObject:
         ingress:
           enabled: true
