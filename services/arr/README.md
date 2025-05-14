@@ -12,9 +12,9 @@ See the [kustomization file documentation][kustomization]
 ## Components
 
 - [qbittorrent](./qbittorrent/) (w/ gluetun VPN client): torrent downloads
-- radarr: movies
-- sonarr: tv
-- prowlarr: torrent indexer manager
+- [prowlarr](./prowlarr): torrent indexer manager
+- [radarr](./radarr/): movies
+- [sonarr](./sonarr/): tv
 - jellyseerr: request management
 
 ## Secrets

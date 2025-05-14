@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: prowlarr
+      app.kubernetes.io/name: prowlarr
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: prowlarr
+          image: prowlarr
+          env:
+            - name: PUID
+              value: "2000"
+            - name: PGID
+              value: "2000"
+            - name: TZ
+              value: America/Chicago
+          ports:
+            - name: webui
+              protocol: TCP
+              containerPort: 9696
+          readinessProbe:
+            httpGet:
+              path: /
+              port: webui
+          volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /data
+            name: data
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: prowlarr-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: prowlarr-data

@@ -5,6 +5,7 @@ resources:
   - ./resources/namespace.yaml
   - ./resources/sealed-secret-protonvpn-credentials.yaml
   - ./qbittorrent
+  - ./prowlarr
   - ./radarr
   - ./sonarr
 buildMetadata: [managedByLabel]

@@ -83,6 +83,12 @@ spec:
                   namespace: arr
                   app: qbittorrent
               - Radarr:
+                  icon: prowlarr.png
+                  href: "https://prowlarr.{{ .Values.domain.intranet }}/"
+                  description: Movie Manager
+                  namespace: arr
+                  app: prowlarr
+              - Radarr:
                   icon: radarr.png
                   href: "https://radarr.{{ .Values.domain.intranet }}/"
                   description: Movie Manager
