@@ -36,12 +36,7 @@ spec:
           volumeMounts:
           - mountPath: /config
             name: config
-          - mountPath: /data
-            name: data
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: prowlarr-config
-        - name: data
-          persistentVolumeClaim:
-            claimName: prowlarr-data
