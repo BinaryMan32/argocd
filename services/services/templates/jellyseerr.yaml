@@ -10,11 +10,11 @@ spec:
     chart: jellyseerr-chart
     targetRevision: 2.4.0
     helm:
-      releaseName: jellyseer
+      releaseName: jellyseerr
       # https://github.com/Fallenbagel/jellyseerr/tree/develop/charts/jellyseerr-chart
       valuesObject:
         # needed since the chart name is jellyseerr-chart, prevents naming resources jellyseerr-jellyseerr-chart
-        fullnameOverride: jellyseer
+        fullnameOverride: jellyseerr
         ingress:
           enabled: true
           annotations:
