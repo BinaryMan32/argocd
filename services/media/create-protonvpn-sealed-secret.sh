@@ -8,7 +8,7 @@ echo "4. Click 'Create' button"
 read -e -p 'enter PrivateKey > ' wireguard_private_key
 kubectl create secret generic \
     --dry-run=client \
-    --namespace=arr \
+    --namespace=media \
     protonvpn-credentials \
     --from-literal=wireguard_private_key=$wireguard_private_key \
     --output=yaml |

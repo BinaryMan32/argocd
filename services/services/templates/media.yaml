@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: arr
+  name: media
   namespace: argocd
 spec:
-  project: {{ .Values.project.name }}
+  project: media
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
-    path: {{ .Values.project.path }}/arr
+    path: {{ .Values.project.path }}/media
   destination:
-    namespace: arr
+    namespace: media
     server: {{ .Values.destination.server }}
   syncPolicy:
     automated: {}

@@ -4,7 +4,7 @@ metadata:
   name: jellyseerr
   namespace: argocd
 spec:
-  project: {{ .Values.project.name }}
+  project: media
   source:
     repoURL: ghcr.io/fallenbagel/jellyseerr
     chart: jellyseerr-chart
@@ -29,7 +29,7 @@ spec:
               hosts:
               - jellyseerr.{{ .Values.domain.intranet }}
   destination:
-    namespace: arr
+    namespace: media
     server: {{ .Values.destination.server }}
   syncPolicy:
     automated: {}

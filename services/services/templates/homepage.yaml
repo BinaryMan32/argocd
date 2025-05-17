@@ -80,31 +80,31 @@ spec:
                   icon: qbittorrent.png
                   href: "https://qbittorrent.{{ .Values.domain.intranet }}/"
                   description: Torrent Downloader
-                  namespace: arr
+                  namespace: media
                   app: qbittorrent
               - Prowlarr:
                   icon: prowlarr.png
                   href: "https://prowlarr.{{ .Values.domain.intranet }}/"
                   description: Indexing Manager
-                  namespace: arr
+                  namespace: media
                   app: prowlarr
               - Radarr:
                   icon: radarr.png
                   href: "https://radarr.{{ .Values.domain.intranet }}/"
                   description: Movie Manager
-                  namespace: arr
+                  namespace: media
                   app: radarr
               - Sonarr:
                   icon: sonarr.png
                   href: "https://sonarr.{{ .Values.domain.intranet }}/"
                   description: TV Manager
-                  namespace: arr
+                  namespace: media
                   app: sonarr
               - Jellyseerr:
                   icon: jellyseerr.png
                   href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
                   description: Request Manager
-                  namespace: arr
+                  namespace: media
                   app: jellyseerr-chart
             - Infrastructure:
               - Longhorn:

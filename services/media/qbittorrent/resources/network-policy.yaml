@@ -23,7 +23,7 @@ spec:
               app.kubernetes.io/instance: ingress-nginx-intranet
               app.kubernetes.io/component: controller
 
-    # Requests from -arr services which use qBittorrent
+    # Requests from servarr services which use qBittorrent
     - from:
         - podSelector:
             matchLabels:
@@ -38,7 +38,7 @@ spec:
           port: webui
   
   egress:
-    # Responses to -arr services which use qBittorrent
+    # Responses to servarr services which use qBittorrent
     - to:
         - podSelector:
             matchLabels:
