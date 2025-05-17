@@ -3,5 +3,7 @@ kind: Kustomization
 namespace: media
 resources:
   - ./resources/namespace.yaml
+  - ./resources/jellyfin-pv-media.yaml
+  - ./resources/jellyfin-pvc-media.yaml
   - ./resources/sealed-secret-protonvpn-credentials.yaml
 buildMetadata: [managedByLabel]
