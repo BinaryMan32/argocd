@@ -30,3 +30,4 @@ replacements:
         - spec.tls.0.hosts.0
       options:
         create: true
+buildMetadata: [managedByLabel]
