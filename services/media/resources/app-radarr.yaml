@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: radarr
+  namespace: argocd
+spec:
+  project: media
+  source:
+    repoURL: https://github.com/BinaryMan32/argocd.git
+    targetRevision: main
+    path: services/media/radarr
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}
