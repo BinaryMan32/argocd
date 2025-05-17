@@ -82,10 +82,10 @@ spec:
             - name: webui
               protocol: TCP
               containerPort: 8080
-            - name: torrent
+            - name: torrent-tcp
               protocol: TCP
               containerPort: 6881
-            - name: torrent
+            - name: torrent-udp
               protocol: UDP
               containerPort: 6881
           readinessProbe:
