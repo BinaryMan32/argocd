@@ -10,6 +10,7 @@ spec:
   description: manage and view media files
   sourceRepos:
   - {{ .Values.source.repoURL }}
+  - https://jellyfin.github.io/jellyfin-helm
   - ghcr.io/fallenbagel/jellyseerr
   destinations:
   - namespace: media

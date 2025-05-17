@@ -76,6 +76,18 @@ spec:
                   namespace: home-assistant
                   app: home-assistant
             - Media:
+              - Jellyfin:
+                  icon: jellyfin.png
+                  href: "https://jellyfin.{{ .Values.domain.intranet }}/"
+                  description: Media Server
+                  namespace: media
+                  app: jellyfin
+              - Jellyseerr:
+                  icon: jellyseerr.png
+                  href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
+                  description: Request Manager
+                  namespace: media
+                  app: jellyseerr-chart
               - QBittorrent:
                   icon: qbittorrent.png
                   href: "https://qbittorrent.{{ .Values.domain.intranet }}/"
@@ -100,12 +112,6 @@ spec:
                   description: TV Manager
                   namespace: media
                   app: sonarr
-              - Jellyseerr:
-                  icon: jellyseerr.png
-                  href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
-                  description: Request Manager
-                  namespace: media
-                  app: jellyseerr-chart
             - Infrastructure:
               - Longhorn:
                   icon: longhorn.png
