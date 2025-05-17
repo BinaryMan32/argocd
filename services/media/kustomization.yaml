@@ -4,4 +4,8 @@ namespace: media
 resources:
   - ./resources/namespace.yaml
   - ./resources/sealed-secret-protonvpn-credentials.yaml
+  - ./resources/app-prowlarr.yaml
+  - ./resources/app-qbittorrent.yaml
+  - ./resources/app-radarr.yaml
+  - ./resources/app-sonarr.yaml
 buildMetadata: [managedByLabel]
