@@ -15,6 +15,9 @@ spec:
       valuesObject:
         # needed since the chart name is jellyseerr-chart, prevents naming resources jellyseerr-jellyseerr-chart
         fullnameOverride: jellyseerr
+        config:
+          persistence:
+            storageClass: longhorn
         ingress:
           enabled: true
           annotations:
