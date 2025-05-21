@@ -6,4 +6,5 @@ resources:
   - ./resources/jellyfin-pv-media.yaml
   - ./resources/jellyfin-pvc-media.yaml
   - ./resources/sealed-secret-protonvpn-credentials.yaml
+  - ./resources/sealed-secret-spotify-navidrome.yaml
 buildMetadata: [managedByLabel]

@@ -19,9 +19,13 @@ See the [kustomization file documentation][kustomization]
 
 ## Secrets
 
-Run `./create-protonvpn-sealed-secret.sh` to update ProtonVPN credentials in [sealed-secret-protonvpn-credentials.yaml][].
+Run scripts to generate `SealedSecret` resources:
+
+- `./create-protonvpn-sealed-secret.sh` to update [sealed-secret-protonvpn-credentials.yaml][].
+- `./create-spotfy-navidrome-sealed-secret.sh` to update [sealed-secret-spotify-navidrome.yaml][].
 
 [sealed-secret-protonvpn-credentials.yaml]: ./resources/sealed-secret-protonvpn-credentials.yaml
+[sealed-secret-spotify-navidrome.yaml]: ./resources/sealed-secret-spotify-navidrome.yaml
 
 ## Hard Links
 
