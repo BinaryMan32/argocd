@@ -1,0 +1,6 @@
+# https://www.navidrome.org/docs/usage/configuration-options/#advanced-configuration
+
+# https://www.navidrome.org/docs/usage/backup/
+[Backup]
+Count = 7
+Schedule =  "0 0 * * *"

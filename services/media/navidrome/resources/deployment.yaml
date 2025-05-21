@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: navidrome
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: navidrome
+      app.kubernetes.io/name: navidrome
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: navidrome
+          image: navidrome
+          env:
+            - name: ND_BACKUP_PATH
+              value: /backup
+            - name: ND_CACHEFOLDER
+              value: /cache
+            - name: ND_CONFIGFILE
+              value: /config/navidrome.toml
+            - name: ND_DATAFOLDER
+              value: /data
+            - name: ND_MUSICFOLDER
+              value: /music
+            - name: ND_PORT
+              value: "4533"
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 4533
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+          - mountPath: /backup
+            name: backup
+          - mountPath: /cache
+            name: cache
+          - mountPath: /config
+            name: config
+          - mountPath: /data
+            name: data
+          - mountPath: /music
+            name: music
+            readOnly: true
+      volumes:
+        - name: backup
+          persistentVolumeClaim:
+            claimName: navidrome-backup
+        - name: cache
+          emptyDir:
+            sizeLimit: 4Gi
+        - name: config
+          configMap:
+            name: navidrome-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: navidrome-data
+        - name: music
+          persistentVolumeClaim:
+            claimName: navidrome-music
