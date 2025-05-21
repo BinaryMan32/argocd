@@ -30,6 +30,7 @@
       "description": "linuxserver docker tags similar to 1.35.1.5034-ls117",
       "matchDatasources": ["docker"],
       "matchPackageNames": [
+        "linuxserver/lidarr",
         "linuxserver/prowlarr",
         "linuxserver/radarr",
         "linuxserver/sonarr"

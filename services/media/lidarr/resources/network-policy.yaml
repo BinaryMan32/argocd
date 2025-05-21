@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lidarr-access
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: lidarr
+      app.kubernetes.io/name: lidarr
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Requests from ingress controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx-intranet
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/part-of: ingress-nginx
+              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/instance: ingress-nginx-intranet
+              app.kubernetes.io/component: controller
+      ports:
+        - protocol: TCP
+          port: webui
+  
+  egress:
+    # Allow internet only
+    - to:
+      - ipBlock:
+          cidr: 0.0.0.0/0
+          except:
+          - 10.0.0.0/8
+          - 192.168.0.0/16
+          - 172.16.0.0/20
+    # Services controlled by lidarr
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: qbittorrent
+              app.kubernetes.io/name: qbittorrent
+      ports:
+        - protocol: TCP
+          port: webui
