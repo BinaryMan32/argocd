@@ -27,7 +27,7 @@ spec:
           port: http
   
   egress:
-    # Allow internet only
+    # Allow internet only for spotify web api
     - to:
       - ipBlock:
           cidr: 0.0.0.0/0
@@ -37,4 +37,4 @@ spec:
           - 172.16.0.0/20
       ports:
         - protocol: TCP
-          port: http
+          port: 443
