@@ -9,6 +9,6 @@ spec:
     - ReadWriteOnce
   nfs:
     server: 192.168.8.9
-    path: /mnt/mercury/media/music
+    path: /mnt/mercury/media/media/music
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""
