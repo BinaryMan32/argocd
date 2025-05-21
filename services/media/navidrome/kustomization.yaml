@@ -4,9 +4,10 @@ resources:
   - ./resources/deployment.yaml
   - ./resources/ingress.yaml
   - ./resources/network-policy.yaml
-  - ./resources/pvc-config.yaml
+  - ./resources/pv-music.yaml
+  - ./resources/pvc-backup.yaml
   - ./resources/pvc-data.yaml
-  - ./resources/pv-data.yaml
+  - ./resources/pvc-music.yaml
   - ./resources/service.yaml
 labels:
   - includeTemplates: true
