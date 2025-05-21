@@ -31,11 +31,11 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name=kube-system
+              kubernetes.io/metadata.name: kube-system
           podSelector:
             matchLabels:
-              app.kubernetes.io/instance=coredns
-              app.kubernetes.io/name=coredns
+              app.kubernetes.io/instance: coredns
+              app.kubernetes.io/name: coredns
       ports:
         - protocol: UDP
           port: 53
