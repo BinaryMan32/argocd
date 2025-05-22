@@ -3,15 +3,15 @@ kind: Ingress
 metadata:
   name: navidrome
   annotations:
-    cert-manager.io/cluster-issuer: intranet-ca
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClassName: nginx
+  ingressClassName: public
   tls:
     - hosts:
         - "from rules"
       secretName: "navidrome-tls"
   rules:
-    - host: "navidrome.int.fivebytestudios.com"
+    - host: "navidrome.wildfreddy.fivebytestudios.com"
       http:
         paths:
           - path: "/"

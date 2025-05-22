@@ -79,7 +79,7 @@ spec:
               - External:
                 - Navidrome:
                     icon: navidrome.png
-                    href: "https://navidrome.{{ .Values.domain.intranet }}/"
+                    href: "https://navidrome.{{ .Values.domain.external }}/"
                     description: Music Player
                     namespace: media
                     app: navidrome
