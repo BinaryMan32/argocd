@@ -16,7 +16,7 @@ labels:
 images:
   - name: qbittorrent
     newName: linuxserver/qbittorrent
-    newTag: 5.1.0-r0-ls394
+    newTag: 5.1.0-r0-ls395
   - name: gluetun
     newName: qmcgaw/gluetun
     newTag: v3.40.0
