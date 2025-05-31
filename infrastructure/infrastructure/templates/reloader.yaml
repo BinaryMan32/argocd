@@ -17,6 +17,9 @@ spec:
         reloader:
           podMonitor:
             enabled: true
+            # Adds a reloader.stakater.com/last-reloaded-from annotation to the pod template metadata.
+            # Ideal for GitOps tools like ArgoCD, as it avoids triggering unwanted sync diffs.
+          reloadStrategy: annotations
   destination:
     namespace: kube-system
     server: {{ .Values.destination.server }}
