@@ -9,7 +9,7 @@ spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: https://github.com/longhorn/longhorn
-    targetRevision: v1.8.1
+    targetRevision: v1.9.0
     path: chart
     helm:
       # https://github.com/longhorn/longhorn/blob/master/chart/values.yaml
