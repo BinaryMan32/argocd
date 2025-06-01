@@ -45,7 +45,7 @@ spec:
           port: 53
         - protocol: TCP
           port: 53
-    # Services controlled by lidarr
+    # Allow VPN http proxy
     - to:
         - podSelector:
             matchLabels:
@@ -53,11 +53,13 @@ spec:
               app.kubernetes.io/name: qbittorrent
       ports:
         - protocol: TCP
-          port: webui
-        - protocol: TCP
           port: http-proxy
-    # Callbacks to prowlarr
+    # Services controlled by lidarr
     - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: qbittorrent
+              app.kubernetes.io/name: qbittorrent
         - podSelector:
             matchLabels:
               app.kubernetes.io/instance: prowlarr
