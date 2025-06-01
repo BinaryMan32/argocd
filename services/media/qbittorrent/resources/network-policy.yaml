@@ -25,7 +25,7 @@ spec:
       ports:
         - protocol: TCP
           port: webui
-    # Requests from servarr services which use qBittorrent and http-proxy
+    # Requests from servarr services which use qBittorrent
     - from:
         - podSelector:
             matchLabels:
@@ -42,14 +42,24 @@ spec:
       ports:
         - protocol: TCP
           port: webui
-        - protocol: TCP
-          port: http-proxy
-    # Requests from servarr services which use only http-proxy
+    # Requests from services using http-proxy
     - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: lidarr
+              app.kubernetes.io/name: lidarr
         - podSelector:
             matchLabels:
               app.kubernetes.io/instance: prowlarr
               app.kubernetes.io/name: prowlarr
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: radarr
+              app.kubernetes.io/name: radarr
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: sonarr
+              app.kubernetes.io/name: sonarr
       ports:
         - protocol: TCP
           port: http-proxy
