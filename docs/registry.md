@@ -17,18 +17,37 @@ openssl rand -hex 32
 See the [distribution configuration docs](https://distribution.github.io/distribution/about/configuration/) for details.
 Also the [distribution mirror recipe](https://distribution.github.io/distribution/recipes/mirror/).
 
-### Docker Hub Access Token
+### Credentials
+
+Use one of the following for each instance.
+Check [registries.yaml](./registries.yaml) for the port number to use.
+
+#### Docker Hub
 
 Generate a new [access token](https://app.docker.com/settings/personal-access-tokens) with
 
-- Access token description: mercury
-- Expires on: Never
-- Access permissions: Public Repo Read-only
+- Access token description: `mercury`
+- Expires on: `Never`
+- Access permissions: `Public Repo Read-only`
 
 Configure the TrueNAS distribution app by setting the environment variables:
 
 - `REGISTRY_PROXY_REMOTEURL`: `https://registry-1.docker.io`
 - `REGISTRY_PROXY_USERNAME`: (from access token)
+- `REGISTRY_PROXY_PASSWORD`: (from access token)
+
+#### GitHub
+
+Generate a new [classic personal access token](https://github.com/settings/tokens) with
+
+- Note: `mercury container registry`
+- Expiration: `No Expiration`
+- Select scopes: `read:packages`
+
+Configure the TrueNAS distribution app by setting the environment variables:
+
+- `REGISTRY_PROXY_REMOTEURL`: `https://ghcr.io`
+- `REGISTRY_PROXY_USERNAME`: `BinaryMan32`
 - `REGISTRY_PROXY_PASSWORD`: (from access token)
 
 ### Allow Image Deletion

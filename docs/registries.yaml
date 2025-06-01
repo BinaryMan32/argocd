@@ -2,3 +2,6 @@ mirrors:
   docker.io:
     endpoint:
       - "http://192.168.8.9:30095"
+  ghcr.io:
+    endpoint:
+      - "http://192.168.8.9:30096"
