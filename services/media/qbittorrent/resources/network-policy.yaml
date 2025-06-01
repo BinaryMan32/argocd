@@ -22,6 +22,9 @@ spec:
               app.kubernetes.io/name: ingress-nginx
               app.kubernetes.io/instance: ingress-nginx-intranet
               app.kubernetes.io/component: controller
+      ports:
+        - protocol: TCP
+          port: webui
     # Requests from servarr services which use qBittorrent and http-proxy
     - from:
         - podSelector:
