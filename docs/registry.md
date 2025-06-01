@@ -1,12 +1,16 @@
 # Container Registry Pull Through Cache
 
-Use a container registry pull through cache for docker hub.
+Use a container registry pull through cache for each public container registry.
 This pulls the image only once, instead of once per node.
-It's also easier to configure a docker hub personal access token once in the cache instead of on each k3s node.
+It's also easier to configure credentials once in the proxy/cache instead of on each k3s node.
 
 ## Mirror on TrueNAS
 
 Install the `distribution` application.
+Use a name such as:
+
+- `distribution-dockerhub`
+- `distribution-ghcr`
 
 `http.secret` is required and can be generated using:
 
