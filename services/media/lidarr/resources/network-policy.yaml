@@ -11,8 +11,12 @@ spec:
     - Ingress
     - Egress
   ingress:
-    # Requests from ingress controller
     - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: prowlarr
+              app.kubernetes.io/name: prowlarr
+        # Requests from ingress controller
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: ingress-nginx-intranet
@@ -52,3 +56,12 @@ spec:
           port: webui
         - protocol: TCP
           port: http-proxy
+    # Callbacks to prowlarr
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: prowlarr
+              app.kubernetes.io/name: prowlarr
+      ports:
+        - protocol: TCP
+          port: webui

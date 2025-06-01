@@ -11,8 +11,12 @@ spec:
     - Ingress
     - Egress
   ingress:
-    # Requests from ingress controller
     - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: prowlarr
+              app.kubernetes.io/name: prowlarr
+        # Requests from ingress controller
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: ingress-nginx-intranet
@@ -41,20 +45,23 @@ spec:
           port: 53
         - protocol: TCP
           port: 53
-    # Allow internet only
-    - to:
-      - ipBlock:
-          cidr: 0.0.0.0/0
-          except:
-          - 10.0.0.0/8
-          - 192.168.0.0/16
-          - 172.16.0.0/20
     # Services controlled by radarr
     - to:
         - podSelector:
             matchLabels:
               app.kubernetes.io/instance: qbittorrent
               app.kubernetes.io/name: qbittorrent
+      ports:
+        - protocol: TCP
+          port: webui
+        - protocol: TCP
+          port: http-proxy
+    # Callbacks to prowlarr
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: prowlarr
+              app.kubernetes.io/name: prowlarr
       ports:
         - protocol: TCP
           port: webui
