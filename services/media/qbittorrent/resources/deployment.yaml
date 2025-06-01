@@ -69,7 +69,7 @@ spec:
             - name: HTTPPROXY_LOG
               value: "on"
             - name: HTTPPROXY_LISTENING_ADDRESS
-              value: ":8888"
+              value: "0.0.0.0:8888"
           volumeMounts:
             # from https://gitlab.breakglass.io/shared/talos/-/blob/6315448f47b46f8157caf3791518436b66a358d8/workloads/gluetun/deployment.yaml
             # if working, startup log should show: INFO [wireguard] Using available kernelspace implementation
