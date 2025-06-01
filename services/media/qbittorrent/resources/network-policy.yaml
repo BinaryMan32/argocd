@@ -44,20 +44,6 @@ spec:
           port: http-proxy
   
   egress:
-    # Responses to servarr services which use qBittorrent
-    - to:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: radarr
-              app.kubernetes.io/name: radarr
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: sonarr
-              app.kubernetes.io/name: sonarr
-      ports:
-        - protocol: TCP
-          port: webui
-
     # ProtonVPN US Chicago servers
     # curl https://raw.githubusercontent.com/qdm12/gluetun/v3.40.0/internal/storage/servers.json | yq --yaml-output '.protonvpn.servers | map(select(.country == "United States" and .city == "Chicago" and .vpn == "wireguard" and .port_forward).ips[]) | sort | map({ipBlock: {cidr: (. + "/32")}}) | [{to: .}]'
     - to:
