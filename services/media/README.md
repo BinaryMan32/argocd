@@ -9,15 +9,9 @@ See the [kustomization file documentation][kustomization]
 [k8s-media]: https://merox.dev/blog/kubernetes-media-server/
 [kustomization]: https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/
 
-## Components
+## Setup
 
-- [qbittorrent](./qbittorrent/) (w/ gluetun VPN client): torrent downloads
-- [prowlarr](./prowlarr): torrent indexer manager
-- [radarr](./radarr/): movies
-- [sonarr](./sonarr/): tv
-- jellyseerr: request management
-
-## Secrets
+### Secrets
 
 Run scripts to generate `SealedSecret` resources:
 
@@ -27,7 +21,39 @@ Run scripts to generate `SealedSecret` resources:
 [sealed-secret-protonvpn-credentials.yaml]: ./resources/sealed-secret-protonvpn-credentials.yaml
 [sealed-secret-spotify-navidrome.yaml]: ./resources/sealed-secret-spotify-navidrome.yaml
 
-## Hard Links
+### Common
+
+Some settings are common to all of lidarr, prowlarr, radarr, and sonarr.
+
+Under `General`:
+
+1. enable `Use Proxy`
+2. Hostname `vpn-http-proxy.media.svc.cluster.local`
+3. Port `8080`
+4. Username (leave blank)
+5. Password (leave blank)
+6. Ignored addresses `*.media.svc.cluster.local`
+
+Under `Download Clients`
+
+1. click `+` to add a client
+2. pick `qBittorrent`
+3. Host `qbittorrent.media.svc.cluster.local`
+4. Port `80`
+5. Username (from bitwarden qbittorrent)
+6. Password (from bitwarden qbittorrent)
+
+### Components
+
+- [qbittorrent](./qbittorrent/) (w/ gluetun VPN client): torrent downloads
+- [prowlarr](./prowlarr): torrent indexer manager
+- [radarr](./radarr/): movies
+- [sonarr](./sonarr/): tv
+- [jellyseerr](../services/templates/jellyseerr.yaml): request management
+
+## Implementation Details
+
+### Hard Links
 
 If you store torrents and media on the same volume, radarr and sonarr can use hard links when copying from `torrents/` to `media/`.
 
@@ -51,7 +77,7 @@ what each component mounts:
 
 For more info, see the [servarr wiki](https://wiki.servarr.com/docker-guide#consistent-and-well-planned-paths).
 
-## Linuxserver Tags
+### Linuxserver Tags
 
 Unfortunately, renovate expects container image tags to follow semver, and the linuxserver team doesn't use semver.
 
