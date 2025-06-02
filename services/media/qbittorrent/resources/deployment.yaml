@@ -106,6 +106,14 @@ spec:
             name: config
           - mountPath: /data/torrents
             name: torrents
+      # gluetun runs its own dns server and updates /etc/resolv.conf to use 127.0.0.1
+      # k8s uses dnsPolicy "ClusterFirst" by default which adds search paths for cluster services, etc.
+      # These don't make sense because the gluetun dns can't resolve cluster names.
+      # https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 127.0.0.1
       volumes:
         - name: config
           persistentVolumeClaim:
