@@ -1,12 +1,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: qbittorrent-data
+  name: qbittorrent-torrents
 spec:
   accessModes:
     - "ReadWriteOnce"
   resources:
     requests:
       storage: "400Gi"
-  volumeName: qbittorrent-data
+  volumeName: qbittorrent-torrents
   storageClassName: ""

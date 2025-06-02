@@ -5,8 +5,8 @@ resources:
   - ./resources/ingress.yaml
   - ./resources/network-policy.yaml
   - ./resources/pvc-config.yaml
-  - ./resources/pvc-data.yaml
-  - ./resources/pv-data.yaml
+  - ./resources/pvc-torrents.yaml
+  - ./resources/pv-torrents.yaml
   - ./resources/service.yaml
   - ./resources/service-vpn-http-proxy.yaml
 labels:

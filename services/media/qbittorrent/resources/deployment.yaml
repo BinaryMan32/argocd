@@ -104,15 +104,15 @@ spec:
           volumeMounts:
           - mountPath: /config
             name: config
-          - mountPath: /downloads
-            name: downloads
+          - mountPath: /data/torrents
+            name: torrents
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: qbittorrent-config
-        - name: downloads
+        - name: torrents
           persistentVolumeClaim:
-            claimName: qbittorrent-data
+            claimName: qbittorrent-torrents
         - name: gluetun-config
           configMap:
             name: qbittorrent-gluetun-config
