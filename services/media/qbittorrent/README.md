@@ -25,7 +25,9 @@ Documents other manual configuration in **Tools** > **Options...**
 
 - **Downloads**
     - **Saving Management**
-        - Default Save Path: `/data/torrents`
+        - Default Torrent Management Mode: `Manual`
+        - Default Save Path: `/data/torrents/complete`
+        - Keep incomplete torrents in: `On` - `/data/torrents/incomplete`
 - **WebUI**
     - **Authentication**
         - check **Bypass authentication for clients on localhost** (allows gluetun sidecar to set port forward)
