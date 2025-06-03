@@ -18,6 +18,7 @@ spec:
           media:
             existingClaim: jellyfin-media
         service:
+          type: LoadBalancer
           port: 80
         ingress:
           enabled: true
