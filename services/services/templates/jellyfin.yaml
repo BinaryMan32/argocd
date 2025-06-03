@@ -17,6 +17,8 @@ spec:
             storageClass: longhorn
           media:
             existingClaim: jellyfin-media
+        service:
+          port: 80
         ingress:
           enabled: true
           annotations:
