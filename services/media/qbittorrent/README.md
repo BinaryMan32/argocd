@@ -28,6 +28,11 @@ Documents other manual configuration in **Tools** > **Options...**
         - Default Torrent Management Mode: `Manual`
         - Default Save Path: `/data/torrents/complete`
         - Keep incomplete torrents in: `On` - `/data/torrents/incomplete`
+- **BitTorrent**
+    - **Seeding Limits**
+        - When ratio reaches `1.25`
+        - When total seeding time reaches `2880` minutes
+        - When inactive seeding time reaches `1440` minutes
 - **WebUI**
     - **Authentication**
         - check **Bypass authentication for clients on localhost** (allows gluetun sidecar to set port forward)

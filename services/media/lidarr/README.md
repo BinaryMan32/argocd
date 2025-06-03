@@ -4,7 +4,9 @@ See [dockerhub](https://hub.docker.com/r/linuxserver/lidarr)
 
 ## Setup
 
-Under `General`:
+Under **General**, enable **Show Advanced** and set:
 
-1. Host
-    1. Application URL `https://lidarr.int.fivebytestudios.com`
+- **Host**
+    - **Application URL** `https://lidarr.int.fivebytestudios.com`
+
+Under **Media Management**, add root folder `/data/media/music`
