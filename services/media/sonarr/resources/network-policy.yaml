@@ -58,7 +58,7 @@ spec:
       ports:
         - protocol: TCP
           port: http-proxy
-    # Services controlled by lidarr
+    # Services controlled by sonarr
     - to:
         - podSelector:
             matchLabels:
