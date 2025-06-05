@@ -20,7 +20,6 @@ Under `Apps`:
 1. click `+` to add app
 2. Prowlarr Server `http://prowlarr.media.svc.cluster.local`
 3. `*arr` Server
-    - `http://lidarr.media.svc.cluster.local`
     - `http://radarr.media.svc.cluster.local`
     - `http://sonarr.media.svc.cluster.local`
 

@@ -29,10 +29,6 @@ spec:
     - from:
         - podSelector:
             matchLabels:
-              app.kubernetes.io/instance: lidarr
-              app.kubernetes.io/name: lidarr
-        - podSelector:
-            matchLabels:
               app.kubernetes.io/instance: radarr
               app.kubernetes.io/name: radarr
         - podSelector:
@@ -44,10 +40,6 @@ spec:
           port: webui
     # Requests from services using http-proxy
     - from:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: lidarr
-              app.kubernetes.io/name: lidarr
         - podSelector:
             matchLabels:
               app.kubernetes.io/instance: prowlarr

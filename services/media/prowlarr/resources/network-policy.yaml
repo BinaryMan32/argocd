@@ -14,10 +14,6 @@ spec:
     - from:
         - podSelector:
             matchLabels:
-              app.kubernetes.io/instance: lidarr
-              app.kubernetes.io/name: lidarr
-        - podSelector:
-            matchLabels:
               app.kubernetes.io/instance: radarr
               app.kubernetes.io/name: radarr
         - podSelector:
@@ -64,10 +60,6 @@ spec:
           port: http-proxy
     # Services controlled by prowlarr
     - to:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: lidarr
-              app.kubernetes.io/name: lidarr
         - podSelector:
             matchLabels:
               app.kubernetes.io/instance: radarr

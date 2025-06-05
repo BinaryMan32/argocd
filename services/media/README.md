@@ -23,7 +23,7 @@ Run scripts to generate `SealedSecret` resources:
 
 ### Common
 
-Some settings are common to all of lidarr, prowlarr, radarr, and sonarr.
+Some settings are common to prowlarr, radarr, and sonarr.
 
 Under `General`:
 
