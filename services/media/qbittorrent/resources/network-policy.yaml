@@ -59,6 +59,8 @@ spec:
   egress:
     # ProtonVPN US Chicago servers
     # curl https://raw.githubusercontent.com/qdm12/gluetun/v3.40.0/internal/storage/servers.json | yq --yaml-output '.protonvpn.servers | map(select(.country == "United States" and .city == "Chicago" and .vpn == "wireguard" and .port_forward).ips[]) | sort | map({ipBlock: {cidr: (. + "/32")}}) | [{to: .}]'
+    # Get US server counts by city:
+    # curl https://raw.githubusercontent.com/qdm12/gluetun/v3.40.0/internal/storage/servers.json | yq --raw-output '.protonvpn.servers | map(select(.country == "United States" and .vpn == "wireguard" and .port_forward)) | group_by(.city)[] | [length, .[0].city] | @csv'
     - to:
         - ipBlock:
             cidr: 154.47.25.129/32
