@@ -23,7 +23,7 @@ spec:
             - host: headlamp.{{ .Values.domain.intranet }}
               paths:
                 - path: /
-                  pathType: Prefix
+                  type: ImplementationSpecific
           tls:
             - secretName: headlamp-tls
               hosts:
