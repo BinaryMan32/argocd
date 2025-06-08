@@ -146,6 +146,12 @@ spec:
                       argocd-repo-server,
                       argocd-dex-server
                     )
+              - Headlamp:
+                  icon: headlamp.png
+                  href: "https://headlamp.{{ .Values.domain.intranet }}/"
+                  description: Kubernetes cluster analysis and management
+                  namespace: headlamp
+                  app: headlamp
               - MinIO Console:
                   icon: minio-light.png
                   href: "https://console.minio.{{ .Values.domain.intranet }}/"
