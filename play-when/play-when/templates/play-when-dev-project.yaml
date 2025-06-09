@@ -29,4 +29,4 @@ spec:
   - name: logs
     description: View logs
     policies:
-    - p, proj:play-when-dev:logs, logs, get, play-when-dev/play-when-dev/*, allow
+    - p, proj:play-when-dev:logs, logs, get, play-when-dev/*, allow
