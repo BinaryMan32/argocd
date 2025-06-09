@@ -19,3 +19,11 @@ spec:
   destinations:
   - namespace: play-when-dev
     server: {{ .Values.destination.server }}
+  roles:
+  - name: read-only
+    description: Read-only access
+    policies:
+    - p, proj:play-when-dev:read-only, applications, get, play-when-dev/play-when-dev/*, allow
+    - p, proj:play-when-dev:read-only, applications, sync, play-when-dev/play-when-dev/*, allow
+    - p, proj:play-when-dev:read-only, applicationsets, get, play-when-dev/play-when-dev/*, allow
+    - p, proj:play-when-dev:read-only, logs, get, play-when-dev/play-when-dev/*, allow
