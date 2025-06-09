@@ -19,6 +19,9 @@ spec:
           # https://github.com/kubernetes-sigs/headlamp/issues/3439#issuecomment-2954604955
           - name: HEADLAMP_CONFIG_TRACING_ENABLED
             value: "false"
+        oidc:
+          secret:
+            create: false
         ingress:
           enabled: true
           annotations:
