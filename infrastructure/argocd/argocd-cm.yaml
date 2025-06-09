@@ -3,5 +3,9 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
+  # Local user passwords are generated with argocd cli
+  # See https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#manage-users
+  accounts.fettinge: apiKey, login
+  accounts.gabe: apiKey, login
   repositories: ""
   repository.credentials: ""
