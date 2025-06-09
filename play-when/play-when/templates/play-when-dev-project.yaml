@@ -26,4 +26,7 @@ spec:
     - p, proj:play-when-dev:read-only, applications, get, play-when-dev/play-when-dev/*, allow
     - p, proj:play-when-dev:read-only, applications, sync, play-when-dev/play-when-dev/*, allow
     - p, proj:play-when-dev:read-only, applicationsets, get, play-when-dev/play-when-dev/*, allow
-    - p, proj:play-when-dev:read-only, logs, get, play-when-dev/play-when-dev/*, allow
+  - name: logs
+    description: View logs
+    policies:
+    - p, proj:play-when-dev:logs, logs, get, play-when-dev/play-when-dev/*, allow

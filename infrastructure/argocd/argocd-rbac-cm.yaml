@@ -5,3 +5,4 @@ metadata:
 data:
   policy.csv: |
     g, gabe, proj:play-when-dev:read-only
+    g, gabe, proj:play-when-dev:logs
