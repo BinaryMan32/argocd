@@ -16,6 +16,13 @@ spec:
         - values.yaml
       # https://github.com/authelia/chartrepo/tree/master/charts/authelia
       valuesObject:
+        ingress:
+          enabled: true
+        configMap:
+          session:
+            cookies:
+              - domain: {{ .Values.domain.intranet }}
+                subdomain: auth
   destination:
     namespace: authelia
     server: {{ .Values.destination.server }}
