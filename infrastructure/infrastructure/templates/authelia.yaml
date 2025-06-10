@@ -14,6 +14,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+      # https://github.com/authelia/chartrepo/tree/master/charts/authelia
       valuesObject:
   destination:
     namespace: authelia
