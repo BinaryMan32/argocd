@@ -19,6 +19,9 @@ spec:
         authelia:
           ingress:
             enabled: true
+            className: nginx
+            tls:
+              enabled: true
             annotations:
               cert-manager.io/cluster-issuer: intranet-ca
           configMap:
