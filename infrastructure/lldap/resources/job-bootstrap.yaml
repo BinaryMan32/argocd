@@ -20,6 +20,7 @@ spec:
       containers:
         - name: lldap-bootstrap
           image: lldap
+          # https://github.com/lldap/lldap/blob/main/scripts/bootstrap.sh
           command: [ /app/bootstrap.sh ]
           securityContext:
             allowPrivilegeEscalation: false
@@ -31,6 +32,10 @@ spec:
               value: http://lldap:80
             - name: DO_CLEANUP
               value: "true"
+            - name: GROUP_CONFIGS_DIR
+              value: /bootstrap/group-configs
+            - name: USER_CONFIGS_DIR
+              value: /bootstrap/user-configs
             - name: LLDAP_ADMIN_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -44,17 +49,24 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
-            - name: config-bootstrap
-              mountPath: /bootstrap/
+            - name: bootstrap-groups
+              mountPath: /bootstrap/group-configs
+              readOnly: true
+            - name: bootstrap-users
+              mountPath: /bootstrap/user-configs
               readOnly: true
       volumes:
         - name: tmp
           emptyDir: {}
-        - name: config-bootstrap
+        - name: bootstrap-groups
           configMap:
             name: bootstrap
             items:
               - key: groups.json
                 path: groups.json
+        - name: bootstrap-users
+          configMap:
+            name: bootstrap
+            items:
               - key: users.json
                 path: users.json
