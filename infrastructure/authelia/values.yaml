@@ -18,4 +18,4 @@ authelia:
     additionalSecrets:
       authelia-db-app:
         items:
-          key: password
+          - key: password
