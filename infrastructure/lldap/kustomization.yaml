@@ -4,6 +4,8 @@ resources:
   - resources/cnpg-cluster.yaml
   - resources/deployment.yaml
   - resources/ingress.yaml
+  - resources/sealed-secret-admin.yaml
+  - resources/sealed-secret-crypto.yaml
   - resources/service.yaml
   - resources/job-bootstrap.yaml
 labels:

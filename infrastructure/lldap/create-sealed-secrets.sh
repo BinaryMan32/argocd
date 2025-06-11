@@ -13,7 +13,7 @@ kubectl create secret generic \
     --from-literal=key_seed="$(print_random)" \
     --from-literal=jwt_secret="$(print_random)" \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-lldap-crypto.yaml
+kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-crypto.yaml
 
 kubectl create secret generic \
     --dry-run=client \
@@ -22,4 +22,4 @@ kubectl create secret generic \
     --from-literal=user_dn=admin \
     --from-literal=user_pass="$(print_random)" \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-lldap-admin.yaml
+kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-admin.yaml
