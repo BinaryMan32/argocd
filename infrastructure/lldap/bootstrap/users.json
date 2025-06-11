@@ -1,0 +1,9 @@
+{
+  "id": "fred",
+  "email": "fettinge@gmail.com",
+  "firstName": "Fred",
+  "lastName": "Fettinger",
+  "groups": [
+    "argocd:admin"
+  ]
+}

@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: media
+  namespace: argocd
+spec:
+  project: media
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/media
+  destination:
+    namespace: auth
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}

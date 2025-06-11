@@ -1,0 +1,38 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - resources/cnpg-cluster.yaml
+  - resources/deployment.yaml
+  - resources/ingress.yaml
+  - resources/service.yaml
+  - resources/job-bootstrap.yaml
+labels:
+  - includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: lldap
+      app.kubernetes.io/name: lldap
+images:
+  - name: lldap
+    newName: docker.io/lldap/lldap
+    newTag: v0.6.1-alpine-rootless
+configMapGenerator:
+  - name: bootstrap
+    files:
+      - bootstrap/users.json
+      - bootstrap/groups.json
+    options:
+      disableNameSuffixHash: true
+replacements:
+# avoid repeating the host name in the ingress tls config
+- source:
+    kind: Ingress
+    fieldPath: spec.rules.0.host
+  targets:
+    - select:
+        kind: Ingress
+        name: lldap
+      fieldPaths:
+        - spec.tls.0.hosts.0
+      options:
+        create: true
+buildMetadata: [managedByLabel]

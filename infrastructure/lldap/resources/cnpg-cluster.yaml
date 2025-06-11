@@ -1,0 +1,18 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: lldap-db
+spec:
+  instances: 2
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.4
+
+  affinity:
+    topologyKey: topology.kubernetes.io/zone
+
+  bootstrap:
+    initdb:
+      database: lldap
+      owner: lldap
+
+  storage:
+    size: 1Gi

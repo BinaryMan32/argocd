@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lldap
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: lldap
+      app.kubernetes.io/name: lldap
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1010
+        runAsGroup: 1010
+        fsGroup: 1010
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: lldap
+          image: lldap
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ ALL ]
+          # https://github.com/lldap/lldap/blob/main/lldap_config.docker_template.toml
+          env:
+            - name: UID
+              value: "1010"
+            - name: GID
+              value: "1010"
+            - name: TZ
+              value: America/Chicago
+            - name: LLDAP_LDAP_BASE_DN
+              value: dc=int,dc=fivebytestudios,dc=com
+            - name: LLDAP_LDAP_PORT
+              value: "3890"
+            - name: LLDAP_HTTP_PORT
+              value: "17170"
+            - name: LLDAP_JWT_SECRET_FILE
+              value: /secret/crypto/jwt_secret
+            - name: LLDAP_KEY_SEED_FILE
+              value: /secret/crypto/key_seed
+            - name: LLDAP_LDAP_USER_DN_FILE
+              value: /secret/admin/user_dn
+            - name: LLDAP_LDAP_USER_PASS_FILE
+              value: /secret/admin/user_pass
+            - name: LLDAP_DATABASE_URL_FILE
+              value: /secret/db/uri
+          ports:
+            - name: ldap
+              containerPort: 3890
+            - name: web
+              containerPort: 17170
+          readinessProbe:
+            exec:
+              command: ["/app/lldap", "healthcheck"]
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - mountPath: /secret/crypto
+              name: secret-crypto
+            - mountPath: /secret/admin
+              name: secret-admin
+            - mountPath: /secret/db
+              name: secret-db
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: secret-crypto
+          secret:
+            secretName: lldap-crypto
+        - name: secret-admin
+          secret:
+            secretName: lldap-admin
+        - name: secret-db
+          secret:
+            secretName: lldap-db-app
+            items:
+              - key: uri
+                path: uri

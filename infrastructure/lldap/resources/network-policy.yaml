@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lldap-ingress
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: lldap
+      app.kubernetes.io/name: lldap
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: authelia
+              app.kubernetes.io/name: authelia
+      ports:
+        - protocol: TCP
+          port: ldap
+    # Requests from ingress controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx-intranet
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/part-of: ingress-nginx
+              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/instance: ingress-nginx-intranet
+              app.kubernetes.io/component: controller
+      ports:
+        - protocol: TCP
+          port: http
