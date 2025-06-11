@@ -2,3 +2,20 @@
 authelia:
   pod:
     kind: Deployment
+    env:
+      - name: AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE
+        value: /secrets/authelia-db-app/password
+  configMap:
+    storage:
+      postgres:
+        enabled: true
+        address: 'tcp://authelia-db-rw:5432'
+        # Disable automatic postgres password management
+        # Use cnpg secret via additionalSecrets
+        password:
+          disabled: true
+  secret:
+    additionalSecrets:
+      authelia-db-app:
+        items:
+          key: password
