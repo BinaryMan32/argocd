@@ -1,6 +1,7 @@
 {
   "id": "authelia",
-  "email": null,
+  "email": "authelia@localhost",
+  "displayName": "Authelia Service Account",
   "groups": [
     "lldap_password_manager"
   ]
