@@ -30,8 +30,9 @@ spec:
                 - domain: {{ .Values.domain.intranet }}
                   subdomain: auth
   destination:
-    namespace: authelia
+    namespace: auth
     server: {{ .Values.destination.server }}
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+    automated: {}
