@@ -31,6 +31,10 @@ authelia:
         user: 'uid=authelia,ou=people,dc=int,dc=fivebytestudios,dc=com'
         password:
           disabled: true
+    notifier:
+      # TODO replace with "smtp"
+      filesystem:
+        enabled: true
   secret:
     additionalSecrets:
       authelia-db-app:
