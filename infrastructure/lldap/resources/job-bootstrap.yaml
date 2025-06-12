@@ -36,16 +36,10 @@ spec:
               value: /bootstrap/group-configs
             - name: USER_CONFIGS_DIR
               value: /bootstrap/user-configs
-            - name: LLDAP_ADMIN_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: lldap-admin
-                  key: user_dn
-            - name: LLDAP_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: lldap-admin
-                  key: user_pass
+            - name: LLDAP_ADMIN_USERNAME_FILE
+              value: /secret/admin/user_dn
+            - name: LLDAP_ADMIN_PASSWORD_FILE
+              value: /secret/admin/user_pass
           volumeMounts:
             - name: tmp
               mountPath: /tmp
@@ -54,6 +48,9 @@ spec:
               readOnly: true
             - name: bootstrap-users
               mountPath: /bootstrap/user-configs
+              readOnly: true
+            - name: secret-admin
+              mountPath: /secret/admin
               readOnly: true
       volumes:
         - name: tmp
@@ -70,3 +67,6 @@ spec:
             items:
               - key: users.json
                 path: users.json
+        - name: secret-admin
+          secret:
+            secretName: lldap-admin
