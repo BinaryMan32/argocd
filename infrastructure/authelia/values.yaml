@@ -5,6 +5,8 @@ authelia:
     env:
       - name: AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE
         value: /secrets/authelia-db-app/password
+      - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE
+        value: /secrets/lldap-authelia/user_pass
   configMap:
     storage:
       postgres:
@@ -34,3 +36,6 @@ authelia:
       authelia-db-app:
         items:
           - key: password
+      lldap-authelia:
+        items:
+          - key: user_pass
