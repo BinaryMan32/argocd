@@ -14,6 +14,21 @@ authelia:
         # Use cnpg secret via additionalSecrets
         password:
           disabled: true
+    authentication_backend:
+      # https://www.authelia.com/integration/ldap/lldap/
+      # https://github.com/lldap/lldap/blob/main/example_configs/authelia_config.yml
+      ldap:
+        enabled: true
+        implementation: lldap
+        address: ldap://lldap.auth.svc.cluster.local
+        base_dn: dc=int,dc=fivebytestudios,dc=com
+        additional_users_dn: 'OU=Users'
+        users_filter: '(&(&#124;({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))'
+        additional_groups_dn: 'OU=Groups'
+        groups_filter: '(&(member={dn})(objectClass=groupOfNames))'
+        user: 'uid=authelia,ou=people,dc=int,dc=fivebytestudios,dc=com'
+        password:
+          disabled: true
   secret:
     additionalSecrets:
       authelia-db-app:
