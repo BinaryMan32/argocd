@@ -29,7 +29,7 @@ spec:
               drop: [ ALL ]
           env:
             - name: LLDAP_URL
-              value: http://lldap:80
+              value: http://lldap.auth.svc.cluster.local
             - name: DO_CLEANUP
               value: "true"
             - name: GROUP_CONFIGS_DIR
