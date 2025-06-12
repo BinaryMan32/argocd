@@ -20,7 +20,7 @@ spec:
       initContainers:
         - name: add-user-passwords
           image: lldap
-          command: [/bin/sh, /scripts/add-user-passwords.sh, /users/raw/users.json, /secret/authelia/password, /users/modified/users.json]
+          command: [/bin/sh, /scripts/add-user-passwords.sh, /users/raw/users.json, /secret/authelia/user_pass, /users/modified/users.json]
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
