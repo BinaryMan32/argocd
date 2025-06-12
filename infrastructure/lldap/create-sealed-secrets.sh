@@ -23,3 +23,12 @@ kubectl create secret generic \
     --from-literal=user_pass="$(print_random)" \
     --output=yaml |
 kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-admin.yaml
+
+kubectl create secret generic \
+    --dry-run=client \
+    --namespace=auth \
+    lldap-authelia \
+    --from-literal=user_dn=authelia \
+    --from-literal=user_pass="$(print_random)" \
+    --output=yaml |
+kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-authelia.yaml

@@ -7,6 +7,7 @@ resources:
   - resources/job-bootstrap.yaml
   - resources/network-policy.yaml
   - resources/sealed-secret-admin.yaml
+  - resources/sealed-secret-authelia.yaml
   - resources/sealed-secret-crypto.yaml
   - resources/service.yaml
 labels:
