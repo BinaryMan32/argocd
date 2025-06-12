@@ -17,6 +17,27 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile:
           type: RuntimeDefault
+      initContainers:
+        - name: add-user-passwords
+          image: lldap
+          command: [/bin/sh, /scripts/add-user-passwords.sh, /users/raw/users.json, /secret/authelia/password, /users/modified/users.json]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ ALL ]
+          volumeMounts:
+            - name: bootstrap-scripts
+              mountPath: /scripts
+              readOnly: true
+            - name: bootstrap-users-raw
+              mountPath: /users/raw
+              readOnly: true
+            - name: bootstrap-users
+              mountPath: /users/modified
+            - name: secret-authelia
+              mountPath: /secret/authelia
+              readOnly: true
       containers:
         - name: lldap-bootstrap
           image: lldap
@@ -55,6 +76,12 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
+        - name: bootstrap-scripts
+          configMap:
+            name: bootstrap
+            items:
+              - key: add-user-passwords.sh
+                path: add-user-passwords.sh
         - name: bootstrap-groups
           configMap:
             name: bootstrap
@@ -62,6 +89,8 @@ spec:
               - key: groups.json
                 path: groups.json
         - name: bootstrap-users
+          emptyDir: {}
+        - name: bootstrap-users-raw
           configMap:
             name: bootstrap
             items:
@@ -70,3 +99,6 @@ spec:
         - name: secret-admin
           secret:
             secretName: lldap-admin
+        - name: secret-authelia
+          secret:
+            secretName: lldap-authelia

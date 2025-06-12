@@ -1,4 +1,11 @@
 {
+  "id": "authelia",
+  "email": null,
+  "groups": [
+    "lldap_password_manager"
+  ]
+}
+{
   "id": "fred",
   "email": "fettinge@gmail.com",
   "firstName": "Fred",
