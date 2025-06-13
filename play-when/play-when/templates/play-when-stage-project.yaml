@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: play-when-stage
+  namespace: argocd
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Play When Staging
+  sourceRepos:
+  - {{ .Values.source.repoGroup }}/play-when-argocd.git
+  - {{ .Values.source.repoGroup }}/play-when-auth-chart.git
+  - {{ .Values.source.repoGroup }}/play-when-backend-chart.git
+  - {{ .Values.source.repoGroup }}/play-when-discord-bot-chart.git
+  - {{ .Values.source.repoGroup }}/play-when-frontend-chart.git
+  sourceNamespaces:
+  - play-when-stage
+  destinations:
+  - namespace: play-when-stage
+    server: {{ .Values.destination.server }}
+  roles:
+  - name: read-only
+    description: Read-only access
+    policies:
+    - p, proj:play-when-stage:read-only, applications, get, play-when-stage/play-when-stage/*, allow
+    - p, proj:play-when-stage:read-only, applications, sync, play-when-stage/play-when-stage/*, allow
+    - p, proj:play-when-stage:read-only, applicationsets, get, play-when-stage/play-when-stage/*, allow
+  - name: logs
+    description: View logs
+    policies:
+    - p, proj:play-when-stage:logs, logs, get, play-when-stage/*, allow
