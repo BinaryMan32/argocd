@@ -38,11 +38,12 @@ authelia:
     notifier:
       smtp:
         enabled: true
-        address: 'submission://smtp.mailgun.org:465'
+        # https://www.authelia.com/configuration/notifications/smtp/#address
+        address: 'submissions://smtp.mailgun.org:465'
         sender: 'Authelia <authelia@mail.fivebytestudios.com>'
 
         ## HELO/EHLO Identifier. Some SMTP Servers may reject the default of localhost.
-        identifier: 'localhost'
+        identifier: 'int.fivebytestudios.com'
 
         ## Subject configuration of the emails sent.
         ## {title} is replaced by the text from the notifier
