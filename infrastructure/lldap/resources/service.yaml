@@ -6,6 +6,7 @@ spec:
   selector:
     app.kubernetes.io/instance: lldap
     app.kubernetes.io/name: lldap
+    app.kubernetes.io/component: lldap
   type: ClusterIP
   ports:
     - name: http
