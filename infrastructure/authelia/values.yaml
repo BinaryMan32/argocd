@@ -7,6 +7,8 @@ authelia:
         value: /secrets/authelia-db-app/password
       - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE
         value: /secrets/lldap-authelia/user_pass
+      - name: AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE
+        value: /secrets/authelia-smtp/password
   configMap:
     storage:
       postgres:
@@ -32,12 +34,26 @@ authelia:
         password:
           disabled: true
     notifier:
-      # TODO replace with "smtp"
-      filesystem:
+      smtp:
         enabled: true
+        address: 'submission://smtp.mailgun.org:465'
+        sender: 'Authelia <authelia@mail.fivebytestudios.com>'
+
+        ## HELO/EHLO Identifier. Some SMTP Servers may reject the default of localhost.
+        identifier: 'localhost'
+
+        ## Subject configuration of the emails sent.
+        ## {title} is replaced by the text from the notifier
+        subject: '[Authelia] {title}'
+        username: authelia@mail.fivebytestudios.com
+        password:
+          disabled: true
   secret:
     additionalSecrets:
       authelia-db-app:
+        items:
+          - key: password
+      authelia-smtp:
         items:
           - key: password
       lldap-authelia:
