@@ -49,6 +49,10 @@ authelia:
         password:
           disabled: true
   secret:
+    # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
+    # Refreshing the storage secret in particular makes it impossible to decrypt the database.
+    # Instead, generate random secrets using create-sealed-secret-authelia.sh
+    existingSecret: authelia
     additionalSecrets:
       authelia-db-app:
         items:
