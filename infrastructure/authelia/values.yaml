@@ -13,12 +13,11 @@ authelia:
     log:
       level: debug
     default_2fa_method: webauthn
-    identity_validation:
-      # https://www.authelia.com/configuration/second-factor/webauthn/
-      webauthn:
-        enabled: true
-        enable_passkey_login: true
-        display_name: Authelia
+    # https://www.authelia.com/configuration/second-factor/webauthn/
+    webauthn:
+      enabled: true
+      enable_passkey_login: true
+      display_name: Authelia
     storage:
       postgres:
         enabled: true
