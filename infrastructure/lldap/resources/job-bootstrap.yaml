@@ -2,6 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: lldap-bootstrap
+  labels:
+    app.kubernetes.io/component: bootstrap
   annotations:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
@@ -9,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: lldap-bootstrap
+        app.kubernetes.io/component: bootstrap
     spec:
       restartPolicy: OnFailure
       securityContext:
@@ -42,7 +44,7 @@ spec:
               mountPath: /secret/authelia
               readOnly: true
       containers:
-        - name: lldap-bootstrap
+        - name: bootstrap
           image: lldap
           # https://github.com/lldap/lldap/blob/main/scripts/bootstrap.sh
           command: [ /app/bootstrap.sh ]

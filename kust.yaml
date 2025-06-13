@@ -1,0 +1,440 @@
+apiVersion: v1
+data:
+  add-user-passwords.sh: |
+    #!/bin/sh
+    users_in=$1
+    authelia_password_file=$2
+    users_out=$3
+    jq --arg pass "$(cat $authelia_password_file)" 'if .id == "authelia" then .password=$pass end' $users_in > $users_out
+    echo "Updated user passwords in $users_out"
+    # TODO remove this
+    jq . $users_out
+  groups.json: |
+    {
+      "name": "argocd:admin"
+    }
+  users.json: |
+    {
+      "id": "authelia",
+      "email": "authelia@localhost",
+      "displayName": "Authelia Service Account",
+      "groups": [
+        "lldap_password_manager"
+      ]
+    }
+    {
+      "id": "fred",
+      "email": "fettinge@gmail.com",
+      "firstName": "Fred",
+      "lastName": "Fettinger",
+      "groups": [
+        "argocd:admin"
+      ]
+    }
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: bootstrap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: lldap
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: web
+  - name: ldap
+    port: 389
+    targetPort: ldap
+  selector:
+    app.kubernetes.io/component: lldap
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/name: lldap
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: lldap
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: lldap
+      app.kubernetes.io/instance: lldap
+      app.kubernetes.io/name: lldap
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: lldap
+        app.kubernetes.io/instance: lldap
+        app.kubernetes.io/name: lldap
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - env:
+        - name: UID
+          value: "1010"
+        - name: GID
+          value: "1010"
+        - name: TZ
+          value: America/Chicago
+        - name: LLDAP_LDAP_BASE_DN
+          value: dc=int,dc=fivebytestudios,dc=com
+        - name: LLDAP_LDAP_PORT
+          value: "3890"
+        - name: LLDAP_HTTP_PORT
+          value: "17170"
+        - name: LLDAP_JWT_SECRET_FILE
+          value: /secret/crypto/jwt_secret
+        - name: LLDAP_KEY_SEED_FILE
+          value: /secret/crypto/key_seed
+        - name: LLDAP_LDAP_USER_DN_FILE
+          value: /secret/admin/user_dn
+        - name: LLDAP_LDAP_USER_PASS_FILE
+          value: /secret/admin/user_pass
+        - name: LLDAP_DATABASE_URL_FILE
+          value: /secret/db/uri
+        image: docker.io/lldap/lldap:v0.6.1-alpine-rootless
+        name: lldap
+        ports:
+        - containerPort: 3890
+          name: ldap
+        - containerPort: 17170
+          name: web
+        readinessProbe:
+          exec:
+            command:
+            - /app/lldap
+            - healthcheck
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /secret/crypto
+          name: secret-crypto
+        - mountPath: /secret/admin
+          name: secret-admin
+        - mountPath: /secret/db
+          name: secret-db
+      enableServiceLinks: false
+      securityContext:
+        fsGroup: 1010
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 1010
+        runAsNonRoot: true
+        runAsUser: 1010
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: default
+      volumes:
+      - emptyDir: {}
+        name: data
+      - name: secret-crypto
+        secret:
+          secretName: lldap-crypto
+      - name: secret-admin
+        secret:
+          secretName: lldap-admin
+      - name: secret-db
+        secret:
+          items:
+          - key: uri
+            path: uri
+          secretName: lldap-db-app
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  labels:
+    app.kubernetes.io/component: bootstrap
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap-bootstrap
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: bootstrap
+        app.kubernetes.io/instance: lldap
+        app.kubernetes.io/name: lldap
+    spec:
+      containers:
+      - command:
+        - /app/bootstrap.sh
+        env:
+        - name: LLDAP_URL
+          value: http://lldap.auth.svc.cluster.local
+        - name: DO_CLEANUP
+          value: "true"
+        - name: GROUP_CONFIGS_DIR
+          value: /bootstrap/group-configs
+        - name: USER_CONFIGS_DIR
+          value: /bootstrap/user-configs
+        - name: LLDAP_ADMIN_USERNAME_FILE
+          value: /secret/admin/user_dn
+        - name: LLDAP_ADMIN_PASSWORD_FILE
+          value: /secret/admin/user_pass
+        image: docker.io/lldap/lldap:v0.6.1-alpine-rootless
+        name: bootstrap
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /bootstrap/group-configs
+          name: bootstrap-groups
+          readOnly: true
+        - mountPath: /bootstrap/user-configs
+          name: bootstrap-users
+          readOnly: true
+        - mountPath: /secret/admin
+          name: secret-admin
+          readOnly: true
+      initContainers:
+      - command:
+        - /bin/sh
+        - /scripts/add-user-passwords.sh
+        - /users/raw/users.json
+        - /secret/authelia/user_pass
+        - /users/modified/users.json
+        image: docker.io/lldap/lldap:v0.6.1-alpine-rootless
+        name: add-user-passwords
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /scripts
+          name: bootstrap-scripts
+          readOnly: true
+        - mountPath: /users/raw
+          name: bootstrap-users-raw
+          readOnly: true
+        - mountPath: /users/modified
+          name: bootstrap-users
+        - mountPath: /secret/authelia
+          name: secret-authelia
+          readOnly: true
+      restartPolicy: OnFailure
+      securityContext:
+        fsGroup: 1010
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 1010
+        runAsNonRoot: true
+        runAsUser: 1010
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - emptyDir: {}
+        name: tmp
+      - configMap:
+          items:
+          - key: add-user-passwords.sh
+            path: add-user-passwords.sh
+          name: bootstrap
+        name: bootstrap-scripts
+      - configMap:
+          items:
+          - key: groups.json
+            path: groups.json
+          name: bootstrap
+        name: bootstrap-groups
+      - emptyDir: {}
+        name: bootstrap-users
+      - configMap:
+          items:
+          - key: users.json
+            path: users.json
+          name: bootstrap
+        name: bootstrap-users-raw
+      - name: secret-admin
+        secret:
+          secretName: lldap-admin
+      - name: secret-authelia
+        secret:
+          secretName: lldap-authelia
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap-admin
+  namespace: auth
+spec:
+  encryptedData:
+    user_dn: AgAmvMdy3Q3v2tWd8RqvbdRAGYvw14yOYt8r12q5rnsZA87mTN0cONB66hNfYIqchCILXh7WNZIeNx2SNf4Czj8F3Q064qp2fLDjizCnrBscz100G+qUc6pC65ouhXIX6MbMQg3ynkxK9e86IG1HxJQyj1vBY+XgNS2Bu8drkA2FjYmFfRNfyUpBIfB++Ik5cMC4hrVgUDZLXhzs5WAM2t5Q/U//6ADROAv2dn6R5LE6ENDPTT3BekFMujj25dM4eYY9eYBIWAW6zqmG6DJc3bnMCsbHdUHW600uc/ZYgRT7nlRf+yJ96BeueSg5p6j/qOeGTpxbF636tmyKuNlqGP4dPWh4MX7UQP0SoCvMtpdeqlANUY1IEmimtpYqhcJTAUBOmC3o/19b6BmtVy+6Jbrht/CDPSe4NPnddBOS+BZ3ks6MqvjvLTg6a8/a8c9vhFixULlZC3aNBsWqXgQpWHRRtCcAqOvFHlG8W/IfOh+Xw+iLsqvZw6R70CZff6FBZxjFhiF/AYE/+UneNjckcLmsxN1uDCXso1f9wbHqXIXPG1JRHWf694/jGB1kNRsKTfzcrMCg1tIctxgt2XN7j8Z419KZ6S0AXhW32JsRGZ6Vu5IrSG4OAhPuQ4ewgGvfsQluSK4w0Kk0sk7rEpSnncZ/P6YOTqlb3OZxYG+fv5gnEmWPYWADtQ+1hazF9iqqATz2Hdygpg==
+    user_pass: AgBnldsZOECLupxMaDCQO/MwXM7clgVn81RCYNv/gXJPyqZRhExos1mAriUC26WR0w8kowjApz86tW9t2wAL4kYUB2nkWZOrIY1f2SEsiU15eqo/7NPFNu9ekPSP2aUZB5A5WbnKThUgyZ9P2H6B0ik3ikvniLjKHkPssmHMr2fpNG51+87ur30LF9NmXv7cVTbdM09bSJjOZ3Mq32AoY9keX3l/3LraJF/BqTH1POn31OGjqBCF9DgMP8r1ydTEmOQpVX4wY7FVjTCG1l6DP7FUybvep8CwOAd6sePgLzidSgUfxsGXHOUy0g343s4TQ5BWQUu9LBt1EZ/RLMmWLwV4Mbdf0LR09Ot1X8CONh89jL/A8XojfNlahw0L4GwNdVZf8qluyRvh5Lka43dgcKa2+vbc1MFXhv4qAMpuMFgtDVRWhuPtd+oj0hwk2WACX4R1o4rYwph+NSG/NA1njsEZYE9ePPVIEf/5P1rCZWvgVw3PntumlvpwZTwY4dplRS+xeO1W7JKtoMATDk6+WYyhkptaYmUka50HLodsg+mGN5IJfyrP8raC3rjLGv7uqWoIX9Tj30LBv1EPrUye+wxPQk1jJJndb5yucmHAtNDqpyOvUe/mCmsq8wu3cSMzaadtLlId1dB3pdcfUTcvC4N0WJv1UL+LoqFsp9g57GA4QL8U4uEsCpXFwy8Lviq4kvHtVnbSvftDWhPdjg6VudZoM2UKi9bljrbv+X3UpKcxAg==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: lldap-admin
+      namespace: auth
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap-authelia
+  namespace: auth
+spec:
+  encryptedData:
+    user_dn: AgBq7i6E23flEGVP/QfC1KalT0vjn70xvr5WS5ppriL+w54XLeZAraNKNgnU0B1x+S1aP8S3aetHLj2o4yQAUOz0/BGLxTxlShgNWvv45gzhb7tH7MUUjvLfuy83gk7jEgR0v+v38gaBW+Yc3mexzcLYHgwXogyJboeB5wMgHSnIvTH5dI6z/sm+hxib+HAZjEdxNJ4yYCvfL/FEv358NJ1zkgF9rmektCOkWzVaESw3LXVmV39gHS6fuufRI+T+pD00PJr8F7xP0JD0dZ6rEH7kaHfeeQjcgC92Zp5nWpSElOYy9AUGFobNippbEXC/0fuwrzzxaVQR6XO9I/bl3ui8qENA40sBjizwEZd2hXE98zeoneQ4dihr6lGvRED5bzUZlv9IqNqgZH2GogERiPHvOUq+oXurcsCoYDpjj6qqUsbxArJbY2U4TpkQdEgWb2Ml/f33gPtp4UjDikMYvC+LDGHZ959+e3WejQM61cmjQNKWKpH4gfj88NtMMJ1C3Vy+Uyoas6qMCagTWvxKpjDB8LRX6m01ScAm2REXuNKPACD1Ay3yeYnBsdcuy5wBtYssMnK6LadahbEsXYme5wD3mkLm92qvxvhHRshyiI1ft4qS+KTahZ2j3G5P9hsTEJwPDkef15QD8UwaKN99kMsc10hOIekt5QmzB4k4if2lsrTORb3AkJw/IKZ4TReaIbFJRHMn1BE6qg==
+    user_pass: AgA/gnSYoRCVTr8/wVkuJ4fxG4en2jI2Rq4i7XkvEK7zftjsByz2QKWsqky8X09xd7cc20rJ12YXI4PPXgxPIiPOniwdvLtUjeuz6AB4eIT4gaQqLO60Eu4WH2RPN4vdLSJKKew8q6y82pwjvYrzDL0cxeTjpdR+ZjworwHkx8mYjqRBedKr53hhyN19yilcdeKzeD6SsL+xmM0LvtPC3bIlXkzPgmY2gVFVbVSe38o6K8Hko6lkPQbAYRi/ARrCA3rZFDVJIMzknFjZfshcUvk+KFIkIgrTPdYqa6Ajn8JR/QCUQbb0CkNnUtDcT3J2QTUigCipkp/KSFEVxj5Xo6aVaq2dUUNc5qSdWwWQzzpv8t6S7ncHkq9fiEM3FZHryU1fGGo1EsL19iO7AL8UaPT8VhSCDPImfHtDpkUrFb+G5CPNSPuMQ4tXe1mEXlY0NkTcLqUSGIBqIDJGJmREQq3G4xjQltBJMjMat3WCaIdZlNXhf3MyUMWVWmdwJdkKRwqfc8Q7J0RklR4ukfAY9XhcKveO+4Z6C+3qSH2iRJbbrh0UxeLh4L1iYBlRhnRnFQYoOpSJ/a+Ire/ZgKv3OGN8fWC22F30Foe6PpQ9Fn2jFZS2hMyf0Se6g+fJ5yIvD8HFR8IX8lTmNcj1qn3seOVMIs1+3krhOgA0RxTZYmdafB4E7N8UIIIzAUYkqsURKuHxKnTBzDzybxvZ8QNiwW1J/a1qRBZaV0bqjorS0LfaDw==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: lldap-authelia
+      namespace: auth
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap-crypto
+  namespace: auth
+spec:
+  encryptedData:
+    jwt_secret: AgAyi0gUwlxjQmSFUACmhpsfSDsQFAEuY4Iok2QFiZO00sH2HP7uwTmgj6zOpE4WroqYTMzW+GXnkDwWlbqtbzogmUM87vP1pBhE1Y9Hp3c4cIsVl3LkDR+aq84C+QDmf5goqPrZgfaTt3ageI54EABi7fUhLpk9cIoRJWy77RL+zW69QYaPLEyHu+fY5599iWMLoxOW0BxU78HTS9tKVzy43qAKQsIjiCvdhhmwmOxCaLmyHHBTcxQu7i7ezHMpta6sx+l/bcaVNn//ao+63aNigP/Bz9AjAcmlFCo8HqkqFeDXRQ+XQoCuSgO+um7gSUEL6pHsH91kSKACasKC421sqsOlTrg035T4FOXGQmKRUy9673DCFoIT/uxo0cq4eHHZthWlo7qvYSeeK1/eyDCgDfe1sjJqtit9aIGRGK+l2IxBoY8RSfnPT/JKnjmDmxDulPU3ZXXJchAcboBEC06lPMi7Qe2zVvtctcj8Cnaj6ottKuM8YOlfOCY0cqkdFd0DE9PkDCh3TMO9iA7Rhja1FvVhr+Ir8xOy0TleddQc7W7LeD3IkekQWjECtpr69g5JI27uGV4y/ALffd5y8RSv7OPcXbP98L6ejOvF8Ms8aJKKemTEVo8U+Awg1A6/BSDkCkB5iF/Zy/tRPM3cpnXf+qQpHr1zmEcJJtOVg9lcdpyDZLoFOKnzqquI4z+v1sh+OQOKOIpi9dcxi9AD16PHxqAAizzjjf1xV5Kvr8pvEg==
+    key_seed: AgBPIhaBfArhj2OlXnlh71qAL15U2xSY4i+NVIVWeG4hKVNBGVBS9+AKLBTdtM3cBIRIPRl892JxQxZNmqYf3nDIV+6BKKc6qPRahOTG6pSizfiWrJUUa1PbrEKdqAhWAMJJZFMBznTSwsrpCCpixE9qtlE1ByEEzdq24PQoBz6nESnfymdUMWMdCUluuM7sde+TMbztwWVs8BFB1JDWM5DbmrYB33B2+gXmQIiBG5FFFK3b3MmDpRs9rdb3YOewVMWBkHN4PZFR6kbWhN9EKhpX6yulEmhZblRpUd7A0Nq93YAcP4Pkm+m7N2H5dT39bv/Do2eaGYUY2fdMcmDcZxYhxGqy62wcMl840f2W6rqn39eLvuO0RPxuNl8Wd+BtHktP5y7lVRO/wN66ToC9j3xk32xLYVY2ZcTgYizBY3vVGhdPJmjF0zzZolh+aq2pd3BnvNj8fPpsEYickChe+ytnMO0s0fova6uPZI6FnsbzA+PJ3nn2CwjY7E6srNlKs7z4HLgfzV768xwx5XJ3UQAFWAL/uqNhTmPoPxttVCIu/jSWMdOFj0ftF2ba9TE2Nb2aB8KVhQkp3w3GvhQROqA0e671hC4BObm+hrnxztiwsZY5sNvW8G6sI2bD/BnmnGLQEq4l/Z8SzbB9NtB/IA9ZmbojbuANQmItOyA/6BBhrq2eJWEAcRJT7s10yOCK+9N8bgW42aQoH6LtjsF5KQvcF7znYGS8n2Zo73EnyqcvlA==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: lldap-crypto
+      namespace: auth
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: intranet-ca
+  labels:
+    app.kubernetes.io/component: lldap
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap
+spec:
+  rules:
+  - host: lldap.int.fivebytestudios.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: lldap
+            port:
+              name: http
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - lldap.int.fivebytestudios.com
+    secretName: lldap-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap-ingress
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/instance: authelia
+          app.kubernetes.io/name: authelia
+    ports:
+    - port: ldap
+      protocol: TCP
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: bootstrap
+          app.kubernetes.io/instance: lldap
+          app.kubernetes.io/name: lldap
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: ingress-nginx-intranet
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: controller
+          app.kubernetes.io/instance: ingress-nginx-intranet
+          app.kubernetes.io/name: ingress-nginx
+          app.kubernetes.io/part-of: ingress-nginx
+    ports:
+    - port: web
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: lldap
+      app.kubernetes.io/instance: lldap
+      app.kubernetes.io/name: lldap
+  policyTypes:
+  - Ingress
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  labels:
+    app.kubernetes.io/instance: lldap
+    app.kubernetes.io/managed-by: kustomize-(devel)
+    app.kubernetes.io/name: lldap
+  name: lldap-db
+spec:
+  affinity:
+    topologyKey: topology.kubernetes.io/zone
+  bootstrap:
+    initdb:
+      database: lldap
+      owner: lldap
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.4
+  instances: 2
+  storage:
+    size: 1Gi
