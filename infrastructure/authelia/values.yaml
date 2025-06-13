@@ -12,6 +12,11 @@ authelia:
   configMap:
     log:
       level: debug
+    identity_validation:
+      # https://www.authelia.com/configuration/second-factor/webauthn/
+      webauthn:
+        enabled: true
+        display_name: Authelia
     storage:
       postgres:
         enabled: true
