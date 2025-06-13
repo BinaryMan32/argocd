@@ -1,5 +1,8 @@
 # https://github.com/authelia/chartrepo/tree/master/charts/authelia
 authelia:
+  server:
+    log:
+      level: debug
   pod:
     kind: Deployment
     env:
