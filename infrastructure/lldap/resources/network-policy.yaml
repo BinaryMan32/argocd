@@ -24,7 +24,7 @@ spec:
             matchLabels:
               app.kubernetes.io/instance: lldap
               app.kubernetes.io/name: lldap
-              batch.kubernetes.io/job-name: lldap-bootstrap
+              app.kubernetes.io/component: lldap-bootstrap
         # Requests from ingress controller
         - namespaceSelector:
             matchLabels:
