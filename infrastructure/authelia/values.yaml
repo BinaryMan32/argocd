@@ -1,8 +1,5 @@
 # https://github.com/authelia/chartrepo/tree/master/charts/authelia
 authelia:
-  server:
-    log:
-      level: debug
   pod:
     kind: Deployment
     env:
@@ -13,6 +10,8 @@ authelia:
       - name: AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE
         value: /secrets/authelia-smtp/password
   configMap:
+    log:
+      level: debug
     storage:
       postgres:
         enabled: true
