@@ -15,3 +15,12 @@
     "argocd:admin"
   ]
 }
+{
+  "id": "gjohnson",
+  "email": "gjohnsonjan2002@gmail.com",
+  "firstName": "Gabe",
+  "lastName": "Johnson",
+  "groups": [
+    "play-when-ops"
+  ]
+}
