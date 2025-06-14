@@ -21,7 +21,7 @@ spec:
           type: LoadBalancer
           port: 80
         ingress:
-          enabled: true
+          enabled: false
           className: public
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-prod
