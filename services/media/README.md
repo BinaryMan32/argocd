@@ -51,6 +51,13 @@ Under `Download Clients`
 - [sonarr](./sonarr/): tv
 - [jellyseerr](../services/templates/jellyseerr.yaml): request management
 
+### Jellyfin
+
+In **Networking** settings:
+
+1. **LAN networks** `192.168.0.0/16,10.42.0.0/15`
+2. **Known proxies** `10.42.0.0/15`
+
 ## Implementation Details
 
 ### Hard Links
