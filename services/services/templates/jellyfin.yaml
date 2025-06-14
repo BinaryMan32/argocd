@@ -23,16 +23,16 @@ spec:
         ingress:
           enabled: true
           annotations:
-            cert-manager.io/cluster-issuer: intranet-ca
+            cert-manager.io/cluster-issuer: letsencrypt-prod
           hosts:
-            - host: jellyfin.{{ .Values.domain.intranet }}
+            - host: jellyfin.{{ .Values.domain.external }}
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - secretName: jellyfin-tls
               hosts:
-              - jellyfin.{{ .Values.domain.intranet }}
+              - jellyfin.{{ .Values.domain.external }}
   destination:
     namespace: media
     server: {{ .Values.destination.server }}

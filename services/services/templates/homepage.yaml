@@ -83,12 +83,12 @@ spec:
                     description: Music Player
                     namespace: media
                     app: navidrome
-              - Jellyfin:
-                  icon: jellyfin.png
-                  href: "https://jellyfin.{{ .Values.domain.intranet }}/"
-                  description: Media Server
-                  namespace: media
-                  app: jellyfin
+                - Jellyfin:
+                    icon: jellyfin.png
+                    href: "https://jellyfin.{{ .Values.domain.external }}/"
+                    description: Media Server
+                    namespace: media
+                    app: jellyfin
               - Jellyseerr:
                   icon: jellyseerr.png
                   href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
