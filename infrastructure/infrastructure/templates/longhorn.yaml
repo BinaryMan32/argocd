@@ -19,6 +19,10 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: intranet-ca
             cert-manager.io/common-name: longhorn.{{ .Values.domain.intranet }}
+            nginx.ingress.kubernetes.io/auth-method: 'GET'
+            nginx.ingress.kubernetes.io/auth-url: 'http://authelia.auth.svc.cluster.local/api/authz/auth-request'
+            nginx.ingress.kubernetes.io/auth-signin: 'https://https://auth.int.fivebytestudios.com/?rm=$request_method'
+            nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
           host: longhorn.{{ .Values.domain.intranet }}
           tls: true
         persistence:
