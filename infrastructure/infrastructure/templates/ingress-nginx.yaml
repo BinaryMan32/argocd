@@ -23,6 +23,8 @@ spec:
           ingressClassByName: true
           service:
             loadBalancerIP: {{ .Values.ipAddress.ingress }}
+            # Preserve client IP addresses
+            externalTrafficPolicy: Local
           replicaCount: 3
           # try to keep replicas in different node availability zones
           topologySpreadConstraints:
