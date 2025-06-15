@@ -20,6 +20,7 @@ spec:
         service:
           type: LoadBalancer
           port: 80
+          externalTrafficPolicy: Local
         ingress:
           enabled: false
           className: public
