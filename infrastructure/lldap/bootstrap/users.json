@@ -12,7 +12,7 @@
   "firstName": "Fred",
   "lastName": "Fettinger",
   "groups": [
-    "argocd:admin"
+    "longhorn"
   ]
 }
 {
