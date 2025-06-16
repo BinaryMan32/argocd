@@ -1,0 +1,11 @@
+# https://github.com/kubernetes-sigs/headlamp/blob/main/charts/headlamp/values.yaml
+headlamp:
+  env:
+    # Disable tracing to avoid log spam
+    # https://github.com/kubernetes-sigs/headlamp/issues/3439#issuecomment-2954604955
+    - name: HEADLAMP_CONFIG_TRACING_ENABLED
+      value: "false"
+  config:
+    oidc:
+      secret:
+        create: false

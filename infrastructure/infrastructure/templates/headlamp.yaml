@@ -8,39 +8,32 @@ metadata:
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: https://kubernetes-sigs.github.io/headlamp
-    chart: headlamp
-    targetRevision: 0.31.1
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    targetRevision: {{ .Values.project.path }}/headlamp
     helm:
+      valueFiles:
+        - values.yaml
       # https://github.com/kubernetes-sigs/headlamp/tree/main/charts/headlamp
       valuesObject:
-        env:
-          # Disable tracing to avoid log spam
-          # https://github.com/kubernetes-sigs/headlamp/issues/3439#issuecomment-2954604955
-          - name: HEADLAMP_CONFIG_TRACING_ENABLED
-            value: "false"
-        config:
-          oidc:
-            secret:
-              create: false
-        ingress:
-          enabled: true
-          annotations:
-            cert-manager.io/cluster-issuer: intranet-ca
-          ingressClassName: nginx
-          hosts:
-            - host: headlamp.{{ .Values.domain.intranet }}
-              paths:
-                - path: /
-                  type: ImplementationSpecific
-          tls:
-            - secretName: headlamp-tls
-              hosts:
-              - headlamp.{{ .Values.domain.intranet }}
+        headlamp:
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-ca
+            ingressClassName: nginx
+            hosts:
+              - host: headlamp.{{ .Values.domain.intranet }}
+                paths:
+                  - path: /
+                    type: ImplementationSpecific
+            tls:
+              - secretName: headlamp-tls
+                hosts:
+                - headlamp.{{ .Values.domain.intranet }}
   destination:
     namespace: headlamp
     server: {{ .Values.destination.server }}
   syncPolicy:
-    automated: {}
     syncOptions:
       - CreateNamespace=true
