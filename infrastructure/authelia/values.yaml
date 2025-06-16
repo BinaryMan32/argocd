@@ -60,7 +60,7 @@ authelia:
     access_control:
       rules:
         - domain: longhorn.int.fivebytestudios.com
-          subject: group:admins
+          subject: group:longhorn
           policy: two_factor
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
