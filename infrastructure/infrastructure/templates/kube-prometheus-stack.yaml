@@ -12,6 +12,7 @@ spec:
     targetRevision: {{ .Values.source.targetRevision }}
     path: {{ .Values.project.path }}/kube-prometheus-stack
     helm:
+      # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
       valuesObject:
         kube-prometheus-stack:
           alertmanager:
