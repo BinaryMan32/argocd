@@ -62,6 +62,18 @@ authelia:
         - domain: longhorn.int.fivebytestudios.com
           subject: group:longhorn
           policy: two_factor
+    identity_providers:
+      oidc:
+        enabled: true
+        clients:
+          - client_name: headlamp
+            client_id: '{{ secret "/secrets/authelia-oidc-headlamp/client-id" }}'
+            client_secret: '{{ secret "/secrets/authelia-oidc-headlamp/client-secret" }}'
+            redirect_uris:
+              - https://headlamp.int.fivebytestudios.com/oidc-callback
+            scopes: ["openid", "profile", "email", "groups"]
+            require_pkce: true
+            authorization_policy: two_factor
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
     # Refreshing the storage secret in particular makes it impossible to decrypt the database.
@@ -77,3 +89,7 @@ authelia:
       lldap-authelia:
         items:
           - key: user_pass
+      authelia-oidc-headlamp:
+        items:
+          - key: client-id
+          - key: client-secret

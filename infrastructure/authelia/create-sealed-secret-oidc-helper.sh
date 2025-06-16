@@ -6,7 +6,8 @@ output_path="$3"
 
 client_id="$(docker run --rm authelia/authelia:latest authelia crypto rand --length 72 --charset rfc3986)"
 client_secret="$(docker run --rm authelia/authelia:latest authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986)"
-output_file_name="sealed-secret-oauth-${client_name}.yaml"
+secret_name="authelia-oidc-${client_name}"
+output_file_name="sealed-secret-${secret_name}.yaml"
 
 create_sealed_secret_oidc () {
     namespace="$1"
@@ -15,7 +16,7 @@ create_sealed_secret_oidc () {
     kubectl create secret generic \
         --dry-run=client \
         --namespace="${namespace}" \
-        "authelia-oauth-${client_name}" \
+        "${secret_name}" \
         --from-literal=client-id="$client_id" \
         --from-literal=client-secret="$client_secret" \
         --output=yaml |
