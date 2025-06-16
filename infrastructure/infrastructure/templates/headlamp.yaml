@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
-    targetRevision: {{ .Values.project.path }}/headlamp
+    path: {{ .Values.project.path }}/headlamp
     helm:
       valueFiles:
         - values.yaml
