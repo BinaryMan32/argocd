@@ -65,6 +65,10 @@ authelia:
     identity_providers:
       oidc:
         enabled: true
+        identity_providers:
+          # https://www.authelia.com/configuration/identity-providers/openid-connect/provider/#jwks
+          jwks:
+            - key: {{ secret "/secrets/authelia-jwk-rsa/rsa.2048.key" | mindent 10 "|" | msquote }}
         clients:
           - client_name: headlamp
             client_id: '{{ secret "/secrets/authelia-oidc-headlamp/client-id" }}'
@@ -94,3 +98,7 @@ authelia:
         items:
           - key: client-id
           - key: client-secret-digest
+      authelia-jwk-rsa:
+        items:
+          - key: rsa.2048.key
+  
