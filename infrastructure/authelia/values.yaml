@@ -67,7 +67,8 @@ authelia:
         enabled: true
         # https://www.authelia.com/configuration/identity-providers/openid-connect/provider/#jwks
         jwks:
-          - key: '{{ secret "/secrets/authelia-jwk-rsa/rsa.2048.key" | mindent 10 "|" | msquote }}'
+          - key:
+              path: /secrets/authelia-jwk-rsa/rsa.2048.key
         clients:
           - client_name: headlamp
             client_id: '{{ secret "/secrets/authelia-oidc-headlamp/client-id" }}'
