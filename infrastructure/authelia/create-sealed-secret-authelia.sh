@@ -10,6 +10,7 @@ kubectl create secret generic \
     --dry-run=client \
     --namespace=auth \
     authelia \
+    --from-literal=identity_providers.oidc.hmac.key="$(print_random)" \
     --from-literal=identity_validation.reset_password.jwt.hmac.key="$(print_random)" \
     --from-literal=session.encryption.key="$(print_random)" \
     --from-literal=storage.encryption.key="$(print_random)" \
