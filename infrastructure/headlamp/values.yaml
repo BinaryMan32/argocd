@@ -5,7 +5,7 @@ headlamp:
     # https://github.com/kubernetes-sigs/headlamp/issues/3439#issuecomment-2954604955
     - name: HEADLAMP_CONFIG_TRACING_ENABLED
       value: "false"
-    - name: HEADLAMP_CONFIG_OIDC_IDP_ISSUER_URL
+    - name: HEADLAMP_CONFIG_OIDC_ISSUER_URL
       value: https://auth.int.fivebytestudios.com
   config:
     oidc:
