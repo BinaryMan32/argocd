@@ -7,17 +7,10 @@ headlamp:
       value: "false"
     - name: HEADLAMP_CONFIG_OIDC_IDP_ISSUER_URL
       value: https://auth.int.fivebytestudios.com
-    - name: HEADLAMP_CONFIG_OIDC_CLIENT_ID
-      valueFrom:
-        secretKeyRef:
-          name: authelia-oidc-headlamp
-          key: client-id
-    - name: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: authelia-oidc-headlamp
-          key: client-secret
   config:
     oidc:
       secret:
         create: false
+      externalSecret:
+        enabled: true
+        name: authelia-oidc-headlamp
