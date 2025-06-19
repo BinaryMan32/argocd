@@ -22,8 +22,6 @@ spec:
             className: nginx
             tls:
               enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
           configMap:
             session:
               cookies:
