@@ -46,38 +46,6 @@ Additional infrastructure used only by non-infrastructure projects.
 4. [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
 5. [ingress-nginx](./infrastructure/templates/ingress-nginx.yaml) (don't deploy until router port-forward)
 
-## Install Intranet CA Root Certificate
-
-See [cert-manager](./cert-manager) for details on the intranet CA.
-
-### Operating System (Ubuntu)
-
-Copy self-signed root certificate from kubernetes secret to local directory:
-
-```sh
-kubectl -n cert-manager get secret intranet-ca --template='{{index .data "tls.crt"}}' \
-  | base64 -d \
-  | sudo tee /usr/local/share/ca-certificates/five_byte_studios_intranet_ca.crt
-```
-
-Create symlinks into `/etc/ssl/certs/`
-
-```sh
-sudo update-ca-certificates
-```
-
-### Chrome
-
-Chrome uses a separate certificate database, which can be updated with:
-
-```sh
-sudo apt install libnss3-tools
-certutil -d sql:$HOME/.pki/nssdb -A -t C -n "five_byte_studios_intranet_ca" \
-  -i /usr/local/share/ca-certificates/five_byte_studios_intranet_ca.crt
-```
-
-Reference: <https://stackoverflow.com/questions/19692787/how-to-install-certificate-in-browser-settings-using-command-prompt>
-
 ## Manual Kubernetes Changes
 
 Some changes require modifications to resources created by k3s. Since these

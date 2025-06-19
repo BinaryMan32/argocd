@@ -2,29 +2,20 @@
 
 Deploy [cert-manager][] to manage and issue TLS certificates.
 
-## Intranet CA
+## Intranet
 
-Creates a `ClusterIssuer` which acts as a certificate authority using a
-self-signed root certificate, as decribed in
-[cert-manager self-signed configuration][cert-manager-ca].
+Creates a `ClusterIssuer` named `intranet-dns01-prod` which uses the [dns01][] solver to create certificates.
 
-To have an ingress automatically generate a certificate signed by the
-`intranet-ca` issuer, add:
+To have an ingress automatically generate a certificate, add:
 ```yaml
 annotations:
-  cert-manager.io/cluster-issuer: intranet-ca
+  cert-manager.io/cluster-issuer: intranet-dns01-prod
 ```
 
-[cert-manager-ca]: https://cert-manager.io/docs/configuration/selfsigned/
+The [dns01][] solver requires the `cloudflare-dns-fbs` secret to change DNS records, which are verified by Let's Encrypt servers.
+This secret is created by running `infrastructure/cert-manager/create-sealed-secret-cloudflare-dns01.sh`.
 
-## Troubleshooting
-
-Print certificate details:
-```
-kubectl -n cert-manager get secret intranet-ca --template='{{index .data "tls.crt"}}' \
-  | base64 -d \
-  | openssl x509 -text -noout
-```
+[dns01]: https://cert-manager.io/docs/configuration/acme/dns01/
 
 ## References
 
