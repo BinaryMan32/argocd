@@ -21,4 +21,4 @@ spec:
         selector:
           dnsNames:
             - "{{ .Values.intranet.dnsName }}"
-            - "*{{ .Values.intranet.dnsName }}"
+            - "*.{{ .Values.intranet.dnsName }}"
