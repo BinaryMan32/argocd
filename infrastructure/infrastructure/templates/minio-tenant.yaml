@@ -18,7 +18,7 @@ spec:
           api:
             enabled: true
             annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
+              cert-manager.io/cluster-issuer: intranet-dns01-prod
               cert-manager.io/common-name: minio.{{ .Values.domain.intranet }}
               # From https://github.com/minio/operator/blob/master/docs/nginx-ingress.md
               ## Remove if using CA signed certificate
@@ -38,7 +38,7 @@ spec:
           console:
             enabled: true
             annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
+              cert-manager.io/cluster-issuer: intranet-dns01-prod
               cert-manager.io/common-name: console.minio.{{ .Values.domain.intranet }}
               # From https://github.com/minio/operator/blob/master/docs/nginx-ingress.md
               ## Remove if using CA signed certificate
