@@ -2,14 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: radarr
-  annotations:
-    cert-manager.io/cluster-issuer: intranet-ca
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
         - "from rules"
-      secretName: "radarr-tls"
   rules:
     - host: "radarr.int.fivebytestudios.com"
       http:
