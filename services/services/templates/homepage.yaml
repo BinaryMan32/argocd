@@ -27,7 +27,7 @@ spec:
           main:
             enabled: true
             annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
+              cert-manager.io/cluster-issuer: intranet-dns01-prod
             ingressClassName: nginx
             hosts:
               - host: homepage.{{ .Values.domain.intranet }}
@@ -37,7 +37,7 @@ spec:
             tls:
               - secretName: homepage-tls
                 hosts:
-                - homepage.{{ .Values.domain.intranet }}
+                  - homepage.{{ .Values.domain.intranet }}
         config:
           settings:
             title: Five Byte Studios

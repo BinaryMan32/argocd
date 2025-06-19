@@ -8,7 +8,7 @@ spec:
   - vulcan.iot.wildfreddy.fivebytestudios.com
   secretName: vulcan-certificate
   issuerRef:
-    name: intranet-ca
+    name: intranet-dns01-prod
     kind: ClusterIssuer
     group: cert-manager.io
   usages:
