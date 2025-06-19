@@ -82,7 +82,10 @@ authelia:
           - client_name: kubectl
             client_id: kubectl
             public: true
-            redirect_uris: []
+            # Used by kubectl oidc-login plugin to receive tokens
+            redirect_uris:
+              - http://localhost:8000
+              - http://localhost:18000
             scopes: [ 'openid', 'groups', 'email', 'profile', 'offline_access' ]
             userinfo_signed_response_alg: 'none'
             revocation_endpoint_auth_method: 'none'
