@@ -17,7 +17,7 @@ spec:
         ingress:
           enabled: true
           annotations:
-            cert-manager.io/cluster-issuer: intranet-ca
+            cert-manager.io/cluster-issuer: intranet-dns01-prod
             cert-manager.io/common-name: longhorn.{{ .Values.domain.intranet }}
             nginx.ingress.kubernetes.io/auth-method: 'GET'
             nginx.ingress.kubernetes.io/auth-url: 'http://authelia.auth.svc.cluster.local/api/authz/auth-request'

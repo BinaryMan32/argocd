@@ -19,7 +19,7 @@ spec:
             ingress:
               enabled: true
               annotations:
-                cert-manager.io/cluster-issuer: intranet-ca
+                cert-manager.io/cluster-issuer: intranet-dns01-prod
               hosts:
                 - alertmanager.{{ .Values.domain.intranet }}
               tls:
@@ -30,7 +30,7 @@ spec:
             ingress:
               enabled: true
               annotations:
-                cert-manager.io/cluster-issuer: intranet-ca
+                cert-manager.io/cluster-issuer: intranet-dns01-prod
               hosts:
                 - grafana.{{ .Values.domain.intranet }}
               tls:
@@ -41,7 +41,7 @@ spec:
             ingress:
               enabled: true
               annotations:
-                cert-manager.io/cluster-issuer: intranet-ca
+                cert-manager.io/cluster-issuer: intranet-dns01-prod
               hosts:
                 - prometheus.{{ .Values.domain.intranet }}
               tls:

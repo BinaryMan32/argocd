@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/component: lldap
   annotations:
-    cert-manager.io/cluster-issuer: intranet-ca
+    cert-manager.io/cluster-issuer: intranet-dns01-prod
 spec:
   tls:
     - hosts:
