@@ -22,3 +22,4 @@ spec:
           dnsNames:
             - "{{ .Values.intranet.dnsName }}"
             - "*.{{ .Values.intranet.dnsName }}"
+            - "auth.{{ .Values.intranet.dnsName }}"
