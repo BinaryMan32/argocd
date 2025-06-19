@@ -20,13 +20,16 @@ spec:
             storageClass: longhorn
         ingress:
           enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: intranet-dns01-prod
           hosts:
             - host: jellyseerr.{{ .Values.domain.intranet }}
               paths:
                 - path: /
                   pathType: Prefix
           tls:
-            - hosts:
+            - secretName: jellyseerr-tls
+              hosts:
               - jellyseerr.{{ .Values.domain.intranet }}
   destination:
     namespace: media
