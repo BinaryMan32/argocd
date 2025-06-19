@@ -23,7 +23,7 @@ spec:
             tls:
               enabled: true
             annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
+              cert-manager.io/cluster-issuer: letsencrypt-dns01-prod
           configMap:
             session:
               cookies:
