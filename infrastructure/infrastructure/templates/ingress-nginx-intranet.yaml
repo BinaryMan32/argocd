@@ -21,6 +21,10 @@ spec:
             loadBalancerIP: {{ .Values.ipAddress.ingressIntranet }}
             # Preserve client IP addresses
             externalTrafficPolicy: Local
+          extraArgs:
+            # Use wildcard certificate for all Intranet services
+            # Shouldn't need to add cert-manager issuer annotation or specify secretName
+            default-ssl-certificate: "cert-manager/intranet-wildcard-cert"
           # minio ingress needs snippet annotations
           allowSnippetAnnotations: true
           replicaCount: 3
