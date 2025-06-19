@@ -4,8 +4,8 @@ metadata:
   name: intranet-wildcard
 spec:
   dnsNames:
-    - "*.{{ .Values.intranet.dnsName }}"
-    - "{{ .Values.intranet.dnsName }}"
+    - "*.{{ .Values.intranet.dnsZone }}"
+    - "{{ .Values.intranet.dnsZone }}"
   issuerRef:
     kind: ClusterIssuer
     name: intranet-dns01-prod

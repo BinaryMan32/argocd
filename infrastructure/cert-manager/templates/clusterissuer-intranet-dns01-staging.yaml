@@ -19,6 +19,6 @@ spec:
               name: cloudflare-dns-fbs
               key: token
         selector:
-          dnsNames:
-            - "{{ .Values.intranet.dnsName }}"
-            - "*.{{ .Values.intranet.dnsName }}"
+          # https://cert-manager.io/docs/configuration/acme/#dns-zones
+          dnsZones:
+            - "{{ .Values.intranet.dnsZone }}"

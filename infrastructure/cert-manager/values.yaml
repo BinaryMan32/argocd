@@ -17,4 +17,4 @@ ca:
 
 intranet:
   # override from ArgoCD App
-  dnsName: ""
+  dnsZone: ""
