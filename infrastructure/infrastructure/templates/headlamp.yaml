@@ -19,8 +19,6 @@ spec:
         headlamp:
           ingress:
             enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-ca
             ingressClassName: nginx
             hosts:
               - host: headlamp.{{ .Values.domain.intranet }}
@@ -28,8 +26,7 @@ spec:
                   - path: /
                     type: ImplementationSpecific
             tls:
-              - secretName: headlamp-tls
-                hosts:
+              - hosts:
                 - headlamp.{{ .Values.domain.intranet }}
   destination:
     namespace: headlamp
