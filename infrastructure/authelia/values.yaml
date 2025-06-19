@@ -85,6 +85,9 @@ authelia:
             redirect_uris: []
             scopes: [ 'openid', 'groups', 'email', 'profile', 'offline_access' ]
             userinfo_signed_response_alg: 'none'
+            revocation_endpoint_auth_method: 'none'
+            introspection_endpoint_auth_method: 'none'
+            pushed_authorization_request_endpoint_auth_method: 'none'
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
     # Refreshing the storage secret in particular makes it impossible to decrypt the database.
