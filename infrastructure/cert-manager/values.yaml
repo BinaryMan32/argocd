@@ -1,5 +1,9 @@
+# https://github.com/cert-manager/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml
 cert-manager:
   installCRDs: true
+  # https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check
+  # Use cloudflare DNS https://developers.cloudflare.com/1.1.1.1/setup/
+  dns01RecursiveNameservers: "1.1.1.1:53"
   prometheus:
     enabled: true
     servicemonitor:
@@ -10,3 +14,7 @@ email: fettinge@gmail.com
 ca:
   dnsName: intranet
   organization: Intranet
+
+intranet:
+  # override from ArgoCD App
+  dnsName: ""

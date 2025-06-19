@@ -18,6 +18,8 @@ spec:
         ca:
           dnsName: {{ .Values.domain.intranet }}
           organization: Five Byte Studios Intranet
+        intranet:
+          dnsName: {{ .Values.domain.intranet }}
   destination:
     namespace: cert-manager
     server: {{ .Values.destination.server }}

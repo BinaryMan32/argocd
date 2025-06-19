@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: intranet-dns01-staging
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: {{ .Values.email | quote }}
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-dns01-staging
+    solvers:
+      - dns01:
+          cloudflare:
+            email: {{ .Values.email | quote }}
+            apiTokenSecretRef:
+              name: cloudflare-dns-fbs
+              key: token
+        selector:
+          dnsNames:
+            - "{{ .Values.intranet.dnsName }}"
+            - "*{{ .Values.intranet.dnsName }}"
