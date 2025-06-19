@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: intranet-wildcard-staging
+  name: intranet-wildcard
 spec:
   dnsNames:
     - "*.{{ .Values.intranet.dnsName }}"
     - "{{ .Values.intranet.dnsName }}"
   issuerRef:
     kind: ClusterIssuer
-    name: intranet-dns01-staging
-  secretName: intranet-wildcard-staging
+    name: intranet-dns01-prod
+  secretName: intranet-wildcard-cert
