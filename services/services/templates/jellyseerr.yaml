@@ -20,16 +20,13 @@ spec:
             storageClass: longhorn
         ingress:
           enabled: true
-          annotations:
-            cert-manager.io/cluster-issuer: intranet-ca
           hosts:
             - host: jellyseerr.{{ .Values.domain.intranet }}
               paths:
                 - path: /
                   pathType: Prefix
           tls:
-            - secretName: jellyseerr-tls
-              hosts:
+            - hosts:
               - jellyseerr.{{ .Values.domain.intranet }}
   destination:
     namespace: media
