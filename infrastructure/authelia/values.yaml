@@ -77,7 +77,7 @@ authelia:
             redirect_uris:
               - https://headlamp.int.fivebytestudios.com/oidc-callback
             scopes: ["openid", "profile", "email", "groups"]
-            require_pkce: true
+            require_pkce: false
             authorization_policy: two_factor
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
