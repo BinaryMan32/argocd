@@ -14,6 +14,8 @@ spec:
         ingress:
           main:
             enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: intranet-dns01-prod
             hosts:
               - host: librespeed.{{ .Values.domain.intranet }}
                 paths:
