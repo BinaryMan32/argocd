@@ -58,6 +58,14 @@ In **Networking** settings:
 1. **LAN networks** `192.168.0.0/16,10.42.0.0/15`
 2. **Known proxies** `10.42.0.0/15`
 
+In **Plugins** settings:
+
+1. Under **Catalog**, click the settings gear and add [intro-skipper](https://github.com/intro-skipper/intro-skipper) with **Repository URL** `https://intro-skipper.org/manifest.json`
+2. Enable `TheTVDB` and `Intro Skipper`
+3. Restart Jellyfin
+4. Under **Scheduled Tasks**, run **Detect and Analyze Media Segments**
+5. Wait a long time
+
 ## Implementation Details
 
 ### Hard Links
