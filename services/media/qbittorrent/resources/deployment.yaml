@@ -47,8 +47,6 @@ spec:
                   key: wireguard_private_key
             - name: SERVER_COUNTRIES
               value: United States
-            - name: SERVER_CITIES
-              value: Chicago
             - name: PORT_FORWARD_ONLY
               value: "on"
             # Allow access to webui
