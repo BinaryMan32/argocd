@@ -12,7 +12,8 @@
   "firstName": "Fred",
   "lastName": "Fettinger",
   "groups": [
-    "longhorn"
+    "longhorn",
+    "play-when-ops"
   ]
 }
 {
