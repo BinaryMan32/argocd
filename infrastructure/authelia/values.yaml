@@ -73,7 +73,7 @@ authelia:
           # Include claims in the ID token
           # https://www.authelia.com/integration/openid-connect/openid-connect-1.0-claims/#restore-functionality-prior-to-claims-parameter
           kubectl-oidc-login:
-            id_token: ['rat', 'groups', 'email', 'email_verified', 'alt_emails', 'preferred_username', 'name']
+            id_token: ['groups', 'email']
         clients:
           - client_name: headlamp
             client_id: '{{ secret "/secrets/authelia-oidc-headlamp/client-id" }}'
