@@ -98,7 +98,6 @@ authelia:
             redirect_uris:
               - http://localhost:8000
               - http://localhost:18000
-              - https://headlamp.int.fivebytestudios.com/oidc-callback
             scopes: [ 'openid', 'groups', 'email', 'profile', 'offline_access' ]
             require_pkce: true
             authorization_policy: two_factor
