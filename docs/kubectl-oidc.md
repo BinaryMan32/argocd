@@ -11,9 +11,21 @@ kubectl krew install oidc-login
 Set up configuration
 
 ```sh
-kubectl oidc-login setup --oidc-issuer-url=https://auth.int.fivebytestudios.com --oidc-client-id=kubectl
+kubectl oidc-login setup \
+  --oidc-issuer-url=https://auth.int.fivebytestudios.com \
+  --oidc-client-id=kubectl \
+  --oidc-client-secret=no-secret \
+  --oidc-extra-scope=email,groups
 ```
+
+For additional info to debug, append `-v 1` or a higher number for more info.
 
 ## Cluster Setup
 
-TODO
+```sh
+for host in griffin{0,4,7}; do
+  ssh $host sudo mkdir -p /etc/rancher/k3s/config.yaml.d
+  cat docs/kube-apiserver-arg.yaml | ssh $host sudo tee /etc/rancher/k3s/config.yaml.d/kube-apiserver-arg.yaml
+  ssh $host sudo systemctl restart k3s
+done
+```

@@ -1,0 +1,9 @@
+# https://geek-cookbook.funkypenguin.co.nz/kubernetes/oidc-authentication/k3s-keycloak/#setup-k3s-for-oidc-auth
+# https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
+kube-apiserver-arg:
+  - "oidc-issuer-url=https://auth.int.fivebytestudios.com"
+  - "oidc-client-id=kubectl"
+  - "oidc-username-claim=email"
+  - "oidc-username-prefix=oidc:"
+  - "oidc-groups-claim=groups"
+  - "oidc-groups-prefix=oidc:"
