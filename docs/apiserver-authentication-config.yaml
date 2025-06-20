@@ -7,7 +7,7 @@ jwt:
     url: https://auth.int.fivebytestudios.com
     audiences:
     - kubectl
-    - headlamp
+    - 1VdJqTeItkV_4CO7UBG0HkAY835rIbMks7q_DjW0mTHNCs9UJUK.x1YHN3QFOgW3wG.tAAhF # headlamp
     audienceMatchPolicy: MatchAny
   claimMappings:
     username:
