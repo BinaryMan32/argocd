@@ -137,16 +137,13 @@ authelia:
           - key: rsa.2048.key
   # https://github.com/bitnami/charts/tree/main/bitnami/redis
   redis:
+    architecture: standalone
     auth:
       usePasswordFiles: true
       usePasswordFileFromSecret: true
       existingSecret: authelia-redis
       existingSecretPasswordKey: redis-password
     master:
-      persistence:
-        storageClass: longhorn
-        size: 1Gi
-    slave:
       persistence:
         storageClass: longhorn
         size: 1Gi
