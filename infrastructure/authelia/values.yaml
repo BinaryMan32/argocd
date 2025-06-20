@@ -152,3 +152,5 @@ authelia:
       enabled: true
       serviceMonitor:
         enabled: true
+    networkPolicy:
+      allowExternal: false
