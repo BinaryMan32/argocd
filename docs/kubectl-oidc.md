@@ -31,10 +31,14 @@ for host in griffin{0,4,7}; do
 done
 ```
 
-Restart k3s.
+Restart k3s on each `HOST`.
 
 ```sh
-for host in griffin{0,4,7}; do
-  ssh $host sudo systemctl restart k3s
-done
+ssh HOST sudo systemctl restart k3s
+```
+
+If necessary, `ssh` into the failed host and view logs for troubleshooting.
+
+```sh
+journalctl -xeu k3s.service
 ```
