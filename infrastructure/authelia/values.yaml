@@ -2,6 +2,9 @@
 authelia:
   pod:
     kind: Deployment
+    annotations:
+      # Allow authelia to connect to the redis service
+      authelia-redis-client: 'true'
     env:
       - name: AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE
         value: /secrets/authelia-db-app/password
