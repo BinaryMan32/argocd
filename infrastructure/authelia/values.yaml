@@ -87,12 +87,8 @@ authelia:
             authorization_policy: two_factor
           - client_name: kubectl
             client_id: kubectl
-            # Kubectl can use a public client with PKCE, but headlamp doesn't support public clients
-            # Use a dummy secret but require PKCE
-            # Can change to a public client if https://github.com/kubernetes-sigs/headlamp/issues/3137 is resolved
-            client_secret:
-              value: not-secret
             claims_policy: kubectl-oidc-login
+            public: true
             # Used by kubectl oidc-login plugin to receive tokens
             redirect_uris:
               - http://localhost:8000
@@ -101,6 +97,10 @@ authelia:
             require_pkce: true
             authorization_policy: two_factor
             token_endpoint_auth_method: client_secret_post
+            userinfo_signed_response_alg: 'none'
+            revocation_endpoint_auth_method: 'none'
+            introspection_endpoint_auth_method: 'none'
+            pushed_authorization_request_endpoint_auth_method: 'none'
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
     # Refreshing the storage secret in particular makes it impossible to decrypt the database.
@@ -123,4 +123,4 @@ authelia:
       authelia-jwk-rsa:
         items:
           - key: rsa.2048.key
-  
+
