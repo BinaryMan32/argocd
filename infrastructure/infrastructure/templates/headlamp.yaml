@@ -30,7 +30,7 @@ spec:
             tls:
               - secretName: headlamp-tls
                 hosts:
-                  - headlamp.{{ .Values.domain.intranet }}
+                - headlamp.{{ .Values.domain.intranet }}
   destination:
     namespace: headlamp
     server: {{ .Values.destination.server }}
