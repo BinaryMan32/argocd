@@ -7,12 +7,13 @@ headlamp:
       value: "false"
     - name: OIDC_ISSUER_URL
       value: https://auth.int.fivebytestudios.com
+    - name: OIDC_CLIENT_ID
+      value: kubectl
+    - name: OIDC_CLIENT_SECRET
+      value: no-secret
     - name: OIDC_SCOPES
       value: "openid,profile,email,groups"
   config:
     oidc:
       secret:
         create: false
-      externalSecret:
-        enabled: true
-        name: authelia-oidc-headlamp
