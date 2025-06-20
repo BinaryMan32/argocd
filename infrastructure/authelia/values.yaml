@@ -69,6 +69,11 @@ authelia:
         jwks:
           - key:
               path: /secrets/authelia-jwk-rsa/rsa.2048.key
+        claims_policies:
+          # Include claims in the ID token
+          # https://www.authelia.com/integration/openid-connect/openid-connect-1.0-claims/#restore-functionality-prior-to-claims-parameter
+          kubectl-oidc-login:
+            id_token: ['rat', 'groups', 'email', 'email_verified', 'alt_emails', 'preferred_username', 'name']
         clients:
           - client_name: headlamp
             client_id: '{{ secret "/secrets/authelia-oidc-headlamp/client-id" }}'
@@ -81,6 +86,7 @@ authelia:
             authorization_policy: two_factor
           - client_name: kubectl
             client_id: kubectl
+            claims_policy: kubectl-oidc-login
             public: true
             # Used by kubectl oidc-login plugin to receive tokens
             redirect_uris:
