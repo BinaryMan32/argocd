@@ -1,0 +1,20 @@
+apiVersion: apiserver.config.k8s.io/v1beta1
+kind: AuthenticationConfiguration
+# https://kubernetes.io/docs/reference/access-authn-authz/authentication/#using-authentication-configuration
+# https://kubernetes.io/blog/2024/04/25/structured-authentication-moves-to-beta/#migration-from-command-line-arguments-to-configuration-file
+jwt:
+- issuer:
+    url: https://auth.int.fivebytestudios.com
+    audiences:
+    - kubectl
+    - headlamp
+    audienceMatchPolicy: MatchAny
+  claimMappings:
+    username:
+      claim: email
+      prefix: "oidc:"
+    groups:
+      claim: groups
+      prefix: "oidc:"
+    uid:
+      claim: sub
