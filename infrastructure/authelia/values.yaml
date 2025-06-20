@@ -119,6 +119,9 @@ authelia:
       authelia-db-app:
         items:
           - key: password
+      authelia-redis:
+        items:
+          - key: redis-password
       authelia-smtp:
         items:
           - key: password
