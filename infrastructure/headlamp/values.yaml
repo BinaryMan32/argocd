@@ -12,7 +12,7 @@ headlamp:
     - name: OIDC_CLIENT_SECRET
       value: no-secret
     - name: OIDC_SCOPES
-      value: "openid,profile,email,groups"
+      value: "openid,email,groups"
   config:
     oidc:
       secret:
