@@ -139,6 +139,7 @@ authelia:
   redis:
     architecture: standalone
     auth:
+      enabled: true
       usePasswordFiles: true
       usePasswordFileFromSecret: true
       existingSecret: authelia-redis
