@@ -14,7 +14,6 @@ Set up configuration
 kubectl oidc-login setup \
   --oidc-issuer-url=https://auth.int.fivebytestudios.com \
   --oidc-client-id=kubectl \
-  --oidc-client-secret=no-secret \
   --oidc-extra-scope=email,groups
 ```
 
