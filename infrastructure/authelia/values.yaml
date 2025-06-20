@@ -2,7 +2,7 @@
 authelia:
   pod:
     kind: Deployment
-    annotations:
+    labels:
       # Allow authelia to connect to the redis service
       authelia-redis-client: 'true'
     env:
