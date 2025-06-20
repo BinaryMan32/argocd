@@ -91,8 +91,7 @@ authelia:
             # Use a dummy secret but require PKCE
             # Can change to a public client if https://github.com/kubernetes-sigs/headlamp/issues/3137 is resolved
             client_secret:
-              # docker run --rm authelia/authelia:latest authelia crypto hash generate pbkdf2 --variant sha512 --password no-secret
-              value: $pbkdf2-sha512$310000$UVJNLv8PPl7Seikde1vi2Q$X0cFinJv1k3Vmq5KJ4uyJeQBYOI93Uq9mFsbAvTPHhvLL0w1ZHINpxs5DlPNMIYZ885UoZQtDI4VPxe8v5wzkQ
+              value: not-secret
             claims_policy: kubectl-oidc-login
             # Used by kubectl oidc-login plugin to receive tokens
             redirect_uris:
