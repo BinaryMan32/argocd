@@ -149,5 +149,5 @@ authelia:
         storageClass: longhorn
         size: 1Gi
     metrics:
-      service:
+      serviceMonitor:
         enabled: true
