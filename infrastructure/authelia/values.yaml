@@ -30,7 +30,7 @@ authelia:
       redis:
         deploy: true
         enabled: true
-        host: authelia-redis-master-test
+        host: authelia-redis-master
         password:
           secret_name: authelia-redis
           path: redis-password
