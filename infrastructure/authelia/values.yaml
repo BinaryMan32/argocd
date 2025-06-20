@@ -78,6 +78,7 @@ authelia:
         clients:
           - client_name: headlamp
             client_id: '{{ secret "/secrets/authelia-oidc-headlamp/client-id" }}'
+            claims_policy: kubectl-oidc-login
             client_secret:
               path: /secrets/authelia-oidc-headlamp/client-secret-digest
             redirect_uris:
