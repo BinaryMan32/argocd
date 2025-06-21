@@ -24,6 +24,10 @@ kube-prometheus-stack:
           targetLabel: "job"
           replacement: "kube-proxy"
 
+  global:
+    rbac:
+      createAggregateClusterRoles: true
+
   alertmanager:
     config:
       global:
