@@ -21,6 +21,7 @@ spec:
   - https://kubernetes.github.io/*
   - https://mojo2600.github.io/pihole-kubernetes/
   - https://opensearch-project.github.io/opensearch-k8s-operator/
+  - https://open-telemetry.github.io/opentelemetry-helm-charts
   - https://operator.min.io
   - https://ori-edge.github.io/k8s_gateway/
   - https://prometheus-community.github.io/helm-charts
