@@ -158,7 +158,7 @@ spec:
                   description: Object Storage
                   namespace: minio-tenant
                   app: minio
-            - Metrics:
+            - Monitoring:
               - Prometheus:
                   icon: prometheus.png
                   href: "https://prometheus.{{ .Values.domain.intranet }}/"
@@ -191,6 +191,12 @@ spec:
                     app.kubernetes.io/name in (
                       alertmanager
                     )
+              - Jaeger:
+                  icon: jaeger.png
+                  href: "https://jaeger.{{ .Values.domain.intranet }}/"
+                  description: Tracing
+                  namespace: jaeger
+                  app: jaeger
           bookmarks:
             - Developer:
               - Github:
