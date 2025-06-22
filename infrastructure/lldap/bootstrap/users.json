@@ -12,6 +12,7 @@
   "firstName": "Fred",
   "lastName": "Fettinger",
   "groups": [
+    "jaeger",
     "longhorn",
     "play-when-ops"
   ]
@@ -22,6 +23,7 @@
   "firstName": "Gabe",
   "lastName": "Johnson",
   "groups": [
+    "jaeger",
     "play-when-ops"
   ]
 }
