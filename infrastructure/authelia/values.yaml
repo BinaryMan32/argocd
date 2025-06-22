@@ -70,6 +70,9 @@ authelia:
           disabled: true
     access_control:
       rules:
+        - domain: jaeger.int.fivebytestudios.com
+          subject: group:jaeger
+          policy: two_factor
         - domain: longhorn.int.fivebytestudios.com
           subject: group:longhorn
           policy: two_factor
