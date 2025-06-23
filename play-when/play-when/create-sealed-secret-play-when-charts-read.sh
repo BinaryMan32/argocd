@@ -13,4 +13,5 @@ kubectl create secret generic \
     --from-literal=username=argocd-read-helm \
     --from-literal=password=$deploy_token \
     --output=yaml |
+yq '.metadata.labels."argocd.argoproj.io/secret-type" = "repo-creds"' --yaml-output |
 kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/sealed-secret-play-when-charts-read.yaml
