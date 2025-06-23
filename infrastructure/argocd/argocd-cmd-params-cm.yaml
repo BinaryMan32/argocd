@@ -4,7 +4,7 @@ metadata:
   name: argocd-cmd-params-cm
 data:
   # allow applications to be created in other namespaces
-  application.namespaces: play-when-dev
+  application.namespaces: play-when-dev,play-when-stage
   # disable all SCM / PR generators
   # see https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Appset-Any-Namespace/#scm-providers-secrets-consideration
   applicationsetcontroller.enable.scm.providers: "false"
@@ -12,4 +12,4 @@ data:
   # see https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Appset-Any-Namespace/#tokenref-restrictions
   applicationsetcontroller.tokenref.strict.mode: "true"
   # allow application sets to be created in other namespaces
-  applicationsetcontroller.namespaces: play-when-dev
+  applicationsetcontroller.namespaces: play-when-dev,play-when-stage
