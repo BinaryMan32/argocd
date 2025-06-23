@@ -9,6 +9,7 @@ metadata:
 spec:
   description: Play When Staging
   sourceRepos:
+  - https://gitlab.com/play-when/play-when-argocd.git
   - https://gitlab.com/api/v4/projects/46393971/packages/helm/stable
   sourceNamespaces:
   - play-when-stage
