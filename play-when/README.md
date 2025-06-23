@@ -61,8 +61,20 @@ kubectl create secret docker-registry \
 done
 ```
 
+### Read Helm Charts
+
+Create a [deploy token][deploy-token] from [Play When Charts Settings][play-when-charts-settings-deploy]:
+
+- Name: `argocd-read-package-registry`
+- Expiration date: leave blank
+- Username: `argocd-read-helm`
+- Scopes: `read_package_registry`
+
+Run `./play-when/play-when/create-sealed-secret-play-when-charts-read.sh` and paste deploy token.
+
 [deploy-token]: https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html#creating-a-deploy-token
 [play-when-group]: https://gitlab.com/play-when
 [play-when-settings-deploy]: https://gitlab.com/groups/play-when/-/settings/repository#js-deploy-tokens
+[play-when-charts-settings-deploy]: https://gitlab.com/play-when/play-when-charts/-/settings/repository#js-deploy-tokens
 [play-when-gitlab-chart]: https://gitlab.com/play-when/play-when-gitlab-chart
 [argocd-private]: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repository-credentials
