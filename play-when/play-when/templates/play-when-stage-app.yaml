@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: play-when-stage
+  namespace: play-when-stage
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: play-when-stage
+  source:
+    repoURL: {{ .Values.source.repoGroup }}/play-when-argocd.git
+    targetRevision: main
+    path: environments/stage
+  destination:
+    namespace: play-when-stage
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
