@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://opensearch-project.github.io/opensearch-k8s-operator/
     chart: opensearch-operator
-    targetRevision: 2.7.0
+    targetRevision: 2.8.0
     helm:
       # https://github.com/opensearch-project/opensearch-k8s-operator/blob/main/charts/opensearch-operator/values.yaml
       valuesObject: {}
