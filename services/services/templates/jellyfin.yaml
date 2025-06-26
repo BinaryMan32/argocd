@@ -15,6 +15,7 @@ spec:
         persistence:
           config:
             storageClass: longhorn
+            size: 10Gi
           media:
             existingClaim: jellyfin-media
         service:
