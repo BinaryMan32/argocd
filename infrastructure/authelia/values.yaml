@@ -156,3 +156,19 @@ authelia:
         enabled: true
     networkPolicy:
       allowExternal: false
+  networkPolicy:
+    enabled: true
+    ingress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: ingress-nginx-intranet
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/part-of: ingress-nginx
+                app.kubernetes.io/name: ingress-nginx
+                app.kubernetes.io/instance: ingress-nginx-intranet
+                app.kubernetes.io/component: controller
+        ports:
+          - protocol: TCP
+            port: http
