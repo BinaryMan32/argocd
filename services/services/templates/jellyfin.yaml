@@ -23,7 +23,7 @@ spec:
           port: 80
           externalTrafficPolicy: Local
         ingress:
-          enabled: false
+          enabled: true
           className: public
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-prod
