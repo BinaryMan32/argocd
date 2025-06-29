@@ -18,7 +18,6 @@ authelia:
     default_2fa_method: webauthn
     # https://www.authelia.com/configuration/second-factor/webauthn/
     webauthn:
-      enabled: true
       enable_passkey_login: true
       display_name: Authelia
     storage:
