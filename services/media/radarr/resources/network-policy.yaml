@@ -71,3 +71,12 @@ spec:
       ports:
         - protocol: TCP
           port: webui
+    # Allow triggering jellyfin library scan
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: jellyfin
+              app.kubernetes.io/name: jellyfin
+      ports:
+        - protocol: TCP
+          port: http
