@@ -33,3 +33,15 @@
     "play-when-ops"
   ]
 }
+{
+  "id": "jswantek",
+  "email": "joseph.swantek@gmail.com",
+  "firstName": "Joe",
+  "lastName": "Swantek",
+  "groups": [
+    "prowlarr",
+    "qbittorrent",
+    "radarr",
+    "sonarr"
+  ]
+}
