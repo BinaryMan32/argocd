@@ -12,9 +12,11 @@
   "firstName": "Fred",
   "lastName": "Fettinger",
   "groups": [
+    "alertmanager",
     "jaeger",
     "longhorn",
-    "play-when-ops"
+    "play-when-ops",
+    "prometheus"
   ]
 }
 {

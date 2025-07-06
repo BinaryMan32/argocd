@@ -69,11 +69,17 @@ authelia:
           disabled: true
     access_control:
       rules:
+        - domain: alertmanager.int.fivebytestudios.com
+          subject: group:alertmanager
+          policy: two_factor
         - domain: jaeger.int.fivebytestudios.com
           subject: group:jaeger
           policy: two_factor
         - domain: longhorn.int.fivebytestudios.com
           subject: group:longhorn
+          policy: two_factor
+        - domain: prometheus.int.fivebytestudios.com
+          subject: group:prometheus
           policy: two_factor
     identity_providers:
       oidc:
