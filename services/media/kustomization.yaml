@@ -6,6 +6,7 @@ resources:
   - resources/jellyfin-ingress-internal.yaml
   - resources/jellyfin-pv-media.yaml
   - resources/jellyfin-pvc-media.yaml
+  - resources/role-binding-ops-aggregate-to-view.yaml
   - resources/sealed-secret-protonvpn-credentials.yaml
   - resources/sealed-secret-spotify-navidrome.yaml
 replacements:

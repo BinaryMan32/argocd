@@ -15,6 +15,7 @@
     "alertmanager",
     "jaeger",
     "longhorn",
+    "media-ops",
     "play-when-ops",
     "prometheus",
     "prowlarr",
@@ -39,6 +40,7 @@
   "firstName": "Joe",
   "lastName": "Swantek",
   "groups": [
+    "media-ops",
     "prowlarr",
     "qbittorrent",
     "radarr",
@@ -51,6 +53,7 @@
   "firstName": "Jared",
   "lastName": "Suttles",
   "groups": [
+    "media-ops",
     "prowlarr",
     "qbittorrent",
     "radarr",
