@@ -16,7 +16,11 @@
     "jaeger",
     "longhorn",
     "play-when-ops",
-    "prometheus"
+    "prometheus",
+    "prowlarr",
+    "qbittorrent",
+    "radarr",
+    "sonarr"
   ]
 }
 {

@@ -67,7 +67,9 @@ authelia:
         username: authelia@mail.fivebytestudios.com
         password:
           disabled: true
+    # https://www.authelia.com/configuration/security/access-control/
     access_control:
+      default_policy: deny
       rules:
         - domain: alertmanager.int.fivebytestudios.com
           subject: group:alertmanager
@@ -81,6 +83,18 @@ authelia:
         - domain: prometheus.int.fivebytestudios.com
           subject: group:prometheus
           policy: two_factor
+        - domain: prowlarr.int.fivebytestudios.com
+          subject: group:prowlarr
+          policy: one_factor
+        - domain: qbittorrent.int.fivebytestudios.com
+          subject: group:qbittorrent
+          policy: one_factor
+        - domain: radarr.int.fivebytestudios.com
+          subject: group:radarr
+          policy: one_factor
+        - domain: sonarr.int.fivebytestudios.com
+          subject: group:sonarr
+          policy: one_factor
     identity_providers:
       oidc:
         enabled: true

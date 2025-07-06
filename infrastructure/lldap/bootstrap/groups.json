@@ -13,3 +13,15 @@
 {
   "name": "prometheus"
 }
+{
+  "name": "prowlarr"
+}
+{
+  "name": "qbittorrent"
+}
+{
+  "name": "radarr"
+}
+{
+  "name": "sonarr"
+}
