@@ -1,9 +1,15 @@
 {
+  "name": "alertmanager"
+}
+{
+  "name": "jaeger"
+}
+{
   "name": "longhorn"
 }
 {
   "name": "play-when-ops"
 }
 {
-  "name": "jaeger"
+  "name": "prometheus
 }
