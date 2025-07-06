@@ -45,3 +45,15 @@
     "sonarr"
   ]
 }
+{
+  "id": "jsuttles",
+  "email": "jared.suttles@gmail.com",
+  "firstName": "Jared",
+  "lastName": "Suttles",
+  "groups": [
+    "prowlarr",
+    "qbittorrent",
+    "radarr",
+    "sonarr"
+  ]
+}
