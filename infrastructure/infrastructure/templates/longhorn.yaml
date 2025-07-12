@@ -25,6 +25,8 @@ spec:
             nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
           host: longhorn.{{ .Values.domain.intranet }}
           tls: true
+        longhornUI:
+          replicas: 1
         persistence:
           defaultClass: false
           reclaimPolicy: Retain
