@@ -30,8 +30,9 @@ spec:
         persistence:
           defaultClass: false
           reclaimPolicy: Retain
-        defaultSettings:
+        defaultBackupStore:
           backupTarget: nfs://{{ .Values.nfs.server }}:{{ .Values.nfs.path }}/manual/longhorn-backup
+        defaultSettings:
           concurrentAutomaticEngineUpgradePerNodeLimit: 1
   # helm template incorrectly sets nodePort for LoadBalancer
   ignoreDifferences:
