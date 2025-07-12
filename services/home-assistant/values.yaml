@@ -18,7 +18,7 @@ home-assistant:
   persistence:
     enabled: true
     size: 2Gi
-    storageClass: nfs
+    storageClass: mercury-nfs
   serviceAccount:
     create: false
   additionalVolumes:
