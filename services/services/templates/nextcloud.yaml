@@ -15,17 +15,17 @@ spec:
       valuesObject:
         nextcloud:
           nextcloud:
-            host: nextcloud.{{ .Values.domain.intranet }}
+            host: nextcloud.{{ .Values.domain.external }}
           ingress:
             enabled: true
-            className: nginx
+            className: public
             annotations:
               nginx.org/websocket-services: nextcloud
-              cert-manager.io/cluster-issuer: intranet-dns01-prod
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
             tls:
               - secretName: nextcloud-tls
                 hosts:
-                - nextcloud.{{ .Values.domain.intranet }}
+                - nextcloud.{{ .Values.domain.external }}
   destination:
     namespace: nextcloud
     server: {{ .Values.destination.server }}
