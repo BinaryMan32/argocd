@@ -24,9 +24,7 @@ spec:
           command:
             - /bin/sysctl
           securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
+            privileged: true
         - name: gluetun
           image: gluetun
           restartPolicy: Always
