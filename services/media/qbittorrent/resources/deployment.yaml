@@ -16,6 +16,13 @@ spec:
       serviceAccountName: default
       automountServiceAccountToken: false
       initContainers:
+        - name: disable-ipv6
+          image: busybox
+          args:
+            - -w
+            - net.ipv6.conf.all.disable_ipv6=1
+          command:
+            - /bin/sysctl
         - name: gluetun
           image: gluetun
           restartPolicy: Always
