@@ -1,8 +1,0 @@
-adminSecret:
-  secretName: nextcloud-admin
-  username: admin
-  passwordLength: 32
-databaseSecret:
-  secretName: nextcloud-database
-  username: nextcloud
-  passwordLength: 32

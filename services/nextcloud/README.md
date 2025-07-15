@@ -3,16 +3,14 @@ by [kubegres][].
 
 # Setup
 
-From the `nextcloud-secrets` subdir run:
-```
-helm install -n nextcloud --create-namespace nextcloud-secrets .
-```
-
 Get initial admin password:
 ```
 kubectl -n nextcloud get secret nextcloud-admin \
   --template='{{.data.password | base64decode | printf "%s\n"}}'
 ```
+
+To change password in `nextcloud-admin` `SealedSecret`, run script
+`create-sealed-secret-nextcloud-admin.sh`.
 
 # Initial Setup
 
