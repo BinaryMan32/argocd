@@ -39,7 +39,7 @@ nextcloud:
     storageClass: longhorn
     nextcloudData:
       enabled: true
-      storageClass: nfs
+      storageClass: mercury-nfs
   startupProbe:
     enabled: true
   metrics:
