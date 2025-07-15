@@ -26,12 +26,13 @@ nextcloud:
   externalDatabase:
     enabled: true
     type: postgresql
-    host: "nextcloud-postgres:5432"
     existingSecret:
       enabled: true
-      secretName: nextcloud-database
-      usernameKey: nextcloudUsername
-      passwordKey: nextcloudPassword
+      secretName: nextcloud-db-app
+      usernameKey: username
+      passwordKey: password
+      hostKey: host
+      databaseKey: dbname
   cronjob:
     enabled: true
   persistence:
@@ -46,13 +47,3 @@ nextcloud:
     enabled: true
     serviceMonitor:
       enabled: true
-postgres:
-  secretName: nextcloud-database
-  backup:
-    pvc: nextcloud-postgres-backup
-    size: 10Gi
-    storageClassName: nfs
-  sharedArchive:
-    pvc: nextcloud-postgres-shared-archive
-    size: 2Gi
-    storageClassName: nfs

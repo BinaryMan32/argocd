@@ -1,5 +1,4 @@
-Deploys nextcloud using [nextcloud helm][], with a postgres database supplied
-by [kubegres][].
+Deploys nextcloud using [nextcloud helm][].
 
 # Setup
 
@@ -31,26 +30,4 @@ well. Creating a dummy file bypasses the issue.
 touch /nfs/k8s/volumes/nextcloud/nextcloud-nextcloud-data/data/NOT_EMPTY
 ```
 
-# Database
-
-Forward port:
-```
-kubectl -n nextcloud port-forward service/nextcloud-postgres 5432
-```
-
-Connect:
-```
-PGPASSWORD=$(kubectl -n nextcloud get secret nextcloud-database \
-  --template='{{.data.nextcloudPassword | base64decode}}') \
-  psql -h localhost nextcloud nextcloud
-```
-
-Restore:
-```
-gzip -cd dump-nextcloud.sql.gz \
-  | kubectl exec -i -n nextcloud nextcloud-postgres-1-0 -- bash -c \
-  'PGPASSWORD=$POSTGRES_MY_DB_PASSWORD exec psql -U nextcloud'
-```
-
 [nextcloud helm]: https://github.com/nextcloud/helm/tree/master/charts/nextcloud
-[kubegres]: https://www.kubegres.io/doc/getting-started.html
