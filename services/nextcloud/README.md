@@ -30,4 +30,6 @@ well. Creating a dummy file bypasses the issue.
 touch /nfs/k8s/volumes/nextcloud/nextcloud-nextcloud-data/data/NOT_EMPTY
 ```
 
+As of nextcloud helm `7.0.0`, this workaround wasn't necessary anymore.
+
 [nextcloud helm]: https://github.com/nextcloud/helm/tree/master/charts/nextcloud
