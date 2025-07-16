@@ -12,6 +12,8 @@ spec:
     helm:
       # https://github.com/jellyfin/jellyfin-helm/blob/master/charts/jellyfin/values.yaml
       valuesObject:
+        deploymentStrategy:
+          type: Recreate
         persistence:
           config:
             storageClass: longhorn
