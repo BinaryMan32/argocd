@@ -66,6 +66,24 @@ In **Plugins** settings:
 4. Under **Scheduled Tasks**, run **Detect and Analyze Media Segments**
 5. Wait a long time
 
+#### Hardware Acceleration
+
+Enable [Hardware Acceleration on Jellyfin][jellyfin-hw-accel] by running the following commands on each node:
+
+```sh
+wget https://github.com/tsukumijima/libmali-rockchip/releases/download/v1.9-1-2131373/libmali-valhall-g610-g24p0-gbm_1.9-1_arm64.deb && sudo dpkg -i libmali-valhall-g610-g24p0-gbm_1.9-1_arm64.deb
+```
+
+The remaining steps are handled by the jellyfin deployment configuration.
+
+To verify, run the following in the `jellyfin` container:
+
+```sh
+apt update && apt install -y clinfo && clinfo 
+```
+
+[jellyfin-hw-accel]: https://jellyfin.org/docs/general/post-install/transcoding/hardware-acceleration/rockchip/#configure-with-linux-virtualization
+
 ## Implementation Details
 
 ### Hard Links

@@ -18,6 +18,38 @@ spec:
             size: 10Gi
           media:
             existingClaim: jellyfin-media
+        volumes:
+          - name: dev-dma-heap
+            hostPath:
+              path: /dev/dma_heap
+              type: Directory
+          - name: dev-dri
+            hostPath:
+              path: /dev/dri
+              type: Directory
+          - name: dev-mali0
+            hostPath:
+              path: /dev/mali0
+              type: CharDevice
+          - name: dev-mpp-service
+            hostPath:
+              path: /dev/mpp_service
+              type: CharDevice
+          - name: dev-rga
+            hostPath:
+              path: /dev/rga
+              type: CharDevice
+        volumeMounts:
+          - name: dev-dma-heap
+            mountPath: /dev/dma_heap
+          - name: dev-dri
+            mountPath: /dev/dri
+          - name: dev-mali0
+            mountPath: /dev/mali0
+          - name: dev-mpp-service
+            mountPath: /dev/mpp_service
+          - name: dev-rga
+            mountPath: /dev/rga
         service:
           type: LoadBalancer
           port: 80
