@@ -24,7 +24,5 @@ spec:
     namespace: nfs
     server: {{ .Values.destination.server }}
   syncPolicy:
-    automated:
-      prune: true
     syncOptions:
       - CreateNamespace=true
