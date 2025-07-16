@@ -79,7 +79,7 @@ The remaining steps are handled by the jellyfin deployment configuration.
 To verify, run the following in the `jellyfin` container:
 
 ```sh
-apt update && apt install -y clinfo && clinfo 
+apt update && apt install -y clinfo && clinfo
 ```
 
 [jellyfin-hw-accel]: https://jellyfin.org/docs/general/post-install/transcoding/hardware-acceleration/rockchip/#configure-with-linux-virtualization
