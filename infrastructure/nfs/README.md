@@ -3,9 +3,6 @@
 This directory doesn't actually deploy anything, but it documents manual setup
 of the NFS server and verification.
 
-See [nfs-subdir-external-provisioner.yaml][] which uses
-[nfs-subdir-external-provisioner][] to provision volumes of class `nfs`.
-
 See [mercury-nfs-subdir-external-provisioner.yaml][] which uses
 [nfs-subdir-external-provisioner][] to provision volumes of class `mercury-nfs`.
 
@@ -101,6 +98,5 @@ kubectl delete -f test-claim.yaml -f test-pod.yaml
 
 Now check the folder has been deleted.
 
-[nfs-subdir-external-provisioner.yaml]: ../infrastructure/templates/nfs-subdir-external-provisioner.yaml
 [mercury-nfs-subdir-external-provisioner.yaml]: ../infrastructure/templates/mercury-nfs-subdir-external-provisioner.yaml
 [nfs-subdir-external-provisioner]: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner

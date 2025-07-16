@@ -40,7 +40,7 @@ Tools for accessing and maintaining cluster nodes.
 
 Additional infrastructure used only by non-infrastructure projects.
 
-1. [nfs-subdir-external-provisioner](./infrastructure/templates/nfs-subdir-external-provisioner.yaml)
+1. [mercury-nfs-subdir-external-provisioner](./infrastructure/templates/mercury-nfs-subdir-external-provisioner.yaml)
 2. [minio-operator](./infrastructure/templates/minio-operator.yaml)
 3. [minio-tenant](./infrastructure/templates/minio-tenant.yaml)
 4. [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
@@ -118,10 +118,15 @@ kubectl get storageclass
 ```
 
 ```text
-NAME                   PROVISIONER                                     RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-local-path (default)   rancher.io/local-path                           Delete          WaitForFirstConsumer   false                  18h
-longhorn               driver.longhorn.io                              Retain          Immediate              true                   26m
-nfs                    cluster.local/nfs-subdir-external-provisioner   Delete          Immediate              true                   101m
+NAME                   PROVISIONER                                             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+local-path (default)   rancher.io/local-path                                   Delete          WaitForFirstConsumer   false                  527d
+longhorn               driver.longhorn.io                                      Retain          Immediate              true                   45d
+longhorn-static        driver.longhorn.io                                      Delete          Immediate              true                   85d
+mercury-nfs            cluster.local/mercury-nfs-subdir-external-provisioner   Delete          Immediate              true                   65d
+topolvm-hdd-ext4       topolvm.io                                              Retain          WaitForFirstConsumer   true                   162d
+topolvm-hdd-xfs        topolvm.io                                              Retain          WaitForFirstConsumer   true                   162d
+topolvm-ssd-ext4       topolvm.io                                              Retain          WaitForFirstConsumer   true                   167d
+topolvm-ssd-xfs        topolvm.io                                              Retain          WaitForFirstConsumer   true                   167d
 ```
 
 [kube-prometheus-stack]: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
