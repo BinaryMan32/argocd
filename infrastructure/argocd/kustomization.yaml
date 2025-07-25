@@ -4,13 +4,13 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.11/manifests/install.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.12/manifests/install.yaml
 # argocd-server-applications allows argocd-server to manage applications in all namespaces
 # See https://argo-cd.readthedocs.io/en/stable/operator-manual/app-any-namespace/#adapt-kubernetes-rbac
-- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.11/examples/k8s-rbac/argocd-server-applications/argocd-server-rbac-clusterrole.yaml
-- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.11/examples/k8s-rbac/argocd-server-applications/argocd-server-rbac-clusterrolebinding.yaml
-- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.11/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrole.yaml
-- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.11/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrolebinding.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.12/examples/k8s-rbac/argocd-server-applications/argocd-server-rbac-clusterrole.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.12/examples/k8s-rbac/argocd-server-applications/argocd-server-rbac-clusterrolebinding.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.12/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrole.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.12/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrolebinding.yaml
 - ingress.yaml
 patches:
 - path: load-balancer.yaml
