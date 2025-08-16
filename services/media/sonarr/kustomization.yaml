@@ -16,7 +16,7 @@ labels:
 images:
   - name: sonarr
     newName: linuxserver/sonarr
-    newTag: 4.0.15.2941-ls289
+    newTag: 4.0.15.2941-ls290
 replacements:
 # avoid repeating the host name in the ingress tls config
 - source:
