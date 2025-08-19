@@ -18,7 +18,7 @@ labels:
 images:
   - name: lldap
     newName: docker.io/lldap/lldap
-    newTag: v0.6.1-alpine-rootless
+    newTag: v0.6.2-alpine-rootless
 configMapGenerator:
   - name: bootstrap
     files:
