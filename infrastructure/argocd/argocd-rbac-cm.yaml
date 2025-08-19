@@ -8,3 +8,5 @@ data:
     g, gabe, proj:play-when-dev:logs
     g, gabe, proj:play-when-stage:read-only
     g, gabe, proj:play-when-stage:logs
+    g, gabe, proj:play-when-prod:read-only
+    g, gabe, proj:play-when-prod:logs
