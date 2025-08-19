@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: play-when-prod
+  namespace: play-when-prod
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: play-when-prod
+  source:
+    repoURL: {{ .Values.source.repoGroup }}/play-when-argocd.git
+    targetRevision: main
+    path: environments/prod
+  destination:
+    namespace: play-when-prod
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}

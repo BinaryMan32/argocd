@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: play-when-prod
+  namespace: argocd
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Play When Staging
+  sourceRepos:
+  - https://gitlab.com/play-when/play-when-argocd.git
+  - https://gitlab.com/api/v4/projects/46393971/packages/helm/stable
+  sourceNamespaces:
+  - play-when-prod
+  destinations:
+  - namespace: play-when-prod
+    server: {{ .Values.destination.server }}
+  roles:
+  - name: read-only
+    description: Read-only access
+    policies:
+    - p, proj:play-when-prod:read-only, applications, get, play-when-prod/play-when-prod/*, allow
+    - p, proj:play-when-prod:read-only, applications, sync, play-when-prod/play-when-prod/*, allow
+    - p, proj:play-when-prod:read-only, applicationsets, get, play-when-prod/play-when-prod/*, allow
+  - name: logs
+    description: View logs
+    policies:
+    - p, proj:play-when-prod:logs, logs, get, play-when-prod/*, allow
