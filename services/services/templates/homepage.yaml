@@ -152,12 +152,6 @@ spec:
                   description: Kubernetes cluster analysis and management
                   namespace: headlamp
                   app: headlamp
-              - MinIO Console:
-                  icon: minio-light.png
-                  href: "https://console.minio.{{ .Values.domain.intranet }}/"
-                  description: Object Storage
-                  namespace: minio-tenant
-                  app: minio
             - Monitoring:
               - Prometheus:
                   icon: prometheus.png
