@@ -41,9 +41,8 @@ Tools for accessing and maintaining cluster nodes.
 Additional infrastructure used only by non-infrastructure projects.
 
 1. [mercury-nfs-subdir-external-provisioner](./infrastructure/templates/mercury-nfs-subdir-external-provisioner.yaml)
-2. [minio-operator](./infrastructure/templates/minio-operator.yaml)
-3. [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
-4. [ingress-nginx](./infrastructure/templates/ingress-nginx.yaml) (don't deploy until router port-forward)
+2. [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
+3. [ingress-nginx](./infrastructure/templates/ingress-nginx.yaml) (don't deploy until router port-forward)
 
 ## Manual Kubernetes Changes
 

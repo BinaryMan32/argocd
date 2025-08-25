@@ -21,8 +21,6 @@ spec:
             loadBalancerIP: {{ .Values.ipAddress.ingressIntranet }}
             # Preserve client IP addresses
             externalTrafficPolicy: Local
-          # minio ingress needs snippet annotations
-          allowSnippetAnnotations: true
           replicaCount: 3
           # try to keep replicas in different node availability zones
           topologySpreadConstraints:
