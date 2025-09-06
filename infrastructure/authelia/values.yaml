@@ -156,10 +156,6 @@ authelia:
       authelia-jwk-rsa:
         items:
           - key: rsa.2048.key
-  service:
-    # 0.10.44 added externalTrafficPolicy with default of Cluster which fails with:
-    # Invalid value: "Cluster": may only be set for externally-accessible services
-    externalTrafficPolicy: null
   # https://github.com/bitnami/charts/tree/main/bitnami/redis
   redis:
     architecture: standalone
