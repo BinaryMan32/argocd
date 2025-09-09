@@ -18,7 +18,7 @@ spec:
               name: inventree-server
               port: 
                 name: http
-      tls:
-        - hosts:
-            - inventree.int.fivebytestudios.com
-          secretName: inventree-tls
+  tls:
+    - hosts:
+        - inventree.int.fivebytestudios.com
+      secretName: inventree-tls
