@@ -13,8 +13,8 @@ labels:
       app.kubernetes.io/name: inventree
 images:
   - name: inventree
-    newName: deluan/navidrome
-    newTag: inventree/inventree
+    newName: inventree/inventree
+    newTag: 0.17.14
 configMapGenerator:
   - name: inventree-config
     files:
