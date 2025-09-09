@@ -12,6 +12,46 @@ spec:
       labels:
         app.kubernetes.io/component: server
     spec:
+      initContainers:
+        - name: update
+          image: inventree
+          command: ["invoke", "update"]
+          env:
+            - name: INVENTREE_CONFIG_FILE
+              value: /config/config.yaml
+            - name: INVENTREE_DB_ENGINE
+              value: postgresql
+            - name: INVENTREE_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: inventree-db-app
+                  key: dbname
+            - name: INVENTREE_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: inventree-db-app
+                  key: host
+            - name: INVENTREE_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: inventree-db-app
+                  key: port
+            - name: INVENTREE_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: inventree-db-app
+                  key: username
+            - name: INVENTREE_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: inventree-db-app
+                  key: password
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+            - name: data
+              mountPath: /home/inventree/data
       containers:
         - name: inventree
           image: inventree
