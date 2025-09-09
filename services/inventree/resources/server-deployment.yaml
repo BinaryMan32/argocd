@@ -19,6 +19,8 @@ spec:
             - name: http
               containerPort: 8000
           env:
+            - name: INVENTREE_CONFIG_FILE
+              value: /config/config.yaml
             - name: INVENTREE_DB_ENGINE
               value: postgres
             - name: INVENTREE_DB_NAME
@@ -47,9 +49,15 @@ spec:
                   name: inventree-db-app
                   key: password
           volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
             - name: data
               mountPath: /home/inventree/data
       volumes:
+        - name: config
+          configMap:
+            name: inventree-config
         - name: data
           persistentVolumeClaim:
             claimName: inventree-data
