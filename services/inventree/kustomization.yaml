@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - resources/postgres-cluster.yaml
+  - resources/pvc-data.yaml
+  - resources/server-deployment.yaml
+  - resources/server-ingress.yaml
+  - resources/server-service.yaml
+labels:
+  - includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: inventree
+      app.kubernetes.io/name: inventree
+images:
+  - name: inventree
+    newName: deluan/navidrome
+    newTag: inventree/inventree
+configMapGenerator:
+  - name: inventree-config
+    files:
+      - configmap/config.yaml
+    options:
+      disableNameSuffixHash: true
+buildMetadata: [managedByLabel]
