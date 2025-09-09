@@ -43,7 +43,7 @@ debug_shell: False
 
 # Configure the system logging level (or use environment variable INVENTREE_LOG_LEVEL)
 # Options: DEBUG / INFO / WARNING / ERROR / CRITICAL
-log_level: WARNING
+log_level: INFO
 
 # Configure if logs should be output in JSON format
 # Use environment variable INVENTREE_JSON_LOG
