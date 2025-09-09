@@ -6,6 +6,7 @@ resources:
   - resources/server-deployment.yaml
   - resources/server-ingress.yaml
   - resources/server-service.yaml
+  - resources/worker-deployment.yaml
 labels:
   - includeTemplates: true
     pairs:
