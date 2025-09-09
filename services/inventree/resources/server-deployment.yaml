@@ -19,8 +19,6 @@ spec:
             - name: http
               containerPort: 8000
           env:
-            - name: INVENTREE_AUTO_UPDATE
-              value: "True"
             - name: INVENTREE_CONFIG_FILE
               value: /config/config.yaml
             - name: INVENTREE_DB_ENGINE
