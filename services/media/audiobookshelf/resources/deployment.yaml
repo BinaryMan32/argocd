@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audiobookshelf
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: audiobookshelf
+      app.kubernetes.io/name: audiobookshelf
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: audiobookshelf
+          image: audiobookshelf
+          env:
+            - name: TZ
+              value: America/Chicago
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 13378
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+            - mountPath: /audiobooks
+              name: audiobooks
+            - mountPath: /config
+              name: config
+            - mountPath: /metadata
+              name: metadata
+            - mountPath: /podcasts
+              name: podcasts
+      volumes:
+        - name: audiobooks
+          persistentVolumeClaim:
+            claimName: audiobookshelf-audiobooks
+        - name: config
+          persistentVolumeClaim:
+            claimName: audiobookshelf-config
+        - name: metadata
+          persistentVolumeClaim:
+            claimName: audiobookshelf-metadata
+        - name: podcasts
+          persistentVolumeClaim:
+            claimName: audiobookshelf-podcasts

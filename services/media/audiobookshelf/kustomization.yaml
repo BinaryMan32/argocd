@@ -1,0 +1,36 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./resources/deployment.yaml
+  - ./resources/ingress.yaml
+  - ./resources/network-policy.yaml
+  - ./resources/pv-audiobooks.yaml
+  - ./resources/pv-podcasts.yaml
+  - ./resources/pvc-audiobooks.yaml
+  - ./resources/pvc-config.yaml
+  - ./resources/pvc-metadata.yaml
+  - ./resources/pvc-podcasts.yaml
+  - ./resources/service.yaml
+labels:
+  - includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: audiobookshelf
+      app.kubernetes.io/name: audiobookshelf
+images:
+  - name: audiobookshelf
+    newName: ghcr.io/advplyr/audiobookshelf
+    newTag: 2.29.0
+replacements:
+# avoid repeating the host name in the ingress tls config
+- source:
+    kind: Ingress
+    fieldPath: spec.rules.0.host
+  targets:
+    - select:
+        kind: Ingress
+        name: audiobookshelf
+      fieldPaths:
+        - spec.tls.0.hosts.0
+      options:
+        create: true
+buildMetadata: [managedByLabel]
