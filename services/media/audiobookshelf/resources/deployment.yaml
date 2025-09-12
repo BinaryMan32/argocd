@@ -32,12 +32,14 @@ spec:
           volumeMounts:
             - mountPath: /audiobooks
               name: audiobooks
+              readOnly: true
             - mountPath: /config
               name: config
             - mountPath: /metadata
               name: metadata
             - mountPath: /podcasts
               name: podcasts
+              readOnly: true
       volumes:
         - name: audiobooks
           persistentVolumeClaim:
