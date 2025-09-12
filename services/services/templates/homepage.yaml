@@ -89,6 +89,12 @@ spec:
                     description: Media Server
                     namespace: media
                     app: jellyfin
+              - Audiobookshelf:
+                  icon: audiobookshelf.png
+                  href: "https://audiobookshelf.{{ .Values.domain.intranet }}/"
+                  description: Audio Book Player
+                  namespace: media
+                  app: audiobookshelf
               - Jellyseerr:
                   icon: jellyseerr.png
                   href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
