@@ -24,7 +24,7 @@ spec:
           ports:
             - name: http
               protocol: TCP
-              containerPort: 13378
+              containerPort: 80
           readinessProbe:
             httpGet:
               path: /
