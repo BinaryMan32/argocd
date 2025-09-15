@@ -15,7 +15,7 @@ labels:
 images:
   - name: inventree
     newName: inventree/inventree
-    newTag: 0.17.14
+    newTag: 1.0.0
 configMapGenerator:
   - name: inventree-config
     files:
