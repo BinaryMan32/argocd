@@ -1,4 +1,5 @@
 nextcloud:
+  # https://github.com/nextcloud/helm/blob/main/charts/nextcloud/values.yaml
   # use nginx to serve files instead of apache
   image:
     flavor: fpm-alpine
@@ -35,6 +36,7 @@ nextcloud:
       databaseKey: dbname
   cronjob:
     enabled: true
+    type: cronjob
   persistence:
     enabled: true
     storageClass: longhorn
