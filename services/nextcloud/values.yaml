@@ -36,7 +36,7 @@ nextcloud:
       databaseKey: dbname
   cronjob:
     enabled: true
-    type: cronjob
+    type: sidecar
     cronjob:
       affinity:
         podAffinity:
