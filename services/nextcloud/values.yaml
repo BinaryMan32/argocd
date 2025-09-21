@@ -37,6 +37,26 @@ nextcloud:
   cronjob:
     enabled: true
     type: cronjob
+    cronjob:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            # Run cronjob on same node as nextcloud app
+            - labelSelector:
+                matchExpressions:
+                - key: "app.kubernetes.io/name"
+                  operator: In
+                  values:
+                  - nextcloud
+                - key: "app.kubernetes.io/instance"
+                  operator: In
+                  values:
+                  - nextcloud
+                - key: "app.kubernetes.io/component"
+                  operator: In
+                  values:
+                  - app
+              topologyKey: "kubernetes.io/hostname"
   persistence:
     enabled: true
     storageClass: longhorn
