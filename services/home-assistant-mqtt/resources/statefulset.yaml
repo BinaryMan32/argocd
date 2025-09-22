@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mqtt
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  podManagementPolicy: OrderedReady
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: home-assistant
+      app.kubernetes.io/name: mqtt
+  serviceName: mqtt
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: true
+      securityContext: 
+        fsGroup: 1883
+      initContainers: 
+        - command:
+            - /init_password.sh
+          env:
+            - name: FLASHFORGE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: flashforge-password
+                  name: mqtt
+            - name: FLASHFORGE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: flashforge-username
+                  name: mqtt
+            - name: HOME_ASSISTANT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: home-assistant-password
+                  name: mqtt
+            - name: HOME_ASSISTANT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: home-assistant-username
+                  name: mqtt
+            - name: TASMOTA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: tasmota-password
+                  name: mqtt
+            - name: TASMOTA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: tasmota-username
+                  name: mqtt
+          image: mosquitto
+          name: password
+          volumeMounts:
+            - mountPath: /mosquitto/config/
+              name: config
+              readOnly: true
+            - mountPath: /mosquitto/data
+              name: data
+            - mountPath: /init_password.sh
+              name: init
+              readOnly: true
+              subPath: password.sh
+            - mountPath: /mosquitto/password
+              name: password
+      containers: 
+        - image: mosquitto
+          name: main
+          volumeMounts:
+            - mountPath: /mosquitto/config/
+              name: config
+              readOnly: true
+            - mountPath: /mosquitto/data
+              name: data
+            - mountPath: /mosquitto/password
+              name: password
+              readOnly: true
+      volumes: 
+        - configMap:
+            defaultMode: 432
+            name: mqtt-config
+          name: config
+        - configMap:
+            defaultMode: 448
+            name: mqtt-init
+          name: init
+        - emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi
+          name: password
+  volumeClaimTemplates: 
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi
+        storageClassName: longhorn
