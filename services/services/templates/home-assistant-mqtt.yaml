@@ -15,7 +15,7 @@ spec:
             kind: Service
             name: mqtt
           patch: |-
-            - op: add
+            - op: replace
               path: /metadata/annotations/"metallb.io/loadBalancerIPs"
               value: {{ .Values.ipAddress.mqtt }}
   destination:
