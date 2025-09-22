@@ -48,12 +48,6 @@ spec:
                 paths:
                   - path: /
                     pathType: ImplementationSpecific
-        mqtt:
-          service:
-            main:
-              type: LoadBalancer
-              annotations:
-                metallb.io/loadBalancerIPs: {{ .Values.ipAddress.mqtt }}
   destination:
     namespace: home-assistant
     server: {{ .Values.destination.server }}
