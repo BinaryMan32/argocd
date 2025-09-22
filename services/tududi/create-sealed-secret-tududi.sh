@@ -6,7 +6,7 @@ read -e -p 'initial user password > ' user_password
 
 kubectl create secret generic \
     --dry-run=client \
-    --namespace=auth \
+    --namespace=tududi \
     tududi \
     --from-literal=userEmail="$user_email" \
     --from-literal=userPassword="$user_password" \
