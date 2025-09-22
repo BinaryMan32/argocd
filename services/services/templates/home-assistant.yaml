@@ -58,6 +58,5 @@ spec:
     namespace: home-assistant
     server: {{ .Values.destination.server }}
   syncPolicy:
-    automated: {}
     syncOptions:
       - CreateNamespace=true
