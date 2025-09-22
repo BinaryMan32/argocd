@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tududi
+  annotations:
+    cert-manager.io/cluster-issuer: intranet-dns01-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "from rules"
+      secretName: "tududi-tls"
+  rules:
+    - host: "tududi.int.fivebytestudios.com"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: tududi
+                port:
+                  name: http

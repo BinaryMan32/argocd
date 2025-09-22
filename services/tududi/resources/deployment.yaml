@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tududi
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tududi
+      app.kubernetes.io/name: tududi
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: tududi
+          image: tududi
+          env:
+            - name: TUDUDI_USER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: tududi
+                  key: userEmail
+            - name: TUDUDI_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tududi
+                  key: userPassword
+            - name: TUDUDI_SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: tududi
+                  key: sessionSecret
+            - name: TUDUDI_ALLOWED_ORIGINS
+              value: https://tududi.int.fivebytestudios.com
+            - name: PUID
+              value: "1001"
+            - name: GUID
+              value: "1001"
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 3002
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+            - mountPath: /app/backend/db
+              name: database
+            - mountPath: /app/backend/uploads
+              name: uploads
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: tududi-database
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: tududi-uploads

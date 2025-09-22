@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tududi
+  namespace: argocd
+spec:
+  project: services
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/tududi
+  destination:
+    namespace: tududi
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
