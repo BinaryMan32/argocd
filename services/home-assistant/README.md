@@ -12,13 +12,10 @@ And visit <http://localhost:8123/>
 
 Or use the ingress via <https://home-assistant.wildfreddy.fivebytestudios.com/>
 
-## Secrets
+## Mosquitto
 
-From the `home-assistant-secrets` subdir run:
-
-```sh
-helm --kube-context=griffin install --namespace home-assistant --create-namespace home-assistant-secrets .
-```
+Home Assistant uses Mosquitto to interface with some devices.
+See [home-assistant-mqtt](../home-assistant-mqtt/).
 
 ## Configuring Devices
 
@@ -26,14 +23,6 @@ To set client credentials on all tasmota devices, run:
 
 ```sh
 ./configure-tasmota.py --credentials
-```
-
-## Testing MQTT (Mosquitto)
-
-Subscribe to all messages:
-
-```sh
-mosquitto_sub --id test-$(hostname) --host mqtt.home-assistant.int.fivebytestudios.com --topic '#' --verbose
 ```
 
 ## Setup
