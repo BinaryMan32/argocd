@@ -16,7 +16,7 @@ spec:
             name: mqtt
           patch: |-
             - op: replace
-              path: /metadata/annotations/metallb.io\/loadBalancerIPs
+              path: /metadata/annotations/metallb.io~1loadBalancerIPs
               value: {{ .Values.ipAddress.mqtt }}
   destination:
     namespace: home-assistant
