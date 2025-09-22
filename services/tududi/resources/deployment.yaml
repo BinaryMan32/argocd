@@ -37,9 +37,9 @@ spec:
             - name: TUDUDI_ALLOWED_ORIGINS
               value: https://tududi.int.fivebytestudios.com
             - name: PUID
-              value: "1001"
+              value: "65534"
             - name: GUID
-              value: "1001"
+              value: "65534"
           ports:
             - name: http
               protocol: TCP
