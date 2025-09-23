@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: ghcr.io/fallenbagel/jellyseerr
     chart: jellyseerr-chart
-    targetRevision: 2.6.2
+    targetRevision: 2.7.0
     helm:
       releaseName: jellyseerr
       # https://github.com/Fallenbagel/jellyseerr/tree/develop/charts/jellyseerr-chart
