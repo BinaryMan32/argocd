@@ -70,12 +70,12 @@ spec:
                     description: Private Cloud
                     namespace: nextcloud
                     app: nextcloud
-                - Home Assistant:
-                    icon: home-assistant.png
-                    href: "https://home-assistant.{{ .Values.domain.external }}/"
-                    description: Home Automation
-                    namespace: home-assistant
-                    app: home-assistant
+              - Home Assistant:
+                  icon: home-assistant.png
+                  href: "https://home-assistant.{{ .Values.domain.intranet }}/"
+                  description: Home Automation
+                  namespace: home-assistant
+                  app: home-assistant
               - Tududi:
                   href: "https://tududi.{{ .Values.domain.intranet }}/"
                   description: Task Management

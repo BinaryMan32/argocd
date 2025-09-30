@@ -35,16 +35,16 @@ spec:
                 metallb.io/allow-shared-ip: home-assistant
           ingress:
             enabled: true
-            className: public
+            className: nginx
             annotations:
               nginx.org/websocket-services: home-assistant
-              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+              cert-manager.io/cluster-issuer: intranet-dns01-prod
             tls:
               - secretName: home-assistant-tls
                 hosts:
-                - home-assistant.{{ .Values.domain.external }}
+                - home-assistant.{{ .Values.domain.intranet }}
             hosts:
-              - host: home-assistant.{{ .Values.domain.external }}
+              - host: home-assistant.{{ .Values.domain.intranet }}
                 paths:
                   - path: /
                     pathType: ImplementationSpecific

@@ -10,7 +10,7 @@ kubectl -n home-assistant port-forward svc/home-assistant 8123:8123
 
 And visit <http://localhost:8123/>
 
-Or use the ingress via <https://home-assistant.wildfreddy.fivebytestudios.com/>
+Or use the ingress via <https://home-assistant.int.fivebytestudios.com/>
 
 ## Mosquitto
 
