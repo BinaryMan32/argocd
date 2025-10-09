@@ -14,7 +14,7 @@ labels:
 images:
   - name: prowlarr
     newName: linuxserver/prowlarr
-    newTag: 2.0.5.5160-ls127
+    newTag: 2.0.5.5160-ls128
 replacements:
 # avoid repeating the host name in the ingress tls config
 - source:
