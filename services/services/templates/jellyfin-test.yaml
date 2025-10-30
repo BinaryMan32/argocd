@@ -8,12 +8,10 @@ spec:
   source:
     repoURL: https://jellyfin.github.io/jellyfin-helm
     chart: jellyfin
-    targetRevision: 2.3.0
+    targetRevision: 2.4.0
     helm:
       # https://github.com/jellyfin/jellyfin-helm/blob/master/charts/jellyfin/values.yaml
       valuesObject:
-        image:
-          tag: 10.10.7
         # use Recreate deployment strategy to avoid multi attach for volume jellyfin-test-config
         deploymentStrategy:
           type: Recreate
