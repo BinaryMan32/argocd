@@ -12,8 +12,6 @@ spec:
     helm:
       # https://github.com/jellyfin/jellyfin-helm/blob/master/charts/jellyfin/values.yaml
       valuesObject:
-        image:
-          tag: 10.10.7
         # use Recreate deployment strategy to avoid multi attach for volume jellyfin-config
         deploymentStrategy:
           type: Recreate
