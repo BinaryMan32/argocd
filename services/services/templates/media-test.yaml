@@ -4,7 +4,7 @@ metadata:
   name: media-test
   namespace: argocd
 spec:
-  project: media
+  project: media-test
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}

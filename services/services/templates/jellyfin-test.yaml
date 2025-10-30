@@ -4,7 +4,7 @@ metadata:
   name: jellyfin-test
   namespace: argocd
 spec:
-  project: media
+  project: media-test
   source:
     repoURL: https://jellyfin.github.io/jellyfin-helm
     chart: jellyfin
