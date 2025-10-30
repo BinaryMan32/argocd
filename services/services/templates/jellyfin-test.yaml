@@ -69,7 +69,10 @@ spec:
             - secretName: jellyfin-test-internal-tls
               hosts:
               - jellyfin-test.{{ .Values.domain.intranet }}
-        livenessProbe: null
+        readinessProbe:
+          failureThreshold: 3
+        livenessProbe:
+          failureThreshold: 10
   destination:
     namespace: media-test
     server: {{ .Values.destination.server }}
