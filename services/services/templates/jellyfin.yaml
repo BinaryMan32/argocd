@@ -73,6 +73,10 @@ spec:
             - secretName: jellyfin-tls
               hosts:
               - jellyfin.{{ .Values.domain.external }}
+        readinessProbe:
+          failureThreshold: 3
+        livenessProbe:
+          failureThreshold: 10
   destination:
     namespace: media
     server: {{ .Values.destination.server }}
