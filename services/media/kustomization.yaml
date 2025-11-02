@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: media
 resources:
   - resources/namespace.yaml
+  - resources/jellyfin-cache-images-pvc.yaml
   - resources/jellyfin-ingress-internal.yaml
   - resources/jellyfin-pv-media.yaml
   - resources/jellyfin-pvc-media.yaml
