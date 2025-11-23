@@ -58,7 +58,7 @@ spec:
   
   egress:
     # ProtonVPN US servers
-    # curl https://raw.githubusercontent.com/qdm12/gluetun/v3.40.0/internal/storage/servers.json | yq --yaml-output '.protonvpn.servers | map(select(.country == "United States" and .vpn == "wireguard" and .port_forward).ips[]) | sort | map({ipBlock: {cidr: (. + "/32")}}) | [{to: .}]'
+    # curl https://raw.githubusercontent.com/qdm12/gluetun/v3.40.3/internal/storage/servers.json | yq --yaml-output '.protonvpn.servers | map(select(.country == "United States" and .vpn == "wireguard" and .port_forward).ips[]) | sort | map({ipBlock: {cidr: (. + "/32")}}) | [{to: .}]'
     - ports:
         - protocol: UDP
           port: 51820
@@ -66,33 +66,15 @@ spec:
         - ipBlock:
             cidr: 104.234.212.26/32
         - ipBlock:
-            cidr: 138.199.35.97/32
+            cidr: 138.199.50.150/32
         - ipBlock:
             cidr: 143.244.44.186/32
         - ipBlock:
-            cidr: 146.70.115.162/32
-        - ipBlock:
-            cidr: 146.70.127.242/32
-        - ipBlock:
             cidr: 146.70.147.114/32
         - ipBlock:
-            cidr: 146.70.174.130/32
-        - ipBlock:
-            cidr: 146.70.174.146/32
-        - ipBlock:
-            cidr: 146.70.174.162/32
-        - ipBlock:
-            cidr: 146.70.174.178/32
-        - ipBlock:
-            cidr: 146.70.174.194/32
-        - ipBlock:
-            cidr: 146.70.174.210/32
-        - ipBlock:
-            cidr: 146.70.174.226/32
-        - ipBlock:
-            cidr: 146.70.174.242/32
-        - ipBlock:
             cidr: 146.70.174.82/32
+        - ipBlock:
+            cidr: 146.70.183.130/32
         - ipBlock:
             cidr: 146.70.183.130/32
         - ipBlock:
@@ -100,23 +82,19 @@ spec:
         - ipBlock:
             cidr: 146.70.183.162/32
         - ipBlock:
-            cidr: 146.70.183.18/32
-        - ipBlock:
-            cidr: 146.70.195.34/32
-        - ipBlock:
-            cidr: 146.70.195.82/32
-        - ipBlock:
             cidr: 146.70.195.98/32
+        - ipBlock:
+            cidr: 146.70.202.130/32
         - ipBlock:
             cidr: 146.70.202.130/32
         - ipBlock:
             cidr: 146.70.202.146/32
         - ipBlock:
-            cidr: 146.70.202.162/32
-        - ipBlock:
-            cidr: 146.70.202.178/32
+            cidr: 146.70.202.18/32
         - ipBlock:
             cidr: 146.70.202.18/32
+        - ipBlock:
+            cidr: 146.70.202.50/32
         - ipBlock:
             cidr: 146.70.202.50/32
         - ipBlock:
@@ -126,25 +104,19 @@ spec:
         - ipBlock:
             cidr: 146.70.217.66/32
         - ipBlock:
-            cidr: 146.70.217.98/32
+            cidr: 146.70.217.66/32
         - ipBlock:
-            cidr: 146.70.45.114/32
+            cidr: 146.70.217.98/32
         - ipBlock:
             cidr: 146.70.45.226/32
         - ipBlock:
-            cidr: 146.70.51.210/32
-        - ipBlock:
-            cidr: 146.70.58.130/32
+            cidr: 146.70.72.130/32
         - ipBlock:
             cidr: 146.70.72.130/32
         - ipBlock:
             cidr: 146.70.72.162/32
         - ipBlock:
-            cidr: 149.102.224.162/32
-        - ipBlock:
-            cidr: 149.102.224.175/32
-        - ipBlock:
-            cidr: 149.102.226.193/32
+            cidr: 146.70.8.2/32
         - ipBlock:
             cidr: 149.102.226.225/32
         - ipBlock:
@@ -154,67 +126,45 @@ spec:
         - ipBlock:
             cidr: 149.102.254.78/32
         - ipBlock:
-            cidr: 149.22.80.1/32
-        - ipBlock:
-            cidr: 149.22.80.28/32
-        - ipBlock:
-            cidr: 149.22.80.55/32
-        - ipBlock:
-            cidr: 149.22.80.82/32
-        - ipBlock:
-            cidr: 149.22.84.89/32
-        - ipBlock:
             cidr: 149.22.94.1/32
         - ipBlock:
-            cidr: 149.22.94.28/32
+            cidr: 149.34.251.133/32
         - ipBlock:
-            cidr: 149.22.94.55/32
+            cidr: 149.34.251.135/32
         - ipBlock:
-            cidr: 149.36.48.129/32
-        - ipBlock:
-            cidr: 149.36.48.141/32
+            cidr: 149.34.251.137/32
         - ipBlock:
             cidr: 149.36.48.153/32
         - ipBlock:
-            cidr: 149.36.48.154/32
+            cidr: 149.40.49.30/32
         - ipBlock:
-            cidr: 149.36.48.155/32
+            cidr: 149.40.51.225/32
         - ipBlock:
-            cidr: 149.88.17.129/32
+            cidr: 149.40.51.226/32
         - ipBlock:
-            cidr: 149.88.18.193/32
+            cidr: 149.40.51.229/32
+        - ipBlock:
+            cidr: 149.40.51.233/32
+        - ipBlock:
+            cidr: 151.243.141.4/32
+        - ipBlock:
+            cidr: 151.243.141.5/32
         - ipBlock:
             cidr: 154.47.22.65/32
         - ipBlock:
-            cidr: 154.47.22.77/32
-        - ipBlock:
-            cidr: 154.47.22.90/32
-        - ipBlock:
-            cidr: 154.47.25.129/32
-        - ipBlock:
-            cidr: 154.47.25.145/32
-        - ipBlock:
-            cidr: 154.47.25.161/32
-        - ipBlock:
-            cidr: 154.47.25.193/32
-        - ipBlock:
             cidr: 156.146.51.65/32
-        - ipBlock:
-            cidr: 156.146.51.78/32
         - ipBlock:
             cidr: 156.146.54.97/32
         - ipBlock:
             cidr: 163.5.171.2/32
         - ipBlock:
-            cidr: 163.5.171.29/32
-        - ipBlock:
             cidr: 163.5.171.56/32
         - ipBlock:
             cidr: 163.5.171.83/32
         - ipBlock:
-            cidr: 185.156.46.33/32
+            cidr: 163.5.171.83/32
         - ipBlock:
-            cidr: 185.230.126.146/32
+            cidr: 185.156.46.33/32
         - ipBlock:
             cidr: 185.247.68.50/32
         - ipBlock:
@@ -222,11 +172,15 @@ spec:
         - ipBlock:
             cidr: 193.37.254.178/32
         - ipBlock:
+            cidr: 193.37.254.178/32
+        - ipBlock:
             cidr: 193.37.254.66/32
+        - ipBlock:
+            cidr: 205.142.240.210/32
         - ipBlock:
             cidr: 212.102.44.161/32
         - ipBlock:
-            cidr: 212.102.44.166/32
+            cidr: 212.102.44.161/32
         - ipBlock:
             cidr: 217.138.198.246/32
         - ipBlock:
@@ -236,48 +190,88 @@ spec:
         - ipBlock:
             cidr: 37.19.200.26/32
         - ipBlock:
-            cidr: 37.19.200.27/32
-        - ipBlock:
-            cidr: 37.221.112.194/32
-        - ipBlock:
-            cidr: 37.221.112.210/32
-        - ipBlock:
-            cidr: 45.134.140.33/32
-        - ipBlock:
-            cidr: 45.134.140.46/32
-        - ipBlock:
             cidr: 45.87.214.18/32
+        - ipBlock:
+            cidr: 62.93.176.130/32
+        - ipBlock:
+            cidr: 62.93.176.131/32
+        - ipBlock:
+            cidr: 68.169.42.225/32
+        - ipBlock:
+            cidr: 68.169.42.239/32
+        - ipBlock:
+            cidr: 68.169.42.241/32
+        - ipBlock:
+            cidr: 68.169.42.242/32
         - ipBlock:
             cidr: 72.14.148.2/32
         - ipBlock:
             cidr: 72.14.148.25/32
         - ipBlock:
+            cidr: 72.14.148.25/32
+        - ipBlock:
+            cidr: 79.127.136.193/32
+        - ipBlock:
+            cidr: 79.127.136.222/32
+        - ipBlock:
+            cidr: 79.127.136.46/32
+        - ipBlock:
+            cidr: 79.127.136.65/32
+        - ipBlock:
+            cidr: 79.127.147.1/32
+        - ipBlock:
+            cidr: 79.127.147.2/32
+        - ipBlock:
+            cidr: 79.127.147.3/32
+        - ipBlock:
+            cidr: 79.127.160.158/32
+        - ipBlock:
+            cidr: 79.127.160.216/32
+        - ipBlock:
+            cidr: 79.127.160.244/32
+        - ipBlock:
+            cidr: 79.127.185.162/32
+        - ipBlock:
+            cidr: 79.127.185.165/32
+        - ipBlock:
+            cidr: 79.127.185.166/32
+        - ipBlock:
+            cidr: 79.127.187.156/32
+        - ipBlock:
+            cidr: 79.127.187.185/32
+        - ipBlock:
+            cidr: 79.127.220.251/32
+        - ipBlock:
             cidr: 84.17.63.54/32
         - ipBlock:
             cidr: 84.17.63.8/32
-        - ipBlock:
-            cidr: 87.249.134.138/32
-        - ipBlock:
-            cidr: 87.249.134.139/32
-        - ipBlock:
-            cidr: 89.187.164.241/32
-        - ipBlock:
-            cidr: 89.187.164.246/32
         - ipBlock:
             cidr: 89.187.170.135/32
         - ipBlock:
             cidr: 89.187.171.239/32
         - ipBlock:
-            cidr: 89.187.175.129/32
-        - ipBlock:
-            cidr: 89.187.175.132/32
-        - ipBlock:
             cidr: 89.187.178.173/32
-        - ipBlock:
-            cidr: 89.187.180.14/32
         - ipBlock:
             cidr: 89.187.180.27/32
         - ipBlock:
-            cidr: 89.187.180.40/32
+            cidr: 89.222.100.65/32
         - ipBlock:
-            cidr: 89.45.4.2/32
+            cidr: 89.222.103.2/32
+        - ipBlock:
+            cidr: 89.222.103.6/32
+        - ipBlock:
+            cidr: 95.173.217.158/32
+        - ipBlock:
+            cidr: 95.173.217.187/32
+        - ipBlock:
+            cidr: 95.173.217.2/32
+        - ipBlock:
+            cidr: 95.173.217.216/32
+        - ipBlock:
+            cidr: 95.173.221.158/32
+        - ipBlock:
+            cidr: 95.173.221.187/32
+        - ipBlock:
+            cidr: 95.173.221.33/32
+        - ipBlock:
+            cidr: 95.173.221.92/32
