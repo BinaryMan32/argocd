@@ -16,7 +16,7 @@ labels:
 images:
   - name: tududi
     newName: chrisvel/tududi
-    newTag: "0.86"
+    newTag: "0.87"
 replacements:
 # avoid repeating the host name in the ingress tls config
 - source:
