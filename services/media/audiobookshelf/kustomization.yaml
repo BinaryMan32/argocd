@@ -19,7 +19,7 @@ labels:
 images:
   - name: audiobookshelf
     newName: ghcr.io/advplyr/audiobookshelf
-    newTag: 2.32.0
+    newTag: 2.32.1
 replacements:
 # avoid repeating the host name in the ingress tls config
 - source:
