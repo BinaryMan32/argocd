@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bazarr
+      app.kubernetes.io/name: bazarr
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: bazarr
+          image: bazarr
+          env:
+            - name: PUID
+              value: "2000"
+            - name: PGID
+              value: "2000"
+            - name: TZ
+              value: America/Chicago
+          ports:
+            - name: webui
+              protocol: TCP
+              containerPort: 6767
+          readinessProbe:
+            httpGet:
+              path: /
+              port: webui
+          volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /data/media/movies
+            name: data-movies
+          - mountPath: /data/media/tv
+            name: data-tv
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: bazarr-config
+        - name: data-movies
+          persistentVolumeClaim:
+            claimName: bazarr-data-movies
+        - name: data-tv
+          persistentVolumeClaim:
+            claimName: bazarr-data-tv

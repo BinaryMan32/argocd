@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: bazarr-data-tv
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "400Gi"
+  volumeName: bazarr-data-tv
+  storageClassName: ""

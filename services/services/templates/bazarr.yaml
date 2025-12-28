@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bazarr
+  namespace: argocd
+spec:
+  project: media
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/media/bazarr
+  destination:
+    namespace: media
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}

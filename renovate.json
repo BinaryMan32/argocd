@@ -35,6 +35,14 @@
         "linuxserver/sonarr"
       ],
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)-ls(?<revision>\\d+)$"
+    },
+    {
+      "description": "linuxserver docker tags similar to v1.5.3-ls328",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": [
+        "linuxserver/bazarr"
+      ],
+      "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-ls(?<build>\\d+)$"
     }
  ],
   "argocd": {

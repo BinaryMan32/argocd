@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bazarr
+  annotations:
+    cert-manager.io/cluster-issuer: intranet-dns01-prod
+    nginx.ingress.kubernetes.io/auth-method: 'GET'
+    nginx.ingress.kubernetes.io/auth-url: 'http://authelia.auth.svc.cluster.local/api/authz/auth-request'
+    nginx.ingress.kubernetes.io/auth-signin: 'https://auth.int.fivebytestudios.com/?rm=$request_method'
+    nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "from rules"
+      secretName: "bazarr-tls"
+  rules:
+    - host: "bazarr.int.fivebytestudios.com"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: bazarr
+                port:
+                  name: webui

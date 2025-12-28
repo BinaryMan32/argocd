@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./resources/deployment.yaml
+  - ./resources/ingress.yaml
+  - ./resources/network-policy.yaml
+  - ./resources/pvc-config.yaml
+  - ./resources/pvc-data-movies.yaml
+  - ./resources/pvc-data-tv.yaml
+  - ./resources/pv-data-movies.yaml
+  - ./resources/pv-data-tv.yaml
+  - ./resources/service.yaml
+labels:
+  - includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: bazarr
+      app.kubernetes.io/name: bazarr
+images:
+  - name: bazarr
+    newName: linuxserver/bazarr
+    newTag: v1.5.3-ls328
+replacements:
+# avoid repeating the host name in the ingress tls config
+- source:
+    kind: Ingress
+    fieldPath: spec.rules.0.host
+  targets:
+    - select:
+        kind: Ingress
+        name: bazarr
+      fieldPaths:
+        - spec.tls.0.hosts.0
+      options:
+        create: true
+buildMetadata: [managedByLabel]

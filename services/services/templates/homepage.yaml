@@ -113,6 +113,12 @@ spec:
                   description: Torrent Downloader
                   namespace: media
                   app: qbittorrent
+              - Bazarr:
+                  icon: bazarr.png
+                  href: "https://bazarr.{{ .Values.domain.intranet }}/"
+                  description: Subtitle Manager
+                  namespace: media
+                  app: bazarr
               - Prowlarr:
                   icon: prowlarr.png
                   href: "https://prowlarr.{{ .Values.domain.intranet }}/"

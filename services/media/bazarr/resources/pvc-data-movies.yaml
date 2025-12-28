@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: bazarr-data-movies
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "400Gi"
+  volumeName: bazarr-data-movies
+  storageClassName: ""
