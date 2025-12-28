@@ -42,6 +42,10 @@ spec:
     - from:
         - podSelector:
             matchLabels:
+              app.kubernetes.io/instance: bazarr
+              app.kubernetes.io/name: bazarr
+        - podSelector:
+            matchLabels:
               app.kubernetes.io/instance: prowlarr
               app.kubernetes.io/name: prowlarr
         - podSelector:
