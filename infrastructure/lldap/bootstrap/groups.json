@@ -2,6 +2,9 @@
   "name": "alertmanager"
 }
 {
+  "name": "bazarr"
+}
+{
   "name": "jaeger"
 }
 {

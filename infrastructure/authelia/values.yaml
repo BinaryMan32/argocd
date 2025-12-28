@@ -74,6 +74,9 @@ authelia:
         - domain: alertmanager.int.fivebytestudios.com
           subject: group:alertmanager
           policy: two_factor
+        - domain: bazarr.int.fivebytestudios.com
+          subject: group:bazarr
+          policy: one_factor
         - domain: jaeger.int.fivebytestudios.com
           subject: group:jaeger
           policy: two_factor
