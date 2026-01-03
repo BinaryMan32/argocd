@@ -11,7 +11,7 @@ labels:
 images:
   - name: jaeger
     newName: jaegertracing/jaeger
-    newTag: 2.13.0
+    newTag: 2.14.1
 configurations:
   - configurations/images.yaml
 replacements:
