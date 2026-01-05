@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: play-when-stage
   namespace: play-when-stage
+  labels:
+    environment: stage
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
