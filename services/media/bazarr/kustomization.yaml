@@ -18,7 +18,7 @@ labels:
 images:
   - name: bazarr
     newName: linuxserver/bazarr
-    newTag: v1.5.4-ls330
+    newTag: v1.5.4-ls331
 replacements:
 # avoid repeating the host name in the ingress tls config
 - source:
