@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://kube-vip.github.io/helm-charts
     chart: kube-vip
-    targetRevision: 0.9.4
+    targetRevision: 0.9.5
     helm:
       # https://github.com/kube-vip/helm-charts/blob/main/charts/kube-vip/values.yaml
       # https://kube-vip.io/docs/installation/flags/
