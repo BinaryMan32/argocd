@@ -4,6 +4,9 @@
     "config:recommended",
     ":separateMultipleMajorReleases"
   ],
+  "reviewers": [
+    "fettinge@gmail.com"
+  ],
   "packageRules": [
     {
       "description": "automatically merge all patch updates",
