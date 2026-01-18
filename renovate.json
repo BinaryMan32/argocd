@@ -4,9 +4,8 @@
     "config:recommended",
     ":separateMultipleMajorReleases"
   ],
-  "reviewers": [
-    "fettinge@gmail.com"
-  ],
+  "assigneesFromCodeOwners": true,
+  "reviewersFromCodeOwners": true,
   "packageRules": [
     {
       "description": "automatically merge all patch updates",
