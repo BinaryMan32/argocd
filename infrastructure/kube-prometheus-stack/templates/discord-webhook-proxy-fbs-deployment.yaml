@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discord-webhook-proxy-fbs
+  namespace: kube-prometheus-stack
+  labels:
+    app: discord-webhook-proxy
+    instance: fbs
+spec:
+  selector:
+    matchLabels:
+      app: discord-webhook-proxy
+      instance: fbs
+  template:
+    metadata:
+      labels:
+        app: discord-webhook-proxy
+        instance: fbs
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.29.4-alpine
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: DISCORD_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: discord-webhook-fbs
+                  key: webhook_url
+          volumeMounts:
+            - name: nginx-config-templates
+              mountPath: /etc/nginx/templates
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+      volumes:
+        - name: nginx-config-templates
+          configMap:
+            name: discord-webhook-proxy-templates
+      automountServiceAccountToken: false
+

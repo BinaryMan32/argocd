@@ -64,6 +64,47 @@ kube-prometheus-stack:
                   {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
                   {{ end }}
                 {{ end }}
+        - name: fbs-discord
+          discord_configs:
+            # https://prometheus.io/docs/alerting/latest/configuration/#discord_config
+            - send_resolved: true
+              # We'd like to be able to do this
+              # webhook_url_file: /etc/alertmanager/secrets/play-when-discord-webhook/webhook_url
+              # However, it shows the following error in the prometheus operator logs:
+              # provision alertmanager configuration: failed to initialize from secret: yaml: unmarshal errors:
+              #   line 57: field webhook_url_file not found in type alertmanager.discordConfig"
+              # These PRs would add the functionality, but have been open for years:
+              # - https://github.com/prometheus-operator/prometheus-operator/pull/6346
+              # - https://github.com/prometheus-operator/prometheus-operator/pull/8035
+              # As a workaround, create an nginx deployment which proxies requests to the webhook url in the secret:
+              # https://github.com/Tyraeis/minilab/commit/0a29eb1d14e418b54809af58c0bc9d5c4e8a53f1
+              # https://github.com/Tyraeis/minilab/commit/353d9adb7d4d6c0339f8e1880d66f03c54fe3184
+              webhook_url: http://discord-webhook-proxy-fbs.kube-prometheus-stack.svc.cluster.local
+              username: Alertmanager
+              avatar_url: https://avatars3.githubusercontent.com/u/3380462
+              title: |-
+                {{ if eq .Status "resolved" }}:white_check_mark:{{ else }}:warning:{{ end }} [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} for {{ .CommonLabels.job }}
+                {{- if gt (len .CommonLabels) (len .GroupLabels) -}}
+                  {{" "}}(
+                  {{- with .CommonLabels.Remove .GroupLabels.Names }}
+                    {{- range $index, $label := .SortedPairs -}}
+                      {{ if $index }}, {{ end }}
+                      {{- $label.Name }}="{{ $label.Value -}}"
+                    {{- end }}
+                  {{- end -}}
+                  )
+                {{- end }}
+              message: >-
+                {{ range .Alerts -}}
+                **Alert:** {{ .Annotations.summary }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+
+                **Description:** {{ .Annotations.description }} {{ if .Annotations.runbook_url }}([Runbook]({{ .Annotations.runbook_url }})){{ end }}
+
+                **Details:**
+                {{ range .Labels.SortedPairs -}}
+                - **{{ .Name }}:** `{{ .Value }}`
+                {{ end }}
+                {{ end }}
         - name: play-when-discord
           discord_configs:
             # https://prometheus.io/docs/alerting/latest/configuration/#discord_config
@@ -123,6 +164,9 @@ kube-prometheus-stack:
           - receiver: play-when-discord
             matchers:
               - namespace =~ play-when.*
+            # Also handled by root route
+            continue: true
+          - receiver: fbs-discord
             # Also handled by root route
             continue: true
 
