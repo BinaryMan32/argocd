@@ -94,14 +94,14 @@ kube-prometheus-stack:
                   {{- end -}}
                   )
                 {{- end }}
-              text: >-
+              message: >-
                 {{ range .Alerts -}}
-                *Alert:* {{ .Annotations.summary }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+                **Alert:** {{ .Annotations.summary }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
 
-                *Description:* {{ .Annotations.description }} {{ if .Annotations.runbook_url }}(<{{ .Annotations.runbook_url }}|Runbook>){{ end }}
+                **Description:** {{ .Annotations.description }} {{ if .Annotations.runbook_url }}([Runbook]({{ .Annotations.runbook_url }})){{ end }}
 
-                *Details:*
-                  {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                **Details:**
+                  {{ range .Labels.SortedPairs }} - **{{ .Name }}:** `{{ .Value }}`
                   {{ end }}
                 {{ end }}
 
