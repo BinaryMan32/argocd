@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: play-when-discord-webhook
+  namespace: kube-prometheus-stack
+spec:
+  encryptedData:
+    webhook_url: AgBbo9+cmE/vz8y3k8jZ00HJVThH625ba7yaco+OnlvXOc1Zoz/CihOqYZNN+qYvMuYuR1Nk8GUjyBabcpurFbmbC6xoFT0og/gmHUl4dAlBLir/SU2jV6GWmwa2+90ZTfSOlucqyliyidC8bqlVtcrdm6AZbg67N5B71Qo77muqk5raKjhh/bQ9N0cy8PjuUFJw8vZowQKG/dZ+Hya2JWYOyWX3RDOyS+wEt7d7PRiS/EbwFhT++d7elqB61E767N91pa03wfXzQ+0RBhht0r5RJfPFvKYrh1UH7qGtQstBxbOYX3yXcGi+Szbk8a7yKWqngfWEwoBhNXDRjV9+1F0llcXci5mVO4nVOpokEWGIZzHs5BYd81rgJf2QskCux/1EloNKSnQnI/xATxILRqgDTGtcNpLmQbcyAeHLBXQMW3KjJEgZaW/drdqrXXja2GjSeaYwt7o8l5bU8dI9J6j2Z697u+pEdWi8JkP3/sFmPE5rMNVZJTz18LSWkJ+shjn8HMR+1gaBuph5AfC0vzKYIfyMUUxT4LZQXSaw33AZr5ikyd07JRQ1hFZx9JYf+uxyI0benKvw49wAyyUGKwfYjbolHIT+uSh9/bnhOfr5H96HGOPshT4oUP5OO1IGRSl4wReSbsXgT89xuonC+y7kdJpO7Bc72JbioSqqmER/Ck8bp28wU+DO9SeBxRRE0FmfSqFdKCKC6D7Hg3PmOVejubG5i739d/bBjrFHuSS/bofz/GzOWm8RyIG1vhcwY4gtmLV7KzUAoLHu929JjFaLdHzEyAu67QbFLXiW0Rk66PjDeVYWE7kjV58p+klN5wjIVN5AOd5Xrb0LZ0YMDFVkB/fKmlxrI5JU
+  template:
+    metadata:
+      creationTimestamp: null
+      name: play-when-discord-webhook
+      namespace: kube-prometheus-stack

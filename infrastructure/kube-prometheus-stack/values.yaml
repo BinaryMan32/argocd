@@ -1,3 +1,4 @@
+# https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
 kube-prometheus-stack:
 
   # k3s has all of these components in a single process
@@ -63,6 +64,12 @@ kube-prometheus-stack:
                   {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
                   {{ end }}
                 {{ end }}
+        - name: play-when-discord
+          discord_configs:
+            - send_resolved: true
+              webhook_url_file: /etc/alertmanager/secrets/play-when-discord-webhook/webhook_url
+              username: Alertmanager
+              avatar_url: https://avatars3.githubusercontent.com/u/3380462
 
       # https://prometheus.io/docs/alerting/latest/configuration/#route
       route:
@@ -78,6 +85,11 @@ kube-prometheus-stack:
           - receiver: 'null'
             matchers:
               - alertname =~ "InfoInhibitor|Watchdog"
+          - receiver: play-when-discord
+            matchers:
+              - namespace =~ play-when.*
+            # Also handled by root route
+            continue: true
 
     alertmanagerSpec:
       storage:
@@ -89,6 +101,7 @@ kube-prometheus-stack:
               requests:
                 storage: 2Gi
       secrets:
+        - play-when-discord-webhook
         - slack-api
 
   # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
