@@ -101,9 +101,9 @@ kube-prometheus-stack:
                 **Description:** {{ .Annotations.description }} {{ if .Annotations.runbook_url }}([Runbook]({{ .Annotations.runbook_url }})){{ end }}
 
                 **Details:**
-                {{ range .Labels.SortedPairs -}}
+                {{ range .Labels.SortedPairs }}
                 - **{{ .Name }}:** `{{ .Value }}`
-                {{ end }}
+                {{- end }}
                 {{ end }}
         - name: play-when-discord
           discord_configs:
@@ -142,9 +142,9 @@ kube-prometheus-stack:
                 **Description:** {{ .Annotations.description }} {{ if .Annotations.runbook_url }}([Runbook]({{ .Annotations.runbook_url }})){{ end }}
 
                 **Details:**
-                {{ range .Labels.SortedPairs -}}
+                {{ range .Labels.SortedPairs }}
                 - **{{ .Name }}:** `{{ .Value }}`
-                {{ end }}
+                {{- end }}
                 {{ end }}
 
       # https://prometheus.io/docs/alerting/latest/configuration/#route
