@@ -79,7 +79,7 @@ kube-prometheus-stack:
               # As a workaround, create an nginx deployment which proxies requests to the webhook url in the secret:
               # https://github.com/Tyraeis/minilab/commit/0a29eb1d14e418b54809af58c0bc9d5c4e8a53f1
               # https://github.com/Tyraeis/minilab/commit/353d9adb7d4d6c0339f8e1880d66f03c54fe3184
-              webhook_url: http://discord-webhook-play-when.kube-prometheus-stack.svc.cluster.local
+              webhook_url: http://discord-webhook-proxy-play-when.kube-prometheus-stack.svc.cluster.local
               username: Alertmanager
               avatar_url: https://avatars3.githubusercontent.com/u/3380462
 
