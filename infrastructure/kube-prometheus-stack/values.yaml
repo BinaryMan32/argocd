@@ -102,7 +102,9 @@ kube-prometheus-stack:
                 **Description:** {{ .Annotations.description }} {{ if .Annotations.runbook_url }}([Runbook]({{ .Annotations.runbook_url }})){{ end }}
 
                 **Details:**
-                {{ range .Labels.SortedPairs -}}- **{{ .Name }}:** `{{ .Value }}`{{ end }}
+                {{ range .Labels.SortedPairs -}}
+                - **{{ .Name }}:** `{{ .Value }}`
+                {{ end }}
                 {{ end }}
 
       # https://prometheus.io/docs/alerting/latest/configuration/#route
