@@ -17,7 +17,6 @@ spec:
         app: discord-webhook-proxy
         instance: play-when
     spec:
-      serviceAccountName: default
       containers:
         - name: nginx
           image: nginx:1.29.4-alpine
@@ -50,3 +49,5 @@ spec:
         - name: nginx-config-templates
           configMap:
             name: discord-webhook-proxy-templates
+      automountServiceAccountToken: false
+
