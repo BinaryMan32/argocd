@@ -5,7 +5,7 @@ read -e -p 'enter webhook url > ' webhook_url
 kubectl create secret generic \
     --dry-run=client \
     --namespace=kube-prometheus-stack \
-    play-when-discord-webhook \
+    discord-webhook-play-when \
     --from-literal=webhook_url=$webhook_url \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/play-when-discord-webhook-sealed-secret.yaml
+kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/discord-webhook-play-when-sealed-secret.yaml

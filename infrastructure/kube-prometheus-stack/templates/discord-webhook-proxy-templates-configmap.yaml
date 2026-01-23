@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: discord-webhook-proxy-templates
+data:
+  webhook_proxy.conf.template: |
+    error_log stderr warn;
+
+    http {
+      access_log stdout;
+
+      server {
+        listen 80;
+
+        location / {
+          proxy_pass ${DISCORD_WEBHOOK_URL};
+        }
+
+        location /health {
+          access_log off;
+          return 200 "healthy\n";
+          add_header Content-Type text/plain;
+        }
+      }
+    }

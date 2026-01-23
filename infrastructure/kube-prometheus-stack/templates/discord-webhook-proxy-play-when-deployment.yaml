@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discord-webhook-proxy-play-when
+  namespace: kube-prometheus-stack
+  labels:
+    app: discord-webhook-proxy
+    instance: play-when
+spec:
+  selector:
+    matchLabels:
+      app: discord-webhook-proxy
+      instance: play-when
+  template:
+    metadata:
+      labels:
+        app: discord-webhook-proxy
+        instance: play-when
+    spec:
+      serviceAccountName: default
+      containers:
+        - name: nginx
+          image: nginx:1.29.4-alpine
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: DISCORD_WEBHOOK_URL
+              valueFrom:
+                secret:
+                  name: discord-webhook-play-when
+                  key: webhook_url
+          volumeMounts:
+            - name: nginx-config-templates
+              mountPath: /etc/nginx/templates
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+      volumes:
+        - name: nginx-config-templates
+          configMap:
+            name: discord-webhook-proxy-templates

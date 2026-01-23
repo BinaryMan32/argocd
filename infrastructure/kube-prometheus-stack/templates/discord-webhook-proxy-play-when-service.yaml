@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: discord-webhook-play-when
+  labels:
+    app: discord-webhook-proxy
+    instance: play-when
+spec:
+  type: ClusterIP
+  ports:
+  - name: https
+    port: 443
+    targetPort: http
+    protocol: TCP
+  selector:
+    app: discord-webhook-proxy
+    instance: play-when
