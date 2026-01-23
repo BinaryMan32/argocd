@@ -30,10 +30,17 @@ echo -n 'WEBHOOK_URL' \
 
 ## Testing
 
-Send test alert:
+Access to the  ingress is protected by authelia.
+Use a `port-forward` to bypass.
 
 ```sh
-curl -iH 'Content-Type: application/json' https://alertmanager.int.fivebytestudios.com/api/v2/alerts -d '[{
+kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-alertmanager 9093:9093
+```
+
+Send test alert.
+
+```sh
+curl -iH 'Content-Type: application/json' http://localhost:9093/api/v2/alerts -d '[{
   "labels": {
     "alertname": "testing",
     "namespace": "play-when-dev",
