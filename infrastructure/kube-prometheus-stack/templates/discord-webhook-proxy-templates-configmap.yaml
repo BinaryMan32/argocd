@@ -5,8 +5,6 @@ metadata:
 data:
   webhook_proxy.conf.template: |
     server {
-      listen 80;
-
       location / {
         proxy_pass ${DISCORD_WEBHOOK_URL};
       }
