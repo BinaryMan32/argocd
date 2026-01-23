@@ -1,7 +1,7 @@
 # ArgoCD
 
-Manages deployments on a raspberry pi cluster using argocd.
-Each service contains its own README.md with documentation and references.
+Manages deployments on a kubernetes cluster using argocd.
+Many services have their own README.md with documentation and references.
 
 ## Bootstrapping
 
