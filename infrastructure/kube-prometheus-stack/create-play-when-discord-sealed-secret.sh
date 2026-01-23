@@ -8,4 +8,4 @@ kubectl create secret generic \
     play-when-discord-webhook \
     --from-literal=webhook_url=$webhook_url \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/play-when-discord-webhook.yaml
+kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/play-when-discord-webhook-sealed-secret.yaml
