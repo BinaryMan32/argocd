@@ -28,7 +28,7 @@ spec:
           env:
             - name: DISCORD_WEBHOOK_URL
               valueFrom:
-                secret:
+                secretKeyRef:
                   name: discord-webhook-play-when
                   key: webhook_url
           volumeMounts:
