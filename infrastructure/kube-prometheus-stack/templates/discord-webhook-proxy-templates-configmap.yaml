@@ -10,7 +10,9 @@ data:
       location / {
         proxy_pass ${DISCORD_WEBHOOK_URL};
       }
+
       location /health {
+        access_log off;
         return 200;
       }
     }
