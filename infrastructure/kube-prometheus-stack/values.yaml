@@ -36,7 +36,8 @@ kube-prometheus-stack:
 
       receivers:
         - name: "null"
-        - name: fbs-slack
+        - name: fbs-discord
+          # TODO remove slack when we're comfortable with discord only
           slack_configs:
             - channel: #devops
               send_resolved: true
@@ -64,7 +65,6 @@ kube-prometheus-stack:
                   {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
                   {{ end }}
                 {{ end }}
-        - name: fbs-discord
           discord_configs:
             # https://prometheus.io/docs/alerting/latest/configuration/#discord_config
             - send_resolved: true
@@ -149,7 +149,7 @@ kube-prometheus-stack:
         group_wait: 30s
         group_interval: 5m
         repeat_interval: 2h
-        receiver: fbs-slack
+        receiver: fbs-discord
         routes:
           # Some alert types should be sent to null
           # https://runbooks.prometheus-operator.dev/runbooks/general/infoinhibitor/
@@ -160,9 +160,6 @@ kube-prometheus-stack:
           - receiver: play-when-discord
             matchers:
               - namespace =~ play-when.*
-            # Also handled by root route
-            continue: true
-          - receiver: fbs-discord
             # Also handled by root route
             continue: true
 
