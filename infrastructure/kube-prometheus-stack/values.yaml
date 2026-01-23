@@ -83,6 +83,7 @@ kube-prometheus-stack:
               username: Alertmanager
               avatar_url: https://avatars3.githubusercontent.com/u/3380462
               title: |-
+                {{- if eq .Status "resolved" }}:white_check_mark:{{ else if eq .CommonLabels.severity "critical" }}:fire:{{ else if eq .CommonLabels.severity "warning" }}:warning:{{ else }}:information_source:{{ end -}}
                 [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} for {{ .CommonLabels.job }}
                 {{- if gt (len .CommonLabels) (len .GroupLabels) -}}
                   {{" "}}(
