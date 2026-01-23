@@ -3,12 +3,13 @@ kind: ConfigMap
 metadata:
   name: discord-webhook-proxy-templates
 data:
-  webhook_proxy.conf.template: |
+  default.conf.template: |
     server {
+      listen 80;
+
       location / {
         proxy_pass ${DISCORD_WEBHOOK_URL};
       }
-
       location /health {
         return 200;
       }
