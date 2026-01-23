@@ -10,7 +10,6 @@ data:
       }
 
       location /health {
-        access_log off;
         return 200;
       }
     }
