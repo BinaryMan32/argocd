@@ -173,7 +173,6 @@ kube-prometheus-stack:
               requests:
                 storage: 2Gi
       secrets:
-        - play-when-discord-webhook
         - slack-api
 
   # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
