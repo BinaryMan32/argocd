@@ -6,10 +6,6 @@ spec:
   schedule: "0 9 * * mon" # 09:00 on Mondays
   timeZone: "America/Chicago"
   concurrencyPolicy: Forbid
-  # Keep multiple failed jobs for comparison
-  failedJobsHistoryLimit: 3
-  # Successful jobs are less interesting, keep only the most recent one
-  successfulJobsHistoryLimit: 1
   jobTemplate:
     spec:
       # 2 retries is up to 3 total attempts
