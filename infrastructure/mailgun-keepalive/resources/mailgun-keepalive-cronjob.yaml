@@ -3,7 +3,8 @@ kind: CronJob
 metadata:
   name: mailgun-keepalive
 spec:
-  schedule: {{ .Values.cleanup.schedule }}
+  schedule: "0 9 * * mon" # 09:00 on Mondays
+  timeZone: "America/Chicago"
   concurrencyPolicy: Forbid
   # Keep multiple failed jobs for comparison
   failedJobsHistoryLimit: 3
