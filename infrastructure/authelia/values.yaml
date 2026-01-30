@@ -178,6 +178,9 @@ authelia:
         enabled: true
     networkPolicy:
       allowExternal: false
+    image:
+      # https://github.com/bitnami/charts/issues/35164
+      repository: bitnamilegacy/redis
   networkPolicy:
     enabled: true
     ingress:
