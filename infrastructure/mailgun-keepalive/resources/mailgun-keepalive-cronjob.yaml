@@ -19,7 +19,7 @@ spec:
           containers:
             - name: mailgun-keepalive
               image: curl
-              environment:
+              env:
                 - name: MAILGUN_DOMAIN_NAME
                   value: mail.fivebytestudios.com
                 - name: MAILGUN_SENDING_API_KEY
