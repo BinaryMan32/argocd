@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: mailgun-keepalive-sending-api-key
+  namespace: mail
+spec:
+  encryptedData:
+    sending_api_key: AgBsKF6nZEOG3ml2/DpzY6K5IWlmAZkeqTkJVaIhot8H+9I1+pw+5n64Zqg+EyxKd3831Yob3a7l2SoiN67+dOPMSdtGkiZR/iztoqFuFZ8Oknbrw4tys052CNmE4Dwmqd7lfi85tLkGKpbAdIrKURPBg+YMyX5Z7vb8dkkexLRuZfraf/Syfnr3PfgjrAgCD4X4dSG3kUBm9cMc7vLasXnvFw+bkEsKpXW8KHq9ab5+4mWBkp2WldGzOHEcC5PmTn8U3P5Mi1h1Lw+qfB+tmOewlPg4Kndj7/tfD8AfjP6izs+5FClMFVtnRHex0f1HTH5/FDs5tYbh0Ne5L+mVAGWwSMXswrNVaT8gS6sp6M36NzJDNep50SikmbEh3ld1Sv1ycXgmA1KdwPAX5SpoKF3HoG2C+eMUGcqgrc6QTk9oon8zfOIo+e4XJdBKjtNYg0hEc3DI5byq9cWb46HbphR/46y22Lg53JoVzSf/YwOZudRfdD04y6N/fr8IXclKtJPeK47Y/V1LppW02Nc5/PR/oU9ZkDmp32wB+jHwqFZ7kgZXrxgLmrih8NeMG2+qWAyH5x8xI4/2Ucfpfw1FVHAdN8yw+8O5TS440shPqWA/q94laMYKJxTM3LMJCqFndJJeDeV8XZATP5y0qvpOrx7S0Gbh7JQ+4D6uaFgTfvSwgympCfvXbATL125zwUqtq5JjFU62DKhuUGUOMJluptx2A6WQkrp6lWrBduKMP0oIJtiqNqHvXst+oN0VTQfkEEFDaw==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: mailgun-keepalive-sending-api-key
+      namespace: mail

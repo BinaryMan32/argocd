@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mailgun-keepalive
+spec:
+  schedule: {{ .Values.cleanup.schedule }}
+  concurrencyPolicy: Forbid
+  # Keep multiple failed jobs for comparison
+  failedJobsHistoryLimit: 3
+  # Successful jobs are less interesting, keep only the most recent one
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      # 2 retries is up to 3 total attempts
+      backoffLimit: 2
+      template:
+        spec:
+          containers:
+            - name: mailgun-keepalive
+              image: curl
+              environment:
+                - name: MAILGUN_DOMAIN_NAME
+                  value: mail.fivebytestudios.com
+                - name: MAILGUN_SENDING_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: mailgun-keepalive-sending-api-key
+                      key: sending_api_key
+                - name: RECIPIENT_EMAIL_ADDRESS
+                  valueFrom:
+                    secretKeyRef:
+                      name: mailgun-keepalive-recipient-address
+                      key: recipient_email_address
+              args:
+                - echo
+                - curl
+                - --user "api:${MAILGUN_SENDING_API_KEY}"
+                - https://api.mailgun.net/v3/$MAILGUN_DOMAIN_NAME/messages
+                - -F from="Mailgun Keepalive <postmaster@${MAILGUN_DOMAIN_NAME}>"
+                - -F to="${RECIPIENT_EMAIL_ADDRESS}"
+                - -F subject="Mailgun Keepalive"
+                - -F text='Keeping mailgun alive, one day at a time.'
+          restartPolicy: Never

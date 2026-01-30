@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: mailgun-keepalive-recipient-address
+  namespace: mail
+spec:
+  encryptedData:
+    recipient_email_address: AgBN4yQKVp0XzqeUYQGtoE3QbQBkV41RkYTgzb0UBshw/UA1UW1zl9epRkzAl0eXpo57H8uz4F68iiKsG4jC6Ds9xcRTAhdPZCTyo0uVjIvUfNZhT9l/7U01W+OmGzhy4R+UkL5hJGldwCMakrwdKjTKT0ILx5MH89XfvRwfZPfm9XmUuL7fNl44I/9iohZs0CH50tge7pWuzfr/dMQUeUWCCi4kXPyxgibUhSZxdwlCk2b/A5M/RzDRWXHjVx4nB2crDxX8dSkk8V/tATDg0e5MTobCUlVhbkXyaoFFAu/YftKJbQhIc5L5tJs6cJI65vfPTlX/lsTLSaIFP64oGpu5/zidgi+XgNM8BPd1XBl2eCklHAXQ9B4+CllAA79hH08Qs/pC0HCLNSPdI+vvJqPXF30U5xmCJvtgt7Tmq7DQVFQHdlpytTG+6Rm1H03q/mkICAmClxQsMPcKB6/1DXSjL6XJ9TN7v8TxMLwr1ZImKDEwzlWsxZ0iR15m+eVioer8kyMa0mgdgzihfCobBXrXgZeo/cOU4LCakE0o1J5Q+JTD/zTV5yAHTJl3Jcn7vEQqkBCMMsYhYtCDiTF+tRHAPxBcz+XNhCqmTc7MIZtMlPmutMbLVyAQLIQa6cV0bRaco0XFwrRThepYNSwBLzeH5sHo6ZMixhMmaJ6hvfUIT5mgZzVaIO5qgvtb2cwKx2jJwtRiENN1wkZz/plI3taVRug=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: mailgun-keepalive-recipient-address
+      namespace: mail
