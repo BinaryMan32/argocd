@@ -69,7 +69,7 @@ kube-prometheus-stack:
             # https://prometheus.io/docs/alerting/latest/configuration/#discord_config
             - send_resolved: true
               # We'd like to be able to do this
-              # webhook_url_file: /etc/alertmanager/secrets/play-when-discord-webhook/webhook_url
+              # webhook_url_file: /etc/alertmanager/secrets/discord-webhook-fbs/webhook_url
               # However, it shows the following error in the prometheus operator logs:
               # provision alertmanager configuration: failed to initialize from secret: yaml: unmarshal errors:
               #   line 57: field webhook_url_file not found in type alertmanager.discordConfig"
@@ -108,7 +108,7 @@ kube-prometheus-stack:
             # https://prometheus.io/docs/alerting/latest/configuration/#discord_config
             - send_resolved: true
               # We'd like to be able to do this
-              # webhook_url_file: /etc/alertmanager/secrets/play-when-discord-webhook/webhook_url
+              # webhook_url_file: /etc/alertmanager/secrets/discord-webhook-play-when/webhook_url
               # However, it shows the following error in the prometheus operator logs:
               # provision alertmanager configuration: failed to initialize from secret: yaml: unmarshal errors:
               #   line 57: field webhook_url_file not found in type alertmanager.discordConfig"
