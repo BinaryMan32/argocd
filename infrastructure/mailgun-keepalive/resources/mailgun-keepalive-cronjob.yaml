@@ -33,12 +33,14 @@ spec:
                       name: mailgun-keepalive-recipient-address
                       key: recipient_email_address
               args:
-                - echo
-                - curl
-                - --user "api:${MAILGUN_SENDING_API_KEY}"
-                - https://api.mailgun.net/v3/$MAILGUN_DOMAIN_NAME/messages
-                - -F from="Mailgun Keepalive <postmaster@${MAILGUN_DOMAIN_NAME}>"
-                - -F to="${RECIPIENT_EMAIL_ADDRESS}"
-                - -F subject="Mailgun Keepalive"
-                - -F text='Keeping mailgun alive, one day at a time.'
+                - /bin/sh
+                - -c
+                - >
+                  curl
+                  --user "api:${MAILGUN_SENDING_API_KEY}"
+                  https://api.mailgun.net/v3/$MAILGUN_DOMAIN_NAME/messages
+                  -F from="Mailgun Keepalive <postmaster@${MAILGUN_DOMAIN_NAME}>"
+                  -F to="${RECIPIENT_EMAIL_ADDRESS}"
+                  -F subject="Mailgun Keepalive"
+                  -F text="Keeping mailgun alive, one day at a time."
           restartPolicy: Never
