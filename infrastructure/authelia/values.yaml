@@ -32,10 +32,10 @@ authelia:
       redis:
         deploy: true
         enabled: true
-        host: authelia-redis-master
+        host: authelia-valkey
         password:
-          secret_name: authelia-redis
-          path: redis-password
+          secret_name: authelia-valkey
+          path: default
     authentication_backend:
       # https://www.authelia.com/integration/ldap/lldap/
       # https://github.com/lldap/lldap/blob/main/example_configs/authelia_config.yml
@@ -143,9 +143,9 @@ authelia:
       authelia-db-app:
         items:
           - key: password
-      authelia-redis:
+      authelia-valkey:
         items:
-          - key: redis-password
+          - key: default
       authelia-smtp:
         items:
           - key: password
