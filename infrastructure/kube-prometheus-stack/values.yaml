@@ -201,3 +201,10 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 50Gi
+      # By default, the prometheus operator selects resources to watch using the `release` label.
+      # Setting `*SelectorNilUsesHelmValues: false` disables this to watch all resources.
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false
+      scrapeConfigSelectorNilUsesHelmValues: false
