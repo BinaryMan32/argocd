@@ -24,6 +24,10 @@ kube-prometheus-stack:
           regex: "kubeproxy_(.+)"
           targetLabel: "job"
           replacement: "kube-proxy"
+  coreDns:
+    service:
+      selector:
+        k8s-app: coredns
 
   global:
     rbac:
