@@ -16,7 +16,7 @@ labels:
 images:
   - name: radarr
     newName: linuxserver/radarr
-    newTag: 6.0.4.10291-ls290
+    newTag: 6.0.4.10291-ls291
 replacements:
 # avoid repeating the host name in the ingress tls config
 - source:
