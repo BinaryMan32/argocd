@@ -28,6 +28,8 @@ kube-prometheus-stack:
     service:
       selector:
         k8s-app: coredns
+  kubeEtcd:
+    enabled: false
 
   global:
     rbac:
