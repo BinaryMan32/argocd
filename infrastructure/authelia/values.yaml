@@ -197,3 +197,19 @@ authelia:
         ports:
           - protocol: TCP
             port: http
+# https://github.com/valkey-io/valkey-helm/tree/main/valkey
+valkey:
+  dataStorage:
+    enabled: true
+    requestedSize: 1Gi
+    className: longhorn
+  auth:
+    enabled: true
+    usersExistingSecret: authelia-valkey
+    aclUsers:
+      default:
+        permissions: "~* &* +@all"
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
