@@ -30,7 +30,6 @@ authelia:
           disabled: true
     session:
       redis:
-        deploy: true
         enabled: true
         host: authelia-valkey
         password:
@@ -159,28 +158,6 @@ authelia:
       authelia-jwk-rsa:
         items:
           - key: rsa.2048.key
-  # https://github.com/bitnami/charts/tree/main/bitnami/redis
-  redis:
-    architecture: standalone
-    auth:
-      enabled: true
-      usePasswordFiles: true
-      usePasswordFileFromSecret: true
-      existingSecret: authelia-redis
-      existingSecretPasswordKey: redis-password
-    master:
-      persistence:
-        storageClass: longhorn
-        size: 1Gi
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-    networkPolicy:
-      allowExternal: false
-    image:
-      # https://github.com/bitnami/charts/issues/35164
-      repository: bitnamilegacy/redis
   networkPolicy:
     enabled: true
     ingress:
