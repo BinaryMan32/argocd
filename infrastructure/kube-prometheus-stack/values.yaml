@@ -24,12 +24,6 @@ kube-prometheus-stack:
           regex: "kubeproxy_(.+)"
           targetLabel: "job"
           replacement: "kube-proxy"
-  coredns:
-    serviceMonitor:
-      selector:
-        matchLabels:
-          app.kubernetes.io/instance: coredns
-          app.kubernetes.io/name: coredns
 
   global:
     rbac:
