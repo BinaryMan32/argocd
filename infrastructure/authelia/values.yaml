@@ -188,5 +188,7 @@ valkey:
         permissions: "~* &* +@all"
   metrics:
     enabled: true
+    # TODO enable ServiceMonitor with authentication
+    # See https://github.com/valkey-io/valkey-helm/issues/104
     serviceMonitor:
-      enabled: true
+      enabled: false
