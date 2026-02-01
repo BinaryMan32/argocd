@@ -70,11 +70,14 @@ spec:
       name: kube-prometheus-stack-admission
       jsonPointers:
         - /webhooks/0/clientConfig/caBundle
+        - /webhooks/0/failurePolicy
     - group: admissionregistration.k8s.io
       kind: ValidatingWebhookConfiguration
       name: kube-prometheus-stack-admission
       jsonPointers:
         - /webhooks/0/clientConfig/caBundle
+        - /webhooks/0/failurePolicy
+        - /webhooks/1/failurePolicy
     - group: monitoring.coreos.com
       kind: ServiceMonitor
       name: kube-prometheus-stack-kube-state-metrics
