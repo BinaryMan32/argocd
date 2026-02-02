@@ -18,3 +18,4 @@ spec:
     automated: {}
     syncOptions:
       - ServerSideApply=true
+      - ClientSideApplyMigration=false
