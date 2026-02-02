@@ -16,3 +16,5 @@ spec:
     server: {{ .Values.destination.server }}
   syncPolicy:
     automated: {}
+    syncOptions:
+      - ServerSideApply=true
