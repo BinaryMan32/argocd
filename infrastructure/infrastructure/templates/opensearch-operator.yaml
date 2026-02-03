@@ -17,11 +17,11 @@ spec:
         manager:
           resources:
             limits:
-              cpu: ""
+              cpu: null
         kubeRbacProxy:
           resources:
             limits:
-              cpu: ""
+              cpu: null
   destination:
     namespace: opensearch-operator
     server: {{ .Values.destination.server }}
