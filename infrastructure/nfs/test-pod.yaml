@@ -15,8 +15,10 @@ spec:
       - name: nfs-pvc
         mountPath: "/mnt"
     resources:
-      limits:
+      requests:
         cpu: 100m
+        memory: 64Mi
+      limits:
         memory: 64Mi
   restartPolicy: "Never"
   volumes:
