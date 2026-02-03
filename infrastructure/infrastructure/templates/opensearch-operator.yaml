@@ -13,7 +13,15 @@ spec:
     targetRevision: 2.8.0
     helm:
       # https://github.com/opensearch-project/opensearch-k8s-operator/blob/main/charts/opensearch-operator/values.yaml
-      valuesObject: {}
+      valuesObject:
+        manager:
+          resources:
+            limits:
+              cpu: null
+        kubeRbacProxy:
+          resources:
+            limits:
+              cpu: null
   destination:
     namespace: opensearch-operator
     server: {{ .Values.destination.server }}
