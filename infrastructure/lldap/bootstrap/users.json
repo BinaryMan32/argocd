@@ -32,7 +32,8 @@
   "lastName": "Johnson",
   "groups": [
     "jaeger",
-    "play-when-ops"
+    "play-when-ops",
+    "prometheus"
   ]
 }
 {
