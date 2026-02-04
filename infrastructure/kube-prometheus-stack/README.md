@@ -8,10 +8,20 @@ References:
 
 Alertmanager requires secrets in order to send alert notifications.
 
-### Play When Discord Secret
+### FBS Discord Secret
+
+Receives all alerts.
 
 ```sh
-./infrastructure/kube-prometheus-stack/create-play-when-discord-sealed-secret.sh
+./infrastructure/kube-prometheus-stack/create-discord-webhook-fbs-sealed-secret.sh
+```
+
+### Play When Discord Secret
+
+Receives only alerts in `play-when*` namespaces.
+
+```sh
+./infrastructure/kube-prometheus-stack/create-discord-webhook-play-when-sealed-secret.sh
 ```
 
 ### Slack Secret
