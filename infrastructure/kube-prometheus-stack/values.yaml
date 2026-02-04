@@ -181,7 +181,7 @@ kube-prometheus-stack:
       secrets:
         - slack-api
 
-  # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+  # https://github.com/grafana-community/helm-charts/tree/main/charts/grafana
   grafana:
     admin:
       existingSecret: "grafana-login"
