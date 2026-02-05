@@ -216,23 +216,23 @@ spec:
                   href: https://github.com/BinaryMan32/argocd
                   description: ArgoCD Applications, Configuration, and Documentation
             - Infrastructure:
-              - Mercury TrueNAS
+              - Mercury TrueNAS:
                 - icon: truenas.png
                   href: https://192.168.0.8/
                   description: TrueNAS (LAN)
                 - icon: truenas.png
                   href: https://192.168.8.8/
                   description: TrueNAS (Kubernetes)
-              - Turing Pi Cluster
+              - Turing Pi Cluster:
                 - icon: rackula-dark.png
                   href: https://192.168.8.10/
-                  description: griffin-turing0: griffin0, griffin1, griffin2, griffin3
+                  description: "griffin-turing0: griffin0, griffin1, griffin2, griffin3"
                 - icon: rackula-dark.png
                   href: https://192.168.8.11/
-                  description: griffin-turing1: griffin4, griffin5, griffin6
+                  description: "griffin-turing1: griffin4, griffin5, griffin6"
                 - icon: rackula-dark.png
                   href: https://192.168.8.12/
-                  description: griffin-turing2: griffin7, griffin8
+                  description: "griffin-turing2: griffin7, griffin8"
               
   destination:
     namespace: homepage
