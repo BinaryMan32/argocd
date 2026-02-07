@@ -17,7 +17,7 @@ labels:
 images:
   - name: navidrome
     newName: deluan/navidrome
-    newTag: 0.60.0
+    newTag: 0.60.2
 configMapGenerator:
   - name: navidrome-config
     files:
