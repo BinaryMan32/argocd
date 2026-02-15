@@ -62,7 +62,7 @@ spec:
   
   egress:
     # ProtonVPN US servers
-    # curl https://raw.githubusercontent.com/qdm12/gluetun/v3.41.0/internal/storage/servers.json | yq --yaml-output '.protonvpn.servers | map(select(.country == "United States" and .vpn == "wireguard" and .port_forward).ips[]) | sort | map({ipBlock: {cidr: (. + "/32")}}) | [{to: .}]'
+    # curl https://raw.githubusercontent.com/qdm12/gluetun/v3.41.1/internal/storage/servers.json | yq --yaml-output '.protonvpn.servers | map(select(.country == "United States" and .vpn == "wireguard" and .port_forward).ips[]) | sort | map({ipBlock: {cidr: (. + "/32")}}) | [{to: .}]'
     - ports:
         - protocol: UDP
           port: 51820
