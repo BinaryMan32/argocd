@@ -1,0 +1,16 @@
+# ServiceMonitor for monitoring all topology groups
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: seaweed-volume-topology
+  namespace: default
+  labels:
+    app: seaweedfs
+spec:
+  selector:
+    matchExpressions:
+    - key: seaweedfs/topology
+      operator: Exists
+  endpoints:
+  - port: volume-metrics
+    path: /metrics
