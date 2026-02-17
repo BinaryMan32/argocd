@@ -61,3 +61,7 @@ spec:
       [leveldb2]
       enabled = true
       dir = "/data/filerldb2"
+    service:
+      type: LoadBalancer
+      annotations:
+        coredns.io/hostname: seaweed
