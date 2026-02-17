@@ -1,0 +1,60 @@
+apiVersion: seaweed.seaweedfs.com/v1
+kind: Seaweed
+metadata:
+  name: seaweed
+spec:
+  # SeaweedFS image
+  image: seaweedfs
+  volumeServerDiskCount: 1
+
+  # Master configuration
+  master:
+    replicas: 3
+    volumeSizeLimitMB: 1024
+    # Set default replication to 010 (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
+    defaultReplication: "020"
+
+  # Default volume server configuration. Settings here are inherited by all topology groups.
+  # Set replicas to 0 to disable the simple volume group and only use volumeTopology.
+  volume:
+    replicas: 0
+    requests:
+      storage: "5Gi"
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      memory: "2Gi"
+    storageClassName: topolvm-ssd-xfs
+
+  # Tree-structured topology configuration
+  # This creates a hierarchical deployment across multiple datacenters and racks
+  volumeTopology:
+    griffin-turing0:
+      replicas: 3
+      rack: "turing0"
+      dataCenter: "griffin"
+      nodeSelector:
+        topology.kubernetes.io/zone: "turing0"
+
+    griffin-turing1:
+      replicas: 3
+      rack: "turing1"
+      dataCenter: "griffin"
+      nodeSelector:
+        topology.kubernetes.io/zone: "turing1"
+
+    griffin-turing2:
+      replicas: 2
+      rack: "turing2"
+      dataCenter: "griffin"
+      nodeSelector:
+        topology.kubernetes.io/zone: "turing2"
+
+  filer:
+    replicas: 2
+    s3:
+      enabled: true
+    config: |
+      [leveldb2]
+      enabled = true
+      dir = "/data/filerldb2"
