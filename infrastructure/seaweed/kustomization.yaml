@@ -5,7 +5,7 @@ resources:
 images:
   - name: seaweedfs
     newName: chrislusf/seaweedfs
-    newTag: "4.09"
+    newTag: "4.13"
 configurations:
   - configurations/images.yaml
 buildMetadata: [managedByLabel]
