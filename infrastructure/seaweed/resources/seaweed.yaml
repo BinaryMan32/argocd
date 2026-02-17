@@ -54,6 +54,9 @@ spec:
     replicas: 2
     s3:
       enabled: true
+      configSecret:
+        name: seaweed-s3-config
+        key: s3-config.json
     config: |
       [leveldb2]
       enabled = true
