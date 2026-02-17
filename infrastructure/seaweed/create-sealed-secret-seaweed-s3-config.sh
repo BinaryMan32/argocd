@@ -44,6 +44,6 @@ kubectl create secret generic \
     --dry-run=client \
     --namespace=seaweed \
     seaweed-s3-config \
-    --from-literal=s3-config.json="${generate_config}" \
+    --from-literal=s3-config.json="$(generate_config)" \
     --output=yaml |
 kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-seaweed-s3-config.yaml
