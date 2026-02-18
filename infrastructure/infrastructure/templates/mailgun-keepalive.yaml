@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
-    path: {{ .Values.project.path }}/mailgun-keepalive
+    path: "{{ .Values.project.path }}/mailgun-keepalive"
   destination:
     namespace: mail
     server: {{ .Values.destination.server }}
