@@ -8,16 +8,15 @@ spec:
   volumeServerDiskCount: 1
   hostSuffix: seaweed.int.fivebytestudios.com
 
-  # Master configuration
   master:
     replicas: 3
     volumeSizeLimitMB: 1024
-    # Set default replication to 010 (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
+    # Set default replication (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
     defaultReplication: "020"
 
-  # Default volume server configuration. Settings here are inherited by all topology groups.
-  # Set replicas to 0 to disable the simple volume group and only use volumeTopology.
+  # Default volume server configuration. Settings here are inherited by all volumeTopology groups.
   volume:
+    # Set replicas to 0 to disable the simple volume group and only use volumeTopology.
     replicas: 0
     requests:
       storage: "5Gi"
