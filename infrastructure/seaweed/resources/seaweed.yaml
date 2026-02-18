@@ -6,6 +6,7 @@ spec:
   # SeaweedFS image
   image: seaweedfs
   volumeServerDiskCount: 1
+  hostSuffix: seaweed.int.fivebytestudios.com
 
   # Master configuration
   master:
