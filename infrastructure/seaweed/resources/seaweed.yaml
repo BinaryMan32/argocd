@@ -10,6 +10,8 @@ spec:
 
   master:
     replicas: 3
+    nodeSelector:
+      kubernetes.io/arch: arm64
     volumeSizeLimitMB: 1024
     # Set default replication (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
     defaultReplication: "020"
@@ -52,6 +54,8 @@ spec:
 
   filer:
     replicas: 2
+    nodeSelector:
+      kubernetes.io/arch: arm64
     s3:
       enabled: true
       configSecret:
