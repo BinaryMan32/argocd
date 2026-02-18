@@ -34,6 +34,19 @@ spec:
           backupTarget: nfs://{{ .Values.nfs.server }}:{{ .Values.nfs.path }}/manual/longhorn-backup
         defaultSettings:
           concurrentAutomaticEngineUpgradePerNodeLimit: "1"
+        image:
+          # Apply longhorn 1.11.0 hot fixes
+          # Revert on next update
+          # https://longhorn.io/docs/1.11.0/important-notes/#hotfix
+          longhorn:
+            # reduce memory usage
+            instanceManager:
+              # renovate: image=longhornio/longhorn-instance-manager
+              tag: v1.11.0-hotfix-1
+            # allow setting node CNI labels
+            manager:
+              # renovate: image=longhornio/longhorn-manager
+              tag: v1.11.0-hotfix-1
   # helm template incorrectly sets nodePort for LoadBalancer
   ignoreDifferences:
     - kind: Service
