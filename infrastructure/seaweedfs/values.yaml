@@ -14,8 +14,8 @@ seaweedfs:
     dataDirs:
       - name: ssd
         type: persistentVolumeClaim
-        storageClassName: topolvm-ssd-xfs
-        size: 100Gi
+        storageClass: topolvm-ssd-xfs
+        size: 256Gi
         maxVolumes: 0
 
   volumes:
