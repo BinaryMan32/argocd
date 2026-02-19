@@ -42,7 +42,7 @@ JSON
 
 kubectl create secret generic \
     --dry-run=client \
-    --namespace=seaweed \
+    --namespace=seaweedfs \
     seaweedfs-s3-config \
     --from-literal=seaweedfs_s3_config="$(generate_config)" \
     --output=yaml |
