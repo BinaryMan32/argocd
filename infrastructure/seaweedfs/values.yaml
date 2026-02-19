@@ -44,4 +44,5 @@ seaweedfs:
       kubernetes.io/arch: arm64
     s3:
       enabled: true
+      enableAuth: true
       existingConfigSecret: seaweedfs-s3-config
