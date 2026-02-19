@@ -17,6 +17,17 @@ spec:
       valuesObject:
         # https://github.com/seaweedfs/seaweedfs/blob/master/k8s/charts/seaweedfs/values.yaml
         seaweedfs:
+          admin:
+            ingress:
+              enabled: true
+              host: seaweedfs-admin.{{ .Values.domain.intranet }}
+              className: nginx
+              annotations:
+                cert-manager.io/cluster-issuer: intranet-dns01-prod
+              tls:
+                - secretName: seaweedfs-admin-tls
+                  hosts:
+                    - seaweedfs-admin.{{ .Values.domain.intranet }}
   destination:
     namespace: seaweedfs
     server: {{ .Values.destination.server }}
