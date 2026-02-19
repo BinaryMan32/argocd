@@ -48,6 +48,6 @@ seaweedfs:
       existingConfigSecret: seaweedfs-s3-config
 
   worker:
-    enabled: false
+    enabled: true
     nodeSelector: |
       kubernetes.io/arch: arm64
