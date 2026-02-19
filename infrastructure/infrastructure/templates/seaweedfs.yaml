@@ -28,6 +28,17 @@ spec:
                 - secretName: seaweedfs-admin-tls
                   hosts:
                     - seaweedfs-admin.{{ .Values.domain.intranet }}
+          s3:
+            ingress:
+              enabled: true
+              host: seaweedfs.{{ .Values.domain.intranet }}
+              className: nginx
+              annotations:
+                cert-manager.io/cluster-issuer: intranet-dns01-prod
+              tls:
+                - secretName: seaweedfs-s3-tls
+                  hosts:
+                    - seaweedfs.{{ .Values.domain.intranet }}
   destination:
     namespace: seaweedfs
     server: {{ .Values.destination.server }}
