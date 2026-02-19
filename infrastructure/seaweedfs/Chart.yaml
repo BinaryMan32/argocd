@@ -1,0 +1,8 @@
+apiVersion: v2
+name: seaweedfs
+description: seaweedfs and configuration resources
+version: 1.0.0
+dependencies:
+- name: seaweedfs
+  repository: https://seaweedfs.github.io/seaweedfs/helm
+  version: 4.0.413

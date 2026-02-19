@@ -1,0 +1,47 @@
+# https://github.com/seaweedfs/seaweedfs/blob/master/k8s/charts/seaweedfs/values.yaml
+seaweedfs:
+  master:
+    replicas: 1
+    nodeSelector: |
+      kubernetes.io/arch: arm64
+    volumeSizeLimitMB: 1024
+    # Set default replication (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
+    defaultReplication: "020"
+
+  volume:
+    # `volume` values are defaults, groups are defined in `volumes` below
+    enabled: false
+    dataDirs:
+      - name: ssd
+        type: persistentVolumeClaim
+        storageClassName: topolvm-ssd-xfs
+        size: 100Gi
+        maxVolumes: 0
+
+  volumes:
+    griffin-turing0:
+      replicas: 3
+      rack: "turing0"
+      dataCenter: "griffin"
+      nodeSelector: |
+        topology.kubernetes.io/zone: "turing0"
+    griffin-turing1:
+      replicas: 3
+      rack: "turing1"
+      dataCenter: "griffin"
+      nodeSelector: |
+        topology.kubernetes.io/zone: "turing1"
+    griffin-turing2:
+      replicas: 2
+      rack: "turing2"
+      dataCenter: "griffin"
+      nodeSelector: |
+        topology.kubernetes.io/zone: "turing2"
+
+  filer:
+    replicas: 1
+    nodeSelector: |
+      kubernetes.io/arch: arm64
+    s3:
+      enabled: true
+      existingConfigSecret: seaweedfs-s3-config
