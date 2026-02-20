@@ -33,6 +33,7 @@ spec:
           grafana:
             ingress:
               enabled: true
+              ingressClassName: nginx
               annotations:
                 cert-manager.io/cluster-issuer: intranet-dns01-prod
               hosts:
