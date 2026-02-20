@@ -68,3 +68,5 @@ seaweedfs:
     enabled: true
     enableAuth: true
     existingConfigSecret: seaweedfs-s3-config
+    sidecar:
+      image: gcr.io/k8s-staging-sig-storage/objectstorage-sidecar:v0.2.2
