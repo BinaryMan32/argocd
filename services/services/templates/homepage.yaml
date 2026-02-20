@@ -138,20 +138,6 @@ spec:
                   namespace: media
                   app: sonarr
             - Infrastructure:
-              - Longhorn:
-                  icon: longhorn.png
-                  href: "https://longhorn.{{ .Values.domain.intranet }}/"
-                  description: Distributed Kubernetes Volumes
-                  namespace: longhorn-system
-                  app: longhorn
-                  # select all pods in namespace
-                  pod-selector: ""
-              - Pihole:
-                  icon: pi-hole.png
-                  href: "https://pihole.{{ .Values.domain.intranet }}/admin"
-                  description: DNS Blocker
-                  namespace: pihole
-                  app: pihole
               - ArgoCD:
                   icon: argo-cd.png
                   href: "https://argocd.{{ .Values.domain.intranet }}/"
@@ -170,6 +156,26 @@ spec:
                   description: Kubernetes cluster analysis and management
                   namespace: headlamp
                   app: headlamp
+              - Longhorn:
+                  icon: longhorn.png
+                  href: "https://longhorn.{{ .Values.domain.intranet }}/"
+                  description: Distributed Kubernetes Volumes
+                  namespace: longhorn-system
+                  app: longhorn
+                  # select all pods in namespace
+                  pod-selector: ""
+              - Pihole:
+                  icon: pi-hole.png
+                  href: "https://pihole.{{ .Values.domain.intranet }}/admin"
+                  description: DNS Blocker
+                  namespace: pihole
+                  app: pihole
+              - SeaweedFS:
+                  icon: files-community.png
+                  href: "https://seaweedfs-admin.{{ .Values.domain.intranet }}/"
+                  description: S3 Compatible Object Storage
+                  namespace: seaweedfs
+                  app: seaweedfs
             - Monitoring:
               - Prometheus:
                   icon: prometheus.png
