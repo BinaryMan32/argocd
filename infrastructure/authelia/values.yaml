@@ -94,6 +94,9 @@ authelia:
         - domain: radarr.int.fivebytestudios.com
           subject: group:radarr
           policy: one_factor
+        - domain: seaweedfs-admin.int.fivebytestudios.com
+          subject: group:seaweedfs-admin
+          policy: two_factor
         - domain: sonarr.int.fivebytestudios.com
           subject: group:sonarr
           policy: one_factor

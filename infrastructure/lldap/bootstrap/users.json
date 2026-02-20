@@ -22,6 +22,7 @@
     "prowlarr",
     "qbittorrent",
     "radarr",
+    "seaweedfs-admin",
     "sonarr"
   ]
 }
@@ -33,7 +34,8 @@
   "groups": [
     "jaeger",
     "play-when-ops",
-    "prometheus"
+    "prometheus",
+    "seaweedfs-admin"
   ]
 }
 {
