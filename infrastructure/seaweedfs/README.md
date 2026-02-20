@@ -1,5 +1,7 @@
 # SeaweedFS
 
+See [SeaweedFS Wiki](https://github.com/seaweedfs/seaweedfs/wiki).
+
 ## Testing with s3cmd
 
 Install [s3cmd](https://github.com/s3tools/s3cmd).
