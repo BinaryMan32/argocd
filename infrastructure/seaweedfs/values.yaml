@@ -1,5 +1,9 @@
 # https://github.com/seaweedfs/seaweedfs/blob/master/k8s/charts/seaweedfs/values.yaml
 seaweedfs:
+  global:
+    monitoring:
+      enabled: true
+
   master:
     replicas: 1
     nodeSelector: |
