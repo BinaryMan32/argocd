@@ -63,3 +63,4 @@ seaweedfs:
   cosi:
     enabled: true
     enableAuth: true
+    existingConfigSecret: seaweedfs-s3-config
