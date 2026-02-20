@@ -1,3 +1,0 @@
-resources:
-  # https://container-object-storage-interface.sigs.k8s.io/quick-start.html
-  - github.com/kubernetes-sigs/container-object-storage-interface//?ref=release-0.2
