@@ -42,6 +42,11 @@ spec:
             instanceManager:
               # renovate: image=longhornio/longhorn-instance-manager
               tag: v1.11.0-hotfix-1
+        # Required for longhorn 1.11.0 node validator hot fix
+        # Revert on next update
+        # https://longhorn.io/docs/1.11.0/important-notes/#longhorn-manager-image
+        preUpgradeChecker:
+          upgradeVersionCheck: false
   # helm template incorrectly sets nodePort for LoadBalancer
   ignoreDifferences:
     - kind: Service
