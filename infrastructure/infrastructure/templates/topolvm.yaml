@@ -96,6 +96,11 @@ spec:
               additionalParameters: {}
               topolvm.io/device-class: hdd
               mountOptions: []
+        snapshot:
+          # csi-snapshotter spamming logs with errors failing to list resources
+          # VolumeSnapshotClass and VolumeSnapshotContent
+          # disable since not using yet, would require snapshot CRDs and controller
+          enabled: false
   destination:
     namespace: topolvm-system
     server: {{ .Values.destination.server }}
