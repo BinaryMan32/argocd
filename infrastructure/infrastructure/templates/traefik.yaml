@@ -29,7 +29,8 @@ spec:
             port: 443
 
         service:
-          loadBalancerIP: {{ .Values.ipAddress.traefik }}
+          spec:
+            loadBalancerIP: {{ .Values.ipAddress.traefik }}
 
         # Enables the dashboard in Secure Mode
         api:
