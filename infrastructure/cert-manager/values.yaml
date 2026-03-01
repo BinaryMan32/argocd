@@ -9,6 +9,7 @@ cert-manager:
     servicemonitor:
       enabled: true
   config:
+    enableGatewayAPI: true
     featureGates:
       # cert-manager 1.18.0 switched to using `PathType: Exact` for HTTP01 challenges (/.well-known/acme-challenge/...)
       # nginx-ingress Exact paths with a . fail strict validation (to fix a CVE where paths could begin with ../)
