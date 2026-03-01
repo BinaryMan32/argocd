@@ -14,6 +14,7 @@ spec:
   - https://cloudnative-pg.github.io/charts
   - https://coredns.github.io/helm
   - https://github.com/longhorn/longhorn
+  - https://k8s-gateway.github.io/k8s_gateway
   - https://kubernetes-sigs.github.io/headlamp
   - https://kube-vip.github.io/helm-charts
   - https://kubereboot.github.io/charts
@@ -21,7 +22,6 @@ spec:
   - https://kubernetes.github.io/*
   - https://mojo2600.github.io/pihole-kubernetes/
   - https://open-telemetry.github.io/opentelemetry-helm-charts
-  - https://ori-edge.github.io/k8s_gateway/
   - https://prometheus-community.github.io/helm-charts
   - https://stakater.github.io/stakater-charts
   - https://topolvm.github.io/topolvm
