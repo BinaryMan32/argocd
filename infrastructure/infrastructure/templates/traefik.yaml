@@ -38,8 +38,7 @@ spec:
         # Enables the dashboard in Secure Mode
         api:
           dashboard: true
-          # Allow HTTP since HTTPS is terminated at gateway
-          insecure: true
+          insecure: false
 
         extraObjects:
           - apiVersion: gateway.networking.k8s.io/v1
