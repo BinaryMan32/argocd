@@ -77,7 +77,7 @@ spec:
               port: 443
               protocol: HTTPS
               namespacePolicy:
-                from: traefik
+                from: Same
               mode: Terminate
               certificateRefs:    
                 - name: traefik-dashboard-tls
