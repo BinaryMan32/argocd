@@ -25,4 +25,4 @@ spec:
       name: longhorn
       jsonPointers:
         - /metadata/finalizers/pre-delete-finalizer.argocd.argoproj.io
-        - "/metadata/finalizers/\"pre-delete-finalizer.argocd.argoproj.io/cleanup\""
+        - "/metadata/finalizers/pre-delete-finalizer.argocd.argoproj.io~1cleanup
