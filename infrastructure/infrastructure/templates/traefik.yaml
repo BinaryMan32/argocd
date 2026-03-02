@@ -51,11 +51,7 @@ spec:
               hostnames:
                 - "traefik.{{ .Values.domain.intranet }}"
               rules:
-                - matches:
-                    - path:
-                        type: Exact
-                        value: /
-                  backendRefs:
+                - backendRefs:
                     - name: api@internal
                       kind: TraefikService
 
