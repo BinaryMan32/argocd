@@ -176,6 +176,12 @@ spec:
                   description: S3 Compatible Object Storage
                   namespace: seaweedfs
                   app: seaweedfs
+              - Traefik:
+                  icon: traefik.png
+                  href: "https://traefik.{{ .Values.domain.intranet }}/"
+                  description: Ingress Admin Dashboard
+                  namespace: traefik
+                  app: traefik
             - Monitoring:
               - Prometheus:
                   icon: prometheus.png
