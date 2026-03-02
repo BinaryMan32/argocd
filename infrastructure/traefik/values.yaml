@@ -56,7 +56,7 @@ traefik:
   providers:
     # traefik IngressRoute
     kubernetesCRD:
-      enabled: false
+      enabled: true
     kubernetesIngress:
       enabled: true
       ingressClass: traefik-intranet
