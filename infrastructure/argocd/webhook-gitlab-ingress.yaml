@@ -26,3 +26,7 @@ spec:
                 name: argocd-server
                 port:
                   name: https
+  tls:
+    - hosts:
+        - gitlab-webhook.argocd.wildfreddy.fivebytestudios.com
+      secretName: gitlab-webhook-tls
