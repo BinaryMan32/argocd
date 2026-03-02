@@ -30,6 +30,6 @@ spec:
     namespace: traefik
     server: {{ .Values.destination.server }}
   syncPolicy:
-    # automated: {}
+    automated: {}
     syncOptions:
       - CreateNamespace=true
