@@ -12,8 +12,11 @@ resources:
 - https://raw.githubusercontent.com/argoproj/argo-cd/v3.3.2/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrole.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/v3.3.2/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrolebinding.yaml
 - ingress.yaml
+- webhook-gitlab-ingress.yaml
+- webhook-gitlab-secret.yaml
 patches:
 - path: load-balancer.yaml
 - path: argocd-cm.yaml
 - path: argocd-cmd-params-cm.yaml
 - path: argocd-rbac-cm.yaml
+- path: argocd-secret.yaml
