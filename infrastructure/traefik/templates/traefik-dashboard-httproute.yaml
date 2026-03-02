@@ -11,3 +11,9 @@ spec:
     - backendRefs:
         - name: api@internal
           kind: TraefikService
+      filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: authelia-forwardauth

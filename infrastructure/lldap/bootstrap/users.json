@@ -23,7 +23,8 @@
     "qbittorrent",
     "radarr",
     "seaweedfs-admin",
-    "sonarr"
+    "sonarr",
+    "traefik"
   ]
 }
 {

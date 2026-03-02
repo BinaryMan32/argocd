@@ -34,3 +34,6 @@
 {
   "name": "sonarr"
 }
+{
+  "name": "traefik"
+}
