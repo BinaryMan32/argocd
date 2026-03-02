@@ -8,109 +8,28 @@ metadata:
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: https://traefik.github.io/charts
-    chart: traefik
-    targetRevision: 39.0.2
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: "{{ .Values.project.path }}/traefik"
     helm:
-      # started from https://doc.traefik.io/traefik/v3.4/setup/kubernetes/
+      valueFiles:
+        - values.yaml
       # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
       valuesObject:
-        # Configure Network Ports and EntryPoints
-        # EntryPoints are the network listeners for incoming traffic.
-        ports:
-          web:
-            port: 80
-            http:
-              redirections:
-                entryPoint:
-                  to: websecure
-                  scheme: https
-                  permanent: true
-          websecure:
-            port: 443
-
-        service:
-          spec:
-            loadBalancerIP: {{ .Values.ipAddress.traefik }}
-            # Preserve client IP addresses
-            externalTrafficPolicy: Local
-
-        # Enables the dashboard in Secure Mode
-        api:
-          dashboard: true
-          insecure: false
-
-        extraObjects:
-          - apiVersion: gateway.networking.k8s.io/v1
-            kind: HTTPRoute
-            metadata:
-              name: traefik-dashboard
+        dashboard:
+          hostname: "traefik.{{ .Values.domain.intranet }}"
+        traefik:
+          service:
             spec:
-              parentRefs:
-                - name: traefik-intranet
-              hostnames:
-                - "traefik.{{ .Values.domain.intranet }}"
-              rules:
-                - backendRefs:
-                    - name: api@internal
-                      kind: TraefikService
-
-        ingressClass:
-          enabled: true
-          isDefaultClass: false
-          name: traefik-intranet
-
-        gateway:
-          name: traefik-intranet
-          annotations:
-            cert-manager.io/cluster-issuer: intranet-dns01-prod
-          listeners:
-            web:
-              port: 80
-              protocol: HTTP
-              namespacePolicy:
-                from: All
-
-            traefik-dashboard:
-              hostname: "traefik.{{ .Values.domain.intranet }}"
-              port: 443
-              protocol: HTTPS
-              namespacePolicy:
-                from: Same
-              mode: Terminate
-              certificateRefs:    
-                - name: traefik-dashboard-tls
-
-        # Providers controls which resources Traefik watches to find routing configuration.
-        providers:
-          # traefik IngressRoute
-          kubernetesCRD:
-            enabled: false
-          kubernetesIngress:
-            enabled: true
-            ingressClass: traefik-intranet
-          kubernetesGateway:
-            enabled: true
-
-        logs:
-          general:
-            level: INFO
-          # This enables access logs, outputting them to Traefik's standard output by default.
-          # The [Access Logs Documentation](https://doc.traefik.io/traefik/observability/access-logs/) covers formatting, filtering, and output options.
-          access:
-            enabled: true
-
-        # Enables Prometheus metrics
-        metrics:
-          prometheus:
-            service:
-              enabled: true
-            serviceMonitor:
-              enabled: true
+              loadBalancerIP: {{ .Values.ipAddress.traefik }}
+          gateway:
+            listeners:
+              traefik-dashboard:
+                hostname: "traefik.{{ .Values.domain.intranet }}"
   destination:
     namespace: traefik
     server: {{ .Values.destination.server }}
   syncPolicy:
-    automated: {}
+    # automated: {}
     syncOptions:
       - CreateNamespace=true
