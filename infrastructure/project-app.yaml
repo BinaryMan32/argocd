@@ -17,3 +17,10 @@ spec:
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
+  ignoreDifferences:
+    - group: argoproj.io
+      kind: Application
+      name: longhorn
+      jsonPointers:
+        - /metadata/finalizers/pre-delete-finalizer.argocd.argoproj.io
+        - /metadata/finalizers/pre-delete-finalizer.argocd.argoproj.io~1cleanup
