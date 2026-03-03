@@ -3,7 +3,7 @@ tempo-distributed:
   global:
     extraEnvFrom:
       - secretRef:
-          name: tempo-s3-credentials
+          name: seaweedfs-tempo
         prefix: TRACE_S3_
   storage:
     trace:
