@@ -2,13 +2,6 @@
 
 See [Getting Started](https://argoproj.github.io/argo-cd/getting_started/)
 
-For inital bootstrapping, run the following in this directory:
-
-```sh
-kubectl create namespace argocd
-kustomize build | kubectl apply -f -
-```
-
 The `kustomization.yaml` includes the following changes:
 
 * set namespace to `argocd`
@@ -18,6 +11,15 @@ The `kustomization.yaml` includes the following changes:
 * [ingress.yaml](./ingress.yaml): access outside cluster
 * [load-balancer](./load-balancer.yaml): enabled load balancer as described in
   [Getting Started](https://argoproj.github.io/argo-cd/getting_started/#3-access-the-argo-cd-api-server)
+
+## Initial Manual Deploy
+
+For initial bootstrapping, run the following in this directory:
+
+```sh
+kubectl create namespace argocd
+kustomize build | kubectl apply -f -
+```
 
 Note: it should be possible to have `kubectl` run kustomize directly with
 `kubectl apply -k`, but it seemed this command was unable to retrieve resources
@@ -67,5 +69,38 @@ Delete the now unused secret:
 ```sh
 kubectl -n argocd delete secret argocd-initial-admin-secret
 ```
+
+## Webhooks
+
+### GitLab
+
+For each of the following projects:
+
+* [play-when-argocd](https://gitlab.com/play-when/play-when-argocd/-/hooks)
+
+Add a webhook with the following settings:
+
+* Name: `ArgoCD Webhook`
+* URL: `https://gitlab-webhook.argocd.wildfreddy.fivebytestudios.com/api/webhook`
+* Secret token: from secret `webhook-gitlab` in `argocd` namespace
+  `kubectl -n argocd get secret webhook-gitlab -o jsonpath="{.data.secret}" | base64 -d`
+* Trigger:
+  * Push events
+    * All branches
+
+### GitHub
+
+For each of the following repositories:
+
+* [argocd](https://github.com/BinaryMan32/argocd/settings/hooks)
+
+Add a webhook with the following settings:
+
+* Payload URL: `https://github-webhook.argocd.wildfreddy.fivebytestudios.com/api/webhook`
+* Content type: `application/json`
+* Secret: from secret `webhook-github` in `argocd` namespace
+  `kubectl -n argocd get secret webhook-github -o jsonpath="{.data.secret}" | base64 -d`
+* Which events would you like to trigger this webhook?
+  * Just the push event
 
 [argocd-getting-started]: https://argo-cd.readthedocs.io/en/stable/getting_started/
