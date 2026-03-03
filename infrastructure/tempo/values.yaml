@@ -12,8 +12,8 @@ tempo-distributed:
     trace:
       backend: s3
       s3:
-        access_key: "$TRACE_S3_ACCESS_KEY"
-        secret_key: "$TRACE_S3_SECRET_KEY"
+        access_key: "${TRACE_S3_ACCESS_KEY}"
+        secret_key: "${TRACE_S3_SECRET_KEY}"
         bucket: "tempo-traces"
         endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
         insecure: true
