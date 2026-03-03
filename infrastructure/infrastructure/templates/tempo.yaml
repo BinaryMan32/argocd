@@ -14,19 +14,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-      valuesObject:
-        tempo-distributed:
-          ingress:
-            enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-dns01-prod
-            ingressClassName: nginx
-            hosts:
-              - tempo.{{ .Values.domain.intranet }}
-            tls:
-              - secretName: tempo-tls
-                hosts:
-                  - tempo.{{ .Values.domain.intranet }}
+      valuesObject: {}
   destination:
     namespace: tempo
     server: {{ .Values.destination.server }}
