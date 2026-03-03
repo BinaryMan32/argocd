@@ -93,3 +93,10 @@ traefik:
         enabled: true
       serviceMonitor:
         enabled: true
+
+  tracing:
+    otlp:
+      enabled: true
+      grpc:
+        enabled: true
+        endpoint: "tempo-distributor.tempo.svc.cluster.local:4317"
