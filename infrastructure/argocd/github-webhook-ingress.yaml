@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: github-webhook
+  namespace: argocd
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    # Only allow requests from github's IP ranges
+    # curl -s https://api.github.com/meta | jq --raw-output '.hooks | join(",")'
+    nginx.ingress.kubernetes.io/whitelist-source-range: "192.30.252.0/22,185.199.108.0/22,140.82.112.0/20,143.55.64.0/20"
+spec:
+  ingressClassName: public
+  rules:
+    - host: github-webhook.argocd.wildfreddy.fivebytestudios.com
+      http:
+        paths:
+          - path: /api/webhook
+            pathType: Exact
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  name: https
+  tls:
+    - hosts:
+        - github-webhook.argocd.wildfreddy.fivebytestudios.com
+      secretName: github-webhook-tls

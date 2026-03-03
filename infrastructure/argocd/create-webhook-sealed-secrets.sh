@@ -19,4 +19,5 @@ create_webhook_sealed_secret() {
     kubeseal --format=yaml --sealed-secret-file=$script_dir/$name-secret.yaml
 }
 
-create_webhook_sealed_secret webhook-gitlab secret
+create_webhook_sealed_secret gitlab-webhook secret
+create_webhook_sealed_secret github-webhook secret
