@@ -10,6 +10,7 @@ spec:
   rules:
     - backendRefs:
         - name: jaeger-collector-extension
+          port: jaeger-query
       filters:
         - type: ExtensionRef
           extensionRef:
