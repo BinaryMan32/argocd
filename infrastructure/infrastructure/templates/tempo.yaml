@@ -27,7 +27,7 @@ spec:
               hosts:
                 - tempo.{{ .Values.domain.intranet }}
   destination:
-    namespace: opentelemetry-operator
+    namespace: tempo
     server: {{ .Values.destination.server }}
   syncPolicy:
     automated: {}
