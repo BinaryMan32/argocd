@@ -83,7 +83,7 @@ Add a webhook with the following settings:
 * Name: `ArgoCD Webhook`
 * URL: `https://gitlab-webhook.argocd.wildfreddy.fivebytestudios.com/api/webhook`
 * Secret token: from secret `gitlab-webhook` in `argocd` namespace
-  `kubectl -n argocd get secret gitlab-webhook- -o jsonpath="{.data.secret}" | base64 -d`
+  `kubectl -n argocd get secret gitlab-webhook -o jsonpath="{.data.secret}" | base64 -d`
 * Trigger:
   * Push events
     * All branches
