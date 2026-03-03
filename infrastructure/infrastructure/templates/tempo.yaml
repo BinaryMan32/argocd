@@ -22,7 +22,7 @@ spec:
               cert-manager.io/cluster-issuer: intranet-dns01-prod
             ingressClassName: nginx
             hosts:
-              - host: tempo.{{ .Values.domain.intranet }}
+              - tempo.{{ .Values.domain.intranet }}
             tls:
               - secretName: tempo-tls
                 hosts:
