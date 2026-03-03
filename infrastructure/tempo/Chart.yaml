@@ -1,0 +1,8 @@
+apiVersion: v2
+name: tempo
+description: tempo and configuration resources
+version: 1.0.0
+dependencies:
+- name: tempo-distributed
+  repository: https://grafana-community.github.io/helm-charts
+  version: 2.4.2

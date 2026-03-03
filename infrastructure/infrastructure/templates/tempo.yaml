@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tempo
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: "{{ .Values.project.path }}/tempo"
+    helm:
+      valueFiles:
+        - values.yaml
+      valuesObject:
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: intranet-dns01-prod
+          ingressClassName: nginx
+          hosts:
+            - host: tempo.{{ .Values.domain.intranet }}
+          tls:
+            - secretName: tempo-tls
+              hosts:
+                - tempo.{{ .Values.domain.intranet }}
+  destination:
+    namespace: opentelemetry-operator
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

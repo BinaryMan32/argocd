@@ -1,0 +1,23 @@
+tempo-distributed:
+  # https://github.com/grafana-community/helm-charts/blob/main/charts/tempo-distributed/values.yaml
+  global:
+    extraEnvFrom:
+      - secretRef:
+          name: tempo-s3-credentials
+        prefix: TRACE_S3_
+  storage:
+    trace:
+      backend: s3
+      s3:
+        access_key: "$TRACE_S3_ACCESS_KEY"
+        secret_key: "$TRACE_S3_SECRET_KEY"
+        bucket: "tempo-traces"
+        endpoint: "tempo-minio:9000"
+        insecure: true
+  # Specifies which trace protocols to accept by the gateway.
+  traces:
+    otlp:
+      grpc:
+        enabled: true
+      http:
+        enabled: true
