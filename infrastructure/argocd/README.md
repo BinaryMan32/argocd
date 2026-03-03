@@ -82,8 +82,8 @@ Add a webhook with the following settings:
 
 * Name: `ArgoCD Webhook`
 * URL: `https://gitlab-webhook.argocd.wildfreddy.fivebytestudios.com/api/webhook`
-* Secret token: from secret `webhook-gitlab` in `argocd` namespace
-  `kubectl -n argocd get secret webhook-gitlab -o jsonpath="{.data.secret}" | base64 -d`
+* Secret token: from secret `gitlab-webhook` in `argocd` namespace
+  `kubectl -n argocd get secret gitlab-webhook- -o jsonpath="{.data.secret}" | base64 -d`
 * Trigger:
   * Push events
     * All branches
@@ -98,8 +98,8 @@ Add a webhook with the following settings:
 
 * Payload URL: `https://github-webhook.argocd.wildfreddy.fivebytestudios.com/api/webhook`
 * Content type: `application/json`
-* Secret: from secret `webhook-github` in `argocd` namespace
-  `kubectl -n argocd get secret webhook-github -o jsonpath="{.data.secret}" | base64 -d`
+* Secret: from secret `github-webhook` in `argocd` namespace
+  `kubectl -n argocd get secret github-webhook -o jsonpath="{.data.secret}" | base64 -d`
 * Which events would you like to trigger this webhook?
   * Just the push event
 
