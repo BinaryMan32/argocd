@@ -190,6 +190,34 @@ kube-prometheus-stack:
       type: statefulset
       storageClassName: longhorn
       size: 2Gi
+    additionalDataSources:
+        # https://github.com/arch-anes/self-hosted-services/blob/main/charts/services/templates/prometheus.yaml
+        - name: Tempo
+          uid: tempo
+          type: tempo
+          access: proxy
+          url: http://tempo-query-frontend.tempo.svc.cluster.local:3200
+          isDefault: false
+          jsonData:
+            tracesToLogsV2:
+              datasourceUid: loki
+              spanStartTimeShift: -2m
+              spanEndTimeShift: 2m
+              tags: ['cluster','namespace','pod','service.name','service.namespace']
+              customQuery: true
+              query: '{ $$__tags } |~ "$${__span.traceId}"'
+            tracesToMetrics:
+              datasourceUid: prometheus
+              spanStartTimeShift: -2m
+              spanEndTimeShift: 2m
+              tags: [{ key: 'service.name', value: 'service' }, { key: 'service.namespace', value: 'namespace' }]
+              queries:
+                - name: Latency p95
+                  unit: ms
+                  query: 'histogram_quantile(0.95, sum by (le,service,span_name) (rate(traces_spanmetrics_latency_bucket{$$__tags}[5m])))'
+                - name: Error rate
+                  unit: ops
+                  query: 'sum by (service,span_name) (rate(traces_spanmetrics_calls_total{$$__tags,status_code="STATUS_CODE_ERROR"}[5m]))'
 
   prometheus:
     prometheusSpec:
