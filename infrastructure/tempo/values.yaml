@@ -1,13 +1,30 @@
 tempo-distributed:
   # https://github.com/grafana-community/helm-charts/blob/main/charts/tempo-distributed/values.yaml
   global:
-    extraArgs:
-      # expand environment variables in the config file, such as s3 credentials below
-      - "-config.expand-env=true"
     extraEnvFrom:
       - secretRef:
           name: seaweedfs-tempo
         prefix: TRACE_S3_
+  ingester:
+    extraArgs:
+      # expand environment variables in the config file, such as s3 credentials below
+      - "-config.expand-env=true"
+  distributor:
+    extraArgs:
+      # expand environment variables in the config file, such as s3 credentials below
+      - "-config.expand-env=true"
+  compactor:
+    extraArgs:
+      # expand environment variables in the config file, such as s3 credentials below
+      - "-config.expand-env=true"
+  querier:
+    extraArgs:
+      # expand environment variables in the config file, such as s3 credentials below
+      - "-config.expand-env=true"
+  queryFrontend:
+    extraArgs:
+      # expand environment variables in the config file, such as s3 credentials below
+      - "-config.expand-env=true"
   storage:
     trace:
       backend: s3
