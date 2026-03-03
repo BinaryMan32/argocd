@@ -12,7 +12,7 @@ tempo-distributed:
         access_key: "$TRACE_S3_ACCESS_KEY"
         secret_key: "$TRACE_S3_SECRET_KEY"
         bucket: "tempo-traces"
-        endpoint: http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+        endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
         insecure: true
   # Specifies which trace protocols to accept by the gateway.
   traces:
