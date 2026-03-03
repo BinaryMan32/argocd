@@ -100,3 +100,4 @@ traefik:
       grpc:
         enabled: true
         endpoint: "tempo-distributor.tempo.svc.cluster.local:4317"
+        insecure: true
