@@ -40,6 +40,7 @@ spec:
           backupTarget: nfs://{{ .Values.nfs.server }}:{{ .Values.nfs.path }}/manual/longhorn-backup
         defaultSettings:
           concurrentAutomaticEngineUpgradePerNodeLimit: "1"
+          taintToleration: reserved-arch=amd64:NoSchedule
         image:
           # Revert on next update
           longhorn:
