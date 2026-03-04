@@ -5,7 +5,7 @@
 Push configuration files.
 
 ```sh
-for host in griffin{0..8}; do
+for host in griffin7; do
   cat docs/50-kubelet-image-gc.conf | ssh $host sudo tee /var/lib/rancher/k3s/agent/etc/kubelet.conf.d/50-kubelet-image-gc.conf
 done
 ```
@@ -34,11 +34,19 @@ journalctl -xeu k3s.service
 
 ## Checking Configs
 
+In another terminal (Lens suggested)
+
+```sh
+kubectl proxy
+```
+
 ```sh
 for node in griffin{0..8}; do
-  curl --silent http://127.0.0.1:8001/api/v1/nodes/$node/proxy/configz | jq --compact-output '.kubeletconfig | {imageMinimumGCAge, imageMaximumGCAge, imageGCHighThresholdPercent, imageGCLowThresholdPercent}'
+  curl --silent http://127.0.0.1:8001/api/v1/nodes/$node/proxy/configz | jq --arg node $node --compact-output '.kubeletconfig | {node: $node, imageMinimumGCAge, imageMaximumGCAge, imageGCHighThresholdPercent, imageGCLowThresholdPercent}'
 done
 ```
+
+Kill `kubectl proxy`.
 
 ## Checking Storage
 
