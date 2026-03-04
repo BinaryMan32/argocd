@@ -13,6 +13,7 @@ spec:
     targetRevision: 5.11.0
     helm:
       valuesObject:
+        # https://github.com/kubereboot/charts/blob/main/charts/kured/values.yaml
         configuration:
           drainTimeout: 1h
           startTime: 22:00
@@ -27,6 +28,11 @@ spec:
           # prometheusUrl: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local
         metrics:
           create: true
+        tolerations:
+          - key: reserved-arch
+            operator: Equal
+            value: amd64
+            effect: NoSchedule
   destination:
     namespace: kured
     server: {{ .Values.destination.server }}
