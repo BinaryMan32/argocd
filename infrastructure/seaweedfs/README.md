@@ -47,3 +47,5 @@ volume.configure.replication -replication 020 -volumeId 13
 volume.fix.replication -apply
 unlock
 ```
+
+Note: Running these commands while a node was down deleted all buckets and users.
