@@ -8,7 +8,7 @@ seaweedfs:
     replicas: 1
     nodeSelector: |
       kubernetes.io/arch: arm64
-    volumeSizeLimitMB: 1024
+    volumeSizeLimitMB: 16384
     # Set default replication (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
     defaultReplication: "020"
 
