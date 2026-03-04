@@ -11,6 +11,10 @@ seaweedfs:
     volumeSizeLimitMB: 16384
     # Set default replication (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
     defaultReplication: "020"
+    data:
+      type: persistentVolumeClaim
+      size: 1Gi
+      storageClass: longhorn
 
   volume:
     # `volume` values are defaults, groups are defined in `volumes` below
@@ -52,6 +56,10 @@ seaweedfs:
       enabled: true
       enableAuth: true
       existingConfigSecret: seaweedfs-s3-config
+    data:
+      type: persistentVolumeClaim
+      size: 1Gi
+      storageClass: longhorn
 
   s3:
     enableAuth: true
@@ -60,6 +68,10 @@ seaweedfs:
     enabled: true
     nodeSelector: |
       kubernetes.io/arch: arm64
+    data:
+      type: persistentVolumeClaim
+      size: 1Gi
+      storageClass: longhorn
 
   worker:
     enabled: true
