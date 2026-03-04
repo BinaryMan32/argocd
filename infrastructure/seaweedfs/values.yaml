@@ -46,6 +46,8 @@ seaweedfs:
     replicas: 1
     nodeSelector: |
       kubernetes.io/arch: arm64
+    # Set default replication (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
+    defaultReplicaPlacement: "020"
     s3:
       enabled: true
       enableAuth: true
