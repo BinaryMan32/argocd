@@ -14,6 +14,12 @@ spec:
     helm:
       # https://github.com/longhorn/longhorn/blob/master/chart/values.yaml
       valuesObject:
+        global:
+          tolerations:
+            - key: reserved-arch
+              operator: Equal
+              value: amd64
+              effect: NoSchedule
         ingress:
           enabled: true
           annotations:
