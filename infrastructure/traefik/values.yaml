@@ -72,7 +72,6 @@ traefik:
     # traefik IngressRoute
     kubernetesCRD:
       enabled: true
-      allowCrossNamespace: true
     kubernetesIngress:
       enabled: true
       ingressClass: traefik-intranet
