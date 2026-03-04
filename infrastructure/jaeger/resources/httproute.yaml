@@ -5,6 +5,7 @@ metadata:
 spec:
   parentRefs:
     - name: traefik-intranet
+      namespace: traefik
   hostnames:
     - jaeger.int.fivebytestudios.com
   rules:
