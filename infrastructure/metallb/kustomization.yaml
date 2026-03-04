@@ -6,3 +6,8 @@ resources:
   - resources/default-l2advertisement.yaml
   - resources/reserved-address-pool.yaml
   - resources/reserved-l2advertisement.yaml
+patches:
+  - path: patches/speaker-daemonset-tolerations.yaml
+    target:
+      kind: DaemonSet
+      name: speaker
