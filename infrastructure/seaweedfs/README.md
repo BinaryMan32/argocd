@@ -32,3 +32,18 @@ For everything else, just press enter until you get to this prompt at the end.
 ```text
 Save settings? [y/N] y
 ```
+
+## Weed Shell
+
+```sh
+kubectl exec --stdin --tty --namespace=seaweedfs service/seaweedfs-master -- weed shell
+```
+
+Manually setting volume replication:
+
+```text
+lock
+volume.configure.replication -replication 020 -volumeId 13
+volume.fix.replication -apply
+unlock
+```
