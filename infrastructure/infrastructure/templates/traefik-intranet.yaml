@@ -19,8 +19,6 @@ spec:
         dashboard:
           intranet:
             hostname: "traefik-intranet.{{ .Values.domain.intranet }}"
-          external:
-            hostname: "traefik-external.{{ .Values.domain.intranet }}"
         intranet:
           service:
             spec:
@@ -29,14 +27,6 @@ spec:
             listeners:
               traefik-dashboard:
                 hostname: "traefik-intranet.{{ .Values.domain.intranet }}"
-        external:
-          service:
-            spec:
-              loadBalancerIP: {{ .Values.ipAddress.traefikExternal }}
-          gateway:
-            listeners:
-              traefik-dashboard:
-                hostname: "traefik-external.{{ .Values.domain.intranet }}"
   destination:
     namespace: traefik
     server: {{ .Values.destination.server }}
