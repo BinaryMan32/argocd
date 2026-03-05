@@ -4,7 +4,7 @@ metadata:
   name: traefik-dashboard-external
 spec:
   parentRefs:
-    - name: traefik-external
+    - name: traefik-intranet
   hostnames:
     - "{{ .Values.dashboard.external.hostname }}"
   rules:

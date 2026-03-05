@@ -63,12 +63,21 @@ intranet:
             matchLabels:
               kubernetes.io/metadata.name: jaeger
 
-      traefik-dashboard:
+      traefik-dashboard-intranet:
         port: 443
         protocol: HTTPS
         mode: Terminate
         certificateRefs:    
           - name: traefik-dashboard-intranet-tls
+        namespacePolicy:
+          from: Same
+
+      traefik-dashboard-external:
+        port: 443
+        protocol: HTTPS
+        mode: Terminate
+        certificateRefs:    
+          - name: traefik-dashboard-external-tls
         namespacePolicy:
           from: Same
 
