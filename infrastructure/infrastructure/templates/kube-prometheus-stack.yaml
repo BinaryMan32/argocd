@@ -19,11 +19,11 @@ spec:
             route:
               main:
                 enabled: true
-                  parentRefs:
-                    - name: traefik-intranet
-                      namespace: traefik
-                  hostnames:
-                    - audiobookshelf.{{ .Values.domain.intranet }}
+                parentRefs:
+                  - name: traefik-intranet
+                    namespace: traefik
+                hostnames:
+                  - audiobookshelf.{{ .Values.domain.intranet }}
           grafana:
             ingress:
               enabled: true
