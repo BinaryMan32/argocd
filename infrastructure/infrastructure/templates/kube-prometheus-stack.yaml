@@ -25,7 +25,7 @@ spec:
                     name: traefik-intranet
                     namespace: traefik
                 hostnames:
-                  - audiobookshelf.{{ .Values.domain.intranet }}
+                  - alertmanager.{{ .Values.domain.intranet }}
           grafana:
             ingress:
               enabled: true
