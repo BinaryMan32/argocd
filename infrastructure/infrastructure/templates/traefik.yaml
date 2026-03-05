@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
-    path: "{{ .Values.project.path }}/traefik"
+    path: "{{ .Values.project.path }}/traefik-intranet"
     helm:
       valueFiles:
         - values.yaml
