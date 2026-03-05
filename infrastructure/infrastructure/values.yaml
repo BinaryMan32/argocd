@@ -20,6 +20,7 @@ ipAddress:
   pihole: "192.168.8.103"
   k8sGateway: "192.168.8.104"
   traefikIntranet: "192.168.8.105"
+  traefikExternal: "192.168.8.106"
 nfs:
   server: 192.168.8.9
   path: /mnt/mercury/griffin

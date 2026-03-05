@@ -7,3 +7,7 @@ dependencies:
   name: traefik
   repository: https://traefik.github.io/charts
   version: 39.0.2
+- alias: external
+  name: traefik
+  repository: https://traefik.github.io/charts
+  version: 39.0.2
