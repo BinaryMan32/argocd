@@ -190,7 +190,7 @@ authelia:
             podSelector:
               matchLabels:
                 app.kubernetes.io/name: traefik
-                app.kubernetes.io/instance: traefik-intranet
+                app.kubernetes.io/instance: traefik
         ports:
           - protocol: TCP
             port: http
