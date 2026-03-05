@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik-external
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: "{{ .Values.project.path }}/traefik-external"
+    helm:
+      skipCrds: true
+      valueFiles:
+        - values.yaml
+      # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
+      valuesObject:
+        dashboard:
+          external:
+            hostname: "traefik-external.{{ .Values.domain.intranet }}"
+        external:
+          service:
+            spec:
+              loadBalancerIP: {{ .Values.ipAddress.traefikExternal }}
+          gateway:
+            listeners:
+              traefik-dashboard:
+                hostname: "traefik-external.{{ .Values.domain.intranet }}"
+  destination:
+    namespace: traefik
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
