@@ -100,7 +100,13 @@ traefik:
       enabled: true
       statusAddress:
         service:
-          enabled: false
+          # Copies the loadBalancerIP from the Traefik service to the status.address field of the Gateway resource
+          # Unfortunately, this updates both the intranet and external Gateway resources to match the intranet service.
+          # k8s_gateway requires this address to resolve DNS queries, but k8s_gateway should ignore non-intranet queries.
+          # Track issues below for progress
+          # https://github.com/traefik/traefik/issues/12076
+          # https://github.com/traefik/traefik/issues/12500
+          enabled: true
   logs:
     general:
       level: INFO
