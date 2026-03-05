@@ -100,10 +100,7 @@ authelia:
         - domain: sonarr.int.fivebytestudios.com
           subject: group:sonarr
           policy: one_factor
-        - domain: traefik-intranet.int.fivebytestudios.com
-          subject: group:traefik
-          policy: two_factor
-        - domain: traefik-external.int.fivebytestudios.com
+        - domain: traefik.int.fivebytestudios.com
           subject: group:traefik
           policy: two_factor
     identity_providers:
