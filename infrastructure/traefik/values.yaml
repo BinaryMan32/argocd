@@ -90,7 +90,9 @@ traefik:
       enabled: true
     kubernetesGateway:
       enabled: true
-
+      statusAddress:
+        service:
+          enabled: false
   logs:
     general:
       level: INFO
