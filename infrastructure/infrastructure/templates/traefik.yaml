@@ -31,6 +31,10 @@ spec:
           service:
             spec:
               loadBalancerIP: {{ .Values.ipAddress.traefikIntranet }}
+            additionalServices:
+              external:
+                spec:
+                  loadBalancerIP: {{ .Values.ipAddress.traefikExternal }}
   destination:
     namespace: traefik
     server: {{ .Values.destination.server }}

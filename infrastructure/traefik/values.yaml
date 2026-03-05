@@ -18,11 +18,33 @@ traefik:
             permanent: true
     websecure:
       port: 443
+    web-ext:
+      port: 9080
+      exposedPort: 80
+      expose:
+        external: true
+      http:
+        redirections:
+          entryPoint:
+            to: websecure-ext
+            scheme: https
+            permanent: true
+    websecure-ext:
+      port: 9443
+      exposedPort: 443
+      expose:
+        external: true
 
   service:
     spec:
       # Preserve client IP addresses
       externalTrafficPolicy: Local
+    additionalServices:
+      external:
+        type: LoadBalancer
+        spec:
+          # Preserve client IP addresses
+          externalTrafficPolicy: Local
 
   # Enables the dashboard in Secure Mode
   api:

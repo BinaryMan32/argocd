@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: traefik-external
+  annotations:
+    # cert-manager.io/cluster-issuer: TODO
+spec:
+  gatewayClassName: traefik
+  listeners:
+    - name: web-ext
+      port: 9080
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+# TODO add template
+# - name: websecure-ext
+#   protocol: HTTPS
+#   port: 9443
