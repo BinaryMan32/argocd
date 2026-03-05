@@ -3,24 +3,12 @@ kind: Kustomization
 namespace: media
 resources:
   - resources/namespace.yaml
+  - resources/authelia-middleware.yaml
   - resources/jellyfin-cache-images-pvc.yaml
-  - resources/jellyfin-ingress-internal.yaml
+  - resources/jellyfin-intranet-httproute.yaml
   - resources/jellyfin-pv-media.yaml
   - resources/jellyfin-pvc-media.yaml
   - resources/role-binding-ops-aggregate-to-view.yaml
   - resources/sealed-secret-protonvpn-credentials.yaml
   - resources/sealed-secret-spotify-navidrome.yaml
-replacements:
-# avoid repeating the host name in the ingress tls config
-- source:
-    kind: Ingress
-    fieldPath: spec.rules.0.host
-  targets:
-    - select:
-        kind: Ingress
-        name: jellyfin-internal
-      fieldPaths:
-        - spec.tls.0.hosts.0
-      options:
-        create: true
 buildMetadata: [managedByLabel]

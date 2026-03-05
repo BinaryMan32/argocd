@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./resources/deployment.yaml
-  - ./resources/ingress.yaml
+  - ./resources/httproute.yaml
   - ./resources/network-policy.yaml
   - ./resources/pvc-config.yaml
   - ./resources/pvc-data.yaml
@@ -17,17 +17,4 @@ images:
   - name: sonarr
     newName: linuxserver/sonarr
     newTag: 4.0.16.2944-ls303
-replacements:
-# avoid repeating the host name in the ingress tls config
-- source:
-    kind: Ingress
-    fieldPath: spec.rules.0.host
-  targets:
-    - select:
-        kind: Ingress
-        name: sonarr
-      fieldPaths:
-        - spec.tls.0.hosts.0
-      options:
-        create: true
 buildMetadata: [managedByLabel]

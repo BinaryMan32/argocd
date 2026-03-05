@@ -27,13 +27,11 @@ spec:
         # Requests from ingress controller
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: ingress-nginx-intranet
+              kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:
-              app.kubernetes.io/part-of: ingress-nginx
-              app.kubernetes.io/name: ingress-nginx
-              app.kubernetes.io/instance: ingress-nginx-intranet
-              app.kubernetes.io/component: controller
+              app.kubernetes.io/name: traefik
+              app.kubernetes.io/instance: traefik
       ports:
         - protocol: TCP
           port: webui
