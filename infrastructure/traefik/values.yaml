@@ -1,10 +1,9 @@
 dashboard:
-  intranet:
-    hostname: null
+  hostname: null
 traefik:
   # started from https://doc.traefik.io/traefik/v3.4/setup/kubernetes/
   # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
-  instanceLabelOverride: traefik-intranet
+  # TODO instanceLabelOverride: traefik
 
   # Configure Network Ports and EntryPoints
   # EntryPoints are the network listeners for incoming traffic.
@@ -33,11 +32,11 @@ traefik:
   ingressClass:
     enabled: true
     isDefaultClass: false
-    name: traefik-intranet
+    # TODO name: traefik
 
   gatewayClass:
     enabled: true
-    name: traefik-intranet
+    # TODO name: traefik
 
   gateway:
     name: traefik-intranet
@@ -63,21 +62,12 @@ traefik:
             matchLabels:
               kubernetes.io/metadata.name: jaeger
 
-      traefik-dashboard-intranet:
+      traefik-dashboard:
         port: 443
         protocol: HTTPS
         mode: Terminate
         certificateRefs:    
-          - name: traefik-dashboard-intranet-tls
-        namespacePolicy:
-          from: Same
-
-      traefik-dashboard-external:
-        port: 443
-        protocol: HTTPS
-        mode: Terminate
-        certificateRefs:    
-          - name: traefik-dashboard-external-tls
+          - name: traefik-dashboard-tls
         namespacePolicy:
           from: Same
 
@@ -89,14 +79,14 @@ traefik:
     - labelSelector:
         matchLabels:
           app.kubernetes.io/name: traefik
-          app.kubernetes.io/instance: traefik-intranet
+          app.kubernetes.io/instance: traefik
       topologyKey: topology.kubernetes.io/zone
       maxSkew: 1
       whenUnsatisfiable: ScheduleAnyway
     - labelSelector:
         matchLabels:
           app.kubernetes.io/name: traefik
-          app.kubernetes.io/instance: traefik-intranet
+          app.kubernetes.io/instance: traefik
       topologyKey: kubernetes.io/hostname
       maxSkew: 1
       whenUnsatisfiable: DoNotSchedule
@@ -108,10 +98,9 @@ traefik:
       enabled: true
     kubernetesIngress:
       enabled: true
-      ingressClass: traefik-intranet
+      # TODO ingressClass: traefik
     kubernetesGateway:
       enabled: true
-      labelSelector: app.kubernetes.io/instance=traefik-intranet
 
   logs:
     general:

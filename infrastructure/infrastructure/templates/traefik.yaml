@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik-intranet
+  name: traefik
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,25 +10,22 @@ spec:
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
-    path: "{{ .Values.project.path }}/traefik-intranet"
+    path: "{{ .Values.project.path }}/traefik"
     helm:
       valueFiles:
         - values.yaml
       # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
       valuesObject:
         dashboard:
-          intranet:
-            hostname: "traefik-intranet.{{ .Values.domain.intranet }}"
+          hostname: "traefik.{{ .Values.domain.intranet }}"
         traefik:
           service:
             spec:
               loadBalancerIP: {{ .Values.ipAddress.traefikIntranet }}
           gateway:
             listeners:
-              traefik-dashboard-intranet:
-                hostname: "traefik-intranet.{{ .Values.domain.intranet }}"
-              traefik-dashboard-external:
-                hostname: "traefik-external.{{ .Values.domain.intranet }}"
+              traefik-dashboard:
+                hostname: "traefik.{{ .Values.domain.intranet }}"
   destination:
     namespace: traefik
     server: {{ .Values.destination.server }}
