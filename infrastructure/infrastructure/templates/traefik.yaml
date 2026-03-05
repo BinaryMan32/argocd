@@ -21,12 +21,97 @@ spec:
         intranet:
           gateway:
             listeners:
+              http:
+                librespeed:
+                  hostname: "librespeed.{{ .Values.domain.intranet }}"
+                  namespace: librespeed
               https:
+                alertmanager:
+                  hostname: "alertmanager.{{ .Values.domain.intranet }}"
+                  namespace: kube-prometheus-stack
+                argocd:
+                  hostname: "argocd.{{ .Values.domain.intranet }}"
+                  namespace: argocd
+                audiobookshelf:
+                  hostname: "audiobookshelf.{{ .Values.domain.intranet }}"
+                  namespace: media
+                authelia:
+                  hostname: "auth.{{ .Values.domain.intranet }}"
+                  namespace: auth
+                bazarr:
+                  hostname: "bazarr.{{ .Values.domain.intranet }}"
+                  namespace: media
+                grafana:
+                  hostname: "grafana.{{ .Values.domain.intranet }}"
+                  namespace: kube-prometheus-stack
+                headlamp:
+                  hostname: "headlamp.{{ .Values.domain.intranet }}"
+                  namespace: headlamp
+                home-assistant:
+                  hostname: "home-assistant.{{ .Values.domain.intranet }}"
+                  namespace: home-assistant
+                homepage:
+                  hostname: "homepage.{{ .Values.domain.intranet }}"
+                  namespace: homepage
                 jaeger:
                   hostname: "jaeger.{{ .Values.domain.intranet }}"
                   namespace: jaeger
+                jellyfin:
+                  hostname: "jellyfin.{{ .Values.domain.intranet }}"
+                  namespace: media
+                jellyseerr:
+                  hostname: "jellyseerr.{{ .Values.domain.intranet }}"
+                  namespace: media
+                lldap:
+                  hostname: "lldap.{{ .Values.domain.intranet }}"
+                  namespace: auth
+                longhorn:
+                  hostname: "longhorn.{{ .Values.domain.intranet }}"
+                  namespace: longhorn-system
+                pihole:
+                  hostname: "pihole.{{ .Values.domain.intranet }}"
+                  namespace: pihole
+                play-when-dev-dex:
+                  hostname: "dex.dev.playwhen.{{ .Values.domain.intranet }}"
+                  namespace: play-when-dev
+                play-when-dev-www:
+                  hostname: "www.dev.playwhen.{{ .Values.domain.intranet }}"
+                  namespace: play-when-dev
+                play-when-stage-dex:
+                  hostname: "dex.stage.playwhen.{{ .Values.domain.intranet }}"
+                  namespace: play-when-stage
+                play-when-stage-www:
+                  hostname: "www.stage.playwhen.{{ .Values.domain.intranet }}"
+                  namespace: play-when-stage
+                play-when-prod-dex:
+                  hostname: "dex.prod.playwhen.{{ .Values.domain.intranet }}"
+                  namespace: play-when-prod
+                play-when-prod-tinyauth:
+                  hostname: "tinyauth.playwhen.{{ .Values.domain.intranet }}"
+                  namespace: play-when-prod
+                play-when-prod-www:
+                  hostname: "www.prod.playwhen.{{ .Values.domain.intranet }}"
+                  namespace: play-when-prod
+                prometheus:
+                  hostname: "prometheus.{{ .Values.domain.intranet }}"
+                  namespace: kube-prometheus-stack
+                prowlarr:
+                  hostname: "prowlarr.{{ .Values.domain.intranet }}"
+                  namespace: media
+                qbittorrent:
+                  hostname: "qbittorrent.{{ .Values.domain.intranet }}"
+                  namespace: media
+                radarr:
+                  hostname: "radarr.{{ .Values.domain.intranet }}"
+                  namespace: media
+                sonarr:
+                  hostname: "sonarr.{{ .Values.domain.intranet }}"
+                  namespace: media
                 traefik-dashboard:
                   hostname: "traefik.{{ .Values.domain.intranet }}"
+                tududi:
+                  hostname: "tududi.{{ .Values.domain.intranet }}"
+                  namespace: tududi
         traefik:
           service:
             spec:
