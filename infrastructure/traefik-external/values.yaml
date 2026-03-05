@@ -80,6 +80,7 @@ traefik:
       ingressClass: traefik-external
     kubernetesGateway:
       enabled: true
+      labelSelector: app.kubernetes.io/instance=traefik-external
 
   logs:
     general:

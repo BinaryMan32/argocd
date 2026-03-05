@@ -111,6 +111,7 @@ traefik:
       ingressClass: traefik-intranet
     kubernetesGateway:
       enabled: true
+      labelSelector: app.kubernetes.io/instance=traefik-intranet
 
   logs:
     general:
