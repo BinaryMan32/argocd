@@ -3,7 +3,7 @@ dashboard:
 traefik:
   # started from https://doc.traefik.io/traefik/v3.4/setup/kubernetes/
   # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
-  # TODO instanceLabelOverride: traefik
+  instanceLabelOverride: traefik
 
   # Configure Network Ports and EntryPoints
   # EntryPoints are the network listeners for incoming traffic.
@@ -32,11 +32,9 @@ traefik:
   ingressClass:
     enabled: true
     isDefaultClass: false
-    # TODO name: traefik
 
   gatewayClass:
     enabled: true
-    # TODO name: traefik
 
   gateway:
     name: traefik-intranet
@@ -98,7 +96,6 @@ traefik:
       enabled: true
     kubernetesIngress:
       enabled: true
-      # TODO ingressClass: traefik
     kubernetesGateway:
       enabled: true
 
