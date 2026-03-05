@@ -41,7 +41,7 @@ external:
   gateway:
     name: traefik-external
     annotations:
-      cert-manager.io/cluster-issuer: external-dns01-prod
+      # cert-manager.io/cluster-issuer: TODO
     listeners:
       web:
         port: 80
