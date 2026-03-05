@@ -16,20 +16,14 @@ spec:
       valuesObject:
         kube-prometheus-stack:
           alertmanager:
-            ingress:
-              enabled: true
-              annotations:
-                cert-manager.io/cluster-issuer: intranet-dns01-prod
-                nginx.ingress.kubernetes.io/auth-method: 'GET'
-                nginx.ingress.kubernetes.io/auth-url: 'http://authelia.auth.svc.cluster.local/api/authz/auth-request'
-                nginx.ingress.kubernetes.io/auth-signin: 'https://auth.int.fivebytestudios.com/?rm=$request_method'
-                nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
-              hosts:
-                - alertmanager.{{ .Values.domain.intranet }}
-              tls:
-                - hosts:
-                    - alertmanager.{{ .Values.domain.intranet }}
-                  secretName: alertmanager-tls
+            route:
+              main:
+                enabled: true
+                  parentRefs:
+                    - name: traefik-intranet
+                      namespace: traefik
+                  hostnames:
+                    - audiobookshelf.{{ .Values.domain.intranet }}
           grafana:
             ingress:
               enabled: true
