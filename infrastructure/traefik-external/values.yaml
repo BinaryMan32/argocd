@@ -50,19 +50,6 @@ external:
         namespacePolicy:
           from: All
 
-      jaeger:
-        port: 443
-        protocol: HTTPS
-        mode: Terminate
-        hostname: jaeger.int.fivebytestudios.com
-        certificateRefs:    
-          - name: jaeger-tls
-        namespacePolicy:
-          from: Selector
-          selector:
-            matchLabels:
-              kubernetes.io/metadata.name: jaeger
-
       traefik-dashboard:
         port: 443
         protocol: HTTPS
