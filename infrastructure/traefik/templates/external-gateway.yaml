@@ -7,13 +7,30 @@ metadata:
 spec:
   gatewayClassName: traefik
   listeners:
+{{- range $name, $listener := .Values.external.gateway.listeners.https }}
+    - name: {{ $name }}
+      port: 9443
+      protocol: HTTPS
+      hostname: {{ $listener.hostname }}
+      allowedRoutes:
+{{- if $listener.namespace }}
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ $listener.namespace }}
+{{- else }}
+        namespaces:
+          from: Same
+{{- end }}
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: {{ default (printf "%s-tls" $name) $listener.certificateRef }}
+{{- end }}
     - name: web-ext
       port: 9080
       protocol: HTTP
       allowedRoutes:
         namespaces:
           from: All
-# TODO add template
-# - name: websecure-ext
-#   protocol: HTTPS
-#   port: 9443

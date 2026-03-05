@@ -7,31 +7,27 @@ metadata:
 spec:
   gatewayClassName: traefik
   listeners:
-    - name: jaeger
+{{- range $name, $listener := .Values.intranet.gateway.listeners.https }}
+    - name: {{ $name }}
       port: 443
       protocol: HTTPS
-      hostname: jaeger.int.fivebytestudios.com
+      hostname: {{ $listener.hostname }}
       allowedRoutes:
+{{- if $listener.namespace }}
         namespaces:
           from: Selector
           selector:
             matchLabels:
-              kubernetes.io/metadata.name: jaeger
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: jaeger-tls
-    - name: traefik-dashboard
-      port: 443
-      protocol: HTTPS
-      hostname: traefik.int.fivebytestudios.com
-      allowedRoutes:
+              kubernetes.io/metadata.name: {{ $listener.namespace }}
+{{- else }}
         namespaces:
           from: Same
+{{- end }}
       tls:
         mode: Terminate
         certificateRefs:
-          - name: traefik-dashboard-tls
+          - name: {{ default (printf "%s-tls" $name) $listener.certificateRef }}
+{{- end }}
     - name: web
       port: 80
       protocol: HTTP

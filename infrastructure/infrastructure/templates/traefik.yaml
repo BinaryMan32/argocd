@@ -18,15 +18,15 @@ spec:
       valuesObject:
         dashboard:
           hostname: "traefik.{{ .Values.domain.intranet }}"
-        # TODO add templating to read these properties
         intranet:
           gateway:
             listeners:
-              jaeger:
-                hostname: "jaeger.{{ .Values.domain.intranet }}"
-                namespace: jaeger
-              traefik-dashboard:
-                hostname: "traefik.{{ .Values.domain.intranet }}"
+              https:
+                jaeger:
+                  hostname: "jaeger.{{ .Values.domain.intranet }}"
+                  namespace: jaeger
+                traefik-dashboard:
+                  hostname: "traefik.{{ .Values.domain.intranet }}"
         traefik:
           service:
             spec:
