@@ -91,3 +91,13 @@ spec:
       jsonPointers:
         # empty object {} in live manifest but missing from desired
         - /spec/template/spec/containers/0/resources
+    # HTTPRoute values appear in the live manifest but are not specified in the desired manifest
+    # group: ''
+    # kind: Service
+    # weight: 1
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      jsonPointers:
+        - /spec/rules/0/backendRefs/0/group
+        - /spec/rules/0/backendRefs/0/kind
+        - /spec/rules/0/backendRefs/0/weight
