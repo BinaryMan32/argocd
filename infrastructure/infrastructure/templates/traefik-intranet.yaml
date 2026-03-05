@@ -19,7 +19,7 @@ spec:
         dashboard:
           intranet:
             hostname: "traefik-intranet.{{ .Values.domain.intranet }}"
-        intranet:
+        traefik:
           service:
             spec:
               loadBalancerIP: {{ .Values.ipAddress.traefikIntranet }}
