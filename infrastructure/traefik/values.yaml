@@ -8,15 +8,15 @@ traefik:
   # Configure Network Ports and EntryPoints
   # EntryPoints are the network listeners for incoming traffic.
   ports:
-    web-intranet:
+    web:
       port: 80
       http:
         redirections:
           entryPoint:
-            to: websecure-intranet
+            to: websecure
             scheme: https
             permanent: true
-    websecure-intranet:
+    websecure:
       port: 443
 
   service:
