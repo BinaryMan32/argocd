@@ -20,7 +20,7 @@ spec:
         dashboard:
           external:
             hostname: "traefik-external.{{ .Values.domain.intranet }}"
-        external:
+        traefik:
           service:
             spec:
               loadBalancerIP: {{ .Values.ipAddress.traefikExternal }}

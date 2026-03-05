@@ -1,7 +1,7 @@
 dashboard:
   external:
     hostname: null
-external:
+traefik:
   # started from https://doc.traefik.io/traefik/v3.4/setup/kubernetes/
   # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
 
