@@ -5,7 +5,7 @@ traefik:
   # started from https://doc.traefik.io/traefik/v3.4/setup/kubernetes/
   # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
   instanceLabelOverride: traefik-external
-  
+
   # Configure Network Ports and EntryPoints
   # EntryPoints are the network listeners for incoming traffic.
   ports:
@@ -49,6 +49,26 @@ traefik:
         protocol: HTTP
         namespacePolicy:
           from: All
+
+  deployment:
+    replicas: 3
+
+  # try to keep replicas in different node availability zones
+  topologySpreadConstraints:
+    - labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+          app.kubernetes.io/instance: traefik-external
+      topologyKey: topology.kubernetes.io/zone
+      maxSkew: 1
+      whenUnsatisfiable: ScheduleAnyway
+    - labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+          app.kubernetes.io/instance: traefik-external
+      topologyKey: kubernetes.io/hostname
+      maxSkew: 1
+      whenUnsatisfiable: DoNotSchedule
 
   # Providers controls which resources Traefik watches to find routing configuration.
   providers:
