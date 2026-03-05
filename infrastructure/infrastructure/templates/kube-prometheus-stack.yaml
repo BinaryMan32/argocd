@@ -20,7 +20,9 @@ spec:
               main:
                 enabled: true
                 parentRefs:
-                  - name: traefik-intranet
+                  - group: gateway.networking.k8s.io
+                    kind: Gateway
+                    name: traefik-intranet
                     namespace: traefik
                 hostnames:
                   - audiobookshelf.{{ .Values.domain.intranet }}
