@@ -26,6 +26,12 @@ spec:
                     namespace: traefik
                 hostnames:
                   - alertmanager.{{ .Values.domain.intranet }}
+                filters:
+                  - type: ExtensionRef
+                    extensionRef:
+                      group: traefik.io
+                      kind: Middleware
+                      name: authelia
           grafana:
             ingress:
               enabled: true
