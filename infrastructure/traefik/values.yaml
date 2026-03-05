@@ -3,6 +3,7 @@ dashboard:
 intranet:
   gateway:
     listeners:
+      http: {}
       https: {}
 external:
   gateway:

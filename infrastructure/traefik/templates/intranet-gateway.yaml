@@ -44,6 +44,7 @@ spec:
         namespaces:
           from: Same
 {{- end }}
+{{- end }}
     - name: web
       port: 80
       protocol: HTTP
