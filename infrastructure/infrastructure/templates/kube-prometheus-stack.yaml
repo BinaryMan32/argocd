@@ -45,20 +45,22 @@ spec:
                     - grafana.{{ .Values.domain.intranet }}
                   secretName: grafana-tls
           prometheus:
-            ingress:
-              enabled: true
-              annotations:
-                cert-manager.io/cluster-issuer: intranet-dns01-prod
-                nginx.ingress.kubernetes.io/auth-method: 'GET'
-                nginx.ingress.kubernetes.io/auth-url: 'http://authelia.auth.svc.cluster.local/api/authz/auth-request'
-                nginx.ingress.kubernetes.io/auth-signin: 'https://auth.int.fivebytestudios.com/?rm=$request_method'
-                nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
-              hosts:
-                - prometheus.{{ .Values.domain.intranet }}
-              tls:
-                - hosts:
-                    - prometheus.{{ .Values.domain.intranet }}
-                  secretName: prometheus-tls
+            route:
+              main:
+                enabled: true
+                parentRefs:
+                  - group: gateway.networking.k8s.io
+                    kind: Gateway
+                    name: traefik-intranet
+                    namespace: traefik
+                hostnames:
+                  - prometheus.{{ .Values.domain.intranet }}
+                filters:
+                  - type: ExtensionRef
+                    extensionRef:
+                      group: traefik.io
+                      kind: Middleware
+                      name: authelia
   destination:
     namespace: kube-prometheus-stack
     server: {{ .Values.destination.server }}
