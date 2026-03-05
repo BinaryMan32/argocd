@@ -35,6 +35,10 @@ intranet:
     isDefaultClass: false
     name: traefik-intranet
 
+  gatewayClass:
+    enabled: true
+    name: traefik-intranet
+
   gateway:
     name: traefik-intranet
     annotations:
