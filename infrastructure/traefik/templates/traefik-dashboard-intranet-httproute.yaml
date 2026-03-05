@@ -1,12 +1,12 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: traefik-dashboard
+  name: traefik-dashboard-intranet
 spec:
   parentRefs:
     - name: traefik-intranet
   hostnames:
-    - "{{ .Values.dashboard.hostname }}"
+    - "{{ .Values.dashboard.intranet.hostname }}"
   rules:
     - backendRefs:
         - name: api@internal

@@ -3,6 +3,7 @@ name: traefik
 description: traefik and configuration resources
 version: 1.0.0
 dependencies:
-- name: traefik
+- alias: intranet
+  name: traefik
   repository: https://traefik.github.io/charts
   version: 39.0.2

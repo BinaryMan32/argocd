@@ -1,6 +1,7 @@
 dashboard:
-  hostname: null
-traefik:
+  intranet:
+    hostname: null
+intranet:
   # started from https://doc.traefik.io/traefik/v3.4/setup/kubernetes/
   # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
   instanceLabelOverride: traefik
@@ -63,7 +64,7 @@ traefik:
         protocol: HTTPS
         mode: Terminate
         certificateRefs:    
-          - name: traefik-dashboard-tls
+          - name: traefik-dashboard-intranet-tls
         namespacePolicy:
           from: Same
 

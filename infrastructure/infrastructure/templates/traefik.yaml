@@ -17,15 +17,16 @@ spec:
       # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
       valuesObject:
         dashboard:
-          hostname: "traefik.{{ .Values.domain.intranet }}"
-        traefik:
+          intranet:
+            hostname: "traefik-intranet.{{ .Values.domain.intranet }}"
+        intranet:
           service:
             spec:
-              loadBalancerIP: {{ .Values.ipAddress.traefik }}
+              loadBalancerIP: {{ .Values.ipAddress.traefikIntranet }}
           gateway:
             listeners:
               traefik-dashboard:
-                hostname: "traefik.{{ .Values.domain.intranet }}"
+                hostname: "traefik-intranet.{{ .Values.domain.intranet }}"
   destination:
     namespace: traefik
     server: {{ .Values.destination.server }}
