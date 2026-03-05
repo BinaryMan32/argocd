@@ -32,18 +32,18 @@ spec:
                       group: traefik.io
                       kind: Middleware
                       name: authelia
+          # https://github.com/grafana-community/helm-charts/tree/main/charts/grafana
           grafana:
-            ingress:
-              enabled: true
-              ingressClassName: nginx
-              annotations:
-                cert-manager.io/cluster-issuer: intranet-dns01-prod
-              hosts:
-                - grafana.{{ .Values.domain.intranet }}
-              tls:
-                - hosts:
-                    - grafana.{{ .Values.domain.intranet }}
-                  secretName: grafana-tls
+            route:
+              main:
+                enabled: true
+                parentRefs:
+                  - group: gateway.networking.k8s.io
+                    kind: Gateway
+                    name: traefik-intranet
+                    namespace: traefik
+                hostnames:
+                  - grafana.{{ .Values.domain.intranet }}
           prometheus:
             route:
               main:
