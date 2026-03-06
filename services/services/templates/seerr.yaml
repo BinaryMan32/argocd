@@ -12,6 +12,8 @@ spec:
     helm:
       # https://github.com/seerr-team/seerr/blob/develop/charts/seerr-chart
       valuesObject:
+        # otherwise everything is named seerr-seerr-chart
+        fullnameOverride: seerr
         config:
           persistence:
             storageClass: longhorn
