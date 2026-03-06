@@ -18,6 +18,7 @@ spec:
         # https://github.com/authelia/chartrepo/tree/master/charts/authelia
         authelia:
           ingress:
+            enabled: true
             gatewayAPI:
               enabled: true
               parentRefs:
