@@ -42,7 +42,6 @@ spec:
         serviceWeb:
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
           annotations:
-            coredns.io/hostname: pihole
             metallb.io/allow-shared-ip: pihole-svc
           type: LoadBalancer
 
