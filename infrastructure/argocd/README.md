@@ -8,9 +8,8 @@ The `kustomization.yaml` includes the following changes:
 * [argocd-cm.yaml](./argocd-cm.yaml): list users
 * [argocd-cmd-params-cm](./argocd-cmd-params-cm.yaml): enabled apps in other namespaces
 * [argocd-rbac-cm](./argocd-rbac-cm.yaml): assign users to groups
-* [ingress.yaml](./ingress.yaml): access outside cluster
-* [load-balancer](./load-balancer.yaml): enabled load balancer as described in
-  [Getting Started](https://argoproj.github.io/argo-cd/getting_started/#3-access-the-argo-cd-api-server)
+* [grpcroute.yaml](./grpcroute.yaml): CLI access outside cluster
+* [httproute.yaml](./httproute.yaml): web access outside cluster
 
 ## Initial Manual Deploy
 

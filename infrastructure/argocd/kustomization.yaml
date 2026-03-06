@@ -18,7 +18,6 @@ resources:
 - gitlab-webhook-ingress.yaml
 - gitlab-webhook-secret.yaml
 patches:
-- path: load-balancer.yaml
 - path: argocd-cm.yaml
 - path: argocd-cmd-params-cm.yaml
 - path: argocd-rbac-cm.yaml
