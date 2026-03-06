@@ -11,26 +11,13 @@ spec:
     path: "{{ .Values.project.path }}/homepage"
     helm:
       valuesObject:
+        httpRoute:
+          hostname: homepage.{{ .Values.domain.intranet }}
         homepage:
           # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
           env:
             - name: HOMEPAGE_ALLOWED_HOSTS
               value: homepage.{{ .Values.domain.intranet }}
-          ingress:
-            main:
-              enabled: true
-              annotations:
-                cert-manager.io/cluster-issuer: intranet-dns01-prod
-              ingressClassName: nginx
-              hosts:
-                - host: homepage.{{ .Values.domain.intranet }}
-                  paths:
-                    - path: /
-                      pathType: Prefix
-              tls:
-                - secretName: homepage-tls
-                  hosts:
-                    - homepage.{{ .Values.domain.intranet }}
           config:
             services:
               # icons from https://github.com/walkxcode/dashboard-icons

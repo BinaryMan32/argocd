@@ -1,3 +1,5 @@
+httpRoute:
+  hostname: null
 homepage:
   # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
   image:
