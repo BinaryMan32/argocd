@@ -21,10 +21,6 @@ spec:
         intranet:
           gateway:
             listeners:
-              http:
-                librespeed:
-                  hostname: "librespeed.{{ .Values.domain.intranet }}"
-                  namespace: librespeed
               https:
                 alertmanager:
                   hostname: "alertmanager.{{ .Values.domain.intranet }}"
