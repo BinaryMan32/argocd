@@ -11,7 +11,8 @@ resources:
 - https://raw.githubusercontent.com/argoproj/argo-cd/v3.3.2/examples/k8s-rbac/argocd-server-applications/argocd-server-rbac-clusterrolebinding.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/v3.3.2/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrole.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/v3.3.2/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrolebinding.yaml
-- ingress.yaml
+- grpcroute.yaml
+- httproute.yaml
 - github-webhook-ingress.yaml
 - github-webhook-secret.yaml
 - gitlab-webhook-ingress.yaml

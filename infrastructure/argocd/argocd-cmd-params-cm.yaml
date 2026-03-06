@@ -13,3 +13,6 @@ data:
   applicationsetcontroller.tokenref.strict.mode: "true"
   # allow application sets to be created in other namespaces
   applicationsetcontroller.namespaces: play-when-dev,play-when-stage,play-when-prod
+  # Disable redirecting to HTTPS since Gateway API will handle TLS termination
+  # as recommended by https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#prerequisites
+  server.insecure: "true"
