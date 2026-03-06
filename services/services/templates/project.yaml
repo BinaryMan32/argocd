@@ -10,7 +10,6 @@ spec:
   description: Services
   sourceRepos:
   - {{ .Values.source.repoURL }}
-  - https://k8s-at-home.com/charts/ # librespeed
   - https://jameswynn.github.io/helm-charts/ # homepage
   - https://pajikos.github.io/home-assistant-helm-chart/
   - ghcr.io/fallenbagel/jellyseerr
