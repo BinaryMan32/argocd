@@ -17,20 +17,13 @@ spec:
       # https://github.com/kubernetes-sigs/headlamp/tree/main/charts/headlamp
       valuesObject:
         headlamp:
-          ingress:
+          httpRoute:
             enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-dns01-prod
-            ingressClassName: nginx
-            hosts:
-              - host: headlamp.{{ .Values.domain.intranet }}
-                paths:
-                  - path: /
-                    type: ImplementationSpecific
-            tls:
-              - secretName: headlamp-tls
-                hosts:
-                - headlamp.{{ .Values.domain.intranet }}
+              parentRefs:
+                - name: traefik-intranet
+                  namespace: traefik
+              hostnames:
+                - "headlamp.{{ .Values.domain.intranet }}"
   destination:
     namespace: headlamp
     server: {{ .Values.destination.server }}
