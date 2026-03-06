@@ -45,11 +45,13 @@ Under `Download Clients`
 
 ### Components
 
+- [bazarr](./bazarr/): subtitles
 - [qbittorrent](./qbittorrent/) (w/ gluetun VPN client): torrent downloads
 - [prowlarr](./prowlarr): torrent indexer manager
 - [radarr](./radarr/): movies
 - [sonarr](./sonarr/): tv
 - [jellyseerr](../services/templates/jellyseerr.yaml): request management
+- [seerr](../services/templates/seerr.yaml): request management
 
 ### Jellyfin
 
