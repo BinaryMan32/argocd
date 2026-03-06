@@ -35,14 +35,14 @@ spec:
           s3:
             ingress:
               enabled: true
-              host: seaweedfs.{{ .Values.domain.intranet }}
+              host: seaweedfs-s3.{{ .Values.domain.intranet }}
               className: nginx
               annotations:
                 cert-manager.io/cluster-issuer: intranet-dns01-prod
               tls:
                 - secretName: seaweedfs-s3-tls
                   hosts:
-                    - seaweedfs.{{ .Values.domain.intranet }}
+                    - seaweedfs-s3.{{ .Values.domain.intranet }}
   destination:
     namespace: seaweedfs
     server: {{ .Values.destination.server }}

@@ -14,7 +14,6 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-      # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
       valuesObject:
         dashboard:
           hostname: "traefik.{{ .Values.domain.intranet }}"
@@ -97,6 +96,12 @@ spec:
                 radarr:
                   hostname: "radarr.{{ .Values.domain.intranet }}"
                   namespace: media
+                seaweedfs-admin:
+                  hostname: "seaweedfs-admin.{{ .Values.domain.intranet }}"
+                  namespace: seaweedfs
+                seaweedfs-s3:
+                  hostname: "seaweedfs-s3.{{ .Values.domain.intranet }}"
+                  namespace: seaweedfs
                 seerr:
                   hostname: "seerr.{{ .Values.domain.intranet }}"
                   namespace: media
@@ -108,6 +113,7 @@ spec:
                 tududi:
                   hostname: "tududi.{{ .Values.domain.intranet }}"
                   namespace: tududi
+        # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
         traefik:
           service:
             spec:
