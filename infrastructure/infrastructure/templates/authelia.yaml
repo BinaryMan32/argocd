@@ -17,11 +17,12 @@ spec:
       valuesObject:
         # https://github.com/authelia/chartrepo/tree/master/charts/authelia
         authelia:
-          gatewayAPI:
-            enabled: true
-            parentRefs:
-              - name: traefik-intranet
-                namespace: traefik
+          ingress:
+            gatewayAPI:
+              enabled: true
+              parentRefs:
+                - name: traefik-intranet
+                  namespace: traefik
           configMap:
             session:
               cookies:
