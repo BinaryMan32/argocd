@@ -90,6 +90,12 @@ spec:
                     description: Movie Manager
                     namespace: media
                     app: radarr
+                - Seerr:
+                    icon: seerr.png
+                    href: "https://seerr.{{ .Values.domain.intranet }}/"
+                    description: Request Manager
+                    namespace: media
+                    app: seerr
                 - Sonarr:
                     icon: sonarr.png
                     href: "https://sonarr.{{ .Values.domain.intranet }}/"
