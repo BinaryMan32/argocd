@@ -24,6 +24,10 @@ spec:
             matchLabels:
               app.kubernetes.io/instance: prowlarr
               app.kubernetes.io/name: prowlarr
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: seerr
+              app.kubernetes.io/name: seerr
         # Requests from ingress controller
         - namespaceSelector:
             matchLabels:
