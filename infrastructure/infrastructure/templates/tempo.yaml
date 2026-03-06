@@ -19,6 +19,6 @@ spec:
     namespace: tempo
     server: {{ .Values.destination.server }}
   syncPolicy:
-    automated: {}
+    # automated: {}
     syncOptions:
       - CreateNamespace=true
