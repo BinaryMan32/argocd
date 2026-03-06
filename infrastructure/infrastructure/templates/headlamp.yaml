@@ -19,11 +19,11 @@ spec:
         headlamp:
           httpRoute:
             enabled: true
-              parentRefs:
-                - name: traefik-intranet
-                  namespace: traefik
-              hostnames:
-                - "headlamp.{{ .Values.domain.intranet }}"
+            parentRefs:
+              - name: traefik-intranet
+                namespace: traefik
+            hostnames:
+              - "headlamp.{{ .Values.domain.intranet }}"
   destination:
     namespace: headlamp
     server: {{ .Values.destination.server }}
