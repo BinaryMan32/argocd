@@ -100,6 +100,9 @@ spec:
                 radarr:
                   hostname: "radarr.{{ .Values.domain.intranet }}"
                   namespace: media
+                seerr:
+                  hostname: "seerr.{{ .Values.domain.intranet }}"
+                  namespace: media
                 sonarr:
                   hostname: "sonarr.{{ .Values.domain.intranet }}"
                   namespace: media

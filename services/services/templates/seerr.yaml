@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: seerr
+  namespace: argocd
+spec:
+  project: media
+  source:
+    repoURL: ghcr.io/seerr-team/seerr
+    chart: seerr-chart
+    targetRevision: 3.3.0
+    helm:
+      # https://github.com/seerr-team/seerr/blob/develop/charts/seerr-chart
+      valuesObject:
+        config:
+          persistence:
+            storageClass: longhorn
+        route:
+          main:
+            enabled: true
+            parentRefs:
+              - name: traefik-intranet
+                namespace: traefik
+            hostnames:
+              - seerr.{{ .Values.domain.intranet }}
+  destination:
+    namespace: media
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
