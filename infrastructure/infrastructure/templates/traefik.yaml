@@ -76,13 +76,13 @@ spec:
                   hostname: "www.stage.playwhen.{{ .Values.domain.intranet }}"
                   namespace: play-when-stage
                 play-when-prod-dex:
-                  hostname: "dex.prod.playwhen.{{ .Values.domain.intranet }}"
+                  hostname: "dex.playwhen.{{ .Values.domain.intranet }}"
                   namespace: play-when-prod
                 play-when-prod-tinyauth:
                   hostname: "tinyauth.playwhen.{{ .Values.domain.intranet }}"
                   namespace: play-when-prod
                 play-when-prod-www:
-                  hostname: "www.prod.playwhen.{{ .Values.domain.intranet }}"
+                  hostname: "www.playwhen.{{ .Values.domain.intranet }}"
                   namespace: play-when-prod
                 prometheus:
                   hostname: "prometheus.{{ .Values.domain.intranet }}"
