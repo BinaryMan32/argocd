@@ -43,10 +43,6 @@ homepage:
           - icon: truenas.png
             href: https://192.168.0.8/
             description: ZFS Storage and Shared Volumes
-        - Mercury TrueNAS (Kubernetes):
-          - icon: truenas.png
-            href: https://192.168.8.8/
-            description: ZFS Storage and Shared Volumes
         - Turing Pi griffin-turing0:
           - icon: rackula-dark.png
             href: https://192.168.8.10/
@@ -58,4 +54,4 @@ homepage:
         - Turing Pi griffin-turing2:
           - icon: rackula-dark.png
             href: https://192.168.8.12/
-            description: "griffin7, griffin8"
+            description: "griffin7, griffin8, griffin9"
