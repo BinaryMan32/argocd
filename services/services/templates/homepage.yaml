@@ -6,249 +6,193 @@ metadata:
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: https://jameswynn.github.io/helm-charts/
-    chart: homepage
-    targetRevision: 2.1.0
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: "{{ .Values.project.path }}/homepage"
     helm:
       valuesObject:
-        # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
-        image:
-          repository: ghcr.io/gethomepage/homepage
-          # https://github.com/gethomepage/homepage/tags
-          # renovate: image=ghcr.io/gethomepage/homepage
-          tag: v1.10.1
-        enableRbac: true
-        serviceAccount:
-          create: true
-        env:
-          - name: HOMEPAGE_ALLOWED_HOSTS
-            value: homepage.{{ .Values.domain.intranet }}
-        ingress:
-          main:
-            enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-dns01-prod
-            ingressClassName: nginx
-            hosts:
-              - host: homepage.{{ .Values.domain.intranet }}
-                paths:
-                  - path: /
-                    pathType: Prefix
-            tls:
-              - secretName: homepage-tls
-                hosts:
-                  - homepage.{{ .Values.domain.intranet }}
-        config:
-          settings:
-            title: Five Byte Studios
-            theme: dark
-            color: slate
-          widgets:
-            - kubernetes:
-                cluster:
-                  # Shows cluster-wide statistics with hardcoded label "cluster"
-                  show: true
-                  cpu: true
-                  memory: true
-                  showLabel: true
-                  label: "cluster"
-                nodes:
-                  # Shows node-specific statistics with node name label
-                  show: true
-                  cpu: true
-                  memory: true
-                  showLabel: true
-          kubernetes:
-            mode: cluster
-          services:
-            # icons from https://github.com/walkxcode/dashboard-icons
-            - Productivity:
-              - External:
-                - NextCloud:
-                    icon: nextcloud.png
-                    href: "https://nextcloud.{{ .Values.domain.external }}/"
-                    description: Private Cloud
-                    namespace: nextcloud
-                    app: nextcloud
-              - Home Assistant:
-                  icon: home-assistant.png
-                  href: "https://home-assistant.{{ .Values.domain.intranet }}/"
-                  description: Home Automation
-                  namespace: home-assistant
-                  app: home-assistant
-              - Tududi:
-                  href: "https://tududi.{{ .Values.domain.intranet }}/"
-                  description: Task Management
-                  namespace: tududi
-                  app: tududi
-            - Media:
-              - External:
-                - Navidrome:
-                    icon: navidrome.png
-                    href: "https://navidrome.{{ .Values.domain.external }}/"
-                    description: Music Player
+        homepage:
+          # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
+          env:
+            - name: HOMEPAGE_ALLOWED_HOSTS
+              value: homepage.{{ .Values.domain.intranet }}
+          ingress:
+            main:
+              enabled: true
+              annotations:
+                cert-manager.io/cluster-issuer: intranet-dns01-prod
+              ingressClassName: nginx
+              hosts:
+                - host: homepage.{{ .Values.domain.intranet }}
+                  paths:
+                    - path: /
+                      pathType: Prefix
+              tls:
+                - secretName: homepage-tls
+                  hosts:
+                    - homepage.{{ .Values.domain.intranet }}
+          config:
+            services:
+              # icons from https://github.com/walkxcode/dashboard-icons
+              - Productivity:
+                - External:
+                  - NextCloud:
+                      icon: nextcloud.png
+                      href: "https://nextcloud.{{ .Values.domain.external }}/"
+                      description: Private Cloud
+                      namespace: nextcloud
+                      app: nextcloud
+                - Home Assistant:
+                    icon: home-assistant.png
+                    href: "https://home-assistant.{{ .Values.domain.intranet }}/"
+                    description: Home Automation
+                    namespace: home-assistant
+                    app: home-assistant
+                - Tududi:
+                    href: "https://tududi.{{ .Values.domain.intranet }}/"
+                    description: Task Management
+                    namespace: tududi
+                    app: tududi
+              - Media:
+                - External:
+                  - Navidrome:
+                      icon: navidrome.png
+                      href: "https://navidrome.{{ .Values.domain.external }}/"
+                      description: Music Player
+                      namespace: media
+                      app: navidrome
+                  - Jellyfin:
+                      icon: jellyfin.png
+                      href: "https://jellyfin.{{ .Values.domain.external }}/"
+                      description: Media Server
+                      namespace: media
+                      app: jellyfin
+                - Audiobookshelf:
+                    icon: audiobookshelf.png
+                    href: "https://audiobookshelf.{{ .Values.domain.intranet }}/"
+                    description: Audio Book Player
                     namespace: media
-                    app: navidrome
-                - Jellyfin:
-                    icon: jellyfin.png
-                    href: "https://jellyfin.{{ .Values.domain.external }}/"
-                    description: Media Server
+                    app: audiobookshelf
+                - Jellyseerr:
+                    icon: jellyseerr.png
+                    href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
+                    description: Request Manager
                     namespace: media
-                    app: jellyfin
-              - Audiobookshelf:
-                  icon: audiobookshelf.png
-                  href: "https://audiobookshelf.{{ .Values.domain.intranet }}/"
-                  description: Audio Book Player
-                  namespace: media
-                  app: audiobookshelf
-              - Jellyseerr:
-                  icon: jellyseerr.png
-                  href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
-                  description: Request Manager
-                  namespace: media
-                  app: jellyseerr-chart
-              - QBittorrent:
-                  icon: qbittorrent.png
-                  href: "https://qbittorrent.{{ .Values.domain.intranet }}/"
-                  description: Torrent Downloader
-                  namespace: media
-                  app: qbittorrent
-              - Bazarr:
-                  icon: bazarr.png
-                  href: "https://bazarr.{{ .Values.domain.intranet }}/"
-                  description: Subtitle Manager
-                  namespace: media
-                  app: bazarr
-              - Prowlarr:
-                  icon: prowlarr.png
-                  href: "https://prowlarr.{{ .Values.domain.intranet }}/"
-                  description: Indexing Manager
-                  namespace: media
-                  app: prowlarr
-              - Radarr:
-                  icon: radarr.png
-                  href: "https://radarr.{{ .Values.domain.intranet }}/"
-                  description: Movie Manager
-                  namespace: media
-                  app: radarr
-              - Sonarr:
-                  icon: sonarr.png
-                  href: "https://sonarr.{{ .Values.domain.intranet }}/"
-                  description: TV Manager
-                  namespace: media
-                  app: sonarr
-            - Infrastructure:
-              - ArgoCD:
-                  icon: argo-cd.png
-                  href: "https://argocd.{{ .Values.domain.intranet }}/"
-                  description: Continuous Deployment
-                  namespace: argocd
-                  app: argocd-server
-                  podSelector: >-
-                    app.kubernetes.io/name in (
-                      argocd-server,
-                      argocd-repo-server,
-                      argocd-dex-server
-                    )
-              - Headlamp:
-                  icon: headlamp.png
-                  href: "https://headlamp.{{ .Values.domain.intranet }}/"
-                  description: Kubernetes cluster analysis and management
-                  namespace: headlamp
-                  app: headlamp
-              - Longhorn:
-                  icon: longhorn.png
-                  href: "https://longhorn.{{ .Values.domain.intranet }}/"
-                  description: Distributed Kubernetes Volumes
-                  namespace: longhorn-system
-                  app: longhorn
-                  # select all pods in namespace
-                  pod-selector: ""
-              - Pihole:
-                  icon: pi-hole.png
-                  href: "https://pihole.{{ .Values.domain.intranet }}/admin"
-                  description: DNS Blocker
-                  namespace: pihole
-                  app: pihole
-              - SeaweedFS:
-                  icon: files-community.png
-                  href: "https://seaweedfs-admin.{{ .Values.domain.intranet }}/"
-                  description: S3 Compatible Object Storage
-                  namespace: seaweedfs
-                  app: seaweedfs
-              - Traefik:
-                  icon: traefik.png
-                  href: "https://traefik.{{ .Values.domain.intranet }}/"
-                  description: Ingress Admin Dashboard
-                  namespace: traefik
-                  app: traefik
-            - Monitoring:
-              - Prometheus:
-                  icon: prometheus.png
-                  href: "https://prometheus.{{ .Values.domain.intranet }}/"
-                  description: Metric Collection
-                  namespace: kube-prometheus-stack
-                  app: prometheus
-                  podSelector: >-
-                    app.kubernetes.io/name in (
-                      prometheus-node-exporter,
-                      kube-state-metrics,
-                      prometheus
-                    )
-              - Grafana:
-                  icon: grafana.png
-                  href: "https://grafana.{{ .Values.domain.intranet }}/"
-                  description: Visualization
-                  namespace: kube-prometheus-stack
-                  app: grafana
-                  pod-selector: >-
-                    app.kubernetes.io/name in (
-                      grafana
-                    )
-              - Alert Manager:
-                  icon: alertmanager.png
-                  href: "https://alertmanager.{{ .Values.domain.intranet }}/"
-                  description: Alerts
-                  namespace: kube-prometheus-stack
-                  app: alertmanager
-                  pod-selector: >-
-                    app.kubernetes.io/name in (
-                      alertmanager
-                    )
-              - Jaeger:
-                  icon: jaeger.png
-                  href: "https://jaeger.{{ .Values.domain.intranet }}/"
-                  description: Tracing
-                  namespace: jaeger
-                  app: jaeger
-          bookmarks:
-            - Developer:
-              - Github:
-                - icon: github-light.png
-                  href: https://github.com/BinaryMan32/argocd
-                  description: ArgoCD Applications, Configuration, and Documentation
-            - Infrastructure:
-              - Mercury TrueNAS (LAN):
-                - icon: truenas.png
-                  href: https://192.168.0.8/
-                  description: ZFS Storage and Shared Volumes
-              - Mercury TrueNAS (Kubernetes):
-                - icon: truenas.png
-                  href: https://192.168.8.8/
-                  description: ZFS Storage and Shared Volumes
-              - Turing Pi griffin-turing0:
-                - icon: rackula-dark.png
-                  href: https://192.168.8.10/
-                  description: "griffin0, griffin1, griffin2, griffin3"
-              - Turing Pi griffin-turing1:
-                - icon: rackula-dark.png
-                  href: https://192.168.8.11/
-                  description: "griffin4, griffin5, griffin6"
-              - Turing Pi griffin-turing2:
-                - icon: rackula-dark.png
-                  href: https://192.168.8.12/
-                  description: "griffin7, griffin8"
-              
+                    app: jellyseerr-chart
+                - QBittorrent:
+                    icon: qbittorrent.png
+                    href: "https://qbittorrent.{{ .Values.domain.intranet }}/"
+                    description: Torrent Downloader
+                    namespace: media
+                    app: qbittorrent
+                - Bazarr:
+                    icon: bazarr.png
+                    href: "https://bazarr.{{ .Values.domain.intranet }}/"
+                    description: Subtitle Manager
+                    namespace: media
+                    app: bazarr
+                - Prowlarr:
+                    icon: prowlarr.png
+                    href: "https://prowlarr.{{ .Values.domain.intranet }}/"
+                    description: Indexing Manager
+                    namespace: media
+                    app: prowlarr
+                - Radarr:
+                    icon: radarr.png
+                    href: "https://radarr.{{ .Values.domain.intranet }}/"
+                    description: Movie Manager
+                    namespace: media
+                    app: radarr
+                - Sonarr:
+                    icon: sonarr.png
+                    href: "https://sonarr.{{ .Values.domain.intranet }}/"
+                    description: TV Manager
+                    namespace: media
+                    app: sonarr
+              - Infrastructure:
+                - ArgoCD:
+                    icon: argo-cd.png
+                    href: "https://argocd.{{ .Values.domain.intranet }}/"
+                    description: Continuous Deployment
+                    namespace: argocd
+                    app: argocd-server
+                    podSelector: >-
+                      app.kubernetes.io/name in (
+                        argocd-server,
+                        argocd-repo-server,
+                        argocd-dex-server
+                      )
+                - Headlamp:
+                    icon: headlamp.png
+                    href: "https://headlamp.{{ .Values.domain.intranet }}/"
+                    description: Kubernetes cluster analysis and management
+                    namespace: headlamp
+                    app: headlamp
+                - Longhorn:
+                    icon: longhorn.png
+                    href: "https://longhorn.{{ .Values.domain.intranet }}/"
+                    description: Distributed Kubernetes Volumes
+                    namespace: longhorn-system
+                    app: longhorn
+                    # select all pods in namespace
+                    pod-selector: ""
+                - Pihole:
+                    icon: pi-hole.png
+                    href: "https://pihole.{{ .Values.domain.intranet }}/admin"
+                    description: DNS Blocker
+                    namespace: pihole
+                    app: pihole
+                - SeaweedFS:
+                    icon: files-community.png
+                    href: "https://seaweedfs-admin.{{ .Values.domain.intranet }}/"
+                    description: S3 Compatible Object Storage
+                    namespace: seaweedfs
+                    app: seaweedfs
+                - Traefik:
+                    icon: traefik.png
+                    href: "https://traefik.{{ .Values.domain.intranet }}/"
+                    description: Ingress Admin Dashboard
+                    namespace: traefik
+                    app: traefik
+              - Monitoring:
+                - Prometheus:
+                    icon: prometheus.png
+                    href: "https://prometheus.{{ .Values.domain.intranet }}/"
+                    description: Metric Collection
+                    namespace: kube-prometheus-stack
+                    app: prometheus
+                    podSelector: >-
+                      app.kubernetes.io/name in (
+                        prometheus-node-exporter,
+                        kube-state-metrics,
+                        prometheus
+                      )
+                - Grafana:
+                    icon: grafana.png
+                    href: "https://grafana.{{ .Values.domain.intranet }}/"
+                    description: Visualization
+                    namespace: kube-prometheus-stack
+                    app: grafana
+                    pod-selector: >-
+                      app.kubernetes.io/name in (
+                        grafana
+                      )
+                - Alert Manager:
+                    icon: alertmanager.png
+                    href: "https://alertmanager.{{ .Values.domain.intranet }}/"
+                    description: Alerts
+                    namespace: kube-prometheus-stack
+                    app: alertmanager
+                    pod-selector: >-
+                      app.kubernetes.io/name in (
+                        alertmanager
+                      )
+                - Jaeger:
+                    icon: jaeger.png
+                    href: "https://jaeger.{{ .Values.domain.intranet }}/"
+                    description: Tracing
+                    namespace: jaeger
+                    app: jaeger    
   destination:
     namespace: homepage
     server: {{ .Values.destination.server }}

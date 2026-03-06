@@ -1,0 +1,59 @@
+homepage:
+  # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
+  image:
+    repository: ghcr.io/gethomepage/homepage
+    # https://github.com/gethomepage/homepage/tags
+    # renovate: image=ghcr.io/gethomepage/homepage
+    tag: v1.10.1
+  enableRbac: true
+  serviceAccount:
+    create: true
+  config:
+    settings:
+      title: Five Byte Studios
+      theme: dark
+      color: slate
+    widgets:
+      - kubernetes:
+          cluster:
+            # Shows cluster-wide statistics with hardcoded label "cluster"
+            show: true
+            cpu: true
+            memory: true
+            showLabel: true
+            label: "cluster"
+          nodes:
+            # Shows node-specific statistics with node name label
+            show: true
+            cpu: true
+            memory: true
+            showLabel: true
+    kubernetes:
+      mode: cluster
+    bookmarks:
+      - Developer:
+        - Github:
+          - icon: github-light.png
+            href: https://github.com/BinaryMan32/argocd
+            description: ArgoCD Applications, Configuration, and Documentation
+      - Infrastructure:
+        - Mercury TrueNAS (LAN):
+          - icon: truenas.png
+            href: https://192.168.0.8/
+            description: ZFS Storage and Shared Volumes
+        - Mercury TrueNAS (Kubernetes):
+          - icon: truenas.png
+            href: https://192.168.8.8/
+            description: ZFS Storage and Shared Volumes
+        - Turing Pi griffin-turing0:
+          - icon: rackula-dark.png
+            href: https://192.168.8.10/
+            description: "griffin0, griffin1, griffin2, griffin3"
+        - Turing Pi griffin-turing1:
+          - icon: rackula-dark.png
+            href: https://192.168.8.11/
+            description: "griffin4, griffin5, griffin6"
+        - Turing Pi griffin-turing2:
+          - icon: rackula-dark.png
+            href: https://192.168.8.12/
+            description: "griffin7, griffin8"
