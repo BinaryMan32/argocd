@@ -46,18 +46,6 @@ spec:
             metallb.io/allow-shared-ip: pihole-svc
           type: LoadBalancer
 
-        ingress:
-          enabled: true
-          annotations:
-            cert-manager.io/cluster-issuer: intranet-dns01-prod
-            cert-manager.io/common-name: pihole.{{ .Values.domain.intranet }}
-          hosts:
-            - pihole.{{ .Values.domain.intranet }}
-          tls:
-            - secretName: pihole-tls
-              hosts:
-              - pihole.{{ .Values.domain.intranet }}
-
         serviceDns:
           mixedService: true
           loadBalancerIP: {{ .Values.ipAddress.pihole }}
@@ -67,6 +55,23 @@ spec:
 
         serviceDhcp:
           enabled: false
+
+        extraObjects:
+          # TODO move when supported by chart
+          - apiVersion: gateway.networking.k8s.io/v1
+            kind: HTTPRoute
+            metadata:
+              name: pihole
+            spec:
+              parentRefs:
+                - name: traefik-intranet
+                  namespace: traefik
+              hostnames:
+                - "pihole.{{ .Values.domain.intranet }}"
+              rules:
+                - backendRefs:
+                    - name: pihole-web
+                      port: 80
   destination:
     namespace: pihole
     server: {{ .Values.destination.server }}
