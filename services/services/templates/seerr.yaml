@@ -14,6 +14,8 @@ spec:
       valuesObject:
         # otherwise everything is named seerr-seerr-chart
         fullnameOverride: seerr
+        # override labels as well
+        nameOverride: seerr
         config:
           persistence:
             storageClass: longhorn
