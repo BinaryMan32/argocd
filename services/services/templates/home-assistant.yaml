@@ -13,6 +13,8 @@ spec:
       valueFiles:
         - values.yaml
       valuesObject:
+        httpRoute:
+          hostname: "home-assistant.{{ .Values.domain.intranet }}"
         home-assistant:
           service:
             type: LoadBalancer
@@ -33,21 +35,6 @@ spec:
               annotations:
                 metallb.io/loadBalancerIPs: {{ .Values.ipAddress.homeAssistant }}
                 metallb.io/allow-shared-ip: home-assistant
-          ingress:
-            enabled: true
-            className: nginx
-            annotations:
-              nginx.org/websocket-services: home-assistant
-              cert-manager.io/cluster-issuer: intranet-dns01-prod
-            tls:
-              - secretName: home-assistant-tls
-                hosts:
-                - home-assistant.{{ .Values.domain.intranet }}
-            hosts:
-              - host: home-assistant.{{ .Values.domain.intranet }}
-                paths:
-                  - path: /
-                    pathType: ImplementationSpecific
   destination:
     namespace: home-assistant
     server: {{ .Values.destination.server }}

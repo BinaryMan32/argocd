@@ -1,3 +1,5 @@
+httpRoute:
+  hostname: null
 configuration:
   trusted_proxies:
     - 10.0.0.0/8
