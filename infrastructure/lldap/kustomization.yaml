@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - resources/cnpg-cluster.yaml
   - resources/deployment.yaml
-  - resources/ingress.yaml
+  - resources/httproute.yaml
   - resources/job-bootstrap.yaml
   - resources/network-policy.yaml
   - resources/sealed-secret-admin.yaml
@@ -27,17 +27,4 @@ configMapGenerator:
       - bootstrap/groups.json
     options:
       disableNameSuffixHash: true
-replacements:
-# avoid repeating the host name in the ingress tls config
-- source:
-    kind: Ingress
-    fieldPath: spec.rules.0.host
-  targets:
-    - select:
-        kind: Ingress
-        name: lldap
-      fieldPaths:
-        - spec.tls.0.hosts.0
-      options:
-        create: true
 buildMetadata: [managedByLabel]
