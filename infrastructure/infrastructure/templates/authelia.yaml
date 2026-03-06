@@ -17,13 +17,11 @@ spec:
       valuesObject:
         # https://github.com/authelia/chartrepo/tree/master/charts/authelia
         authelia:
-          ingress:
+          gatewayAPI:
             enabled: true
-            className: nginx
-            tls:
-              enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: intranet-dns01-prod
+            parentRefs:
+              - name: traefik-intranet
+                namespace: traefik
           configMap:
             session:
               cookies:
