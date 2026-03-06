@@ -11,7 +11,6 @@ spec:
   sourceRepos:
   - {{ .Values.source.repoURL }}
   - https://jellyfin.github.io/jellyfin-helm
-  - ghcr.io/fallenbagel/jellyseerr
   - ghcr.io/seerr-team/seerr
   destinations:
   - namespace: media

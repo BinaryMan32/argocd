@@ -50,7 +50,6 @@ Under `Download Clients`
 - [prowlarr](./prowlarr): torrent indexer manager
 - [radarr](./radarr/): movies
 - [sonarr](./sonarr/): tv
-- [jellyseerr](../services/templates/jellyseerr.yaml): request management
 - [seerr](../services/templates/seerr.yaml): request management
 
 ### Jellyfin

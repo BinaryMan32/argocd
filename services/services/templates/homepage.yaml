@@ -60,12 +60,6 @@ spec:
                     description: Audio Book Player
                     namespace: media
                     app: audiobookshelf
-                - Jellyseerr:
-                    icon: jellyseerr.png
-                    href: "https://jellyseerr.{{ .Values.domain.intranet }}/"
-                    description: Request Manager
-                    namespace: media
-                    app: jellyseerr-chart
                 - QBittorrent:
                     icon: qbittorrent.png
                     href: "https://qbittorrent.{{ .Values.domain.intranet }}/"

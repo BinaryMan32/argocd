@@ -55,9 +55,6 @@ spec:
                 jellyfin:
                   hostname: "jellyfin.{{ .Values.domain.intranet }}"
                   namespace: media
-                jellyseerr:
-                  hostname: "jellyseerr.{{ .Values.domain.intranet }}"
-                  namespace: media
                 lldap:
                   hostname: "lldap.{{ .Values.domain.intranet }}"
                   namespace: auth
