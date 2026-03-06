@@ -25,3 +25,9 @@ spec:
   # renovate
   version: v1.35.2+k3s1
   # channel: https://update.k3s.io/v1-release/channels/v1.28
+  # allow running on griffin-mercury
+  tolerations:
+    - key: reserved-arch
+      operator: Equal
+      value: amd64
+      effect: NoSchedule
