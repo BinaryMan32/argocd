@@ -13,9 +13,11 @@ resources:
 - https://raw.githubusercontent.com/argoproj/argo-cd/v3.3.2/examples/k8s-rbac/argocd-server-applications/argocd-notifications-controller-rbac-clusterrolebinding.yaml
 - grpcroute.yaml
 - httproute.yaml
-- github-webhook-ingress.yaml
+- github-webhook-httproute.yaml
+- github-webhook-ipallow-middleware.yaml
 - github-webhook-secret.yaml
-- gitlab-webhook-ingress.yaml
+- gitlab-webhook-httproute.yaml
+- gitlab-webhook-ipallow-middleware.yaml
 - gitlab-webhook-secret.yaml
 patches:
 - path: argocd-cm.yaml

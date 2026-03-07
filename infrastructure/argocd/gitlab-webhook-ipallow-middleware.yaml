@@ -1,0 +1,10 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: gitlab-webhook-ipallow
+spec:
+  ipAllowList:
+    # https://docs.gitlab.com/user/gitlab_com/#ip-range
+    sourceRange:
+      - 34.74.90.64/28
+      - 34.74.226.0/24

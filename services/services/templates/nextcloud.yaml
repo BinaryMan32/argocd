@@ -13,19 +13,17 @@ spec:
       valueFiles:
         - values.yaml
       valuesObject:
+        # https://github.com/nextcloud/helm/blob/main/charts/nextcloud/values.yaml
         nextcloud:
           nextcloud:
-            host: nextcloud.{{ .Values.domain.external }}
-          ingress:
+            host: "nextcloud.{{ .Values.domain.external }}"
+          httpRoute:
             enabled: true
-            className: public
-            annotations:
-              nginx.org/websocket-services: nextcloud
-              cert-manager.io/cluster-issuer: "letsencrypt-prod"
-            tls:
-              - secretName: nextcloud-tls
-                hosts:
-                - nextcloud.{{ .Values.domain.external }}
+            parentRefs:
+              - name: traefik-external
+                namespace: traefik
+            hostnames:
+              - "nextcloud.{{ .Values.domain.external }}"
   destination:
     namespace: nextcloud
     server: {{ .Values.destination.server }}
