@@ -113,6 +113,25 @@ spec:
                 tududi:
                   hostname: "tududi.{{ .Values.domain.intranet }}"
                   namespace: tududi
+        external:
+          gateway:
+            listeners:
+              https:
+                argocd-github-webhook:
+                  hostname: "github-webhook.argocd.{{ .Values.domain.external }}"
+                  namespace: argocd
+                argocd-gitlab-webhook:
+                  hostname: "gitlab-webhook.argocd.{{ .Values.domain.external }}"
+                  namespace: argocd
+                jellyfin:
+                  hostname: "jellyfin.{{ .Values.domain.external }}"
+                  namespace: media
+                navidrome:
+                  hostname: "navidrome.{{ .Values.domain.external }}"
+                  namespace: media
+                nextcloud:
+                  hostname: "nextcloud.{{ .Values.domain.external }}"
+                  namespace: nextcloud
         # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
         traefik:
           service:
