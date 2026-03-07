@@ -16,12 +16,11 @@ domain:
 ipAddress:
   router: "192.168.8.1"
   kubernetes: "192.168.8.8"
-  ingress: "192.168.8.101"
   ingressIntranet: "192.168.8.102"
   pihole: "192.168.8.103"
   k8sGateway: "192.168.8.104"
   traefikIntranet: "192.168.8.105"
-  traefikExternal: "192.168.8.106"
+  traefikExternal: "192.168.8.101"
 nfs:
   server: 192.168.8.9
   path: /mnt/mercury/griffin
