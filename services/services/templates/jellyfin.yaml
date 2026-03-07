@@ -67,20 +67,13 @@ spec:
           type: LoadBalancer
           port: 80
           externalTrafficPolicy: Local
-        ingress:
+        httpRoute:
           enabled: true
-          className: public
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-          hosts:
-            - host: jellyfin.{{ .Values.domain.external }}
-              paths:
-                - path: /
-                  pathType: Prefix
-          tls:
-            - secretName: jellyfin-tls
-              hosts:
-              - jellyfin.{{ .Values.domain.external }}
+          parentRefs:
+            - name: traefik-external
+              namespace: traefik
+          hostnames:
+            - "jellyfin.{{ .Values.domain.external }}"
         readinessProbe:
           failureThreshold: 3
         livenessProbe:
