@@ -67,5 +67,8 @@ nextcloud:
     enabled: true
   metrics:
     enabled: true
+  prometheus:
     serviceMonitor:
+      enabled: true
+    rules:
       enabled: true
