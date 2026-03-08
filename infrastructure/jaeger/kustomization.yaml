@@ -12,7 +12,7 @@ labels:
 images:
   - name: jaeger
     newName: jaegertracing/jaeger
-    newTag: 2.15.1
+    newTag: 2.16.0
 configurations:
   - configurations/images.yaml
 buildMetadata: [managedByLabel]
