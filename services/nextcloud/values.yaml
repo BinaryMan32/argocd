@@ -65,8 +65,6 @@ nextcloud:
       storageClass: mercury-nfs
   startupProbe:
     enabled: true
-  metrics:
-    enabled: true
   prometheus:
     serviceMonitor:
       enabled: true
