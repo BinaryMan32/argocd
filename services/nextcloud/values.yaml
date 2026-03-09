@@ -17,6 +17,23 @@ nextcloud:
         $CONFIG = array (
           'overwriteprotocol' => 'https'
         );
+      # workaround for failed matrics scraping
+      # from https://github.com/nextcloud/helm/issues/833
+      trusted_domains.config.php: |-
+        <?php
+        $CONFIG = array (
+          'trusted_domains' => array(
+            0 => 'localhost',
+            1 => 'nextcloud.nextcloud.svc.cluster.local',
+            2 => getenv('POD_IP'),
+            3 => 'nextcloud.wildfreddy.fivebytestudios.com',
+          ),
+        );
+    extraEnv:
+    - name: "POD_IP"
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
     existingSecret:
       enabled: true
       secretName: nextcloud-admin
