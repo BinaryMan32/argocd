@@ -2,7 +2,7 @@
 for chart in $(find . -name Chart.yaml); do
     echo "${chart}"
     chart_dir="$(dirname $chart)"
-    if [ ! -f "${chart_dir}/Chart.lock" ]; then
+    if [ ! -d "${chart_dir}/charts" ] || [ ! -f "${chart_dir}/Chart.lock" ]; then
         echo "building helm dependencies"
         helm dependency build "${chart_dir}"
     fi
