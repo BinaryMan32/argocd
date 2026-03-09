@@ -18,9 +18,9 @@ spec:
       enableServiceLinks: false
       serviceAccountName: default
       automountServiceAccountToken: true
-      securityContext: 
+      securityContext:
         fsGroup: 1883
-      initContainers: 
+      initContainers:
         - command:
             - /init_password.sh
           env:
@@ -68,7 +68,7 @@ spec:
               subPath: password.sh
             - mountPath: /mosquitto/password
               name: password
-      containers: 
+      containers:
         - image: mosquitto
           name: main
           volumeMounts:
@@ -80,7 +80,7 @@ spec:
             - mountPath: /mosquitto/password
               name: password
               readOnly: true
-      volumes: 
+      volumes:
         - configMap:
             defaultMode: 432
             name: mqtt-config
@@ -93,7 +93,7 @@ spec:
             medium: Memory
             sizeLimit: 1Mi
           name: password
-  volumeClaimTemplates: 
+  volumeClaimTemplates:
     - metadata:
         name: data
       spec:

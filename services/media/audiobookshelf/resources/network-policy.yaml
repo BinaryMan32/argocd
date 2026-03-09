@@ -23,7 +23,7 @@ spec:
       ports:
         - protocol: TCP
           port: http
-  
+
   egress:
     # Allow DNS
     - to:

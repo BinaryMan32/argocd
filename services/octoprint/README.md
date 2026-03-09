@@ -25,7 +25,7 @@ Host vulcan
 
 Add keys:
 ```
-ssh-copy-id vulcan 
+ssh-copy-id vulcan
 ```
 
 ## Install certificate
