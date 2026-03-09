@@ -4,3 +4,17 @@ repos:
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
+  - repo: local
+    hooks:
+      - id: check-helm
+        name: "check helm"
+        files: ".*\\.yaml"
+        entry: scripts/check-helm.sh
+        language: script
+        pass_filenames: false
+      - id: check-kustomize
+        name: "check kustomize"
+        files: ".*\\.yaml"
+        entry: scripts/check-kustomize.sh
+        language: script
+        pass_filenames: false
