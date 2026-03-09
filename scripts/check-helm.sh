@@ -1,5 +1,5 @@
 #!/bin/bash -e
-REPOSITORY_CONFIG=${PWD}/helm-dependencies.yaml
+REPOSITORY_CONFIG=${PWD}/helm-repositories.yaml
 for chart in $(find . -name Chart.yaml); do
     echo "${chart}"
     chart_dir="$(dirname $chart)"
