@@ -11,9 +11,6 @@ spec:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
     path: {{ .Values.project.path }}/rbac
-    helm:
-      valueFiles:
-        - values.yaml
   destination:
     namespace: auth
     server: {{ .Values.destination.server }}
