@@ -10,7 +10,7 @@ labels:
       app.kubernetes.io/instance: iperf3
       app.kubernetes.io/name: iperf3
 images:
-  - name: iperf3
-    newName: mlabbe/iperf3
-    newTag: "3.19.1-r1"
+  - name: alpine
+    newName: alpine
+    newTag: "3.23.3"
 buildMetadata: [managedByLabel]
