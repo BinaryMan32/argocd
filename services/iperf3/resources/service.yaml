@@ -10,6 +10,7 @@ metadata:
     metallb.io/loadBalancerIPs: ""
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   selector:
     app.kubernetes.io/name: iperf3
     app.kubernetes.io/instance: iperf3
