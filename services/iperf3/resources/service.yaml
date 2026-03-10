@@ -15,5 +15,5 @@ spec:
     protocol: TCP
     targetPort: test-tcp
   - port: 5201
-    protocol: TCP
-    targetPort: test-tcp
+    protocol: UDP
+    targetPort: test-udp
