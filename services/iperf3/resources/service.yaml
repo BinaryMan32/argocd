@@ -11,9 +11,11 @@ spec:
     app.kubernetes.io/instance: iperf3
     app.kubernetes.io/component: server
   ports:
-  - port: 5201
+  - name: iperf-tcp
+    port: 5201
     protocol: TCP
     targetPort: test-tcp
-  - port: 5201
+  - name: iperf-udp
+    port: 5201
     protocol: UDP
     targetPort: test-udp
