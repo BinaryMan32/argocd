@@ -13,7 +13,7 @@ spec:
       patches:
         - target:
             kind: Service
-            name: mqtt
+            name: iperf3
           patch: |-
             - op: replace
               path: /metadata/annotations/metallb.io~1loadBalancerIPs
