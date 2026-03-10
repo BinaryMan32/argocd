@@ -21,6 +21,7 @@ spec:
         - protocol: UDP
           port: test-udp
   egress:
+    # Allow UDP replies to client
     - to:
         - ipBlock:
             cidr: 192.168.0.0/24
@@ -38,3 +39,17 @@ spec:
       ports:
         - protocol: TCP
           port: 443
+    # Allow DNS
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: coredns
+              app.kubernetes.io/name: coredns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
