@@ -20,7 +20,7 @@ spec:
         - name: iperf3
           image: alpine
           command: ["/bin/sh", "-c"]
-          args: ["apk update && apk add --no-cache iperf3 && iperf3 --server"]
+          args: ["apk update && apk add --no-cache iperf3 && iperf3 --server --verbose"]
           ports:
             - name: test-tcp
               containerPort: 5201
