@@ -4,6 +4,9 @@ metadata:
   name: iperf3
   labels:
     app.kubernetes.io/component: server
+  annotations:
+    # Overridden by patch
+    metallb.io/loadBalancerIPs: ""
 spec:
   type: LoadBalancer
   selector:
