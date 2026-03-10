@@ -18,7 +18,7 @@ MOSQUITTO_PORT = '1883'
 class Device:
   host: str
   name: str
-  
+
   @property
   def mosquitto_client(self):
     return 'TASMOTA_' + self.name.upper()
@@ -111,7 +111,7 @@ def main():
       commands.extend(client_config_commands(device))
     if commands:
       configure_tasmota(device, commands)
-  
+
   return 0
 
 

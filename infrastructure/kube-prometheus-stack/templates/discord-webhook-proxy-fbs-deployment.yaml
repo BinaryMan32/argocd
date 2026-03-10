@@ -50,4 +50,3 @@ spec:
           configMap:
             name: discord-webhook-proxy-templates
       automountServiceAccountToken: false
-

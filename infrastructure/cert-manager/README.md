@@ -6,7 +6,8 @@ Deploy [cert-manager][] to manage and issue TLS certificates.
 
 Creates a `ClusterIssuer` named `intranet-dns01-prod` which uses the [dns01][] solver to create certificates.
 
-To have an ingress automatically generate a certificate, add:
+To automatically generate a certificate, add the following annotation to a `Gateway`.
+
 ```yaml
 annotations:
   cert-manager.io/cluster-issuer: intranet-dns01-prod

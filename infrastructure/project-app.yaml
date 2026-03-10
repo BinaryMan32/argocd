@@ -21,6 +21,6 @@ spec:
     - group: argoproj.io
       kind: Application
       name: longhorn
-      jsonPointers:
-        - /metadata/finalizers/pre-delete-finalizer.argocd.argoproj.io
-        - /metadata/finalizers/pre-delete-finalizer.argocd.argoproj.io~1cleanup
+      jqPathExpressions:
+        - .metadata.finalizers[] | select(. == "pre-delete-finalizer.argocd.argoproj.io")
+        - .metadata.finalizers[] | select(. == "pre-delete-finalizer.argocd.argoproj.io/cleanup")

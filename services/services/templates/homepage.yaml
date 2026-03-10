@@ -179,7 +179,7 @@ spec:
                     href: "https://jaeger.{{ .Values.domain.intranet }}/"
                     description: Tracing
                     namespace: jaeger
-                    app: jaeger    
+                    app: jaeger
   destination:
     namespace: homepage
     server: {{ .Values.destination.server }}

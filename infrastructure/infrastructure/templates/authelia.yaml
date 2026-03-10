@@ -33,5 +33,6 @@ spec:
     namespace: auth
     server: {{ .Values.destination.server }}
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true

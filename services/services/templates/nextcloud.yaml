@@ -28,5 +28,6 @@ spec:
     namespace: nextcloud
     server: {{ .Values.destination.server }}
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true

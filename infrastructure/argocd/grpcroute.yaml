@@ -5,16 +5,16 @@ metadata:
   namespace: argocd
 spec:
   parentRefs:
-    - group: gateway.networking.k8s.io	
-      kind: Gateway	
+    - group: gateway.networking.k8s.io
+      kind: Gateway
       name: traefik-intranet
       namespace: traefik
   hostnames:
     - argocd.int.fivebytestudios.com
   rules:
     - backendRefs:
-        - group: ''	
-          kind: Service	
+        - group: ''
+          kind: Service
           name: argocd-server
           port: 443
           weight: 1

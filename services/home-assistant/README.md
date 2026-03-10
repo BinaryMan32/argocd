@@ -1,6 +1,6 @@
 # Home Assistant
 
-Deploys home-assistant using [k8s-at-home helm chart][k8s-at-home].
+Deploys home-assistant.
 
 Once it's deployed, forward a local port to the service:
 
@@ -111,6 +111,5 @@ kubectl get nodes -o=jsonpath='{range .items[*]}{.spec.podCIDR}{"\n"}{end}'
 10.42.3.0/24
 ```
 
-[k8s-at-home]: https://github.com/k8s-at-home/charts/tree/master/charts/stable/home-assistant
 [home-assistant-bad-request]: https://github.com/k8s-at-home/charts/tree/master/charts/stable/home-assistant#http-400-bad-request-while-accessing-from-your-browser
 [home-assistant-reverse-proxies]: https://www.home-assistant.io/integrations/http#reverse-proxies
