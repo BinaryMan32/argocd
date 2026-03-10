@@ -1,16 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tududi
+  name: iperf3
   namespace: argocd
 spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
-    path: {{ .Values.project.path }}/tududi
+    path: {{ .Values.project.path }}/iperf3
+    kustomize:
+      patches:
+        - target:
+            kind: Service
+            name: mqtt
+          patch: |-
+            - op: replace
+              path: /metadata/annotations/metallb.io~1loadBalancerIPs
+              value: {{ .Values.ipAddress.iperf3 }}
   destination:
-    namespace: tududi
+    namespace: iperf
     server: {{ .Values.destination.server }}
   syncPolicy:
     automated: {}

@@ -11,4 +11,5 @@ domain:
   external: wildfreddy.fivebytestudios.com
 ipAddress:
   homeAssistant: 192.168.8.108
+  iperf3: 192.168.8.107
   mqtt: 192.168.8.109

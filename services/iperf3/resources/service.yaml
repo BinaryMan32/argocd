@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperf3
+  labels:
+    app.kubernetes.io/component: server
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: iperf3
+    app.kubernetes.io/instance: iperf3
+    app.kubernetes.io/component: server
+  ports:
+  - port: 5201
+    protocol: TCP
+    targetPort: test-tcp
+  - port: 5201
+    protocol: TCP
+    targetPort: test-tcp
