@@ -75,7 +75,7 @@ spec:
               # Apply longhorn 1.11.0 hot fix to reduce memory usage
               # https://longhorn.io/docs/1.11.0/important-notes/#longhorn-instance-manager-image
               # renovate: image=longhornio/longhorn-instance-manager
-              tag: v1.11.0-hotfix-1
+              tag: v1.11.1-hotfix-1
         # Required for longhorn 1.11.0 node validator hot fix
         # Revert on next update
         # https://longhorn.io/docs/1.11.0/important-notes/#longhorn-manager-image
