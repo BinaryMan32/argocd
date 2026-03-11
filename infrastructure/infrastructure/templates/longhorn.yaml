@@ -63,19 +63,6 @@ spec:
         defaultSettings:
           concurrentAutomaticEngineUpgradePerNodeLimit: "1"
           taintToleration: reserved-arch=amd64:NoSchedule
-        image:
-          # Revert on next update
-          longhorn:
-            manager:
-              # Apply longhorn 1.11.0 node validator hot fix
-              # https://longhorn.io/docs/1.11.0/important-notes/#longhorn-manager-image
-              # renovate: image=longhornio/longhorn-manager
-              tag: v1.11.0-hotfix-1
-            instanceManager:
-              # Apply longhorn 1.11.0 hot fix to reduce memory usage
-              # https://longhorn.io/docs/1.11.0/important-notes/#longhorn-instance-manager-image
-              # renovate: image=longhornio/longhorn-instance-manager
-              tag: v1.11.1-hotfix-1
         # Required for longhorn 1.11.0 node validator hot fix
         # Revert on next update
         # https://longhorn.io/docs/1.11.0/important-notes/#longhorn-manager-image
