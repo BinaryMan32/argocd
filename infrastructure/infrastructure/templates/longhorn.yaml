@@ -63,11 +63,6 @@ spec:
         defaultSettings:
           concurrentAutomaticEngineUpgradePerNodeLimit: "1"
           taintToleration: reserved-arch=amd64:NoSchedule
-        # Required for longhorn 1.11.0 node validator hot fix
-        # Revert on next update
-        # https://longhorn.io/docs/1.11.0/important-notes/#longhorn-manager-image
-        preUpgradeChecker:
-          upgradeVersionCheck: false
   # helm template incorrectly sets nodePort for LoadBalancer
   ignoreDifferences:
     - kind: Service
