@@ -76,6 +76,10 @@ kubectl -n argocd delete secret argocd-initial-admin-secret
 For each of the following projects:
 
 * [play-when-argocd](https://gitlab.com/play-when/play-when-argocd/-/hooks)
+* [play-when-auth-chart](https://gitlab.com/play-when/play-when-auth-chart/-/hooks)
+* [play-when-backend-chart](https://gitlab.com/play-when/play-when-backend-chart/-/hooks)
+* [play-when-discord-bot-chart](https://gitlab.com/play-when/play-when-discord-bot-chart/-/hooks)
+* [play-when-frontend-chart](https://gitlab.com/play-when/play-when-frontend-chart/-/hooks)
 
 Add a webhook with the following settings:
 
