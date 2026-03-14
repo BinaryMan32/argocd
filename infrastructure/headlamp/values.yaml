@@ -10,6 +10,10 @@ headlamp:
     - name: OIDC_SCOPES
       value: "openid,email,groups"
   config:
+    # Work around headlamp 0.40.1 failing to start with error:
+    # flag provided but not defined: -session-ttl
+    # See https://github.com/kubernetes-sigs/headlamp/issues/4883
+    sessionTTL: null
     oidc:
       secret:
         create: false
