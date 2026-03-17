@@ -13,6 +13,9 @@ spec:
       name: letsencrypt-prod
     # Enable the HTTP-01 challenge provider
     solvers:
-    - http01:
-        ingress:
-          class: public
+      - http01:
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: traefik-external
+                namespace: traefik
+                kind: Gateway
