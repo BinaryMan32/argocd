@@ -32,12 +32,6 @@ traefik:
       exposedPort: 80
       expose:
         external: true
-      http:
-        redirections:
-          entryPoint:
-            to: websecure-ext
-            scheme: https
-            permanent: true
     websecure-ext:
       port: 9443
       exposedPort: 443
