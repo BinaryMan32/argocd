@@ -16,6 +16,8 @@ cert-manager:
       # set feature gate to use ImplementationSpecific instead of Exact
       # https://cert-manager.io/docs/releases/release-notes/release-notes-1.18/#acme-http01-challenge-paths-now-use-pathtype-exact-in-ingress-routes
       ACMEHTTP01IngressPathTypeExact: false
+  global:
+    logLevel: 4
 email: fettinge@gmail.com
 
 ca:
