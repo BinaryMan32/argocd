@@ -20,4 +20,4 @@ spec:
               - kind: Gateway
                 namespace: traefik
                 name: traefik-external
-                sectionName: web-ext
+                sectionName: http

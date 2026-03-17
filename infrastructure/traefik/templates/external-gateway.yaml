@@ -28,7 +28,7 @@ spec:
         certificateRefs:
           - name: {{ default (printf "%s-tls" $name) $listener.certificateRef }}
 {{- end }}
-    - name: web-ext
+    - name: http
       port: 9080
       protocol: HTTP
       allowedRoutes:
