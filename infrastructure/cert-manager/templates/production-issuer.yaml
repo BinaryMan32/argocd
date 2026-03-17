@@ -16,10 +16,3 @@ spec:
       - http01:
           gatewayHTTPRoute:
             serviceType: ClusterIP
-            parentRefs:
-              - group: gateway.networking.k8s.io
-                kind: Gateway
-                namespace: traefik
-                name: traefik-external
-                sectionName: http
-                port: 9080
