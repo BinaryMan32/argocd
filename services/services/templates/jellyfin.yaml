@@ -67,13 +67,6 @@ spec:
           type: LoadBalancer
           port: 80
           externalTrafficPolicy: Local
-        httpRoute:
-          enabled: true
-          parentRefs:
-            - name: traefik-external
-              namespace: traefik
-          hostnames:
-            - "jellyfin.{{ .Values.domain.external }}"
         readinessProbe:
           failureThreshold: 3
         livenessProbe:
