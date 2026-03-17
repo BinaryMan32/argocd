@@ -138,7 +138,7 @@ spec:
                 - Traefik:
                     icon: traefik.png
                     href: "https://traefik.{{ .Values.domain.intranet }}/"
-                    description: Ingress Admin Dashboard
+                    description: Gateway Admin Dashboard
                     namespace: traefik
                     app: traefik
               - Monitoring:

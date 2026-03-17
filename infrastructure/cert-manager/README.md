@@ -21,9 +21,10 @@ This secret is created by running `infrastructure/cert-manager/create-sealed-sec
 ## References
 
 See the following cert-manager resources for additional information:
-* [Securing NGINX-ingress][cert-manager-nginx]
+
+* [Annotated Gateway Resource][cert-manager-gateway]
 * [Installing with Helm][cert-manager-helm]
 
 [cert-manager]: https://github.com/jetstack/cert-manager
-[cert-manager-nginx]: https://cert-manager.io/docs/tutorials/acme/ingress/#step-5-deploy-cert-manager
+[cert-manager-gateway]: https://cert-manager.io/docs/usage/gateway/
 [cert-manager-helm]: https://cert-manager.io/docs/installation/helm/

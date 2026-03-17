@@ -16,7 +16,6 @@ domain:
 ipAddress:
   router: "192.168.8.1"
   kubernetes: "192.168.8.8"
-  ingressIntranet: "192.168.8.102"
   pihole: "192.168.8.103"
   k8sGateway: "192.168.8.104"
   traefikIntranet: "192.168.8.105"

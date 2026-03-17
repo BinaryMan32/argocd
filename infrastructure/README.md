@@ -20,15 +20,15 @@ kubectl apply -f project-app.yaml
 
 All of the apps will appear in the ArgoCD UI.
 Sync ArgoCD so that it can take ownership of deployed resources, but it may
-show as `Progressing` since nothing exists to handle the ingress yet.
+show as `Progressing` since nothing exists to handle the gateway yet.
 
-Deploy the following which enable access to intranet services through ingress.
+Deploy the following which enable access to intranet services.
 
-1. [ingress-nginx-intranet](./infrastructure/templates/ingress-nginx-intranet.yaml)
+1. [traefik](./infrastructure/templates/traefik.yaml)
 2. [metallb](./metallb/) (can now use ArgoCD load balancer instead of port forward)
-3. [longhorn](./infrastructure/templates/longhorn.yaml) (needs ingress)
+3. [longhorn](./infrastructure/templates/longhorn.yaml) (needs traefik)
    Manually sync some resources beforehand: ServiceAccount, ClusterRole, ClusterRoleBinding
-4. [k8s-gateway](./infrastructure/templates/k8s-gateway.yaml) (needs ingress)
+4. [k8s-gateway](./infrastructure/templates/k8s-gateway.yaml) (needs traefik)
 5. [pihole](./infrastructure/templates/pihole.yaml) (needs longhorn)
 6. [sealed-secrets](./infrastructure/templates/sealed-secrets.yaml)
 7. [kube-prometheus-stack](./kube-prometheus-stack/) (needs longhorn, sealed-secrets)
@@ -42,7 +42,6 @@ Additional infrastructure used only by non-infrastructure projects.
 
 1. [mercury-nfs-subdir-external-provisioner](./infrastructure/templates/mercury-nfs-subdir-external-provisioner.yaml)
 2. [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
-3. [ingress-nginx](./infrastructure/templates/ingress-nginx.yaml) (don't deploy until router port-forward)
 
 ## Manual Kubernetes Changes
 

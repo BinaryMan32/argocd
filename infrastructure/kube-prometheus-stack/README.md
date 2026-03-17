@@ -40,7 +40,7 @@ echo -n 'WEBHOOK_URL' \
 
 ## Testing
 
-Access to the  ingress is protected by authelia.
+Access to alertmanager is protected by authelia.
 Use a `port-forward` to bypass.
 
 ```sh
