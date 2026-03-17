@@ -15,7 +15,9 @@ spec:
     solvers:
       - http01:
           gatewayHTTPRoute:
+            serviceType: ClusterIP
             parentRefs:
-              - name: traefik-external
+              - kind: Gateway
                 namespace: traefik
-                kind: Gateway
+                name: traefik-external
+                sectionName: web-ext
