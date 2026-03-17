@@ -17,7 +17,7 @@ cert-manager:
       # https://cert-manager.io/docs/releases/release-notes/release-notes-1.18/#acme-http01-challenge-paths-now-use-pathtype-exact-in-ingress-routes
       ACMEHTTP01IngressPathTypeExact: false
   global:
-    logLevel: 5
+    logLevel: 6
 email: fettinge@gmail.com
 
 ca:
