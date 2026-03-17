@@ -54,6 +54,7 @@ spec:
                 jellyfin:
                   hostname: "jellyfin.{{ .Values.domain.intranet }}"
                   namespace: media
+                  certificateRef: jellyfin-intranet-tls
                 lldap:
                   hostname: "lldap.{{ .Values.domain.intranet }}"
                   namespace: auth
@@ -126,6 +127,7 @@ spec:
                 jellyfin:
                   hostname: "jellyfin.{{ .Values.domain.external }}"
                   namespace: media
+                  certificateRef: jellyfin-external-tls
                 navidrome:
                   hostname: "navidrome.{{ .Values.domain.external }}"
                   namespace: media
