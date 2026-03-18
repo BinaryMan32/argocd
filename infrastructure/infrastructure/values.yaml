@@ -18,7 +18,7 @@ ipAddress:
   kubernetes: "192.168.8.8"
   pihole: "192.168.8.103"
   k8sGateway: "192.168.8.104"
-  traefikIntranet: "192.168.8.105"
+  traefikIntranet: "192.168.8.102"
   traefikExternal: "192.168.8.101"
 nfs:
   server: 192.168.8.9
