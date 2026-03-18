@@ -55,8 +55,7 @@ traefik:
     insecure: false
 
   ingressClass:
-    enabled: true
-    isDefaultClass: false
+    enabled: false
 
   gatewayClass:
     enabled: true
@@ -90,7 +89,7 @@ traefik:
     kubernetesCRD:
       enabled: true
     kubernetesIngress:
-      enabled: true
+      enabled: false
     kubernetesGateway:
       enabled: true
       statusAddress:
