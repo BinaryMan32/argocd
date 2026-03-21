@@ -77,3 +77,22 @@ seaweedfs:
     enabled: true
     nodeSelector: |
       kubernetes.io/arch: arm64
+
+admin:
+  httpRoute:
+    enabled: true
+    parentRefs:
+      - name: traefik-intranet
+        namespace: traefik
+    filters:
+      - type: ExtensionRef
+        extensionRef:
+          group: traefik.io
+          kind: Middleware
+          name: authelia
+s3:
+  httpRoute:
+    enabled: true
+    parentRefs:
+      - name: traefik-intranet
+        namespace: traefik
