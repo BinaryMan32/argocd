@@ -180,6 +180,7 @@ authelia:
             port: http
 # https://github.com/valkey-io/valkey-helm/tree/main/valkey
 valkey:
+  deploymentStrategy: Recreate
   dataStorage:
     enabled: true
     requestedSize: 1Gi
