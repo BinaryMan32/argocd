@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://k8s-gateway.github.io/k8s_gateway
     chart: k8s-gateway
-    targetRevision: 3.6.1
+    targetRevision: 3.7.1
     helm:
       # https://github.com/k8s-gateway/k8s_gateway/blob/master/charts/k8s-gateway/values.yaml
       valuesObject:
