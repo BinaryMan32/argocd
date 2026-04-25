@@ -1,9 +1,9 @@
 dependencies:
 - name: authelia
   repository: https://charts.authelia.com
-  version: 0.10.58
+  version: 0.10.59
 - name: valkey
   repository: https://valkey.io/valkey-helm
   version: 0.9.4
-digest: sha256:4f09f7ded3ef6c97ca47acf15673544a03a09576409b7f39759ff81f1a62ad17
-generated: "2026-04-15T01:44:57.421375143Z"
+digest: sha256:eebd0ed74389167403f2178f9bd3708bc43012cfa0a90b1d4324617957ec817e
+generated: "2026-04-25T04:56:21.063362913Z"

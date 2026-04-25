@@ -5,7 +5,7 @@ version: 1.0.0
 dependencies:
 - name: authelia
   repository: https://charts.authelia.com
-  version: 0.10.58
+  version: 0.10.59
 - name: valkey
   repository: https://valkey.io/valkey-helm
   version: 0.9.4
