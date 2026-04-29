@@ -12,5 +12,5 @@ labels:
 images:
   - name: curl
     newName: curlimages/curl
-    newTag: 8.19.0
+    newTag: 8.20.0
 buildMetadata: [managedByLabel]
