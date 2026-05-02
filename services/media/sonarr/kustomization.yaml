@@ -16,5 +16,5 @@ labels:
 images:
   - name: sonarr
     newName: linuxserver/sonarr
-    newTag: 4.0.17.2952-ls309
+    newTag: 4.0.17.2952-ls310
 buildMetadata: [managedByLabel]
