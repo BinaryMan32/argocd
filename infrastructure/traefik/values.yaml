@@ -88,6 +88,8 @@ traefik:
     # traefik IngressRoute
     kubernetesCRD:
       enabled: true
+      # Allow middleware from one namespace to chain middleware in another namespace
+      allowCrossNamespace: true
     kubernetesIngress:
       enabled: false
     kubernetesGateway:
