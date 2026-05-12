@@ -44,8 +44,8 @@ traefik:
       externalTrafficPolicy: Local
     additionalServices:
       external:
-        type: LoadBalancer
         spec:
+          type: LoadBalancer
           # Preserve client IP addresses
           externalTrafficPolicy: Local
 
