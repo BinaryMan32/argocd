@@ -53,6 +53,7 @@ traefik:
   api:
     dashboard: true
     insecure: false
+    disableDashboardAd: true
 
   ingressClass:
     enabled: false
