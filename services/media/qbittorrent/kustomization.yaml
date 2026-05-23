@@ -22,7 +22,7 @@ images:
     newName: qmcgaw/gluetun
     newTag: v3.41.1
   - name: busybox
-    newTag: 1.37.0-glibc
+    newTag: 1.38.0-glibc
 configMapGenerator:
   - name: qbittorrent-gluetun-config
     files:
