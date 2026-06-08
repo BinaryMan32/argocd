@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://kubereboot.github.io/charts
     chart: kured
-    targetRevision: 5.12.0
+    targetRevision: 5.12.1
     helm:
       valuesObject:
         # https://github.com/kubereboot/charts/blob/main/charts/kured/values.yaml
