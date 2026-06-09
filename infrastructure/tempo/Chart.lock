@@ -1,6 +1,6 @@
 dependencies:
 - name: tempo-distributed
   repository: https://grafana-community.github.io/helm-charts
-  version: 2.23.4
-digest: sha256:c21535b5e7ee1b1dd114a42900224a6d14768f85afaa879d51bef1bcf1b94342
-generated: "2026-06-03T16:51:26.975094766Z"
+  version: 2.23.5
+digest: sha256:1af047017b35bb1afbfecf11436053225fffe87e07b24b2d3a3bacee59aabf24
+generated: "2026-06-09T03:09:00.514013355Z"
