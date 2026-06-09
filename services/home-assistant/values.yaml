@@ -32,7 +32,7 @@ home-assistant:
         name: home-assistant-config
   initContainers:
     - name: setup-config
-      image: bash:5.3.12
+      image: bash:5.3.15
       command: ["/bin/sh"]
       args:
         - /mnt/init/init.sh
