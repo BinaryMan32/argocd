@@ -16,5 +16,5 @@ labels:
 images:
   - name: radarr
     newName: linuxserver/radarr
-    newTag: 6.1.1.10360-ls304
+    newTag: 6.2.1.10461-ls305
 buildMetadata: [managedByLabel]
