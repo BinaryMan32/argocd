@@ -126,13 +126,13 @@ spec:
                   hostname: "nextcloud.{{ .Values.domain.external }}"
                   namespace: nextcloud
                 play-when-prod-dex:
-                  hostname: "dex.playwhen.{{ .Values.domain.external }}"
+                  hostname: "dex.playwhen.{{ .Values.domain.fbs }}"
                   namespace: play-when-prod
                 play-when-prod-tinyauth:
-                  hostname: "tinyauth.playwhen.{{ .Values.domain.external }}"
+                  hostname: "tinyauth.playwhen.{{ .Values.domain.fbs }}"
                   namespace: play-when-prod
                 play-when-prod-www:
-                  hostname: "www.playwhen.{{ .Values.domain.external }}"
+                  hostname: "www.playwhen.{{ .Values.domain.fbs }}"
                   namespace: play-when-prod
         # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
         traefik:
