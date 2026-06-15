@@ -12,3 +12,5 @@ spec:
       - Remote-Email
       - Remote-Name
     maxResponseBodySize: 4194304 # 4 MiB
+    # Deprecated, remove for traefik 4.0.0+
+    trustForwardHeader: false
