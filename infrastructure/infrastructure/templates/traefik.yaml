@@ -22,6 +22,9 @@ spec:
             hostnames:
               - "www.dev.playwhen.{{ .Values.domain.intranet }}"
               - "www.stage.playwhen.{{ .Values.domain.intranet }}"
+          external:
+            hostnames:
+              - "www.playwhen.{{ .Values.domain.fbs }}"
         intranet:
           gateway:
             listeners:
