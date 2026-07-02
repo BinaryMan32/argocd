@@ -1,6 +1,6 @@
 dependencies:
 - name: home-assistant
   repository: https://pajikos.github.io/home-assistant-helm-chart/
-  version: 0.3.67
-digest: sha256:a43d08c56a4a92462f3e0c3595dcd5c0e080071f16e9e309b9270fdfb73a9c76
-generated: "2026-06-20T12:40:52.652896684Z"
+  version: 0.3.68
+digest: sha256:9c312d8edd78d02e45da30db3d6caac946d5f0cfdadc556566a796c3db4d3f29
+generated: "2026-07-02T17:42:12.903469154Z"
