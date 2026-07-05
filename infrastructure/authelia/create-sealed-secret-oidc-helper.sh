@@ -15,17 +15,17 @@ secret_name="authelia-oidc-${client_name}"
 output_file_name="sealed-secret-${secret_name}.yaml"
 
 create_sealed_secret_oidc () {
-    namespace="$1"
-    client_id="$2"
-    client_secret="$3"
+    secret_namespace="$1"
+    client_id_literal="$2"
+    client_secret_literal="$3"
     output_file_path="$4"
     mkdir -p "$(dirname "$output_file_path")"
     kubectl create secret generic \
         --dry-run=client \
-        --namespace="${namespace}" \
+        --namespace="${secret_namespace}" \
         "${secret_name}" \
-        --from-literal="$client_id" \
-        --from-literal="$client_secret" \
+        --from-literal="$client_id_literal" \
+        --from-literal="$client_secret_literal" \
         --output=yaml |
     kubeseal --format=yaml --sealed-secret-file="${output_file_path}"
 }
