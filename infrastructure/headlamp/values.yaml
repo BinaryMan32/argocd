@@ -8,7 +8,7 @@ headlamp:
     - name: OIDC_ISSUER_URL
       value: https://auth.int.fivebytestudios.com
     - name: OIDC_SCOPES
-      value: "openid,profile,email,groups"
+      value: "openid,profile,email,groups,offline_access"
   config:
     oidc:
       secret:

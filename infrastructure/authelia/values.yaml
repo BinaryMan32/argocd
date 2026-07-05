@@ -124,7 +124,7 @@ authelia:
               path: /secrets/authelia-oidc-headlamp/client-secret-digest
             redirect_uris:
               - https://headlamp.int.fivebytestudios.com/oidc-callback
-            scopes: ["openid", "profile", "email", "groups"]
+            scopes: ["openid", "profile", "email", "groups", "offline_access"]
             require_pkce: false
             authorization_policy: two_factor
             token_endpoint_auth_method: client_secret_basic
