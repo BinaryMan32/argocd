@@ -49,9 +49,10 @@ Under `Connect`/`Notifications`, add Discord messaging
 2. choose `Discord`
 3. in Discord's **Edit Channel** > **Integrations** > **Webhooks**, create a hook with the app's name and copy the URL
 4. paste the url into `Webhook URL`
-5. in radarr and sonarr, uncheck some triggers which are too noisy:
+5. uncheck some triggers which are too noisy:
     - `On Grab`
-    - `On File Import`
+    - `On Movie Added` Radarr only
+    - `On File Import` Sonarr only, still has `On Import Complete` enabled
     - `On Rename`
 
 ### Components
