@@ -5,6 +5,9 @@
   "name": "bazarr"
 }
 {
+  "name": "infra-ops"
+}
+{
   "name": "jaeger"
 }
 {
