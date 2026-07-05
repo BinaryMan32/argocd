@@ -21,17 +21,23 @@ Under **Connect**:
 - add **Emby / Jellyfin** connection with settings:
   - **Name** `Jellyfin`
   - **Notification Triggers**
-    - On Grab
+    - ~~On Grab~~
     - On File Import
     - On File Upgrade
     - On Import Complete
     - On Rename
-    - On Series Add
-    - On Series Delete
+    - ~~On Series Add~~
+    - ~~On Series Delete~~
     - On Episode File Delete
     - On Episode File Delete For Upgrade
-    - On Application Upgrade
+    - ~~On Health Issue~~
+    - ~~On Health Restored~~
+    - ~~On Application Upgrade~~
+    - ~~On Manual Interaction Required~~
   - **Host** `jellyfin.media.svc.cluster.local`
   - **Port** `80`
-  - **API Key** (from jellyfin settings)
-  - **Update Library** (enabled by default)
+  - **API Key** create `New API Key` named `sonarr` at [https://jellyfin.int.fivebytestudios.com/web/#/dashboard/keys](Jellyfin API Keys)
+  - **Send Notifications** off
+  - **Update Library** on
+  - **Map Paths From** `/data/media/tv`
+  - **Map Paths To** `/media/tv`

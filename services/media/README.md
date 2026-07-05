@@ -43,6 +43,17 @@ Under `Download Clients`
 5. Username (from bitwarden qbittorrent)
 6. Password (from bitwarden qbittorrent)
 
+Under `Connect`/`Notifications`, add Discord messaging
+
+1. click `+` to add
+2. choose `Discord`
+3. in Discord's **Edit Channel** > **Integrations** > **Webhooks**, create a hook with the app's name and copy the URL
+4. paste the url into `Webhook URL`
+5. in radarr and sonarr, uncheck some triggers which are too noisy:
+    - `On Grab`
+    - `On File Import`
+    - `On Rename`
+
 ### Components
 
 - [bazarr](./bazarr/): subtitles
