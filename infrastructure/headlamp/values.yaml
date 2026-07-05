@@ -16,3 +16,6 @@ headlamp:
       externalSecret:
         enabled: true
         name: authelia-oidc-headlamp
+        # Work around for https://github.com/kubernetes-sigs/headlamp/pull/5573
+        # Set -oidc-scopes argument from outside the secret
+        hasScopes: true
