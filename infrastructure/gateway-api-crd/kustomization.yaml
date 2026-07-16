@@ -1,5 +1,5 @@
 resources:
-  - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.0/standard-install.yaml
+  - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.1/standard-install.yaml
   - resources/cluster-role-binding-gateway-api-cluster-view.yaml
   - resources/cluster-role-gateway-api-cluster-view.yaml
   - resources/cluster-role-gateway-api-view.yaml
