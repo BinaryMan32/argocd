@@ -22,18 +22,18 @@ Under **Connect**:
   - **Name** `Jellyfin`
   - **Notification Triggers**
     - ~~On Grab~~
-    - On File Import
-    - On File Upgrade
+    - ~~On File Import~~
+    - ~~On File Upgrade~~
     - On Import Complete
-    - On Rename
+    - ~~On Rename~~
     - ~~On Series Add~~
     - ~~On Series Delete~~
-    - On Episode File Delete
-    - On Episode File Delete For Upgrade
+    - ~~On Episode File Delete~~
+    - ~~On Episode File Delete For Upgrade~~
     - ~~On Health Issue~~
     - ~~On Health Restored~~
-    - ~~On Application Upgrade~~
-    - ~~On Manual Interaction Required~~
+    - On Application Upgrade
+    - On Manual Interaction Required
   - **Host** `jellyfin.media.svc.cluster.local`
   - **Port** `80`
   - **API Key** create `New API Key` named `sonarr` at [https://jellyfin.int.fivebytestudios.com/web/#/dashboard/keys](Jellyfin API Keys)
