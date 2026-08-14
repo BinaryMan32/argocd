@@ -20,7 +20,7 @@ spec:
               value: homepage.{{ .Values.domain.intranet }}
           config:
             services:
-              # icons from https://github.com/walkxcode/dashboard-icons
+              # icons from https://gethomepage.dev/configs/services/#icons
               - Productivity:
                 - External:
                   - NextCloud:
