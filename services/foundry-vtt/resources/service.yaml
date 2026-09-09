@@ -4,7 +4,8 @@ metadata:
   name: foundry-vtt
 spec:
   selector:
-    app: foundry-vtt
+    app.kubernetes.io/instance: foundry-vtt
+    app.kubernetes.io/name: foundry-vtt
   ports:
     - name: web
       port: 80
