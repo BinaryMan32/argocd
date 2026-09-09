@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foundry-vtt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: foundry-vtt
+      app.kubernetes.io/name: foundry-vtt
+  template:
+    spec:
+      containers:
+        - name: foundryvtt-web
+          image: foundryvtt
+          # https://hub.docker.com/r/felddy/foundryvtt#environment-variables
+          env:
+            - name: FOUNDRY_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: foundry-vtt-user
+                  key: username
+            - name: FOUNDRY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: foundry-vtt-user
+                  key: password
+            - name: FOUNDRY_ADMIN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: foundry-vtt-admin
+                  key: key
+            - name: CONTAINER_CACHE_SIZE
+              value: "3"
+            - name: FOUNDRY_HOSTNAME
+              value: "foundry-vtt.int.fivebytestudios.com"
+            - name: FOUNDRY_PROXY_SSL
+              value: "true"
+            - name: FOUNDRY_TELEMETRY
+              value: "true"
+          ports:
+            - name: web
+              containerPort: 30000
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: foundry-vtt-data

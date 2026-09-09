@@ -44,6 +44,9 @@ spec:
                 bazarr:
                   hostname: "bazarr.{{ .Values.domain.intranet }}"
                   namespace: media
+                foundry-vtt:
+                  hostname: "foundry-vtt.{{ .Values.domain.intranet }}"
+                  namespace: foundry-vtt
                 grafana:
                   hostname: "grafana.{{ .Values.domain.intranet }}"
                   namespace: kube-prometheus-stack

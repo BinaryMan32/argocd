@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./resources/httproute.yaml
+  - ./resources/deployment.yaml
+  - ./resources/pvc-data.yaml
+  - ./resources/sealed-secret-admin.yaml
+  - ./resources/sealed-secret-user.yaml
+  - ./resources/service.yaml
+labels:
+  - includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: foundry-vtt
+      app.kubernetes.io/name: foundry-vtt
+images:
+  - name: foundryvtt
+    newName: felddy/foundryvtt
+    newTag: 14.367.0
+buildMetadata: [managedByLabel]
