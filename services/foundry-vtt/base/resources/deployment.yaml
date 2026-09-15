@@ -5,9 +5,7 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      app.kubernetes.io/instance: foundry-vtt
-      app.kubernetes.io/name: foundry-vtt
+    matchLabels: {}
   template:
     spec:
       containers:
@@ -32,8 +30,6 @@ spec:
                   key: key
             - name: CONTAINER_CACHE_SIZE
               value: "3"
-            - name: FOUNDRY_HOSTNAME
-              value: "foundry-vtt.int.fivebytestudios.com"
             - name: FOUNDRY_PROXY_SSL
               value: "true"
             - name: FOUNDRY_TELEMETRY

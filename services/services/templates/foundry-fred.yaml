@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: foundry-vtt
+  name: foundry-vtt-fred
   namespace: argocd
 spec:
   project: {{ .Values.project.name }}
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
-    path: {{ .Values.project.path }}/foundry-vtt
+    path: {{ .Values.project.path }}/foundry-vtt/fred
   destination:
     namespace: foundry-vtt
     server: {{ .Values.destination.server }}

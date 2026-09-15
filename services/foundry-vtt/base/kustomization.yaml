@@ -4,13 +4,11 @@ resources:
   - ./resources/httproute.yaml
   - ./resources/deployment.yaml
   - ./resources/pvc-data.yaml
-  - ./resources/sealed-secret-admin.yaml
-  - ./resources/sealed-secret-user.yaml
   - ./resources/service.yaml
 labels:
   - includeTemplates: true
+    includeSelectors: true
     pairs:
-      app.kubernetes.io/instance: foundry-vtt
       app.kubernetes.io/name: foundry-vtt
 images:
   - name: foundryvtt

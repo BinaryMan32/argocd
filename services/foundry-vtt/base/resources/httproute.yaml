@@ -9,6 +9,5 @@ spec:
   hostnames:
     - foundry-vtt.int.fivebytestudios.com
   rules:
-    - backendRefs:
-        - name: foundry-vtt
-          port: 80
+    # configured in app patches since nameSuffix doesn't change backendRefs name
+    - backendRefs: []

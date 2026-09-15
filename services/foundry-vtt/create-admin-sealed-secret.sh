@@ -1,5 +1,8 @@
 #!/usr/bin/bash
-script_dir=$(dirname $(realpath $0))
+if [[ ! -f $PWD/kustomization.yaml ]]; then
+  echo "must be run from a foundry-vtt directory with a kustomization.yaml"
+  exit 1
+fi
 
 # https://github.com/lldap/lldap/blob/main/generate_secrets.sh
 print_random () {
@@ -9,7 +12,7 @@ print_random () {
 kubectl create secret generic \
     --dry-run=client \
     --namespace=foundry-vtt \
-    foundry-vtt-admin \
+    foundry-vtt-admin-$(basename $PWD) \
     --from-literal=key="$(print_random)" \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-admin.yaml
+kubeseal --format=yaml --sealed-secret-file=$PWD/resources/sealed-secret-admin.yaml
