@@ -13,21 +13,6 @@ spec:
           image: foundryvtt
           # https://hub.docker.com/r/felddy/foundryvtt#environment-variables
           env:
-            - name: FOUNDRY_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: foundry-vtt-user
-                  key: username
-            - name: FOUNDRY_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: foundry-vtt-user
-                  key: password
-            - name: FOUNDRY_ADMIN_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: foundry-vtt-admin
-                  key: key
             - name: CONTAINER_CACHE_SIZE
               value: "3"
             - name: FOUNDRY_PROXY_SSL

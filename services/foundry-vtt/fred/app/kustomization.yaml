@@ -5,4 +5,5 @@ resources:
 patches:
   - path: patches/hostname.yaml
   - path: patches/httproute-backendrefs.yaml
+  - path: patches/secrets.yaml
 nameSuffix: -fred

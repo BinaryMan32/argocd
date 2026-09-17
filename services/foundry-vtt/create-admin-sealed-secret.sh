@@ -4,6 +4,8 @@ if [[ ! -f $PWD/kustomization.yaml ]]; then
   exit 1
 fi
 
+INSTANCE="$(basename $PWD)"
+
 # https://github.com/lldap/lldap/blob/main/generate_secrets.sh
 print_random () {
   LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32
@@ -12,7 +14,7 @@ print_random () {
 kubectl create secret generic \
     --dry-run=client \
     --namespace=foundry-vtt \
-    foundry-vtt-admin-$(basename $PWD) \
+    foundry-vtt-admin-$INSTANCE \
     --from-literal=key="$(print_random)" \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$PWD/resources/sealed-secret-admin.yaml
+kubeseal --format=yaml --sealed-secret-file=$PWD/secrets/resources/sealed-secret-admin-$INSTANCE.yaml
