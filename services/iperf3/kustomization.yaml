@@ -12,5 +12,5 @@ labels:
 images:
   - name: alpine
     newName: alpine
-    newTag: "3.24.1"
+    newTag: "3.24.2"
 buildMetadata: [managedByLabel]
