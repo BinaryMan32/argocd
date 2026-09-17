@@ -14,5 +14,5 @@ labels:
 images:
   - name: prowlarr
     newName: linuxserver/prowlarr
-    newTag: 2.5.2.5491-ls160
+    newTag: 2.6.5.5623-ls161
 buildMetadata: [managedByLabel]
