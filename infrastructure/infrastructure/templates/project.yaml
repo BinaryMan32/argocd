@@ -14,7 +14,7 @@ spec:
   - https://cloudnative-pg.github.io/charts
   - https://coredns.github.io/helm
   - https://github.com/longhorn/longhorn
-  - https://k8s-gateway.github.io/k8s_gateway
+  - https://k8s-gateway.kryptonian.kapsi.fi
   - https://kubernetes-sigs.github.io/headlamp
   - https://kube-vip.github.io/helm-charts
   - https://kubereboot.github.io/charts

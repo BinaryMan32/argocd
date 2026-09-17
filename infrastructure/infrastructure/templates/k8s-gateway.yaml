@@ -8,7 +8,7 @@ metadata:
 spec:
   project: {{ .Values.project.name }}
   source:
-    repoURL: https://k8s-gateway.github.io/k8s_gateway
+    repoURL: https://k8s-gateway.kryptonian.kapsi.fi/
     chart: k8s-gateway
     targetRevision: 3.7.2
     helm:
