@@ -20,6 +20,9 @@ spec:
           image: navidrome
           # https://www.navidrome.org/docs/usage/configuration-options/
           env:
+            # https://www.navidrome.org/docs/usage/integration/external-services
+            - name: ND_AGENTS
+              value: "lastfm,deezer,listenbrainz"
             - name: ND_BACKUP_PATH
               value: /backup
             - name: ND_CACHEFOLDER
@@ -32,15 +35,15 @@ spec:
               value: /music
             - name: ND_PORT
               value: "4533"
-            - name: ND_SPOTIFY_ID
+            - name: ND_LASTFM_APIKEY
               valueFrom:
                 secretKeyRef:
-                  name: spotify-navidrome
-                  key: id
-            - name: ND_SPOTIFY_SECRET
+                  name: navidrome-lastfm
+                  key: apikey
+            - name: ND_LASTFM_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: spotify-navidrome
+                  name: navidrome-lastfm
                   key: secret
           ports:
             - name: http

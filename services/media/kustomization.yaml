@@ -10,5 +10,5 @@ resources:
   - resources/jellyfin-pvc-media.yaml
   - resources/role-binding-media-ops-view.yaml
   - resources/sealed-secret-protonvpn-credentials.yaml
-  - resources/sealed-secret-spotify-navidrome.yaml
+  - resources/sealed-secret-navidrome-lastfm.yaml
 buildMetadata: [managedByLabel]
