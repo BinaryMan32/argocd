@@ -13,5 +13,5 @@ labels:
 images:
   - name: foundryvtt
     newName: felddy/foundryvtt
-    newTag: 14.367.0
+    newTag: 14.368.0
 buildMetadata: [managedByLabel]
