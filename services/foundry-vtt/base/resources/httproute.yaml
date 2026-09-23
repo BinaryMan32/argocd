@@ -6,8 +6,8 @@ spec:
   parentRefs:
     - name: traefik-intranet
       namespace: traefik
-  hostnames:
-    - foundry-vtt.int.fivebytestudios.com
+  # Configured in app patches
+  hostnames: []
   rules:
     # configured in app patches since nameSuffix doesn't change backendRefs name
     - backendRefs: []
