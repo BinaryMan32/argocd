@@ -8,8 +8,7 @@ spec:
   secretName: {{ default $name $certificate.secretName }}
   issuerRef:
     kind: ClusterIssuer
-    # TODO change to prod
-    name: external-dns01-staging
+    name: external-dns01-prod
   dnsNames:
     {{- toYaml $certificate.dnsNames | nindent 4 }}
 {{- end }}
