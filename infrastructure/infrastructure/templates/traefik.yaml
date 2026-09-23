@@ -28,7 +28,8 @@ spec:
         intranet:
           wildcardCertificates:
             foundry-vtt-wildcard-intranet-tls:
-              dnsName: "foundry-vtt.{{ .Values.domain.intranet }}"
+              dnsNames:
+                - "*.foundry-vtt.{{ .Values.domain.intranet }}"
           gateway:
             listeners:
               https:
