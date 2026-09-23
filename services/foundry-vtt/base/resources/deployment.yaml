@@ -15,6 +15,10 @@ spec:
           env:
             - name: CONTAINER_CACHE_SIZE
               value: "3"
+            - name: FOUNDRY_COMPRESS_WEBSOCKET
+              value: "true"
+            - name: FOUNDRY_MINIFY_STATIC_FILES
+              value: "true"
             - name: FOUNDRY_PROXY_SSL
               value: "true"
             - name: FOUNDRY_TELEMETRY
