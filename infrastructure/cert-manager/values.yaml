@@ -13,6 +13,9 @@ cert-manager:
     enableGatewayAPI: true
 email: fettinge@gmail.com
 
+external:
+  # override from ArgoCD App
+  dnsZone: ""
 intranet:
   # override from ArgoCD App
   dnsZone: ""

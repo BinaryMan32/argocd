@@ -122,6 +122,10 @@ spec:
                   hostname: "tududi.{{ .Values.domain.intranet }}"
                   namespace: tududi
         external:
+          wildcardCertificates:
+            foundry-vtt-wildcard-external-tls:
+              dnsNames:
+                - "*.foundry-vtt.{{ .Values.domain.external }}"
           gateway:
             listeners:
               https:
