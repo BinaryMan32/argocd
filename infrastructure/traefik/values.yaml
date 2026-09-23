@@ -1,6 +1,7 @@
 dashboard:
   hostname: null
 intranet:
+  wildcardCertificates: {}
   gateway:
     listeners:
       http: {}

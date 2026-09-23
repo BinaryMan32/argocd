@@ -26,6 +26,9 @@ spec:
             hostnames:
               - "www.playwhen.{{ .Values.domain.fbs }}"
         intranet:
+          wildcardCertificates:
+            foundry-vtt-wildcard-intranet-tls:
+              dnsName: foundry-vtt.{{ .Values.domain.intranet }}
           gateway:
             listeners:
               https:
@@ -45,7 +48,8 @@ spec:
                   hostname: "bazarr.{{ .Values.domain.intranet }}"
                   namespace: media
                 foundry-vtt:
-                  hostname: "fred.foundry-vtt.{{ .Values.domain.intranet }}"
+                  certificateRef: foundry-vtt-wildcard-intranet-tls
+                  hostname: "*.foundry-vtt.{{ .Values.domain.intranet }}"
                   namespace: foundry-vtt
                 grafana:
                   hostname: "grafana.{{ .Values.domain.intranet }}"
