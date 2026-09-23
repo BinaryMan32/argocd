@@ -8,3 +8,4 @@ labels:
     includeSelectors: true
     pairs:
       app.kubernetes.io/instance: fred
+      app.kubernetes.io/name: foundry-vtt
