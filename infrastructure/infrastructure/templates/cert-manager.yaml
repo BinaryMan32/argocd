@@ -15,9 +15,6 @@ spec:
       valueFiles:
         - values.yaml
       valuesObject:
-        ca:
-          dnsName: {{ .Values.domain.intranet }}
-          organization: Five Byte Studios Intranet
         intranet:
           dnsZone: {{ .Values.domain.intranet }}
   destination:
