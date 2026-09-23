@@ -11,7 +11,7 @@ spec:
     - name: {{ $name }}
       port: 9443
       protocol: HTTPS
-      hostname: {{ $listener.hostname }}
+      hostname: {{ $listener.hostname | quote }}
       allowedRoutes:
 {{- if $listener.namespace }}
         namespaces:
