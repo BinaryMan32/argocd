@@ -3,12 +3,5 @@ kind: HTTPRoute
 metadata:
   name: foundry-vtt-external
 spec:
-  parentRefs:
-    - name: traefik-external
-      namespace: traefik
   hostnames:
     - allen.foundry-vtt.wildfreddy.fivebytestudios.com
-  rules:
-    - backendRefs:
-      - name: foundry-vtt-allen
-        port: 80

@@ -1,0 +1,12 @@
+# Teach kustomize which HTTPRoute fields reference other resources,
+# so instance nameSuffix is applied to them as well
+nameReference:
+  - kind: Service
+    fieldSpecs:
+      - kind: HTTPRoute
+        path: spec/rules/backendRefs/name
+  - kind: Middleware
+    group: traefik.io
+    fieldSpecs:
+      - kind: HTTPRoute
+        path: spec/rules/filters/extensionRef/name

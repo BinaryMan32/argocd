@@ -1,0 +1,11 @@
+# Foundry doesn't throttle admin or player login attempts, so limit them per client IP.
+# Burst allows a group of players sharing one IP to join at the same time.
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: foundry-vtt-auth-ratelimit
+spec:
+  rateLimit:
+    average: 3
+    period: 1m
+    burst: 5
