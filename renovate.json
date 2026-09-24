@@ -45,6 +45,13 @@
         "linuxserver/bazarr"
       ],
       "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-ls(?<build>\\d+)$"
+    },
+    {
+      "description": "avoid restarting foundry during evening game sessions (6pm-2am)",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["felddy/foundryvtt"],
+      "timezone": "America/Chicago",
+      "schedule": ["* 2-19 * * *"]
     }
  ],
   "argocd": {
