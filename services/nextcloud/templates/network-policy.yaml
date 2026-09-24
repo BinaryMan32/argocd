@@ -1,0 +1,74 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: nextcloud-access
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: app
+      app.kubernetes.io/instance: nextcloud
+      app.kubernetes.io/name: nextcloud
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Requests from ingress controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+              app.kubernetes.io/instance: traefik
+      ports:
+        - protocol: TCP
+          port: http
+
+    # Requests from metrics exporter
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: metrics
+              app.kubernetes.io/instance: nextcloud
+              app.kubernetes.io/name: nextcloud
+      ports:
+        - protocol: TCP
+          port: http
+
+  egress:
+    # Allow DNS
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: coredns
+              app.kubernetes.io/name: coredns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+
+    # Allow database
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: nextcloud-db
+      ports:
+        - protocol: TCP
+          port: postgresql
+
+    # Allow egress to internet but not in cluster
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+            - 10.0.0.0/8
+            - 192.168.0.0/16
+            - 172.16.0.0/12
+      ports:
+        - protocol: TCP
+          port: 443
