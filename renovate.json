@@ -51,7 +51,7 @@
       "matchDatasources": ["docker"],
       "matchPackageNames": ["felddy/foundryvtt"],
       "timezone": "America/Chicago",
-      "schedule": ["* 2-19 * * *"]
+      "schedule": ["* 2-17 * * *"]
     }
  ],
   "argocd": {
