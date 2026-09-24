@@ -6,6 +6,7 @@ resources:
   - resources/authelia-middleware.yaml
   - resources/jellyfin-cache-images-pvc.yaml
   - resources/jellyfin-intranet-httproute.yaml
+  - resources/jellyfin-network-policy.yaml
   - resources/jellyfin-pv-media.yaml
   - resources/jellyfin-pvc-media.yaml
   - resources/role-binding-media-ops-view.yaml
