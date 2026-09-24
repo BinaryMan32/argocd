@@ -1,0 +1,28 @@
+# The kubernetesCRD provider is enabled for Middleware, but it also loads
+# IngressRoutes from every namespace. An IngressRoute can use any entrypoint,
+# match any host and, with allowCrossNamespace, target a service in any
+# namespace, bypassing the Gateway listener restrictions. Routes must use
+# Gateway API instead, so reject IngressRoutes cluster wide.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: deny-traefik-ingressroute
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ["traefik.io"]
+        apiVersions: ["*"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["ingressroutes", "ingressroutetcps", "ingressrouteudps"]
+  validations:
+    - expression: "false"
+      message: "Traefik IngressRoutes are not allowed, use Gateway API routes instead"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: deny-traefik-ingressroute
+spec:
+  policyName: deny-traefik-ingressroute
+  validationActions: ["Deny"]
