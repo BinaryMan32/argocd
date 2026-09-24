@@ -29,6 +29,12 @@ nextcloud:
       valueFrom:
         fieldRef:
           fieldPath: status.podIP
+    # Use client IP from X-Forwarded-For set by traefik, so brute force
+    # protection and logs don't see every request coming from traefik pods.
+    # Read by reverse-proxy.config.php, value is the cluster pod CIDR.
+    # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/reverse_proxy_configuration.html
+    - name: "TRUSTED_PROXIES"
+      value: "10.42.0.0/16"
     existingSecret:
       enabled: true
       secretName: nextcloud-admin
