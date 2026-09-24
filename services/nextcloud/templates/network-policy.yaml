@@ -25,6 +25,19 @@ spec:
         - protocol: TCP
           port: http
 
+    # Requests from prometheus, since servicemonitor also selects nextcloud service
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-prometheus-stack
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus
+              app.kubernetes.io/instance: kube-prometheus-stack-prometheus
+      ports:
+        - protocol: TCP
+          port: http
+
     # Requests from metrics exporter
     - from:
         - podSelector:
