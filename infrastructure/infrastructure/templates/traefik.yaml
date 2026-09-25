@@ -126,6 +126,12 @@ spec:
             foundry-vtt-wildcard-external-tls:
               dnsNames:
                 - "*.foundry-vtt.{{ .Values.domain.external }}"
+            play-when-prod-tls:
+              dnsNames:
+                - "*.playwhen.{{ .Values.domain.fbs }}"
+            root-wildcard-external-tls:
+              dnsNames:
+                - "*.{{ .Values.domain.external }}"
           gateway:
             listeners:
               https:
