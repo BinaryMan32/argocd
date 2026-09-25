@@ -40,6 +40,26 @@ spec:
                     description: Task Management
                     namespace: tududi
                     app: tududi
+                - Games:
+                  - External:
+                    - Foundry VTT (Fred):
+                        icon: foundry-vtt.png
+                        href: "https://fred.foundry-vtt.{{ .Values.domain.external }}/"
+                        description: Virtual Tabletop
+                        namespace: foundry-vtt
+                        app: foundry-vtt
+                        podSelector: >-
+                          app.kubernetes.io/name=foundry-vtt,
+                          app.kubernetes.io/instance=fred
+                    - Foundry VTT (Allen):
+                        icon: foundry-vtt.png
+                        href: "https://allen.foundry-vtt.{{ .Values.domain.external }}/"
+                        description: Virtual Tabletop
+                        namespace: foundry-vtt
+                        app: foundry-vtt
+                        podSelector: >-
+                          app.kubernetes.io/name=foundry-vtt,
+                          app.kubernetes.io/instance=allen
               - Media:
                 - External:
                   - Navidrome:
