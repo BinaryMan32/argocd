@@ -21,4 +21,4 @@ spec:
         selector:
           # https://cert-manager.io/docs/configuration/acme/#dns-zones
           dnsZones:
-            - "{{ .Values.external.dnsZone }}"
+            {{- toYaml .Values.external.dnsZones | nindent 12 }}

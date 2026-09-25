@@ -24,7 +24,7 @@ spec:
               - "www.stage.playwhen.{{ .Values.domain.intranet }}"
           external:
             hostnames:
-              - "www.playwhen.{{ .Values.domain.fbs }}"
+              - "www.{{ .Values.domain.playwhen }}"
         intranet:
           wildcardCertificates:
             foundry-vtt-wildcard-intranet-tls:
@@ -128,7 +128,7 @@ spec:
                 - "*.foundry-vtt.{{ .Values.domain.external }}"
             play-when-prod-tls:
               dnsNames:
-                - "*.playwhen.{{ .Values.domain.fbs }}"
+                - "*.{{ .Values.domain.playwhen }}"
             root-wildcard-external-tls:
               dnsNames:
                 - "*.{{ .Values.domain.external }}"
@@ -146,23 +146,20 @@ spec:
                   hostname: "*.foundry-vtt.{{ .Values.domain.external }}"
                   namespace: foundry-vtt
                 jellyfin:
+                  certificateRef: root-wildcard-external-tls
                   hostname: "jellyfin.{{ .Values.domain.external }}"
                   namespace: media
-                  certificateRef: jellyfin-external-tls
                 navidrome:
+                  certificateRef: root-wildcard-external-tls
                   hostname: "navidrome.{{ .Values.domain.external }}"
                   namespace: media
                 nextcloud:
+                  certificateRef: root-wildcard-external-tls
                   hostname: "nextcloud.{{ .Values.domain.external }}"
                   namespace: nextcloud
-                play-when-prod-dex:
-                  hostname: "dex.playwhen.{{ .Values.domain.fbs }}"
-                  namespace: play-when-prod
-                play-when-prod-tinyauth:
-                  hostname: "tinyauth.playwhen.{{ .Values.domain.fbs }}"
-                  namespace: play-when-prod
-                play-when-prod-www:
-                  hostname: "www.playwhen.{{ .Values.domain.fbs }}"
+                play-when-prod:
+                  certificateRef: play-when-prod-tls
+                  hostname: "*.{{ .Values.domain.playwhen }}"
                   namespace: play-when-prod
         # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
         traefik:

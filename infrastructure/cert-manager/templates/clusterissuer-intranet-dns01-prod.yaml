@@ -21,5 +21,4 @@ spec:
         selector:
           # https://cert-manager.io/docs/configuration/acme/#dns-zones
           dnsZones:
-            - "{{ .Values.intranet.dnsZone }}"
-            - "wildfreddy.fivebytestudios.com"
+            {{- toYaml .Values.intranet.dnsZones | nindent 12 }}

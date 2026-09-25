@@ -16,9 +16,12 @@ spec:
         - values.yaml
       valuesObject:
         external:
-          dnsZone: {{ .Values.domain.external }}
+          dnsZones:
+            - {{ .Values.domain.external }}
+            - {{ .Values.domain.playwhen }}
         intranet:
-          dnsZone: {{ .Values.domain.intranet }}
+          dnsZones:
+            - {{ .Values.domain.intranet }}
   destination:
     namespace: cert-manager
     server: {{ .Values.destination.server }}

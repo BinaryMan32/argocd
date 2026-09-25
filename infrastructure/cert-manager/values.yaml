@@ -15,7 +15,7 @@ email: fettinge@gmail.com
 
 external:
   # override from ArgoCD App
-  dnsZone: ""
+  dnsZones: []
 intranet:
   # override from ArgoCD App
-  dnsZone: ""
+  dnsZones: []
