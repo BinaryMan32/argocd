@@ -29,7 +29,8 @@ Under `General`:
 
 Security Settings:
 
-1. Authentication `External` (Can't be set from the UI, must edit `/config/config.xml`)
+1. Authentication `External`
+   (Can't be set from the UI, edit `AuthenticationMethod` in `/config/config.xml`)
 2. Authentication Required `Enabled`
 3. Trusted Networks `10.42.0.0/15`
 
