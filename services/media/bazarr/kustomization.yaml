@@ -18,5 +18,5 @@ labels:
 images:
   - name: bazarr
     newName: linuxserver/bazarr
-    newTag: v1.6.1-ls365
+    newTag: v1.6.2-ls366
 buildMetadata: [managedByLabel]
