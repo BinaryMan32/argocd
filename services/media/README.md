@@ -27,6 +27,14 @@ Some settings are common to prowlarr, radarr, and sonarr.
 
 Under `General`:
 
+Security Settings:
+
+1. Authentication `External` (Can't be set from the UI, must edit `/config/config.xml`)
+2. Authentication Required `Enabled`
+3. Trusted Networks `10.42.0.0/15`
+
+Proxy Settings:
+
 1. enable `Use Proxy`
 2. Hostname `vpn-http-proxy.media.svc.cluster.local`
 3. Port `8080`
