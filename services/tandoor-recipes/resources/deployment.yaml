@@ -47,6 +47,7 @@ spec:
             name: static
             # mount as subPath due to lost+found on ext4 pvc
             subPath: files
+        # https://docs.tandoor.dev/system/configuration/
         env:
           - name: DEBUG
             value: "0"
