@@ -35,6 +35,12 @@ spec:
                     description: Home Automation
                     namespace: home-assistant
                     app: home-assistant
+                - Tandoor Recipes:
+                    icon: tandoor-recipes.png
+                    href: "https://tandoor.{{ .Values.domain.intranet }}/"
+                    description: Recipe Manager
+                    namespace: tandoor-recipes
+                    app: tandoor-recipes
                 - Tududi:
                     href: "https://tududi.{{ .Values.domain.intranet }}/"
                     description: Task Management
