@@ -16,12 +16,18 @@ spec:
         imagePullPolicy: IfNotPresent
         startupProbe:
           httpGet:
+            httpHeaders:
+              - name: Host
+                value: tandoor.int.fivebytestudios.com
             path: /
             port: http
           periodSeconds: 10
           failureThreshold: 12
         readinessProbe:
           httpGet:
+            httpHeaders:
+              - name: Host
+                value: tandoor.int.fivebytestudios.com
             path: /
             port: http
           periodSeconds: 10
