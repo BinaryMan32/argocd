@@ -34,10 +34,10 @@ spec:
         resources:
           requests:
             cpu: 250m
-            memory: 256Mi
+            memory: 512Mi
           limits:
             cpu: 2
-            memory: 512Mi
+            memory: 1Gi
         volumeMounts:
           - mountPath: /opt/recipes/mediafiles
             name: media
