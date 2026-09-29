@@ -52,6 +52,8 @@ spec:
             value: "0"
           - name: ALLOWED_HOSTS
             value: tandoor.int.fivebytestudios.com
+          - name: USE_X_FORWARDED_HOST
+            value: "True"
           - name: SECRET_KEY
             valueFrom:
               secretKeyRef:
