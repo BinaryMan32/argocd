@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tandoor-recipes
+  namespace: argocd
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/tandoor-recipes
+  destination:
+    namespace: tandoor-recipes
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

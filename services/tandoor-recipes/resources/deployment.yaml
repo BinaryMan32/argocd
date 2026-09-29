@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tandoor-recipes
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: recipes
+      environment: production
+  template:
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: recipes
+        image: vabene1111/recipes
+        imagePullPolicy: IfNotPresent
+        startupProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 10
+          failureThreshold: 6
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: 250m
+            memory: 64Mi
+          limits:
+            cpu: 1
+            memory: 128Mi
+        volumeMounts:
+          - mountPath: /opt/recipes/mediafiles
+            name: media
+            # mount as subPath due to lost+found on ext4 pvc
+            subPath: files
+          - mountPath: /opt/recipes/staticfiles
+            name: static
+            # mount as subPath due to lost+found on ext4 pvc
+            subPath: files
+        env:
+          - name: DEBUG
+            value: "0"
+          - name: ALLOWED_HOSTS
+            value: tandoor.int.fivebytestudios.com
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-recipes
+                key: secret_key
+          - name: DB_ENGINE
+            value: django.db.backends.postgresql
+          - name: POSTGRES_HOST
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-recipes-db-app
+                key: host
+          - name: POSTGRES_PORT
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-recipes-db-app
+                key: port
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-recipes-db-app
+                key: user
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-recipes-db-app
+                key: dbname
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-recipes-db-app
+                key: password
+        ports:
+          - name: http
+            containerPort: 80
+        securityContext:
+          runAsUser: 65534
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: tandoor-recipes-media
+        - name: static
+          persistentVolumeClaim:
+            claimName: tandoor-recipes-static

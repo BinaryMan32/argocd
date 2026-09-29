@@ -30,6 +30,9 @@ spec:
             foundry-vtt-wildcard-intranet-tls:
               dnsNames:
                 - "*.foundry-vtt.{{ .Values.domain.intranet }}"
+            root-wildcard-intranet-tls:
+              dnsNames:
+                - "*.{{ .Values.domain.intranet }}"
           gateway:
             listeners:
               https:
@@ -116,6 +119,10 @@ spec:
                 sonarr:
                   hostname: "sonarr.{{ .Values.domain.intranet }}"
                   namespace: media
+                tandoor-recipes:
+                  hostname: "tandoor.{{ .Values.domain.intranet }}"
+                  namespace: tandoor-recipes
+                  certificateRef: root-wildcard-intranet-tls
                 traefik-dashboard:
                   hostname: "traefik.{{ .Values.domain.intranet }}"
                 tududi:
