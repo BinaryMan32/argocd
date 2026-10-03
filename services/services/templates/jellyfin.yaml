@@ -6,78 +6,9 @@ metadata:
 spec:
   project: media
   source:
-    repoURL: https://jellyfin.github.io/jellyfin-helm
-    chart: jellyfin
-    targetRevision: 3.2.0
-    helm:
-      # https://github.com/jellyfin/jellyfin-helm/blob/master/charts/jellyfin/values.yaml
-      valuesObject:
-        # use Recreate deployment strategy to avoid multi attach for volume jellyfin-config
-        deploymentStrategy:
-          type: Recreate
-        persistence:
-          config:
-            storageClass: longhorn
-            size: 16Gi
-          media:
-            existingClaim: jellyfin-media
-        volumes:
-          - name: cache-images
-            persistentVolumeClaim:
-              claimName: jellyfin-cache-images
-          - name: cache-transcodes
-            emptyDir:
-              sizeLimit: 50Gi
-          - name: dev-dma-heap
-            hostPath:
-              path: /dev/dma_heap
-              type: Directory
-          - name: dev-dri
-            hostPath:
-              path: /dev/dri
-              type: Directory
-          - name: dev-mali0
-            hostPath:
-              path: /dev/mali0
-              type: CharDevice
-          - name: dev-mpp-service
-            hostPath:
-              path: /dev/mpp_service
-              type: CharDevice
-          - name: dev-rga
-            hostPath:
-              path: /dev/rga
-              type: CharDevice
-        volumeMounts:
-          - name: cache-images
-            mountPath: /cache/images
-          - name: cache-transcodes
-            mountPath: /cache/transcodes
-          - name: dev-dma-heap
-            mountPath: /dev/dma_heap
-          - name: dev-dri
-            mountPath: /dev/dri
-          - name: dev-mali0
-            mountPath: /dev/mali0
-          - name: dev-mpp-service
-            mountPath: /dev/mpp_service
-          - name: dev-rga
-            mountPath: /dev/rga
-        service:
-          type: LoadBalancer
-          port: 80
-          externalTrafficPolicy: Local
-        readinessProbe:
-          failureThreshold: 3
-        livenessProbe:
-          failureThreshold: 10
-        httpRoute:
-          enabled: true
-          parentRefs:
-            - name: traefik-external
-              namespace: traefik
-          hostnames:
-            - "jellyfin.{{ .Values.domain.external }}"
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/jellyfin
   destination:
     namespace: media
     server: {{ .Values.destination.server }}
