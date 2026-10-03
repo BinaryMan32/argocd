@@ -12,3 +12,5 @@ spec:
   destination:
     namespace: media
     server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
