@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+spec:
+  strategy:
+    # https://github.com/jellyfin/jellyfin-helm/blob/master/charts/jellyfin/values.yaml
+    type: Recreate
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector: {}
+  template:
+    spec:
+      serviceAccountName: jellyfin
+      securityContext: {}
+      containers:
+        - name: jellyfin
+          securityContext: {}
+          image: jellyfin
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8096
+              protocol: TCP
+          startupProbe:
+            failureThreshold: 30
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: http
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /media
+              name: media
+              readOnly: false
+            - mountPath: /cache
+              name: cache
+            - mountPath: /cache/images
+              name: cache-images
+            - mountPath: /cache/transcodes
+              name: cache-transcodes
+            - mountPath: /dev/dma_heap
+              name: dev-dma-heap
+            - mountPath: /dev/dri
+              name: dev-dri
+            - mountPath: /dev/mali0
+              name: dev-mali0
+            - mountPath: /dev/mpp_service
+              name: dev-mpp-service
+            - mountPath: /dev/rga
+              name: dev-rga
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: jellyfin-config
+        - name: media
+          persistentVolumeClaim:
+            claimName: jellyfin-media
+        - name: cache
+          emptyDir: {}
+        - name: cache-images
+          persistentVolumeClaim:
+            claimName: jellyfin-cache-images
+        - emptyDir:
+            sizeLimit: 50Gi
+          name: cache-transcodes
+        - hostPath:
+            path: /dev/dma_heap
+            type: Directory
+          name: dev-dma-heap
+        - hostPath:
+            path: /dev/dri
+            type: Directory
+          name: dev-dri
+        - hostPath:
+            path: /dev/mali0
+            type: CharDevice
+          name: dev-mali0
+        - hostPath:
+            path: /dev/mpp_service
+            type: CharDevice
+          name: dev-mpp-service
+        - hostPath:
+            path: /dev/rga
+            type: CharDevice
+          name: dev-rga
