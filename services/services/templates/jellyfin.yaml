@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: {{ .Values.source.repoURL }}
     targetRevision: {{ .Values.source.targetRevision }}
-    path: {{ .Values.project.path }}/jellyfin
+    path: {{ .Values.project.path }}/media/jellyfin
   destination:
     namespace: media
     server: {{ .Values.destination.server }}
