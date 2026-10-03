@@ -8,7 +8,10 @@ spec:
     type: Recreate
   replicas: 1
   revisionHistoryLimit: 3
-  selector: {}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: jellyfin
+      app.kubernetes.io/name: jellyfin
   template:
     spec:
       serviceAccountName: jellyfin
