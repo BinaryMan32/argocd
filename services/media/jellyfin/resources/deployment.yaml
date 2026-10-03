@@ -23,7 +23,7 @@ spec:
               containerPort: 8096
               protocol: TCP
           startupProbe:
-            failureThreshold: 30
+            failureThreshold: 60
             initialDelaySeconds: 0
             periodSeconds: 10
             tcpSocket:
