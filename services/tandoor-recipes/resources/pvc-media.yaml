@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: tandoor-recipes-media
 spec:
-  storageClassName: mercury-nfs
+  storageClassName: nfs-mercury-griffin-retain
   accessModes:
     - ReadWriteOnce
   resources:
