@@ -80,7 +80,7 @@ nextcloud:
     storageClass: longhorn
     nextcloudData:
       enabled: true
-      storageClass: mercury-nfs
+      storageClass: nfs-mercury-griffin-retain
   startupProbe:
     enabled: true
   metrics:
