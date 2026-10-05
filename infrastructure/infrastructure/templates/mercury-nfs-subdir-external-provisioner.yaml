@@ -22,7 +22,6 @@ spec:
         storageClass:
           name: mercury-nfs
           pathPattern: ${.PVC.namespace}/${.PVC.name}
-          onDelete: retain
   destination:
     namespace: nfs
     server: {{ .Values.destination.server }}
