@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: csi-driver-nfs
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: https://kubernetes-csi.github.io/csi-driver-nfs
+    chart: csi-driver-nfs
+    targetRevision: 4.13.4
+    helm:
+      # https://github.com/kubernetes-csi/csi-driver-nfs/tree/master/charts
+      # https://github.com/kubernetes-csi/csi-driver-nfs/blob/master/docs/driver-parameters.md
+      valuesObject:
+        storageClasses:
+          - name: nfs-mercury-griffin-delete
+            parameters:
+              server: {{ .Values.nfs.server | quote }}
+              share: "{{ .Values.nfs.path }}/provisioned"
+              subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
+              onDelete: delete
+            reclaimPolicy: Delete
+            volumeBindingMode: Immediate
+          - name: nfs-mercury-griffin-retain
+            parameters:
+              server: {{ .Values.nfs.server | quote }}
+              share: "{{ .Values.nfs.path }}/provisioned"
+              subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
+              onDelete: retain
+            reclaimPolicy: Delete
+            volumeBindingMode: Immediate
+  destination:
+    namespace: nfs
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
