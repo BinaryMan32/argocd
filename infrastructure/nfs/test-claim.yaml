@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: test-claim
 spec:
-  storageClassName: mercury-nfs
+  storageClassName: nfs-mercury-griffin-delete
   accessModes:
     - ReadWriteMany
   resources:

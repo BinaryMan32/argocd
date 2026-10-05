@@ -40,7 +40,7 @@ Tools for accessing and maintaining cluster nodes.
 
 Additional infrastructure used only by non-infrastructure projects.
 
-1. [mercury-nfs-subdir-external-provisioner](./infrastructure/templates/mercury-nfs-subdir-external-provisioner.yaml)
+1. [csi-driver-nfs](./infrastructure/templates/csi-driver-nfs.yaml)
 2. [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
 
 ## Manual Kubernetes Changes
@@ -115,15 +115,18 @@ kubectl get storageclass
 ```
 
 ```text
-NAME                   PROVISIONER                                             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-local-path (default)   rancher.io/local-path                                   Delete          WaitForFirstConsumer   false                  527d
-longhorn               driver.longhorn.io                                      Retain          Immediate              true                   45d
-longhorn-static        driver.longhorn.io                                      Delete          Immediate              true                   85d
-mercury-nfs            cluster.local/mercury-nfs-subdir-external-provisioner   Delete          Immediate              true                   65d
-topolvm-hdd-ext4       topolvm.io                                              Retain          WaitForFirstConsumer   true                   162d
-topolvm-hdd-xfs        topolvm.io                                              Retain          WaitForFirstConsumer   true                   162d
-topolvm-ssd-ext4       topolvm.io                                              Retain          WaitForFirstConsumer   true                   167d
-topolvm-ssd-xfs        topolvm.io                                              Retain          WaitForFirstConsumer   true                   167d
+NAME                         PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+local-path (default)         rancher.io/local-path   Delete          WaitForFirstConsumer   false                  2y243d
+longhorn                     driver.longhorn.io      Retain          Immediate              true                   492d
+longhorn-local-ext4          driver.longhorn.io      Retain          Immediate              true                   336d
+longhorn-local-xfs           driver.longhorn.io      Retain          Immediate              true                   336d
+longhorn-static              driver.longhorn.io      Delete          Immediate              true                   531d
+nfs-mercury-griffin-delete   nfs.csi.k8s.io          Delete          Immediate              true                   4h27m
+nfs-mercury-griffin-retain   nfs.csi.k8s.io          Delete          Immediate              true                   4h27m
+topolvm-hdd-ext4             topolvm.io              Retain          WaitForFirstConsumer   true                   609d
+topolvm-hdd-xfs              topolvm.io              Retain          WaitForFirstConsumer   true                   609d
+topolvm-ssd-ext4             topolvm.io              Retain          WaitForFirstConsumer   true                   613d
+topolvm-ssd-xfs              topolvm.io              Retain          WaitForFirstConsumer   true                   613d
 ```
 
 [kube-prometheus-stack]: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack

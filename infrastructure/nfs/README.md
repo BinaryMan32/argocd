@@ -1,10 +1,10 @@
-# NFS provisioner
+# NFS Storage Class
 
 This directory doesn't actually deploy anything, but it documents manual setup
 of the NFS server and verification.
 
-See [mercury-nfs-subdir-external-provisioner.yaml][] which uses
-[nfs-subdir-external-provisioner][] to provision volumes of class `mercury-nfs`.
+See [csi-driver-nfs.yaml][] which uses [csi-driver-nfs][] to provision volumes
+of class `nfs-mercury-griffin-retain`.
 
 ## Configuring nfs server
 
@@ -36,9 +36,9 @@ sudo apt update
 sudo apt install nfs-kernel-server
 ```
 
-`nfs-subdir-external-provisioner` will run as root, but the nfs server will map
-to the user `nobody` to avoid trusting remote `root` users which grants access
-to all files. Ensure that the provisioner has permission to create directories:
+The nfs server will map all client users to the user `nobody` to avoid trusting
+remote `root` users which grants access to all files. Ensure that `csi-driver-nfs`
+has permission to create directories:
 
 ```sh
 sudo mkdir -p /mnt/raid/nfs/k8s/griffin/{volumes,longhorn-backup}
@@ -76,7 +76,7 @@ Verify from a client:
 
 ```sh
 sudo mkdir /mnt/nfs-test
-sudo mount -t nfs4 helios64:/k8s /mnt/nfs-test
+sudo mount -t nfs4 192.168.8.9:/k8s /mnt/nfs-test
 sudo umount /mnt/nfs-test
 ```
 
@@ -98,5 +98,5 @@ kubectl delete -f test-claim.yaml -f test-pod.yaml
 
 Now check the folder has been deleted.
 
-[mercury-nfs-subdir-external-provisioner.yaml]: ../infrastructure/templates/mercury-nfs-subdir-external-provisioner.yaml
-[nfs-subdir-external-provisioner]: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
+[csi-driver-nfs.yaml]: ../infrastructure/templates/csi-driver-nfs.yaml
+[csi-driver-nfs]: https://github.com/kubernetes-csi/csi-driver-nfs
