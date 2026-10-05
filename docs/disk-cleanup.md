@@ -5,7 +5,7 @@
 Push configuration files.
 
 ```sh
-for host in griffin7; do
+for host in griffin{0..8}; do
   cat docs/50-kubelet-image-gc.conf | ssh $host sudo tee /var/lib/rancher/k3s/agent/etc/kubelet.conf.d/50-kubelet-image-gc.conf
 done
 ```

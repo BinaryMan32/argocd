@@ -1,6 +1,6 @@
 # cgroup v2
 
-## enable cgroup v2 on Turing RK1
+## Enable cgroup v2 on Turing RK1
 
 Configure Turing RK1 Ubuntu `22.04` to use cgroup v2 by editing command line in `/boot/firmware/ubuntuEnv.txt`.
 Change `systemd.unified_cgroup_hierarchy=0` to `systemd.unified_cgroup_hierarchy=1`.
@@ -18,7 +18,7 @@ failed to validate kubelet configuration, error: kubelet is configured to not ru
 
 According to [About cgroup v2](https://kubernetes.io/docs/concepts/architecture/cgroups/) use of the deprecated cgroup v1 can be allowed by configuring `failCgroupV1: false`, but it will be completely removed in a year, or `1.38.0`.
 
-This is only required on turing rk1 nodes which are still running ubuntu 22.04.
+This is only required on turing rk1 nodes which are still running ubuntu 22.04 and can't be updated to use only cgroup v2.
 
 ```sh
 for host in griffin{0..8}; do
