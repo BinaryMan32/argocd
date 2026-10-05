@@ -19,16 +19,16 @@ spec:
           - name: nfs-mercury-griffin-delete
             parameters:
               server: {{ .Values.nfs.server | quote }}
-              share: "{{ .Values.nfs.path }}/provisioned"
-              subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
+              share: {{ .Values.nfs.path | quote }}
+              subDir: "provisioned/${pvc.metadata.namespace}/${pvc.metadata.name}"
               onDelete: delete
             reclaimPolicy: Delete
             volumeBindingMode: Immediate
           - name: nfs-mercury-griffin-retain
             parameters:
               server: {{ .Values.nfs.server | quote }}
-              share: "{{ .Values.nfs.path }}/provisioned"
-              subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
+              share: {{ .Values.nfs.path | quote }}
+              subDir: "provisioned/${pvc.metadata.namespace}/${pvc.metadata.name}"
               onDelete: retain
             reclaimPolicy: Delete
             volumeBindingMode: Immediate
