@@ -8,4 +8,4 @@ spec:
   resources:
     requests:
       storage: "1Gi"
-  storageClassName: mercury-nfs
+  storageClassName: nfs-mercury-griffin-retain
