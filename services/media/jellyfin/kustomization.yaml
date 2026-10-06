@@ -20,5 +20,5 @@ labels:
 images:
   - name: jellyfin
     newName: docker.io/jellyfin/jellyfin
-    newTag: "12.1"
+    newTag: "12.2"
 buildMetadata: [managedByLabel]
