@@ -1,0 +1,29 @@
+# The kubernetesCRD provider is enabled for Middleware, but it also loads
+# TraefikServices from every namespace. With allowCrossNamespace, a
+# TraefikService can target a service in any namespace, and an HTTPRoute
+# backendRef to it bypasses Gateway API ReferenceGrant checks. Routes must
+# reference Services directly instead, so reject TraefikServices cluster wide.
+# Built-in services like api@internal are not resources and are unaffected.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: deny-traefik-traefikservice
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ["traefik.io"]
+        apiVersions: ["*"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["traefikservices"]
+  validations:
+    - expression: "false"
+      message: "TraefikServices are not allowed, reference Services directly from Gateway API routes instead"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: deny-traefik-traefikservice
+spec:
+  policyName: deny-traefik-traefikservice
+  validationActions: ["Deny"]
