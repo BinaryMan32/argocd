@@ -66,6 +66,7 @@ seaweedfs:
 
   admin:
     enabled: true
+    allowInsecureBind: true
     nodeSelector: |
       kubernetes.io/arch: arm64
     data:
@@ -77,6 +78,51 @@ seaweedfs:
     enabled: true
     nodeSelector: |
       kubernetes.io/arch: arm64
+
+  networkPolicy:
+    enabled: true
+    # Allow prometheus to scrape metrics from all components (see `global.monitoring.enabled` above)
+    extraIngress:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: kube-prometheus-stack
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: prometheus
+                app.kubernetes.io/instance: kube-prometheus-stack-prometheus
+        ports:
+          - protocol: TCP
+            port: http
+    components:
+      # Allow traefik to access `admin` (see `admin.httpRoute` below)
+      admin:
+        extraIngress:
+          - from:
+              - namespaceSelector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: traefik
+                podSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: traefik
+                    app.kubernetes.io/instance: traefik
+            ports:
+              - protocol: TCP
+                port: http
+      # Allow traefik to access `s3` (see `s3.httpRoute` below)
+      s3:
+        extraIngress:
+          - from:
+              - namespaceSelector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: traefik
+                podSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: traefik
+                    app.kubernetes.io/instance: traefik
+            ports:
+              - protocol: TCP
+                port: http
 
 admin:
   httpRoute:
