@@ -133,6 +133,9 @@ spec:
                   namespace: tududi
         external:
           wildcardCertificates:
+            argocd-wildcard-external-tls:
+              dnsNames:
+                - "*.argocd.{{ .Values.domain.external }}"
             foundry-vtt-wildcard-external-tls:
               dnsNames:
                 - "*.foundry-vtt.{{ .Values.domain.external }}"
