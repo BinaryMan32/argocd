@@ -24,7 +24,8 @@ traefik:
   instanceLabelOverride: traefik
 
   global:
-    checkNewVersion: false
+    checkNewVersion: true
+    sendAnonymousUsage: true
 
   # Configure Network Ports and EntryPoints
   # EntryPoints are the network listeners for incoming traffic.
