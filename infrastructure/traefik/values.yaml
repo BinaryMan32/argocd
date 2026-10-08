@@ -104,6 +104,9 @@ traefik:
       enabled: true
       # Allow middleware from one namespace to chain middleware in another namespace
       allowCrossNamespace: true
+      # Use collision-safe names for generated routers, middlewares, and services
+      # https://doc.traefik.io/traefik/reference/install-configuration/providers/kubernetes/kubernetes-crd/#safenaming
+      safeNaming: true
     kubernetesIngress:
       enabled: false
     kubernetesGateway:
