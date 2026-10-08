@@ -10,7 +10,7 @@ spec:
       name: traefik-intranet
       namespace: traefik
   hostnames:
-    - argocd.int.fivebytestudios.com
+    - grpc.argocd.int.fivebytestudios.com
   rules:
     - backendRefs:
         - group: ''
@@ -18,8 +18,3 @@ spec:
           name: argocd-server
           port: 443
           weight: 1
-      matches:
-        - headers:
-            - name: Content-Type
-              type: RegularExpression
-              value: "^application/grpc.*$"
