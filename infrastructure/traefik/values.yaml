@@ -30,9 +30,18 @@ traefik:
   # Configure Network Ports and EntryPoints
   # EntryPoints are the network listeners for incoming traffic.
   ports:
+    traefik:
+      http:
+        # Reject requests with headers that alias another header (e.g. Remote_User for Remote-User),
+        # https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/#aliasheadersstrategy
+        aliasHeadersStrategy: reject
+    metrics:
+      http:
+        aliasHeadersStrategy: reject
     web:
       port: 80
       http:
+        aliasHeadersStrategy: reject
         redirections:
           entryPoint:
             to: websecure
@@ -40,16 +49,22 @@ traefik:
             permanent: true
     websecure:
       port: 443
+      http:
+        aliasHeadersStrategy: reject
     web-ext:
       port: 9080
       exposedPort: 80
       expose:
         external: true
+      http:
+        aliasHeadersStrategy: reject
     websecure-ext:
       port: 9443
       exposedPort: 443
       expose:
         external: true
+      http:
+        aliasHeadersStrategy: reject
 
   service:
     spec:
