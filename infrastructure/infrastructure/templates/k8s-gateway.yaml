@@ -14,17 +14,43 @@ spec:
     helm:
       # https://github.com/k8s-gateway/k8s_gateway/blob/master/charts/k8s-gateway/values.yaml
       valuesObject:
-        domain: {{ .Values.domain.intranet }}
-        watchedResources:
-          - Ingress
-          - Service
-          - HTTPRoute
+        servers:
+          - zones:
+              - zone: {{ .Values.domain.intranet }}
+            port: 53
+            plugins:
+              - name: errors
+              - name: health
+                configBlock: |-
+                  lameduck 5s
+              - name: ready
+              - name: k8s_gateway
+                parameters: {{ .Values.domain.intranet }}
+                configBlock: |-
+                  resources Service HTTPRoute
+                  ttl 300
+              - name: log
+              - name: forward
+                parameters: . /etc/resolv.conf
+              - name: cache
+                parameters: 300
+              - name: loop
+              - name: reload
+              - name: loadbalance
+
+        readinessProbe:
+          # 4.0.0 increased to 30, was default before
+          initialDelaySeconds: 10
+
+        securityContext:
+          # 4.0.0 removed this, was default before
+          runAsUser: 1000
+
         service:
           loadBalancerIP: {{ .Values.ipAddress.k8sGateway }}
   destination:
     namespace: k8s-gateway
     server: {{ .Values.destination.server }}
   syncPolicy:
-    automated: {}
     syncOptions:
       - CreateNamespace=true
