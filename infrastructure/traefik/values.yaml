@@ -119,6 +119,7 @@ traefik:
   # The [Access Logs Documentation](https://doc.traefik.io/traefik/observability/access-logs/) covers formatting, filtering, and output options.
   accessLog:
     enabled: true
+    format: json
 
   # Enables Prometheus metrics
   metrics:
