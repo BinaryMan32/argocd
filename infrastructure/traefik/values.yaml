@@ -23,6 +23,9 @@ playWhenRedirect:
 traefik:
   instanceLabelOverride: traefik
 
+  global:
+    checkNewVersion: false
+
   # Configure Network Ports and EntryPoints
   # EntryPoints are the network listeners for incoming traffic.
   ports:
