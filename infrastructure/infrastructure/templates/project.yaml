@@ -25,6 +25,7 @@ spec:
   - https://prometheus-community.github.io/helm-charts
   - https://stakater.github.io/stakater-charts
   - https://topolvm.github.io/topolvm
+  - oci://codeberg.org/k8s-gateway/charts/k8s-gateway
   destinations:
   - namespace: '*'
     server: {{ .Values.destination.server }}
