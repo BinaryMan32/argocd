@@ -25,13 +25,13 @@ show as `Progressing` since nothing exists to handle the gateway yet.
 Deploy the following which enable access to intranet services.
 
 1. [traefik](./infrastructure/templates/traefik.yaml)
-2. [metallb](./metallb/) (can now use ArgoCD load balancer instead of port forward)
+2. [metallb](./metallb/)
 3. [longhorn](./infrastructure/templates/longhorn.yaml) (needs traefik)
    Manually sync some resources beforehand: ServiceAccount, ClusterRole, ClusterRoleBinding
-4. [k8s-gateway](./infrastructure/templates/k8s-gateway.yaml) (needs traefik)
-5. [pihole](./infrastructure/templates/pihole.yaml) (needs longhorn)
-6. [sealed-secrets](./infrastructure/templates/sealed-secrets.yaml)
-7. [kube-prometheus-stack](./kube-prometheus-stack/) (needs longhorn, sealed-secrets)
+4. [pihole](./infrastructure/templates/pihole.yaml) (needs longhorn)
+5. [sealed-secrets](./infrastructure/templates/sealed-secrets.yaml)
+6. [kube-prometheus-stack](./kube-prometheus-stack/) (needs longhorn, sealed-secrets)
+7. [k8s-gateway](./infrastructure/templates/k8s-gateway.yaml) (needs traefik)
 8. [cert-manager](./cert-manager/) (needs prometheus)
 
 Tools for accessing and maintaining cluster nodes.
