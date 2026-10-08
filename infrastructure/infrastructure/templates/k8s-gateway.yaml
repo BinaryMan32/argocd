@@ -27,7 +27,7 @@ spec:
               - name: k8s_gateway
                 parameters: {{ .Values.domain.intranet }}
                 configBlock: |-
-                  resources Service HTTPRoute
+                  resources Service HTTPRoute GRPCRoute
                   ttl 300
               - name: log
               - name: forward
