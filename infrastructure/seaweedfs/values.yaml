@@ -93,7 +93,7 @@ seaweedfs:
                 app.kubernetes.io/instance: kube-prometheus-stack-prometheus
         ports:
           - protocol: TCP
-            port: http
+            port: metrics
     components:
       # Allow traefik to access `admin` (see `admin.httpRoute` below)
       admin:
@@ -108,7 +108,7 @@ seaweedfs:
                     app.kubernetes.io/instance: traefik
             ports:
               - protocol: TCP
-                port: http
+                port: admin
       # Allow traefik to access `s3` (see `s3.httpRoute` below)
       s3:
         extraIngress:
@@ -122,7 +122,7 @@ seaweedfs:
                     app.kubernetes.io/instance: traefik
             ports:
               - protocol: TCP
-                port: http
+                port: swfs-s3
 
 admin:
   httpRoute:
