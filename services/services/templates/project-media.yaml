@@ -20,3 +20,11 @@ spec:
     kind: Namespace
   - group: ''
     kind: PersistentVolume
+  roles:
+  - name: ops
+    description: Read-only access plus sync
+    policies:
+    - p, proj:media:ops, applications, get, media/*, allow
+    - p, proj:media:ops, applications, sync, media/*, allow
+    - p, proj:media:ops, applicationsets, get, media/*, allow
+    - p, proj:media:ops, logs, get, media/*, allow

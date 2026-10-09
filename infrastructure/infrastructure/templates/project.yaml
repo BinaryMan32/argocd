@@ -32,3 +32,11 @@ spec:
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
+  roles:
+  - name: ops
+    description: Read-only access plus sync
+    policies:
+    - p, proj:{{ .Values.project.name }}:ops, applications, get, {{ .Values.project.name }}/*, allow
+    - p, proj:{{ .Values.project.name }}:ops, applications, sync, {{ .Values.project.name }}/*, allow
+    - p, proj:{{ .Values.project.name }}:ops, applicationsets, get, {{ .Values.project.name }}/*, allow
+    - p, proj:{{ .Values.project.name }}:ops, logs, get, {{ .Values.project.name }}/*, allow

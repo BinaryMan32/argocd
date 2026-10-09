@@ -13,3 +13,11 @@ spec:
   destinations:
   - namespace: play-when-gitlab
     server: {{ .Values.destination.server }}
+  roles:
+  - name: ops
+    description: Read-only access plus sync
+    policies:
+    - p, proj:play-when:ops, applications, get, play-when/*, allow
+    - p, proj:play-when:ops, applications, sync, play-when/*, allow
+    - p, proj:play-when:ops, applicationsets, get, play-when/*, allow
+    - p, proj:play-when:ops, logs, get, play-when/*, allow

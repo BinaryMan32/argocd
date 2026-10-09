@@ -4,9 +4,14 @@ metadata:
   name: argocd-rbac-cm
 data:
   policy.csv: |
-    g, gabe, proj:play-when-dev:read-only
-    g, gabe, proj:play-when-dev:logs
-    g, gabe, proj:play-when-stage:read-only
-    g, gabe, proj:play-when-stage:logs
-    g, gabe, proj:play-when-prod:read-only
-    g, gabe, proj:play-when-prod:logs
+    g, gabe, proj:play-when:ops
+    g, gabe, proj:play-when-dev:ops
+    g, gabe, proj:play-when-stage:ops
+    g, gabe, proj:play-when-prod:ops
+    g, fettinge, proj:infrastructure:ops
+    g, fettinge, proj:media:ops
+    g, fettinge, proj:play-when:ops
+    g, fettinge, proj:play-when-dev:ops
+    g, fettinge, proj:play-when-stage:ops
+    g, fettinge, proj:play-when-prod:ops
+    g, fettinge, proj:services:ops

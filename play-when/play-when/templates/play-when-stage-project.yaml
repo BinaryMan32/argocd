@@ -17,13 +17,10 @@ spec:
   - namespace: play-when-stage
     server: {{ .Values.destination.server }}
   roles:
-  - name: read-only
-    description: Read-only access
+  - name: ops
+    description: Read-only access plus sync
     policies:
-    - p, proj:play-when-stage:read-only, applications, get, play-when-stage/play-when-stage/*, allow
-    - p, proj:play-when-stage:read-only, applications, sync, play-when-stage/play-when-stage/*, allow
-    - p, proj:play-when-stage:read-only, applicationsets, get, play-when-stage/play-when-stage/*, allow
-  - name: logs
-    description: View logs
-    policies:
-    - p, proj:play-when-stage:logs, logs, get, play-when-stage/*, allow
+    - p, proj:play-when-stage:ops, applications, get, play-when-stage/*, allow
+    - p, proj:play-when-stage:ops, applications, sync, play-when-stage/*, allow
+    - p, proj:play-when-stage:ops, applicationsets, get, play-when-stage/*, allow
+    - p, proj:play-when-stage:ops, logs, get, play-when-stage/*, allow

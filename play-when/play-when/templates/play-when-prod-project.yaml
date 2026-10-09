@@ -18,13 +18,10 @@ spec:
   - namespace: play-when-prod
     server: {{ .Values.destination.server }}
   roles:
-  - name: read-only
-    description: Read-only access
+  - name: ops
+    description: Read-only access plus sync
     policies:
-    - p, proj:play-when-prod:read-only, applications, get, play-when-prod/play-when-prod/*, allow
-    - p, proj:play-when-prod:read-only, applications, sync, play-when-prod/play-when-prod/*, allow
-    - p, proj:play-when-prod:read-only, applicationsets, get, play-when-prod/play-when-prod/*, allow
-  - name: logs
-    description: View logs
-    policies:
-    - p, proj:play-when-prod:logs, logs, get, play-when-prod/*, allow
+    - p, proj:play-when-prod:ops, applications, get, play-when-prod/*, allow
+    - p, proj:play-when-prod:ops, applications, sync, play-when-prod/*, allow
+    - p, proj:play-when-prod:ops, applicationsets, get, play-when-prod/*, allow
+    - p, proj:play-when-prod:ops, logs, get, play-when-prod/*, allow
