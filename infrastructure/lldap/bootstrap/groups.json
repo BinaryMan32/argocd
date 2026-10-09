@@ -2,6 +2,21 @@
   "name": "alertmanager"
 }
 {
+  "name": "argocd-default-ops"
+}
+{
+  "name": "argocd-infrastructure-ops"
+}
+{
+  "name": "argocd-media-ops"
+}
+{
+  "name": "argocd-play-when-ops"
+}
+{
+  "name": "argocd-services-ops"
+}
+{
   "name": "bazarr"
 }
 {

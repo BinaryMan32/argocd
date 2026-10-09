@@ -13,6 +13,11 @@
   "lastName": "Fettinger",
   "groups": [
     "alertmanager",
+    "argocd-default-ops",
+    "argocd-infrastructure-ops",
+    "argocd-media-ops",
+    "argocd-play-when-ops",
+    "argocd-services-ops",
     "bazarr",
     "infra-ops",
     "jaeger",
@@ -34,6 +39,7 @@
   "firstName": "Gabe",
   "lastName": "Johnson",
   "groups": [
+    "argocd-play-when-ops",
     "jaeger",
     "play-when-ops",
     "prometheus",
@@ -46,6 +52,8 @@
   "firstName": "Joe",
   "lastName": "Swantek",
   "groups": [
+    "argocd-infrastructure-ops",
+    "argocd-media-ops",
     "infra-ops",
     "media-ops",
     "bazarr",
@@ -61,6 +69,8 @@
   "firstName": "Jared",
   "lastName": "Suttles",
   "groups": [
+    "argocd-infrastructure-ops",
+    "argocd-media-ops",
     "infra-ops",
     "media-ops",
     "bazarr",
