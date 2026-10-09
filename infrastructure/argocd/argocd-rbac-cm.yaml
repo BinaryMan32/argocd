@@ -4,10 +4,12 @@ metadata:
   name: argocd-rbac-cm
 data:
   policy.csv: |
-    g, gabe, proj:play-when:ops
-    g, gabe, proj:play-when-dev:ops
-    g, gabe, proj:play-when-stage:ops
-    g, gabe, proj:play-when-prod:ops
+    # The default project is built-in, so its ops role is defined here rather
+    # than in an AppProject. It holds the app of apps for each project.
+    p, role:default-ops, applications, get, default/*, allow
+    p, role:default-ops, applications, sync, default/*, allow
+
+    g, fettinge, role:default-ops
     g, fettinge, proj:infrastructure:ops
     g, fettinge, proj:media:ops
     g, fettinge, proj:play-when:ops
@@ -15,3 +17,8 @@ data:
     g, fettinge, proj:play-when-stage:ops
     g, fettinge, proj:play-when-prod:ops
     g, fettinge, proj:services:ops
+
+    g, gabe, proj:play-when:ops
+    g, gabe, proj:play-when-dev:ops
+    g, gabe, proj:play-when-stage:ops
+    g, gabe, proj:play-when-prod:ops
