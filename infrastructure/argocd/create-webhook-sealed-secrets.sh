@@ -15,7 +15,7 @@ create_webhook_sealed_secret() {
         $name \
         --from-literal=$key="$(print_random)" \
         --output=yaml |
-    yq '.metadata.labels."app.kubernetes.io/part-of" = "argocd"' --yaml-output |
+    kubectl label --filename=- --local --output=yaml app.kubernetes.io/part-of=argocd |
     kubeseal --format=yaml --sealed-secret-file=$script_dir/$name-secret.yaml
 }
 

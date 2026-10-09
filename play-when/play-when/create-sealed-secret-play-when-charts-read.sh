@@ -15,7 +15,7 @@ create_sealed_secret_helm() {
         --from-literal=username=argocd-read-helm \
         --from-literal=password=$deploy_token \
         --output=yaml |
-    yq '.metadata.labels."argocd.argoproj.io/secret-type" = "repo-creds"' --yaml-output |
+    kubectl label --filename=- --local --output=yaml argocd.argoproj.io/secret-type=repo-creds |
     kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/$environment-sealed-secret-charts-read.yaml
 }
 
