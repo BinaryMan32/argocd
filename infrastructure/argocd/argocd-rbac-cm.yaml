@@ -24,15 +24,6 @@ data:
     g, argocd-services-ops, proj:services:ops
 
     # Local users
-    g, fettinge, role:default-ops
-    g, fettinge, proj:infrastructure:ops
-    g, fettinge, proj:media:ops
-    g, fettinge, proj:play-when:ops
-    g, fettinge, proj:play-when-dev:ops
-    g, fettinge, proj:play-when-stage:ops
-    g, fettinge, proj:play-when-prod:ops
-    g, fettinge, proj:services:ops
-
     g, gabe, proj:play-when:ops
     g, gabe, proj:play-when-dev:ops
     g, gabe, proj:play-when-stage:ops

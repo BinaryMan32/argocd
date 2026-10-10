@@ -5,7 +5,6 @@ metadata:
 data:
   # Local user passwords are generated with argocd cli
   # See https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#manage-users
-  accounts.fettinge: apiKey, login
   accounts.gabe: apiKey, login
   # External URL, used for the OIDC callback
   url: https://argocd.int.fivebytestudios.com
