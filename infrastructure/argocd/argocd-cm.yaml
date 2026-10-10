@@ -7,6 +7,16 @@ data:
   # See https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#manage-users
   accounts.fettinge: apiKey, login
   accounts.gabe: apiKey, login
+  # External URL, used for the OIDC callback
+  url: https://argocd.int.fivebytestudios.com
+  # https://www.authelia.com/integration/openid-connect/clients/argocd/
+  # https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#existing-oidc-provider
+  oidc.config: |
+    name: Authelia
+    issuer: https://auth.int.fivebytestudios.com
+    clientID: $authelia-oidc-argocd:client-id
+    clientSecret: $authelia-oidc-argocd:client-secret
+    cliClientID: argocd-cli
   repositories: ""
   repository.credentials: ""
   # Default is "180" or 3 minutes, but can be less frequent after configuring webhooks

@@ -9,6 +9,21 @@ data:
     p, role:default-ops, applications, get, default/*, allow
     p, role:default-ops, applications, sync, default/*, allow
 
+    # Authelia (LLDAP) groups
+    g, argocd-default-ops, role:default-ops
+
+    g, argocd-infrastructure-ops, proj:infrastructure:ops
+
+    g, argocd-media-ops, proj:media:ops
+
+    g, argocd-play-when-ops, proj:play-when:ops
+    g, argocd-play-when-ops, proj:play-when-dev:ops
+    g, argocd-play-when-ops, proj:play-when-stage:ops
+    g, argocd-play-when-ops, proj:play-when-prod:ops
+
+    g, argocd-services-ops, proj:services:ops
+
+    # Local users
     g, fettinge, role:default-ops
     g, fettinge, proj:infrastructure:ops
     g, fettinge, proj:media:ops

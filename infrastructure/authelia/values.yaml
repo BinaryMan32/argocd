@@ -139,6 +139,27 @@ authelia:
             scopes: [ 'openid', 'groups', 'email', 'profile', 'offline_access' ]
             require_pkce: true
             authorization_policy: two_factor
+          # https://www.authelia.com/integration/openid-connect/clients/argocd/
+          - client_name: Argo CD
+            client_id: '{{ secret "/secrets/authelia-oidc-argocd/client-id" }}'
+            client_secret:
+              path: /secrets/authelia-oidc-argocd/client-secret-digest
+            redirect_uris:
+              - https://argocd.int.fivebytestudios.com/auth/callback
+            scopes: ['openid', 'groups', 'email', 'profile']
+            require_pkce: false
+            authorization_policy: two_factor
+            token_endpoint_auth_method: client_secret_basic
+          - client_name: Argo CD (CLI)
+            client_id: argocd-cli
+            public: true
+            redirect_uris:
+              - http://localhost:8085/auth/callback
+            scopes: ['openid', 'groups', 'email', 'profile', 'offline_access']
+            grant_types: ['authorization_code', 'refresh_token']
+            require_pkce: true
+            pkce_challenge_method: S256
+            authorization_policy: two_factor
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
     # Refreshing the storage secret in particular makes it impossible to decrypt the database.
@@ -158,6 +179,10 @@ authelia:
         items:
           - key: user_pass
       authelia-oidc-headlamp:
+        items:
+          - key: client-id
+          - key: client-secret-digest
+      authelia-oidc-argocd:
         items:
           - key: client-id
           - key: client-secret-digest

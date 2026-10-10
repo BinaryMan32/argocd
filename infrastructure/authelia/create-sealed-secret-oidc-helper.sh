@@ -6,6 +6,8 @@ client_namespace="$3"
 secret_key_client_id="$4"
 secret_key_client_secret="$5"
 output_path="$6"
+# Remaining arguments are key=value labels to add to the client's secret
+client_secret_labels=("${@:7}")
 
 client_secret_raw="$(docker run --rm authelia/authelia:latest authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986)"
 client_secret_plain="$(echo "$client_secret_raw" | grep --perl-regexp --only-matching '(?<=Random Password: ).+')"
@@ -14,11 +16,21 @@ client_secret_digest="$(echo "$client_secret_raw" | grep --perl-regexp --only-ma
 secret_name="authelia-oidc-${client_name}"
 output_file_name="sealed-secret-${secret_name}.yaml"
 
+add_labels () {
+    # kubectl label fails if no labels are given
+    if [ $# -eq 0 ]; then
+        cat
+    else
+        kubectl label --filename=- --local --output=yaml "$@"
+    fi
+}
+
 create_sealed_secret_oidc () {
     secret_namespace="$1"
     client_id_literal="$2"
     client_secret_literal="$3"
     output_file_path="$4"
+    labels=("${@:5}")
     mkdir -p "$(dirname "$output_file_path")"
     kubectl create secret generic \
         --dry-run=client \
@@ -27,6 +39,7 @@ create_sealed_secret_oidc () {
         --from-literal="$client_id_literal" \
         --from-literal="$client_secret_literal" \
         --output=yaml |
+    add_labels "${labels[@]}" |
     kubeseal --format=yaml --sealed-secret-file="${output_file_path}"
 }
 
@@ -36,4 +49,5 @@ create_sealed_secret_oidc "auth" \
 
 create_sealed_secret_oidc "$client_namespace" \
     "$secret_key_client_id=$client_id" "$secret_key_client_secret=$client_secret_plain" \
-    "$script_dir/$output_path/$output_file_name"
+    "$script_dir/$output_path/$output_file_name" \
+    "${client_secret_labels[@]}"
