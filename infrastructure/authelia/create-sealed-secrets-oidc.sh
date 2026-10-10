@@ -5,7 +5,7 @@ script_dir=$(dirname $(realpath $0))
 
 clients=("$@")
 if [ ${#clients[@]} -eq 0 ]; then
-  clients=(headlamp argocd)
+  clients=(headlamp argocd grafana)
 fi
 
 for client in "${clients[@]}"; do
@@ -20,6 +20,12 @@ for client in "${clients[@]}"; do
         argocd client-id client-secret \
         ../argocd \
         app.kubernetes.io/part-of=argocd
+      ;;
+    grafana)
+      # Keys are environment variable names, loaded with envFromSecret
+      $script_dir/create-sealed-secret-oidc-helper.sh grafana grafana \
+        kube-prometheus-stack GF_AUTH_GENERIC_OAUTH_CLIENT_ID GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET \
+        ../kube-prometheus-stack/templates
       ;;
     *)
       echo "Unknown client: $client" >&2

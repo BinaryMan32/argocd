@@ -115,6 +115,8 @@ authelia:
           # https://www.authelia.com/integration/openid-connect/openid-connect-1.0-claims/#restore-functionality-prior-to-claims-parameter
           allow-groups-email:
             id_token: ['groups', 'email']
+          grafana:
+            id_token: ['email', 'name', 'groups', 'preferred_username']
         # https://www.authelia.com/configuration/identity-providers/openid-connect/clients/
         clients:
           - client_name: headlamp
@@ -162,6 +164,19 @@ authelia:
             require_pkce: true
             pkce_challenge_method: S256
             authorization_policy: two_factor
+          # https://www.authelia.com/integration/openid-connect/clients/grafana/
+          - client_name: Grafana
+            client_id: '{{ secret "/secrets/authelia-oidc-grafana/client-id" }}'
+            claims_policy: grafana
+            client_secret:
+              path: /secrets/authelia-oidc-grafana/client-secret-digest
+            redirect_uris:
+              - https://grafana.int.fivebytestudios.com/login/generic_oauth
+            scopes: ['openid', 'profile', 'groups', 'email']
+            require_pkce: true
+            pkce_challenge_method: S256
+            authorization_policy: two_factor
+            token_endpoint_auth_method: client_secret_basic
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
     # Refreshing the storage secret in particular makes it impossible to decrypt the database.
@@ -185,6 +200,10 @@ authelia:
           - key: client-id
           - key: client-secret-digest
       authelia-oidc-argocd:
+        items:
+          - key: client-id
+          - key: client-secret-digest
+      authelia-oidc-grafana:
         items:
           - key: client-id
           - key: client-secret-digest

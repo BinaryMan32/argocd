@@ -20,6 +20,15 @@
   "name": "bazarr"
 }
 {
+  "name": "grafana-admins"
+}
+{
+  "name": "grafana-editors"
+}
+{
+  "name": "grafana-viewers"
+}
+{
   "name": "infra-ops"
 }
 {

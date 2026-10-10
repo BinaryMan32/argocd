@@ -185,6 +185,39 @@ kube-prometheus-stack:
   grafana:
     admin:
       existingSecret: "grafana-login"
+    # Provides GF_AUTH_GENERIC_OAUTH_CLIENT_ID and GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+    envFromSecret: authelia-oidc-grafana
+    grafana.ini:
+      server:
+        # External URL, used for the OIDC callback
+        root_url: https://grafana.int.fivebytestudios.com
+      # https://www.authelia.com/integration/openid-connect/clients/grafana/
+      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-access/configure-authentication/generic-oauth/
+      auth.generic_oauth:
+        enabled: true
+        name: Authelia
+        icon: signin
+        scopes: openid profile email groups
+        empty_scopes: false
+        # Grafana does not support OIDC discovery, endpoints from
+        # https://auth.int.fivebytestudios.com/.well-known/openid-configuration
+        auth_url: https://auth.int.fivebytestudios.com/api/oidc/authorization
+        token_url: https://auth.int.fivebytestudios.com/api/oidc/token
+        api_url: https://auth.int.fivebytestudios.com/api/oidc/userinfo
+        auth_style: InHeader
+        use_pkce: true
+        validate_id_token: true
+        jwk_set_url: https://auth.int.fivebytestudios.com/jwks.json
+        login_attribute_path: preferred_username
+        name_attribute_path: name
+        email_attribute_path: email
+        groups_attribute_path: groups
+        # Authelia (LLDAP) groups, deny login to users not in any grafana group
+        role_attribute_path: >-
+          contains(groups[*], 'grafana-admins') && 'Admin' ||
+          contains(groups[*], 'grafana-editors') && 'Editor' ||
+          contains(groups[*], 'grafana-viewers') && 'Viewer'
+        role_attribute_strict: true
     persistence:
       enabled: true
       type: statefulset
