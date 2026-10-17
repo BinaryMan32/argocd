@@ -17,6 +17,39 @@ customCss: |
   .infomation-widget-longhorn > div > div:last-child {
     order: -1;
   }
+  /* Scroll qbittorrent leech progress rows after 5. Rows are siblings of the
+     title and counts with no wrapper, so the whole card scrolls and the title
+     and counts are pinned on top. Heights are estimates, tune if misaligned. */
+  li.service[data-name="QBittorrent"] .service-card {
+    --qbt-title-height: 3.25rem;
+    --qbt-counts-height: 3rem;
+    /* opaque copy of the dark theme card background (white/5 over page) */
+    --qbt-card-bg: linear-gradient(rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.05)), rgb(var(--bg-color));
+    /* 5 rows are 20px each with 4px collapsed margins around them = 124px,
+       plus the card's 0.25rem top and bottom padding */
+    max-height: calc(var(--qbt-title-height) + var(--qbt-counts-height) + 124px + 0.5rem);
+    overflow-y: auto;
+  }
+  li.service[data-name="QBittorrent"] .service-card:hover {
+    --qbt-card-bg: linear-gradient(rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.1)), rgb(var(--bg-color));
+  }
+  /* above row text (z-10) */
+  li.service[data-name="QBittorrent"] .service-title,
+  li.service[data-name="QBittorrent"] .service-container {
+    position: sticky;
+    z-index: 20;
+    background: var(--qbt-card-bg);
+  }
+  li.service[data-name="QBittorrent"] .service-title {
+    top: 0;
+  }
+  li.service[data-name="QBittorrent"] .service-container {
+    top: var(--qbt-title-height);
+  }
+  /* keep the status badge above the pinned title */
+  li.service[data-name="QBittorrent"] .service-tags {
+    z-index: 30;
+  }
 homepage:
   # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
   image:
