@@ -1,5 +1,22 @@
 httpRoute:
   hostname: null
+# mounted as /app/config/custom.css by homepage.persistence.custom-css
+# https://gethomepage.dev/configs/custom-css-js/
+customCss: |
+  /* Line up kubernetes and longhorn info widget nodes in columns.
+     Both use the same icon and margins, so only content width and the
+     kubernetes node's ml-4 differ. The longhorn class is misspelled upstream. */
+  .information-widget-kubernetes .min-w-\[85px\],
+  .infomation-widget-longhorn .min-w-\[85px\] {
+    width: 6rem;
+  }
+  .infomation-widget-longhorn > div > div {
+    margin-left: 1rem;
+  }
+  /* longhorn appends total last; show it first like the kubernetes cluster */
+  .infomation-widget-longhorn > div > div:last-child {
+    order: -1;
+  }
 homepage:
   # https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
   image:
@@ -15,6 +32,14 @@ homepage:
   envFrom:
     - secretRef:
         name: homepage-pihole
+  persistence:
+    custom-css:
+      enabled: true
+      type: configMap
+      name: homepage-custom-css
+      mountPath: /app/config/custom.css
+      subPath: custom.css
+      readOnly: true
   config:
     settings:
       title: Five Byte Studios
