@@ -171,7 +171,7 @@ spec:
                     widget:
                       # https://gethomepage.dev/widgets/services/truenas/
                       type: truenas
-                      url: https://192.168.8.8
+                      url: https://192.168.8.9
                       key: "{{`{{HOMEPAGE_VAR_TRUENAS_KEY}}`}}"
                       version: 2
                       fields: ["load", "alerts"]
