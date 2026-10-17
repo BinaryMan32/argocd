@@ -92,6 +92,13 @@ spec:
                     description: Torrent Downloader
                     namespace: media
                     app: qbittorrent
+                    widget:
+                      # https://gethomepage.dev/widgets/services/qbittorrent/
+                      type: qbittorrent
+                      url: http://qbittorrent.media.svc.cluster.local
+                      # leech is incomplete torrents, should drain to 0 when nothing is stuck
+                      fields: ["leech", "download", "upload"]
+                      enableLeechProgress: true
                 - Bazarr:
                     icon: bazarr.png
                     href: "https://bazarr.{{ .Values.domain.intranet }}/"

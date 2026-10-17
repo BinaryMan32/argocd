@@ -23,6 +23,18 @@ spec:
       ports:
         - protocol: TCP
           port: webui
+    # Requests from homepage qbittorrent widget
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: homepage
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: homepage
+              app.kubernetes.io/instance: homepage
+      ports:
+        - protocol: TCP
+          port: webui
     # Requests from servarr services which use qBittorrent
     - from:
         - podSelector:
