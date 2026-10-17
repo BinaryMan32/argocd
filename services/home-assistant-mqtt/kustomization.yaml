@@ -17,12 +17,12 @@ configMapGenerator:
   - name: mqtt-config
     files:
       - configmaps/config/mosquitto.conf
-      - configmaps/config/mosquitto_acl
     options:
       disableNameSuffixHash: true
   - name: mqtt-init
     files:
-      - configmaps/init/password.sh
+      - configmaps/init/auth-setup.sh
+      - configmaps/init/mosquitto_acl
     options:
       disableNameSuffixHash: true
 buildMetadata: [managedByLabel]

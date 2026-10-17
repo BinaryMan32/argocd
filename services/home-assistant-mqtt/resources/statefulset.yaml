@@ -19,10 +19,13 @@ spec:
       serviceAccountName: default
       automountServiceAccountToken: true
       securityContext:
+        runAsNonRoot: true
+        runAsUser: 1883
+        runAsGroup: 1883
         fsGroup: 1883
       initContainers:
         - command:
-            - /init_password.sh
+            - /auth-setup/auth-setup.sh
           env:
             - name: FLASHFORGE_PASSWORD
               valueFrom:
@@ -55,30 +58,28 @@ spec:
                   key: tasmota-username
                   name: mqtt
           image: mosquitto
-          name: password
+          name: auth-setup
+          securityContext:
+            allowPrivilegeEscalation: false
           volumeMounts:
-            - mountPath: /mosquitto/config/
-              name: config
-              readOnly: true
-            - mountPath: /mosquitto/data
-              name: data
-            - mountPath: /init_password.sh
+            - mountPath: /auth-setup
               name: init
               readOnly: true
-              subPath: password.sh
-            - mountPath: /mosquitto/password
-              name: password
+            - mountPath: /mosquitto/auth
+              name: auth
       containers:
         - image: mosquitto
           name: main
+          securityContext:
+            allowPrivilegeEscalation: false
           volumeMounts:
             - mountPath: /mosquitto/config/
               name: config
               readOnly: true
             - mountPath: /mosquitto/data
               name: data
-            - mountPath: /mosquitto/password
-              name: password
+            - mountPath: /mosquitto/auth
+              name: auth
               readOnly: true
       volumes:
         - configMap:
@@ -86,13 +87,13 @@ spec:
             name: mqtt-config
           name: config
         - configMap:
-            defaultMode: 448
+            defaultMode: 360
             name: mqtt-init
           name: init
         - emptyDir:
             medium: Memory
             sizeLimit: 1Mi
-          name: password
+          name: auth
   volumeClaimTemplates:
     - metadata:
         name: data
