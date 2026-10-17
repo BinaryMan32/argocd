@@ -16,5 +16,5 @@ labels:
 images:
   - name: tududi
     newName: chrisvel/tududi
-    newTag: "0.87"
+    newTag: 1.9.3
 buildMetadata: [managedByLabel]
