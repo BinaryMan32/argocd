@@ -206,6 +206,19 @@ spec:
                     description: Alerts
                     namespace: kube-prometheus-stack
                     app: alertmanager
+                    widget:
+                      # no alertmanager widget, so query firing alerts from prometheus
+                      # https://gethomepage.dev/widgets/services/prometheusmetric/
+                      type: prometheusmetric
+                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
+                      metrics:
+                        # severity filters exclude the always-firing Watchdog and InfoInhibitor
+                        - label: Critical
+                          query: count(ALERTS{alertstate="firing",severity="critical"}) or vector(0)
+                        - label: Warning
+                          query: count(ALERTS{alertstate="firing",severity="warning"}) or vector(0)
+                        - label: Pending
+                          query: count(ALERTS{alertstate="pending",severity=~"critical|warning"}) or vector(0)
                     pod-selector: >-
                       app.kubernetes.io/name in (
                         alertmanager
