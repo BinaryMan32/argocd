@@ -23,10 +23,10 @@
       "separateMultipleMinor": true
     },
     {
-      "description": "linuxserver docker tags similar to 5.1.0-r0-ls393",
+      "description": "linuxserver docker tags similar to 5.2.4_v2.0.15-ls480 (formerly 5.1.4-r3-ls453)",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["linuxserver/qbittorrent"],
-      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-r(?<build>\\d+)-ls(?<revision>\\d+)$"
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:-r\\d+|_v\\d+\\.\\d+\\.\\d+)-ls(?<build>\\d+)$"
     },
     {
       "description": "linuxserver docker tags similar to 1.35.1.5034-ls117",
