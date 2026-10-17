@@ -36,3 +36,5 @@ Documents other manual configuration in **Tools** > **Options...**
 - **WebUI**
     - **Authentication**
         - check **Bypass authentication for clients on localhost** (allows gluetun sidecar to set port forward)
+        - check **Bypass authentication for clients in whitelisted IP subnets**: `10.42.0.0/16` (cluster pod CIDR)\
+          Access restricted by the [network policy](resources/network-policy.yaml)
