@@ -163,6 +163,18 @@ spec:
                     app: longhorn
                     # select all pods in namespace
                     pod-selector: ""
+                - Mercury TrueNAS:
+                    icon: truenas.png
+                    href: https://192.168.0.8/
+                    description: ZFS Storage and Shared Volumes
+                    widget:
+                      # https://gethomepage.dev/widgets/services/truenas/
+                      type: truenas
+                      url: https://192.168.0.8
+                      key: "{{`{{HOMEPAGE_VAR_TRUENAS_KEY}}`}}"
+                      version: 2
+                      fields: ["load", "alerts"]
+                      enablePools: true
                 - Pihole:
                     icon: pi-hole.png
                     href: "https://pihole.{{ .Values.domain.intranet }}/admin"

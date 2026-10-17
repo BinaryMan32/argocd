@@ -103,6 +103,8 @@ homepage:
         name: homepage-argocd
     - secretRef:
         name: homepage-pihole
+    - secretRef:
+        name: homepage-truenas
   persistence:
     custom-css:
       enabled: true
@@ -149,10 +151,6 @@ homepage:
             href: https://github.com/BinaryMan32/argocd
             description: ArgoCD Applications, Configuration, and Documentation
       - Infrastructure:
-        - Mercury TrueNAS (LAN):
-          - icon: truenas.png
-            href: https://192.168.0.8/
-            description: ZFS Storage and Shared Volumes
         - Turing Pi griffin-turing0:
           - icon: rackula-dark.png
             href: https://192.168.8.10/
