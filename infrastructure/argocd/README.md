@@ -80,6 +80,7 @@ For each of the following projects:
 * [play-when-backend-chart](https://gitlab.com/play-when/play-when-backend-chart/-/hooks)
 * [play-when-discord-bot-chart](https://gitlab.com/play-when/play-when-discord-bot-chart/-/hooks)
 * [play-when-frontend-chart](https://gitlab.com/play-when/play-when-frontend-chart/-/hooks)
+* [play-when-gitlab-chart](https://gitlab.com/play-when/play-when-gitlab-chart/-/hooks)
 
 Add a webhook with the following settings:
 
