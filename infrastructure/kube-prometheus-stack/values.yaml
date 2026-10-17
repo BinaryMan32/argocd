@@ -269,3 +269,6 @@ kube-prometheus-stack:
       podMonitorSelectorNilUsesHelmValues: false
       probeSelectorNilUsesHelmValues: false
       scrapeConfigSelectorNilUsesHelmValues: false
+
+discordWebhookProxy:
+  image: nginx:1.29.4-alpine

@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.29.4-alpine
+          image: {{ .Values.discordWebhookProxy.image }}
           ports:
             - name: http
               containerPort: 80
