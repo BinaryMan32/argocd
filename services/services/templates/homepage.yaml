@@ -42,6 +42,7 @@ spec:
                     namespace: tandoor-recipes
                     app: tandoor-recipes
                 - Tududi:
+                    icon: tududi-dark.png
                     href: "https://tududi.{{ .Values.domain.intranet }}/"
                     description: Task Management
                     namespace: tududi
