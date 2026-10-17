@@ -180,6 +180,10 @@ spec:
                     description: Metric Collection
                     namespace: kube-prometheus-stack
                     app: prometheus
+                    widget:
+                      # https://gethomepage.dev/widgets/services/prometheus/
+                      type: prometheus
+                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
                     podSelector: >-
                       app.kubernetes.io/name in (
                         prometheus-node-exporter,
