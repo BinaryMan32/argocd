@@ -10,6 +10,11 @@ homepage:
   enableRbac: true
   serviceAccount:
     create: true
+  # secrets referenced in config as {{HOMEPAGE_VAR_*}}
+  # https://gethomepage.dev/installation/docker/#using-environment-secrets
+  envFrom:
+    - secretRef:
+        name: homepage-pihole
   config:
     settings:
       title: Five Byte Studios

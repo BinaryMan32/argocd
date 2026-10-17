@@ -155,6 +155,12 @@ spec:
                     description: DNS Blocker
                     namespace: pihole
                     app: pihole
+                    widget:
+                      # https://gethomepage.dev/widgets/services/pihole/
+                      type: pihole
+                      url: http://pihole-web.pihole.svc.cluster.local
+                      version: 6
+                      key: "{{`{{HOMEPAGE_VAR_PIHOLE_KEY}}`}}"
                 - SeaweedFS:
                     icon: files-community.png
                     href: "https://seaweedfs-admin.{{ .Values.domain.intranet }}/"
