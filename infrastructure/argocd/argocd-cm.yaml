@@ -6,6 +6,8 @@ data:
   # Local user passwords are generated with argocd cli
   # See https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#manage-users
   accounts.gabe: apiKey, login
+  # API token used by the homepage argocd widget, see services/homepage
+  accounts.homepage: apiKey
   # External URL, used for the OIDC callback
   url: https://argocd.int.fivebytestudios.com
   # https://www.authelia.com/integration/openid-connect/clients/argocd/

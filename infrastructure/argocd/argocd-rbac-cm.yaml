@@ -9,6 +9,9 @@ data:
     p, role:default-ops, applications, get, default/*, allow
     p, role:default-ops, applications, sync, default/*, allow
 
+    # Read application status for the homepage widget
+    p, role:homepage, applications, get, */*, allow
+
     # Authelia (LLDAP) groups
     g, argocd-default-ops, role:default-ops
 
@@ -28,3 +31,4 @@ data:
     g, gabe, proj:play-when-dev:ops
     g, gabe, proj:play-when-stage:ops
     g, gabe, proj:play-when-prod:ops
+    g, homepage, role:homepage
