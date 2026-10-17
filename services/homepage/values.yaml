@@ -31,6 +31,8 @@ homepage:
   # https://gethomepage.dev/installation/docker/#using-environment-secrets
   envFrom:
     - secretRef:
+        name: homepage-argocd
+    - secretRef:
         name: homepage-pihole
   persistence:
     custom-css:

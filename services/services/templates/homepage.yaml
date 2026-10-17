@@ -129,6 +129,13 @@ spec:
                     description: Continuous Deployment
                     namespace: argocd
                     app: argocd-server
+                    widget:
+                      # https://gethomepage.dev/widgets/services/argocd/
+                      type: argocd
+                      url: http://argocd-server.argocd.svc.cluster.local
+                      key: "{{`{{HOMEPAGE_VAR_ARGOCD_KEY}}`}}"
+                      # only statuses that should be 0, max 4 fields
+                      fields: ["degraded", "progressing", "outOfSync", "missing"]
                     podSelector: >-
                       app.kubernetes.io/name in (
                         argocd-server,
