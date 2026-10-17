@@ -4,4 +4,4 @@ metadata:
   name: homepage-custom-css
 data:
   custom.css: |
-    {{- .Values.customCss | nindent 4 }}
+    {{- .Values.homepage.customCss | nindent 4 }}
