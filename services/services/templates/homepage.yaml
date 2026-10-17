@@ -174,8 +174,8 @@ spec:
                       url: https://192.168.8.9
                       key: "{{`{{HOMEPAGE_VAR_TRUENAS_KEY}}`}}"
                       version: 2
-                      fields: ["load", "alerts"]
-                      enablePools: true
+                      fields: ["alerts"]
+                      enablePools: false
                 - Pihole:
                     icon: pi-hole.png
                     href: "https://pihole.{{ .Values.domain.intranet }}/admin"
