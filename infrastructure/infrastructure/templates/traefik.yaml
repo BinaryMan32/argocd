@@ -67,6 +67,9 @@ spec:
                 home-assistant:
                   hostname: "home-assistant.{{ .Values.domain.intranet }}"
                   namespace: home-assistant
+                homebox:
+                  hostname: "homebox.{{ .Values.domain.intranet }}"
+                  namespace: homebox
                 homepage:
                   hostname: "homepage.{{ .Values.domain.intranet }}"
                   namespace: homepage
