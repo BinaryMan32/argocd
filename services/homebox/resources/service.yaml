@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: homebox
 spec:
+  selector:
+    app.kubernetes.io/instance: homebox
+    app.kubernetes.io/name: homebox
   type: ClusterIP
   ports:
     - name: http
