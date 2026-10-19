@@ -66,8 +66,6 @@ spec:
             # https://github.com/qdm12/gluetun-wiki/blob/main/setup/options/port-forwarding.md
             - name: VPN_PORT_FORWARDING
               value: "on"
-            - name: VPN_PORT_FORWARDING_LISTENING_PORT
-              value: "6881"
             # https://github.com/qdm12/gluetun-wiki/blob/main/setup/advanced/vpn-port-forwarding.md
             - name: VPN_PORT_FORWARDING_UP_COMMAND
               value: /bin/sh /config/update-qbittorrent-ports.sh "{{PORTS}}"
