@@ -76,6 +76,7 @@ spec:
                 homebox:
                   hostname: "homebox.{{ .Values.domain.intranet }}"
                   namespace: homebox
+                  certificateRef: root-wildcard-intranet-tls
                 homepage:
                   hostname: "homepage.{{ .Values.domain.intranet }}"
                   namespace: homepage
