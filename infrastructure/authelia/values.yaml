@@ -187,6 +187,21 @@ authelia:
             consent_mode: pre-configured
             pre_configured_consent_duration: 1y
             token_endpoint_auth_method: client_secret_basic
+          # https://www.authelia.com/integration/openid-connect/clients/homebox/
+          # Homebox reads claims from userinfo, so no claims_policy is needed
+          - client_name: Homebox
+            client_id: '{{ secret "/secrets/authelia-oidc-homebox/client-id" }}'
+            client_secret:
+              path: /secrets/authelia-oidc-homebox/client-secret-digest
+            redirect_uris:
+              - https://homebox.int.fivebytestudios.com/api/v1/users/login/oidc/callback
+            scopes: ['openid', 'profile', 'groups', 'email']
+            require_pkce: true
+            pkce_challenge_method: S256
+            authorization_policy: two_factor
+            consent_mode: pre-configured
+            pre_configured_consent_duration: 1y
+            token_endpoint_auth_method: client_secret_basic
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
     # Refreshing the storage secret in particular makes it impossible to decrypt the database.
@@ -214,6 +229,10 @@ authelia:
           - key: client-id
           - key: client-secret-digest
       authelia-oidc-grafana:
+        items:
+          - key: client-id
+          - key: client-secret-digest
+      authelia-oidc-homebox:
         items:
           - key: client-id
           - key: client-secret-digest

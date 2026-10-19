@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homebox
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: homebox
+      app.kubernetes.io/name: homebox
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: homebox
+          image: homebox
+          # https://homebox.software/en/quick-start/configure/
+          env:
+            - name: HBOX_AUTH_API_KEY_PEPPER
+              valueFrom:
+                secretKeyRef:
+                  name: homebox
+                  key: api-key-pepper
+            - name: HBOX_OPTIONS_HOSTNAME
+              value: homebox.int.fivebytestudios.com
+            # Use X-Forwarded-Proto from traefik so OIDC redirect URLs use https
+            - name: HBOX_OPTIONS_TRUST_PROXY
+              value: "true"
+            # Only applies to local registration, OIDC users are still created on first login
+            - name: HBOX_OPTIONS_ALLOW_REGISTRATION
+              value: "false"
+            - name: HBOX_OPTIONS_ALLOW_LOCAL_LOGIN
+              value: "false"
+            # https://homebox.software/en/quick-start/configure/database/
+            - name: HBOX_DATABASE_DRIVER
+              value: postgres
+            - name: HBOX_DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: homebox-db-app
+                  key: host
+            - name: HBOX_DATABASE_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: homebox-db-app
+                  key: port
+            - name: HBOX_DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: homebox-db-app
+                  key: user
+            - name: HBOX_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homebox-db-app
+                  key: password
+            - name: HBOX_DATABASE_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: homebox-db-app
+                  key: dbname
+            # https://homebox.software/en/quick-start/configure/oidc/
+            # https://www.authelia.com/integration/openid-connect/clients/homebox/
+            - name: HBOX_OIDC_ENABLED
+              value: "true"
+            - name: HBOX_OIDC_ISSUER_URL
+              value: https://auth.int.fivebytestudios.com
+            - name: HBOX_OIDC_SCOPE
+              value: openid profile email groups
+            - name: HBOX_OIDC_AUTO_REDIRECT
+              value: "true"
+            - name: HBOX_OIDC_BUTTON_TEXT
+              value: "Sign in with Authelia"
+          envFrom:
+            - secretRef:
+                name: authelia-oidc-homebox
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 7745
+          readinessProbe:
+            httpGet:
+              path: /api/v1/status
+              port: http
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: homebox-data

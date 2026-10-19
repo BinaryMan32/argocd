@@ -1,0 +1,15 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: homebox-db
+spec:
+  instances: 2
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5
+
+  bootstrap:
+    initdb:
+      database: homebox
+      owner: homebox
+
+  storage:
+    size: 1Gi
