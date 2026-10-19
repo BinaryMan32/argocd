@@ -36,7 +36,8 @@ spec:
         - protocol: TCP
           port: webui
         - protocol: TCP
-          port: gluetun
+          # gluetun port; kube-router ignores named ports on sidecar initContainers
+          port: 8000
     # Requests from servarr services which use qBittorrent
     - from:
         - podSelector:
@@ -70,7 +71,9 @@ spec:
               app.kubernetes.io/name: sonarr
       ports:
         - protocol: TCP
-          port: http-proxy
+          # http-proxy port; kube-router ignores named ports on sidecar initContainers
+          # (a rule whose named ports all fail to resolve allows all ports)
+          port: 8888
 
   egress:
     - ports:
