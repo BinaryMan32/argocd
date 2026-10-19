@@ -30,6 +30,12 @@ spec:
             foundry-vtt-wildcard-intranet-tls:
               dnsNames:
                 - "*.foundry-vtt.{{ .Values.domain.intranet }}"
+            play-when-dev-tls:
+              dnsNames:
+                - "*.dev.playwhen.{{ .Values.domain.intranet }}"
+            play-when-stage-tls:
+              dnsNames:
+                - "*.stage.playwhen.{{ .Values.domain.intranet }}"
             root-wildcard-intranet-tls:
               dnsNames:
                 - "*.{{ .Values.domain.intranet }}"
