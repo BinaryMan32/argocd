@@ -104,7 +104,7 @@ spec:
                       type: qbittorrent
                       url: http://qbittorrent.media.svc.cluster.local
                       # leech is incomplete torrents, should drain to 0 when nothing is stuck
-                      fields: ["leech", "download", "upload"]
+                      fields: ["leech", "seed", "download", "upload"]
                       enableLeechProgress: true
                 # sidecar in the qbittorrent pod, which the QBittorrent card already shows
                 - Gluetun:
