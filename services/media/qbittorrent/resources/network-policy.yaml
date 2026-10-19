@@ -23,7 +23,7 @@ spec:
       ports:
         - protocol: TCP
           port: webui
-    # Requests from homepage qbittorrent widget
+    # Requests from homepage qbittorrent and gluetun widgets
     - from:
         - namespaceSelector:
             matchLabels:
@@ -35,6 +35,8 @@ spec:
       ports:
         - protocol: TCP
           port: webui
+        - protocol: TCP
+          port: gluetun
     # Requests from servarr services which use qBittorrent
     - from:
         - podSelector:

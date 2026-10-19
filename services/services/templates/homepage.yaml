@@ -100,6 +100,16 @@ spec:
                       # leech is incomplete torrents, should drain to 0 when nothing is stuck
                       fields: ["leech", "download", "upload"]
                       enableLeechProgress: true
+                # sidecar in the qbittorrent pod, which the QBittorrent card already shows
+                - Gluetun:
+                    icon: gluetun.png
+                    description: VPN for qBittorrent and friends
+                    widget:
+                      # https://gethomepage.dev/widgets/services/gluetun/
+                      type: gluetun
+                      url: http://gluetun.media.svc.cluster.local
+                      version: 2
+                      fields: ["public_ip", "region", "country", "port_forwarded"]
                 - Bazarr:
                     icon: bazarr.png
                     href: "https://bazarr.{{ .Values.domain.intranet }}/"

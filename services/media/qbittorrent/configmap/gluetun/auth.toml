@@ -3,3 +3,10 @@
 name = "healthcheck"
 auth = "none"
 routes = ["GET /v1/publicip/ip", "GET /v1/openvpn/status", "GET /v1/dns/status"]
+
+# homepage gluetun widget
+# https://gethomepage.dev/widgets/services/gluetun/
+[[roles]]
+name = "homepage"
+auth = "none"
+routes = ["GET /v1/publicip/ip", "GET /v1/portforward"]
