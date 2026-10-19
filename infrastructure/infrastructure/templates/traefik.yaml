@@ -98,11 +98,11 @@ spec:
                   namespace: pihole
                 play-when-dev:
                   certificateRef: play-when-dev-tls
-                  hostname: "*.dev.{{ .Values.domain.playwhen }}"
+                  hostname: "*.dev.{{ .Values.domain.intranet }}"
                   namespace: play-when-dev
                 play-when-stage:
                   certificateRef: play-when-stage-tls
-                  hostname: "*.stage.{{ .Values.domain.playwhen }}"
+                  hostname: "*.stage.{{ .Values.domain.intranet }}"
                   namespace: play-when-stage
                 prometheus:
                   hostname: "prometheus.{{ .Values.domain.intranet }}"
