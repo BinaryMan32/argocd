@@ -27,6 +27,9 @@ spec:
               - "www.{{ .Values.domain.playwhen }}"
         intranet:
           wildcardCertificates:
+            argocd-wildcard-intranet-tls:
+              dnsNames:
+                - "*.argocd.{{ .Values.domain.intranet }}"
             foundry-vtt-wildcard-intranet-tls:
               dnsNames:
                 - "*.foundry-vtt.{{ .Values.domain.intranet }}"
