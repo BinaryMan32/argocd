@@ -222,6 +222,14 @@ spec:
                     icon: truenas.png
                     href: https://192.168.0.8/
                     description: ZFS Storage and Shared Volumes
+                    widget:
+                      # https://gethomepage.dev/widgets/services/truenas/
+                      type: truenas
+                      url: https://192.168.8.9
+                      key: "{{`{{HOMEPAGE_VAR_TRUENAS_KEY}}`}}"
+                      version: 2
+                      fields: ["load", "alerts"]
+                      enablePools: true
                 - Pihole:
                     icon: pi-hole.png
                     href: "https://pihole.{{ .Values.domain.intranet }}/admin"
