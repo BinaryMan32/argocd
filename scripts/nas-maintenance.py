@@ -19,6 +19,7 @@ import dataclasses
 import re
 import sys
 import time
+from datetime import datetime, timezone
 
 from kubernetes import client, config
 
@@ -105,27 +106,41 @@ def scale(apps, workload, replicas):
 
 
 def pods_using(core, claims):
-  return sorted(
-    f'{pod.metadata.namespace}/{pod.metadata.name}'
+  """Returns the creation time of each pod mounting any of the claims, keyed by namespace/name."""
+  return dict(sorted(
+    (f'{pod.metadata.namespace}/{pod.metadata.name}', pod.metadata.creation_timestamp)
     for pod in core.list_pod_for_all_namespaces().items
     if uses_claims(pod.metadata.namespace, pod.spec, claims)
-  )
+  ))
+
+
+def format_age(created):
+  seconds = int((datetime.now(timezone.utc) - created).total_seconds())
+  for unit, size in (('d', 86400), ('h', 3600), ('m', 60)):
+    if seconds >= size:
+      return f'{seconds // size}{unit}'
+  return f'{seconds}s'
 
 
 def format_list(title, items):
   return '\n  '.join([f'{title} ({len(items)}):', *items])
 
 
+def format_pods(title, pods):
+  return format_list(title, [f'{name} (age {format_age(created)})' for name, created in pods.items()])
+
+
 def wait_for_pods(core, claims, timeout):
   """Waits until no pod mounts any of the claims, including pods not owned by a scaled workload."""
+  print('Warning: ArgoCD may scale workloads back up. If pods are recreated, press Ctrl-C and run down again.')
   deadline = time.monotonic() + timeout
   last_pods = None
   while pods := pods_using(core, claims):
-    if pods != last_pods:
-      print(format_list('Waiting for pods to terminate', pods))
-      last_pods = pods
+    if pods.keys() != last_pods:
+      print(format_pods('Waiting for pods to terminate', pods))
+      last_pods = pods.keys()
     if time.monotonic() > deadline:
-      sys.exit(format_list(f'Timed out after {timeout}s, pods still using the NAS', pods))
+      sys.exit(format_pods(f'Timed out after {timeout}s, pods still using the NAS', pods))
     time.sleep(2)
   print('No pods are using the NAS, ready for maintenance')
 
@@ -177,7 +192,7 @@ def main():
   if args.action == 'down':
     if args.dry_run:
       if pods := pods_using(core, claims):
-        print(format_list('Pods currently using the NAS', pods))
+        print(format_pods('Pods currently using the NAS', pods))
     else:
       wait_for_pods(core, claims, args.timeout)
 
