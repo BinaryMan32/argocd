@@ -9,6 +9,7 @@
 {
   "id": "fred",
   "email": "fettinge@gmail.com",
+  "displayName": "Fred Fettinger",
   "firstName": "Fred",
   "lastName": "Fettinger",
   "groups": [
@@ -37,6 +38,7 @@
 {
   "id": "gjohnson",
   "email": "gjohnsonjan2002@gmail.com",
+  "displayName": "Gabe Johnson",
   "firstName": "Gabe",
   "lastName": "Johnson",
   "groups": [
@@ -51,6 +53,7 @@
 {
   "id": "jswantek",
   "email": "joseph.swantek@gmail.com",
+  "displayName": "Joe Swantek",
   "firstName": "Joe",
   "lastName": "Swantek",
   "groups": [
@@ -69,6 +72,7 @@
 {
   "id": "jsuttles",
   "email": "jared.suttles@gmail.com",
+  "displayName": "Jared Suttles",
   "firstName": "Jared",
   "lastName": "Suttles",
   "groups": [
