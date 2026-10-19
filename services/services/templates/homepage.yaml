@@ -35,6 +35,12 @@ spec:
                     description: Home Automation
                     namespace: home-assistant
                     app: home-assistant
+                - Homebox:
+                    icon: homebox.png
+                    href: "https://homebox.{{ .Values.domain.intranet }}/"
+                    description: Home Inventory
+                    namespace: homebox
+                    app: homebox
                 - Tandoor Recipes:
                     icon: tandoor-recipes.png
                     href: "https://tandoor.{{ .Values.domain.intranet }}/"
