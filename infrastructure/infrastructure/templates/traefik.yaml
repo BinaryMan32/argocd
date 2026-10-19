@@ -46,9 +46,11 @@ spec:
             listeners:
               https:
                 alertmanager:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "alertmanager.{{ .Values.domain.intranet }}"
                   namespace: kube-prometheus-stack
                 argocd:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "argocd.{{ .Values.domain.intranet }}"
                   namespace: argocd
                 argocd-grpc:
@@ -56,12 +58,15 @@ spec:
                   hostname: "grpc.argocd.{{ .Values.domain.intranet }}"
                   namespace: argocd
                 audiobookshelf:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "audiobookshelf.{{ .Values.domain.intranet }}"
                   namespace: media
                 authelia:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "auth.{{ .Values.domain.intranet }}"
                   namespace: auth
                 bazarr:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "bazarr.{{ .Values.domain.intranet }}"
                   namespace: media
                 foundry-vtt:
@@ -69,35 +74,43 @@ spec:
                   hostname: "*.foundry-vtt.{{ .Values.domain.intranet }}"
                   namespace: foundry-vtt
                 grafana:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "grafana.{{ .Values.domain.intranet }}"
                   namespace: kube-prometheus-stack
                 headlamp:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "headlamp.{{ .Values.domain.intranet }}"
                   namespace: headlamp
                 home-assistant:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "home-assistant.{{ .Values.domain.intranet }}"
                   namespace: home-assistant
                 homebox:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "homebox.{{ .Values.domain.intranet }}"
                   namespace: homebox
-                  certificateRef: root-wildcard-intranet-tls
                 homepage:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "homepage.{{ .Values.domain.intranet }}"
                   namespace: homepage
                 jaeger:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "jaeger.{{ .Values.domain.intranet }}"
                   namespace: jaeger
                 jellyfin:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "jellyfin.{{ .Values.domain.intranet }}"
                   namespace: media
-                  certificateRef: jellyfin-intranet-tls
                 lldap:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "lldap.{{ .Values.domain.intranet }}"
                   namespace: auth
                 longhorn:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "longhorn.{{ .Values.domain.intranet }}"
                   namespace: longhorn-system
                 pihole:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "pihole.{{ .Values.domain.intranet }}"
                   namespace: pihole
                 play-when-dev:
@@ -109,36 +122,46 @@ spec:
                   hostname: "*.stage.playwhen.{{ .Values.domain.intranet }}"
                   namespace: play-when-stage
                 prometheus:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "prometheus.{{ .Values.domain.intranet }}"
                   namespace: kube-prometheus-stack
                 prowlarr:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "prowlarr.{{ .Values.domain.intranet }}"
                   namespace: media
                 qbittorrent:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "qbittorrent.{{ .Values.domain.intranet }}"
                   namespace: media
                 radarr:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "radarr.{{ .Values.domain.intranet }}"
                   namespace: media
                 seaweedfs-admin:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "seaweedfs-admin.{{ .Values.domain.intranet }}"
                   namespace: seaweedfs
                 seaweedfs-s3:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "seaweedfs-s3.{{ .Values.domain.intranet }}"
                   namespace: seaweedfs
                 seerr:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "seerr.{{ .Values.domain.intranet }}"
                   namespace: media
                 sonarr:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "sonarr.{{ .Values.domain.intranet }}"
                   namespace: media
                 tandoor-recipes:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "tandoor.{{ .Values.domain.intranet }}"
                   namespace: tandoor-recipes
-                  certificateRef: root-wildcard-intranet-tls
                 traefik-dashboard:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "traefik.{{ .Values.domain.intranet }}"
                 tududi:
+                  certificateRef: root-wildcard-intranet-tls
                   hostname: "tududi.{{ .Values.domain.intranet }}"
                   namespace: tududi
         external:
