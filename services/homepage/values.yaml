@@ -104,6 +104,10 @@ homepage:
     - secretRef:
         name: homepage-pihole
     - secretRef:
+        name: homepage-radarr
+    - secretRef:
+        name: homepage-sonarr
+    - secretRef:
         name: homepage-truenas
   persistence:
     custom-css:

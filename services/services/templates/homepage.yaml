@@ -134,6 +134,33 @@ spec:
                     description: Movie Manager
                     namespace: media
                     app: radarr
+                    widget:
+                      # no field in the radarr widget flags failed imports, so query the queue status
+                      # https://gethomepage.dev/widgets/services/customapi/
+                      type: customapi
+                      url: http://radarr.media.svc.cluster.local/api/v3/queue/status
+                      headers:
+                        X-Api-Key: "{{`{{HOMEPAGE_VAR_RADARR_KEY}}`}}"
+                      mappings: &queueStatusMappings
+                        # completed downloads stay in the queue when import fails
+                        - label: Queued
+                          field: totalCount
+                          format: number
+                        # flags, not counts; false renders blank unless remapped
+                        - label: Warnings
+                          field: warnings
+                          remap:
+                            - value: false
+                              to: "✅"
+                            - value: true
+                              to: "⚠️"
+                        - label: Errors
+                          field: errors
+                          remap:
+                            - value: false
+                              to: "✅"
+                            - value: true
+                              to: "❌"
                 - Seerr:
                     icon: seerr.png
                     href: "https://seerr.{{ .Values.domain.intranet }}/"
@@ -146,6 +173,13 @@ spec:
                     description: TV Manager
                     namespace: media
                     app: sonarr
+                    widget:
+                      # same as radarr
+                      type: customapi
+                      url: http://sonarr.media.svc.cluster.local/api/v3/queue/status
+                      headers:
+                        X-Api-Key: "{{`{{HOMEPAGE_VAR_SONARR_KEY}}`}}"
+                      mappings: *queueStatusMappings
               - Infrastructure:
                 - ArgoCD:
                     icon: argo-cd.png

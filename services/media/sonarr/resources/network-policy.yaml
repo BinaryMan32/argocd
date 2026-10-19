@@ -24,6 +24,14 @@ spec:
             matchLabels:
               app.kubernetes.io/instance: seerr
               app.kubernetes.io/name: seerr
+        # Requests from homepage widget
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: homepage
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: homepage
+              app.kubernetes.io/instance: homepage
         # Requests from ingress controller
         - namespaceSelector:
             matchLabels:
