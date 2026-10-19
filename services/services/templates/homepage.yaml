@@ -214,6 +214,10 @@ spec:
                     app: longhorn
                     # select all pods in namespace
                     pod-selector: ""
+                - Mercury BMC:
+                    icon: asrock-rack.png
+                    href: https://192.168.0.7/
+                    description: Remote Management
                 - Mercury TrueNAS:
                     icon: truenas.png
                     href: https://192.168.0.8/
