@@ -52,6 +52,7 @@ spec:
                   hostname: "argocd.{{ .Values.domain.intranet }}"
                   namespace: argocd
                 argocd-grpc:
+                  certificateRef: argocd-wildcard-intranet-tls
                   hostname: "grpc.argocd.{{ .Values.domain.intranet }}"
                   namespace: argocd
                 audiobookshelf:
