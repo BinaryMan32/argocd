@@ -131,8 +131,8 @@ seaweedfs:
             ports:
               - protocol: TCP
                 port: admin
-      # Allow traefik to access `s3` (see `s3.httpRoute` below)
-      s3:
+      # Allow traefik to access `s3` on the `filer` (see `filer.httpRoute` below)
+      filer:
         extraIngress:
           - from:
               - namespaceSelector:

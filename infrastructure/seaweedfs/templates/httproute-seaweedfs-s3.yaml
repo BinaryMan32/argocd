@@ -11,7 +11,7 @@ spec:
     {{- toYaml .hostnames | nindent 4 }}
   rules:
     - backendRefs:
-        - name: seaweedfs-s3
+        - name: seaweedfs-filer
           port: 8333
       {{- with .filters }}
       filters:
