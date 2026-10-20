@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: tandoor-recipes
 spec:
+  selector:
+    app.kubernetes.io/instance: tandoor-recipes
+    app.kubernetes.io/name: tandoor-recipes
   type: ClusterIP
   ports:
     - name: http

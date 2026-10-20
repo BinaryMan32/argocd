@@ -6,7 +6,10 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector: {}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tandoor-recipes
+      app.kubernetes.io/name: tandoor-recipes
   template:
     spec:
       restartPolicy: Always

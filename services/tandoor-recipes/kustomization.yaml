@@ -10,7 +10,6 @@ resources:
   - resources/service.yaml
 labels:
   - includeTemplates: true
-    includeSelectors: true
     pairs:
       app.kubernetes.io/instance: tandoor-recipes
       app.kubernetes.io/name: tandoor-recipes
