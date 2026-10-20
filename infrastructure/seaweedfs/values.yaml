@@ -131,9 +131,9 @@ seaweedfs:
             ports:
               - protocol: TCP
                 port: admin
-      # Allow traefik to access `s3` on the `filer` (see `filer.httpRoute` below)
       filer:
         extraIngress:
+          # Allow traefik to access `s3` on the `filer` (see `filer.httpRoute` below)
           - from:
               - namespaceSelector:
                   matchLabels:
@@ -142,6 +142,23 @@ seaweedfs:
                   matchLabels:
                     app.kubernetes.io/name: traefik
                     app.kubernetes.io/instance: traefik
+            ports:
+              - protocol: TCP
+                port: swfs-s3
+          # Allow CNPG (barman-cloud plugin sidecar) to access `s3` on the `filer`
+          - from:
+              - namespaceSelector:
+                  matchExpressions:
+                    - key: kubernetes.io/metadata.name
+                      operator: In
+                      values:
+                        - play-when-dev
+                        - play-when-stage
+                        - play-when-prod
+                podSelector:
+                  matchExpressions:
+                    - key: cnpg.io/cluster
+                      operator: Exists
             ports:
               - protocol: TCP
                 port: swfs-s3
