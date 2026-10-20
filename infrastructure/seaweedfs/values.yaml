@@ -75,6 +75,10 @@ seaweedfs:
       enabled: true
       enableAuth: true
       existingConfigSecret: seaweedfs-s3-config
+      createBuckets:
+        - name: authelia-cnpg
+        - name: lldap-cnpg
+        - name: nextcloud-cnpg
     data:
       type: persistentVolumeClaim
       size: 1Gi
