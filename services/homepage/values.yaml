@@ -14,12 +14,11 @@ homepage:
     .infomation-widget-longhorn .min-w-\[85px\] {
       width: 6rem;
     }
-    /* Tighten spacing so all nodes fit on one row. The row is justify-between,
-       which spreads spare space between items, so the trailing mr-3 is dropped
-       and a small left margin is enough to separate them. */
+    /* Tighten spacing so all nodes fit on one row. The trailing mr-3 is
+       dropped and the left margin is reduced. */
     .information-widget-kubernetes > div > div,
     .infomation-widget-longhorn > div > div {
-      margin-left: 0.5rem;
+      margin-left: 0.75rem;
     }
     .information-widget-kubernetes .mr-3,
     .infomation-widget-longhorn .mr-3 {
