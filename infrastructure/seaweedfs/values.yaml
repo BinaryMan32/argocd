@@ -25,6 +25,25 @@ seaweedfs:
         storageClass: topolvm-ssd-xfs
         size: 256Gi
         maxVolumes: 0
+    # Keep off griffin3 so it can be taken offline for experiments.
+    # Preserve chart default podAntiAffinity (one pod per node).
+    affinity: |
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: NotIn
+                  values:
+                    - griffin3
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: {{ template "seaweedfs.name" . }}
+                app.kubernetes.io/instance: {{ .Release.Name }}
+                app.kubernetes.io/component: {{ $volumeName }}
+            topologyKey: kubernetes.io/hostname
 
   volumes:
     griffin-turing0:
