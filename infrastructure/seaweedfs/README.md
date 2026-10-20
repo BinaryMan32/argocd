@@ -38,14 +38,3 @@ Save settings? [y/N] y
 ```sh
 kubectl exec --stdin --tty --namespace=seaweedfs service/seaweedfs-master -- weed shell
 ```
-
-Manually setting volume replication:
-
-```text
-lock
-volume.configure.replication -replication 020 -volumeId 13
-volume.fix.replication -apply
-unlock
-```
-
-Note: Running these commands while a node was down deleted all buckets and users.
