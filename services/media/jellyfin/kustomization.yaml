@@ -13,7 +13,6 @@ resources:
   - resources/serviceaccount.yaml
 labels:
   - includeTemplates: true
-    includeSelectors: false
     pairs:
       app.kubernetes.io/instance: jellyfin
       app.kubernetes.io/name: jellyfin
