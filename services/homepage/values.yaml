@@ -8,14 +8,22 @@ homepage:
   # ensuring that pods are recreated when custom css changes.
   customCss: |
     /* Line up kubernetes and longhorn info widget nodes in columns.
-       Both use the same icon and margins, so only content width and the
-       kubernetes node's ml-4 differ. The longhorn class is misspelled upstream. */
+       Both use the same icon, so only content width and the kubernetes
+       node's ml-4 differ. The longhorn class is misspelled upstream. */
     .information-widget-kubernetes .min-w-\[85px\],
     .infomation-widget-longhorn .min-w-\[85px\] {
       width: 6rem;
     }
+    /* Tighten spacing so all nodes fit on one row. The row is justify-between,
+       which spreads spare space between items, so the trailing mr-3 is dropped
+       and a small left margin is enough to separate them. */
+    .information-widget-kubernetes > div > div,
     .infomation-widget-longhorn > div > div {
-      margin-left: 1rem;
+      margin-left: 0.5rem;
+    }
+    .information-widget-kubernetes .mr-3,
+    .infomation-widget-longhorn .mr-3 {
+      margin-right: 0;
     }
     /* longhorn appends total last; show it first like the kubernetes cluster */
     .infomation-widget-longhorn > div > div:last-child {
