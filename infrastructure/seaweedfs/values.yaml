@@ -40,7 +40,7 @@ seaweedfs:
       nodeSelector: |
         topology.kubernetes.io/zone: "turing1"
     griffin-turing2:
-      replicas: 2
+      replicas: 3
       rack: "turing2"
       dataCenter: "griffin"
       nodeSelector: |
