@@ -95,6 +95,9 @@ seaweedfs:
 
   worker:
     enabled: true
+    # Exclude erasure_coding (in "heavy"/"all"): it replaces replicated volumes with EC shards,
+    # which can't survive losing a whole rack/zone with only 3.
+    jobType: default
     nodeSelector: |
       kubernetes.io/arch: arm64
 
