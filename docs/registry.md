@@ -75,7 +75,7 @@ To disable, configure:
 ## Configuring K3S Containerd
 
 ```sh
-for host in griffin{0..8}; do
+for host in griffin{0..9}; do
     echo $host
     ssh $host sudo mkdir -p /etc/rancher/k3s/
     cat docs/registries.yaml | ssh $host sudo tee /etc/rancher/k3s/registries.yaml
