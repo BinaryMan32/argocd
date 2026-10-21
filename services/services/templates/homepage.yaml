@@ -285,17 +285,11 @@ spec:
                         # 020 placement keeps 3 copies, so one missing copy is a warning
                         Under-replicated:
                           numeric:
-                            - level: good
-                              when: eq
-                              value: 0
                             - level: warn
                               when: gt
                               value: 0
                         Disk Errors:
                           numeric:
-                            - level: good
-                              when: eq
-                              value: 0
                             - level: danger
                               when: gt
                               value: 0
@@ -307,14 +301,8 @@ spec:
                             - level: warn
                               when: gte
                               value: 75
-                            - level: good
-                              when: lt
-                              value: 75
                         S3 5xx:
                           numeric:
-                            - level: good
-                              when: eq
-                              value: 0
                             - level: warn
                               when: gt
                               value: 0
