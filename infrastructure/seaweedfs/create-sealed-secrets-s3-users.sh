@@ -18,7 +18,7 @@ for user in "$@"; do
       ;;
     nextcloud-cnpg)
       $script_dir/create-sealed-secret-s3-user.sh "$user" \
-        nextcloud seaweedfs-cnpg ../../services/nextcloud/templates
+        nextcloud ../../services/nextcloud/templates
       ;;
     *)
       echo "Unknown user: $user" >&2

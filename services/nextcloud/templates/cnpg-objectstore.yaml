@@ -9,10 +9,10 @@ spec:
     endpointURL: http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333
     s3Credentials:
       accessKeyId:
-        name: seaweedfs-cnpg
+        name: seaweedfs-s3-user-nextcloud-cnpg
         key: access-key-id
       secretAccessKey:
-        name: seaweedfs-cnpg
+        name: seaweedfs-s3-user-nextcloud-cnpg
         key: secret-access-key
     wal:
       compression: bzip2
