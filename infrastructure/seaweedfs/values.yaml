@@ -79,6 +79,9 @@ seaweedfs:
         - name: authelia-cnpg
         - name: lldap-cnpg
         - name: nextcloud-cnpg
+        - name: play-when-dev-cnpg
+        - name: play-when-stage-cnpg
+        - name: play-when-prod-cnpg
     data:
       type: persistentVolumeClaim
       size: 1Gi
