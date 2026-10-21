@@ -36,6 +36,29 @@ For everything else, just press enter until you get to this prompt at the end.
 Save settings? [y/N] y
 ```
 
+## S3 Users
+
+S3 users are defined in `s3.identities` in [values.yaml](values.yaml). Credentials are
+`${VAR}` references, which SeaweedFS resolves from the environment variables in
+`seaweedfs.filer.secretExtraEnvironmentVars`, each read from a sealed secret
+`seaweedfs-s3-user-<user>`.
+
+To add a user:
+
+1. Add the identity to `s3.identities`, and its 2 environment variables to
+   `seaweedfs.filer.secretExtraEnvironmentVars`.
+2. Add the user to [create-sealed-secrets-s3-users.sh](create-sealed-secrets-s3-users.sh),
+   including the namespace and directory of the client's copy of the secret if needed.
+3. Generate the sealed secrets:
+
+   ```sh
+   ./create-sealed-secrets-s3-users.sh <user>
+   ```
+
+Running the script for an existing user rotates its credentials. SeaweedFS only reads
+credentials and identities on startup, so restart the filer if the environment variables
+didn't change.
+
 ## Weed Shell
 
 ```sh
