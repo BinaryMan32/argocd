@@ -8,7 +8,10 @@ seaweedfs:
     replicas: 1
     nodeSelector: |
       kubernetes.io/arch: arm64
-    volumeSizeLimitMB: 16384
+    # Each volume consumes this when computing the max volumes per server.
+    # A larger limit than a typical bucket size will artificially limit the number of buckets.
+    # Buckets allocate additional volumes as their size increases.
+    volumeSizeLimitMB: 4096
     # Set default replication (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
     defaultReplication: "020"
     data:
