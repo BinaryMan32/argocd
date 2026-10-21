@@ -71,10 +71,28 @@ seaweedfs:
       kubernetes.io/arch: arm64
     # Set default replication (0 copies in different datacenters, 2 copies in different racks, 0 copies in same rack)
     defaultReplicaPlacement: "020"
+    # S3 credentials referenced by `s3.identities` below, see create-sealed-secret-s3-user.sh
+    secretExtraEnvironmentVars:
+      S3_USER_ADMIN_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-admin
+          key: access-key-id
+      S3_USER_ADMIN_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-admin
+          key: secret-access-key
+      S3_USER_READONLY_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-readonly
+          key: access-key-id
+      S3_USER_READONLY_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-readonly
+          key: secret-access-key
     s3:
       enabled: true
       enableAuth: true
-      existingConfigSecret: seaweedfs-s3-config
+      existingConfigSecret: seaweedfs-s3-identities
       createBuckets:
         - name: authelia-cnpg
         - name: lldap-cnpg
@@ -188,3 +206,19 @@ s3:
     parentRefs:
       - name: traefik-intranet
         namespace: traefik
+  # S3 identities without credentials, rendered into the secret `seaweedfs-s3-identities`
+  # SeaweedFS resolves the ${VAR} references from `seaweedfs.filer.secretExtraEnvironmentVars` above
+  identities:
+    - name: Admin
+      actions:
+        - Admin
+      credentials:
+        - accessKey: "${S3_USER_ADMIN_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_ADMIN_SECRET_ACCESS_KEY}"
+    - name: ReadOnly
+      actions:
+        - Read
+        - List
+      credentials:
+        - accessKey: "${S3_USER_READONLY_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_READONLY_SECRET_ACCESS_KEY}"

@@ -10,7 +10,7 @@ Install [s3cmd](https://github.com/s3tools/s3cmd).
 sudo apt install s3cmd
 ```
 
-Configure `s3cmd` using the `ReadOnly` credentials from the secret `seaweedfs-s3-config`.
+Configure `s3cmd` using the `ReadOnly` credentials from the secret `seaweedfs-s3-user-readonly`.
 
 ```sh
 s3cmd --configure
