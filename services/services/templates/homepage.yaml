@@ -247,6 +247,77 @@ spec:
                     description: S3 Compatible Object Storage
                     namespace: seaweedfs
                     app: seaweedfs
+                # separate from the SeaweedFS card, since widget values can't link and the card href is the admin UI
+                - SeaweedFS Grafana Dashboard:
+                    icon: grafana.png
+                    # dashboard from the seaweedfs chart, enabled by `global.monitoring.enabled`
+                    href: "https://grafana.{{ .Values.domain.intranet }}/d/a24009d7-cbda-4443-a132-1cc1c4677304/seaweedfs"
+                    description: SeaweedFS Health
+                    widget:
+                      # no seaweedfs widget, so query health from prometheus
+                      # https://gethomepage.dev/widgets/services/prometheusmetric/
+                      type: prometheusmetric
+                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
+                      metrics:
+                        - label: Under-replicated
+                          query: sum(SeaweedFS_master_under_replicated_volumes) + sum(SeaweedFS_master_replica_placement_mismatch)
+                        - label: Disk Errors
+                          query: >-
+                            sum(SeaweedFS_volumeServer_disk_error_status)
+                            + sum(SeaweedFS_volumeServer_io_quarantine)
+                            + sum(SeaweedFS_volumeServer_read_only_volumes)
+                        # each volume holds up to volumeSizeLimitMB, so slots run out before disk space
+                        - label: Volume Slots
+                          query: 100 * sum(SeaweedFS_volumeServer_volumes) / sum(SeaweedFS_volumeServer_max_volumes)
+                          format:
+                            type: percent
+                        # 4xx excluded, clients occasionally get 403
+                        - label: S3 5xx
+                          query: sum(increase(SeaweedFS_s3_request_total{code=~"5.."}[24h])) or vector(0)
+                          # increase() extrapolates, so round off fractional counts
+                          format:
+                            type: number
+                            options:
+                              maximumFractionDigits: 0
+                      # keyed by metric label, first matching rule wins
+                      # https://gethomepage.dev/configs/services/#block-highlighting
+                      highlight:
+                        # 020 placement keeps 3 copies, so one missing copy is a warning
+                        Under-replicated:
+                          numeric:
+                            - level: good
+                              when: eq
+                              value: 0
+                            - level: warn
+                              when: gt
+                              value: 0
+                        Disk Errors:
+                          numeric:
+                            - level: good
+                              when: eq
+                              value: 0
+                            - level: danger
+                              when: gt
+                              value: 0
+                        Volume Slots:
+                          numeric:
+                            - level: danger
+                              when: gte
+                              value: 90
+                            - level: warn
+                              when: gte
+                              value: 75
+                            - level: good
+                              when: lt
+                              value: 75
+                        S3 5xx:
+                          numeric:
+                            - level: good
+                              when: eq
+                              value: 0
+                            - level: warn
+                              when: gt
+                              value: 0
                 - Traefik:
                     icon: traefik.png
                     href: "https://traefik.{{ .Values.domain.intranet }}/"
