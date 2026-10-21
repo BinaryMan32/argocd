@@ -116,6 +116,30 @@ seaweedfs:
         secretKeyRef:
           name: seaweedfs-s3-user-lldap-cnpg
           key: secret-access-key
+      S3_USER_PLAY_WHEN_DEV_CNPG_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-play-when-dev-cnpg
+          key: access-key-id
+      S3_USER_PLAY_WHEN_DEV_CNPG_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-play-when-dev-cnpg
+          key: secret-access-key
+      S3_USER_PLAY_WHEN_STAGE_CNPG_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-play-when-stage-cnpg
+          key: access-key-id
+      S3_USER_PLAY_WHEN_STAGE_CNPG_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-play-when-stage-cnpg
+          key: secret-access-key
+      S3_USER_PLAY_WHEN_PROD_CNPG_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-play-when-prod-cnpg
+          key: access-key-id
+      S3_USER_PLAY_WHEN_PROD_CNPG_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-play-when-prod-cnpg
+          key: secret-access-key
     s3:
       enabled: true
       enableAuth: true
@@ -275,3 +299,27 @@ s3:
       credentials:
         - accessKey: "${S3_USER_LLDAP_CNPG_ACCESS_KEY_ID}"
           secretKey: "${S3_USER_LLDAP_CNPG_SECRET_ACCESS_KEY}"
+    - name: play-when-dev-cnpg
+      actions:
+        - Read:play-when-dev-cnpg
+        - Write:play-when-dev-cnpg
+        - List:play-when-dev-cnpg
+      credentials:
+        - accessKey: "${S3_USER_PLAY_WHEN_DEV_CNPG_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_PLAY_WHEN_DEV_CNPG_SECRET_ACCESS_KEY}"
+    - name: play-when-stage-cnpg
+      actions:
+        - Read:play-when-stage-cnpg
+        - Write:play-when-stage-cnpg
+        - List:play-when-stage-cnpg
+      credentials:
+        - accessKey: "${S3_USER_PLAY_WHEN_STAGE_CNPG_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_PLAY_WHEN_STAGE_CNPG_SECRET_ACCESS_KEY}"
+    - name: play-when-prod-cnpg
+      actions:
+        - Read:play-when-prod-cnpg
+        - Write:play-when-prod-cnpg
+        - List:play-when-prod-cnpg
+      credentials:
+        - accessKey: "${S3_USER_PLAY_WHEN_PROD_CNPG_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_PLAY_WHEN_PROD_CNPG_SECRET_ACCESS_KEY}"

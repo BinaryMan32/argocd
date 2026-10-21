@@ -28,6 +28,12 @@ for user in "$@"; do
       $script_dir/create-sealed-secret-s3-user.sh "$user" \
         auth ../lldap/resources
       ;;
+    play-when-dev-cnpg|play-when-stage-cnpg|play-when-prod-cnpg)
+      # Namespace play-when-<env>, deployed by play-when-project-app
+      namespace="${user%-cnpg}"
+      $script_dir/create-sealed-secret-s3-user.sh "$user" \
+        "$namespace" ../../play-when/play-when/templates
+      ;;
     *)
       echo "Unknown user: $user" >&2
       exit 1
