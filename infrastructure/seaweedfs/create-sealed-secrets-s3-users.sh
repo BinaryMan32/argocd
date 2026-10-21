@@ -24,6 +24,10 @@ for user in "$@"; do
       $script_dir/create-sealed-secret-s3-user.sh "$user" \
         auth ../authelia/templates
       ;;
+    lldap-cnpg)
+      $script_dir/create-sealed-secret-s3-user.sh "$user" \
+        auth ../lldap/resources
+      ;;
     *)
       echo "Unknown user: $user" >&2
       exit 1

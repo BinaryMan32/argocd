@@ -9,6 +9,7 @@ resources:
   - resources/sealed-secret-admin.yaml
   - resources/sealed-secret-authelia.yaml
   - resources/sealed-secret-crypto.yaml
+  - resources/sealed-secret-seaweedfs-s3-user-lldap-cnpg.yaml
   - resources/service.yaml
 labels:
   - includeTemplates: true

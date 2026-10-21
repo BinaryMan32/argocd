@@ -108,6 +108,14 @@ seaweedfs:
         secretKeyRef:
           name: seaweedfs-s3-user-authelia-cnpg
           key: secret-access-key
+      S3_USER_LLDAP_CNPG_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-lldap-cnpg
+          key: access-key-id
+      S3_USER_LLDAP_CNPG_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-lldap-cnpg
+          key: secret-access-key
     s3:
       enabled: true
       enableAuth: true
@@ -259,3 +267,11 @@ s3:
       credentials:
         - accessKey: "${S3_USER_AUTHELIA_CNPG_ACCESS_KEY_ID}"
           secretKey: "${S3_USER_AUTHELIA_CNPG_SECRET_ACCESS_KEY}"
+    - name: lldap-cnpg
+      actions:
+        - Read:lldap-cnpg
+        - Write:lldap-cnpg
+        - List:lldap-cnpg
+      credentials:
+        - accessKey: "${S3_USER_LLDAP_CNPG_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_LLDAP_CNPG_SECRET_ACCESS_KEY}"
