@@ -16,3 +16,9 @@ spec:
 
   storage:
     size: 1Gi
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: lldap-seaweedfs
