@@ -100,6 +100,14 @@ seaweedfs:
         secretKeyRef:
           name: seaweedfs-s3-user-nextcloud-cnpg
           key: secret-access-key
+      S3_USER_AUTHELIA_CNPG_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-authelia-cnpg
+          key: access-key-id
+      S3_USER_AUTHELIA_CNPG_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-authelia-cnpg
+          key: secret-access-key
     s3:
       enabled: true
       enableAuth: true
@@ -188,6 +196,7 @@ seaweedfs:
                     - key: kubernetes.io/metadata.name
                       operator: In
                       values:
+                        - auth
                         - nextcloud
                         - play-when-dev
                         - play-when-stage
@@ -242,3 +251,11 @@ s3:
       credentials:
         - accessKey: "${S3_USER_NEXTCLOUD_CNPG_ACCESS_KEY_ID}"
           secretKey: "${S3_USER_NEXTCLOUD_CNPG_SECRET_ACCESS_KEY}"
+    - name: authelia-cnpg
+      actions:
+        - Read:authelia-cnpg
+        - Write:authelia-cnpg
+        - List:authelia-cnpg
+      credentials:
+        - accessKey: "${S3_USER_AUTHELIA_CNPG_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_AUTHELIA_CNPG_SECRET_ACCESS_KEY}"

@@ -20,6 +20,10 @@ for user in "$@"; do
       $script_dir/create-sealed-secret-s3-user.sh "$user" \
         nextcloud ../../services/nextcloud/templates
       ;;
+    authelia-cnpg)
+      $script_dir/create-sealed-secret-s3-user.sh "$user" \
+        auth ../authelia/templates
+      ;;
     *)
       echo "Unknown user: $user" >&2
       exit 1
