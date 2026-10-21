@@ -4,8 +4,12 @@ metadata:
   name: github-webhook-ipallow
 spec:
   ipAllowList:
+    # https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses
     # curl -s https://api.github.com/meta | yq --yaml-output '.hooks'
     sourceRange:
+      - 9.234.106.48/28
+      - 9.234.98.160/28
+      - 9.234.98.176/28
       - 192.30.252.0/22
       - 185.199.108.0/22
       - 140.82.112.0/20
