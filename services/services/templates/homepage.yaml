@@ -115,6 +115,13 @@ spec:
                       url: http://gluetun.media.svc.cluster.local
                       version: 2
                       fields: ["public_ip", "region", "country", "port_forwarded"]
+                      highlight:
+                        # 0 when no port is forwarded
+                        port_forwarded:
+                          numeric:
+                            - level: danger
+                              when: eq
+                              value: 0
                 - Bazarr:
                     icon: bazarr.png
                     href: "https://bazarr.{{ .Values.domain.intranet }}/"
@@ -160,6 +167,18 @@ spec:
                               to: "✅"
                             - value: true
                               to: "❌"
+                      # matches the remapped values above
+                      highlight: &queueStatusHighlight
+                        Warnings:
+                          string:
+                            - level: warn
+                              when: equals
+                              value: "⚠️"
+                        Errors:
+                          string:
+                            - level: danger
+                              when: equals
+                              value: "❌"
                 - Seerr:
                     icon: seerr.png
                     href: "https://seerr.{{ .Values.domain.intranet }}/"
@@ -179,6 +198,7 @@ spec:
                       headers:
                         X-Api-Key: "{{`{{HOMEPAGE_VAR_SONARR_KEY}}`}}"
                       mappings: *queueStatusMappings
+                      highlight: *queueStatusHighlight
               - Infrastructure:
                 - ArgoCD:
                     icon: argo-cd.png
@@ -193,6 +213,27 @@ spec:
                       key: "{{`{{HOMEPAGE_VAR_ARGOCD_KEY}}`}}"
                       # only statuses that should be 0, max 4 fields
                       fields: ["degraded", "progressing", "outOfSync", "missing"]
+                      highlight:
+                        degraded:
+                          numeric:
+                            - level: danger
+                              when: gt
+                              value: 0
+                        progressing:
+                          numeric:
+                            - level: warn
+                              when: gt
+                              value: 0
+                        outOfSync:
+                          numeric:
+                            - level: warn
+                              when: gt
+                              value: 0
+                        missing:
+                          numeric:
+                            - level: warn
+                              when: gt
+                              value: 0
                     podSelector: >-
                       app.kubernetes.io/name in (
                         argocd-server,
@@ -229,6 +270,12 @@ spec:
                       version: 2
                       fields: ["load", "alerts"]
                       enablePools: true
+                      highlight:
+                        alerts:
+                          numeric:
+                            - level: warn
+                              when: gt
+                              value: 0
                 - Pihole:
                     icon: pi-hole.png
                     href: "https://pihole.{{ .Values.domain.intranet }}/admin"
@@ -323,6 +370,12 @@ spec:
                       # https://gethomepage.dev/widgets/services/prometheus/
                       type: prometheus
                       url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
+                      highlight:
+                        targets_down:
+                          numeric:
+                            - level: danger
+                              when: gt
+                              value: 0
                     podSelector: >-
                       app.kubernetes.io/name in (
                         prometheus-node-exporter,
@@ -358,6 +411,22 @@ spec:
                           query: count(ALERTS{alertstate="firing",severity="warning"}) or vector(0)
                         - label: Pending
                           query: count(ALERTS{alertstate="pending",severity=~"critical|warning"}) or vector(0)
+                      highlight:
+                        Critical:
+                          numeric:
+                            - level: danger
+                              when: gt
+                              value: 0
+                        Warning:
+                          numeric:
+                            - level: warn
+                              when: gt
+                              value: 0
+                        Pending:
+                          numeric:
+                            - level: warn
+                              when: gt
+                              value: 0
                     pod-selector: >-
                       app.kubernetes.io/name in (
                         alertmanager
