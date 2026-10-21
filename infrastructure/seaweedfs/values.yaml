@@ -140,12 +140,21 @@ seaweedfs:
         secretKeyRef:
           name: seaweedfs-s3-user-play-when-prod-cnpg
           key: secret-access-key
+      S3_USER_HOMEBOX_CNPG_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-homebox-cnpg
+          key: access-key-id
+      S3_USER_HOMEBOX_CNPG_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-homebox-cnpg
+          key: secret-access-key
     s3:
       enabled: true
       enableAuth: true
       existingConfigSecret: seaweedfs-s3-identities
       createBuckets:
         - name: authelia-cnpg
+        - name: homebox-cnpg
         - name: lldap-cnpg
         - name: nextcloud-cnpg
         - name: play-when-dev-cnpg
@@ -229,6 +238,7 @@ seaweedfs:
                       operator: In
                       values:
                         - auth
+                        - homebox
                         - nextcloud
                         - play-when-dev
                         - play-when-stage
@@ -323,3 +333,11 @@ s3:
       credentials:
         - accessKey: "${S3_USER_PLAY_WHEN_PROD_CNPG_ACCESS_KEY_ID}"
           secretKey: "${S3_USER_PLAY_WHEN_PROD_CNPG_SECRET_ACCESS_KEY}"
+    - name: homebox-cnpg
+      actions:
+        - Read:homebox-cnpg
+        - Write:homebox-cnpg
+        - List:homebox-cnpg
+      credentials:
+        - accessKey: "${S3_USER_HOMEBOX_CNPG_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_HOMEBOX_CNPG_SECRET_ACCESS_KEY}"

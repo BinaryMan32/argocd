@@ -28,6 +28,10 @@ for user in "$@"; do
       $script_dir/create-sealed-secret-s3-user.sh "$user" \
         auth ../lldap/resources
       ;;
+    homebox-cnpg)
+      $script_dir/create-sealed-secret-s3-user.sh "$user" \
+        homebox ../../services/homebox/resources
+      ;;
     play-when-dev-cnpg|play-when-stage-cnpg|play-when-prod-cnpg)
       # Namespace play-when-<env>, deployed by play-when-project-app
       namespace="${user%-cnpg}"

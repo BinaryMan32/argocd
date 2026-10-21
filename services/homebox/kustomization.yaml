@@ -8,6 +8,7 @@ resources:
   - ./resources/pvc-data.yaml
   - ./resources/sealed-secret.yaml
   - ./resources/sealed-secret-authelia-oidc-homebox.yaml
+  - ./resources/sealed-secret-seaweedfs-s3-user-homebox-cnpg.yaml
   - ./resources/service.yaml
 labels:
   - includeTemplates: true
