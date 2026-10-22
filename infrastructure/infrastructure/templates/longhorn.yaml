@@ -47,6 +47,7 @@ spec:
           replicas: 1
         persistence:
           defaultClass: false
+          defaultDataLocality: best-effort
           reclaimPolicy: Retain
         defaultBackupStore:
           backupTarget: nfs://{{ .Values.nfs.server }}:{{ .Values.nfs.path }}/manual/longhorn-backup
