@@ -24,20 +24,6 @@ Receives only alerts in `play-when*` namespaces.
 ./infrastructure/kube-prometheus-stack/create-discord-webhook-play-when-sealed-secret.sh
 ```
 
-### Slack Secret
-
-Set up a [slack webhook](https://api.slack.com/messaging/webhooks#getting-started)
-
-Create secret and seal with `kubeseal`:
-
-```sh
-echo -n 'WEBHOOK_URL' \
-  | kubectl create secret generic slack-api --namespace=kube-prometheus-stack \
-    --dry-run=client --from-file=url=/dev/stdin -o yaml \
-  | kubeseal --format yaml \
-    >infrastructure/kube-prometheus-stack/templates/slack-api-secret.yaml
-```
-
 ## Testing
 
 Access to alertmanager is protected by authelia.
