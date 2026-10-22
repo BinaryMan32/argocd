@@ -254,8 +254,6 @@ kube-prometheus-stack:
 
   prometheus:
     prometheusSpec:
-      # Temporary: scaled down to move storage class to longhorn-large-ext4
-      replicas: 0
       storageSpec:
         volumeClaimTemplate:
           spec:
