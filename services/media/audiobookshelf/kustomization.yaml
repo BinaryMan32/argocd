@@ -10,6 +10,7 @@ resources:
   - ./resources/pvc-config.yaml
   - ./resources/pvc-metadata.yaml
   - ./resources/pvc-podcasts.yaml
+  - ./resources/sealed-secret-authelia-oidc-audiobookshelf.yaml
   - ./resources/service.yaml
 labels:
   - includeTemplates: true

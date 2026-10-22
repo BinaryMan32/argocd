@@ -5,7 +5,7 @@ script_dir=$(dirname $(realpath $0))
 
 clients=("$@")
 if [ ${#clients[@]} -eq 0 ]; then
-  clients=(headlamp argocd grafana homebox)
+  clients=(headlamp argocd grafana homebox audiobookshelf)
 fi
 
 for client in "${clients[@]}"; do
@@ -32,6 +32,12 @@ for client in "${clients[@]}"; do
       $script_dir/create-sealed-secret-oidc-helper.sh homebox homebox \
         homebox HBOX_OIDC_CLIENT_ID HBOX_OIDC_CLIENT_SECRET \
         ../../services/homebox/resources
+      ;;
+    audiobookshelf)
+      # Not used by the pod; holds the client secret to enter in the web UI
+      $script_dir/create-sealed-secret-oidc-helper.sh audiobookshelf audiobookshelf \
+        media client-id client-secret \
+        ../../services/media/audiobookshelf/resources
       ;;
     *)
       echo "Unknown client: $client" >&2
