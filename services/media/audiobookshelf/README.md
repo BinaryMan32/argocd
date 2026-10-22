@@ -29,6 +29,7 @@ kubectl --namespace=media get secret authelia-oidc-audiobookshelf \
 | OpenID Connect Authentication   | Enabled                                |
 | Issuer URL                      | `https://auth.int.fivebytestudios.com` |
 | Authorize/Token/Userinfo/JWKS   | Click Auto-populate                    |
+| Logout URL                      | (Leave empty)                          |
 | Client ID                       | From the command above                 |
 | Client Secret                   | From the command above                 |
 | Signing Algorithm               | `RS256`                                |
