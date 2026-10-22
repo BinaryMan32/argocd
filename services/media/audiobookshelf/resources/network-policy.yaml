@@ -40,6 +40,21 @@ spec:
         - protocol: TCP
           port: 53
 
+    # Allow OIDC discovery, token and userinfo requests to Authelia.
+    # auth.int.fivebytestudios.com resolves to the traefik LoadBalancer IP,
+    # which kube-proxy translates to a traefik pod before policy is checked.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+              app.kubernetes.io/instance: traefik
+      ports:
+        - protocol: TCP
+          port: websecure
+
     # Allow egress to internet but not in cluster
     - to:
         - ipBlock:
