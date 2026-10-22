@@ -27,7 +27,8 @@ spec:
                 exit 0
               fi
               apk add --no-cache rsync
-              rsync -aHX --stats --info=progress2 /old/metadata/ /new/
+              # nfs squashes root to nobody, so ownership can't be preserved
+              rsync -aH --no-owner --no-group --stats --info=progress2 /old/metadata/ /new/
               echo "files old: $(find /old/metadata -type f | wc -l)"
               echo "files new: $(find /new -type f | wc -l)"
               du -sh /old/metadata /new
