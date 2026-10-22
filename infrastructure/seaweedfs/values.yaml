@@ -148,6 +148,14 @@ seaweedfs:
         secretKeyRef:
           name: seaweedfs-s3-user-homebox-cnpg
           key: secret-access-key
+      S3_USER_TEMPO_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-tempo
+          key: access-key-id
+      S3_USER_TEMPO_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-tempo
+          key: secret-access-key
     s3:
       enabled: true
       enableAuth: true
@@ -160,6 +168,7 @@ seaweedfs:
         - name: play-when-dev-cnpg
         - name: play-when-stage-cnpg
         - name: play-when-prod-cnpg
+        - name: tempo
     data:
       type: persistentVolumeClaim
       size: 1Gi
@@ -247,6 +256,18 @@ seaweedfs:
                   matchExpressions:
                     - key: cnpg.io/cluster
                       operator: Exists
+            ports:
+              - protocol: TCP
+                port: swfs-s3
+          # Allow tempo to access `s3` on the `filer`
+          - from:
+              - namespaceSelector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: tempo
+                podSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: tempo
+                    app.kubernetes.io/instance: tempo
             ports:
               - protocol: TCP
                 port: swfs-s3
@@ -341,3 +362,11 @@ s3:
       credentials:
         - accessKey: "${S3_USER_HOMEBOX_CNPG_ACCESS_KEY_ID}"
           secretKey: "${S3_USER_HOMEBOX_CNPG_SECRET_ACCESS_KEY}"
+    - name: tempo
+      actions:
+        - Read:tempo
+        - Write:tempo
+        - List:tempo
+      credentials:
+        - accessKey: "${S3_USER_TEMPO_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_TEMPO_SECRET_ACCESS_KEY}"
