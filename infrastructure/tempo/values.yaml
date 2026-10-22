@@ -1,43 +1,33 @@
-tempo-distributed:
-  # https://github.com/grafana-community/helm-charts/blob/main/charts/tempo-distributed/values.yaml
-  global:
-    extraEnvFrom:
-      - secretRef:
-          name: seaweedfs-tempo
-        prefix: TRACE_S3_
-  ingester:
+tempo:
+  # https://github.com/grafana-community/helm-charts/blob/main/charts/tempo/values.yaml
+  persistence:
+    # keep the live-store WAL across restarts
+    enabled: true
+    storageClassName: longhorn
+    size: 10Gi
+  tempo:
     extraArgs:
       # expand environment variables in the config file, such as s3 credentials below
-      - "-config.expand-env=true"
-  distributor:
-    extraArgs:
-      # expand environment variables in the config file, such as s3 credentials below
-      - "-config.expand-env=true"
-  compactor:
-    extraArgs:
-      # expand environment variables in the config file, such as s3 credentials below
-      - "-config.expand-env=true"
-  querier:
-    extraArgs:
-      # expand environment variables in the config file, such as s3 credentials below
-      - "-config.expand-env=true"
-  queryFrontend:
-    extraArgs:
-      # expand environment variables in the config file, such as s3 credentials below
-      - "-config.expand-env=true"
-  storage:
-    trace:
-      backend: s3
-      s3:
-        access_key: "${TRACE_S3_ACCESS_KEY}"
-        secret_key: "${TRACE_S3_SECRET_KEY}"
-        bucket: "tempo-traces"
-        endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
-        insecure: true
-  # Specifies which trace protocols to accept by the gateway.
-  traces:
-    otlp:
-      grpc:
-        enabled: true
-      http:
-        enabled: true
+      config.expand-env: true
+    extraEnv:
+      - name: S3_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-s3-user-tempo
+            key: access-key-id
+      - name: S3_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: seaweedfs-s3-user-tempo
+            key: secret-access-key
+    # 7 days retention
+    retention: 168h
+    storage:
+      trace:
+        backend: s3
+        s3:
+          access_key: "${S3_ACCESS_KEY_ID}"
+          secret_key: "${S3_SECRET_ACCESS_KEY}"
+          bucket: "tempo"
+          endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+          insecure: true

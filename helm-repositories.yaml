@@ -50,7 +50,7 @@ repositories:
   certFile: ""
   insecure_skip_tls_verify: false
   keyFile: ""
-  name: tempo-distributed
+  name: tempo
   pass_credentials_all: false
   password: ""
   url: https://grafana-community.github.io/helm-charts
