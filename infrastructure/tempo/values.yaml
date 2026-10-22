@@ -5,6 +5,8 @@ tempo:
     enabled: true
     storageClassName: longhorn
     size: 10Gi
+  serviceMonitor:
+    enabled: true
   tempo:
     extraArgs:
       # expand environment variables in the config file, such as s3 credentials below
