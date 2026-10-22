@@ -8,4 +8,4 @@ spec:
   resources:
     requests:
       storage: "24Gi"
-  storageClassName: "longhorn"
+  storageClassName: "longhorn-large-ext4"
