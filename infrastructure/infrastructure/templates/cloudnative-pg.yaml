@@ -12,8 +12,10 @@ spec:
     chart: cloudnative-pg
     targetRevision: 0.29.1
     helm:
+      # https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml
       valuesObject:
-        # empty
+        monitoring:
+          podMonitorEnabled: true
   destination:
     namespace: cnpg-system
     server: {{ .Values.destination.server }}
