@@ -4,6 +4,7 @@ resources:
   - resources/deployment.yaml
   - resources/httproute.yaml
   - resources/httproute-intranet.yaml
+  - resources/job-migrate-metadata.yaml
   - resources/network-policy.yaml
   - resources/pv-media.yaml
   - resources/pvc-cache-images.yaml

@@ -1,0 +1,50 @@
+# One-off move of /config/metadata from longhorn to nfs for #1614.
+# Plain resource rather than a hook so it only runs once. Requires replicas: 0
+# on the deployment so the config volume is not in use.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: jellyfin-migrate-metadata
+  labels:
+    app.kubernetes.io/component: migrate-metadata
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: migrate-metadata
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: docker.io/library/alpine:3.22
+          command:
+            - sh
+            - -euc
+            - |
+              if [ -e /old/metadata.old ]; then
+                echo "/old/metadata.old exists, already migrated"
+                exit 0
+              fi
+              apk add --no-cache rsync
+              rsync -aHX --stats --info=progress2 /old/metadata/ /new/
+              echo "files old: $(find /old/metadata -type f | wc -l)"
+              echo "files new: $(find /new -type f | wc -l)"
+              du -sh /old/metadata /new
+              # Keep the original visible after /config/metadata is shadowed
+              # by the nfs mount, so it can be removed once verified
+              mv /old/metadata /old/metadata.old
+              mkdir /old/metadata
+              echo done
+          volumeMounts:
+            - name: old
+              mountPath: /old
+            - name: new
+              mountPath: /new
+      volumes:
+        - name: old
+          persistentVolumeClaim:
+            claimName: jellyfin-config
+        - name: new
+          persistentVolumeClaim:
+            claimName: jellyfin-metadata
