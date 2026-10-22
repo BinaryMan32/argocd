@@ -12,6 +12,7 @@ spec:
   - {{ .Values.source.repoURL }}
   - https://bitnami.github.io/sealed-secrets
   - https://cloudnative-pg.github.io/charts
+  - https://cloudnative-pg.github.io/grafana-dashboards
   - https://coredns.github.io/helm
   - https://github.com/longhorn/longhorn
   - https://kubernetes-sigs.github.io/headlamp

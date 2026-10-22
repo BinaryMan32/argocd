@@ -42,6 +42,7 @@ Additional infrastructure used only by non-infrastructure projects.
 
 1. [csi-driver-nfs](./infrastructure/templates/csi-driver-nfs.yaml)
 2. [cloudnative-pg](./infrastructure/templates/cloudnative-pg.yaml)
+3. [cloudnative-pg-dashboards](./infrastructure/templates/cloudnative-pg-dashboards.yaml) (needs kube-prometheus-stack)
 
 ## Manual Kubernetes Changes
 
