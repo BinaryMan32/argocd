@@ -7,6 +7,9 @@ nextcloud:
     tag: 35.0.2-fpm-alpine@sha256:850e53384c892cc865483d63de0d0eae9a9f16c4e0af3ef4e8f634bbcded4641
   nginx:
     enabled: true
+    image:
+      repository: library/nginx
+      tag: 1.31.8-alpine
   nextcloud:
     configs:
       protocol.config.php: |-
