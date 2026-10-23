@@ -131,7 +131,7 @@ homepage:
       color: slate
       providers:
         longhorn:
-          url: http://longhorn-frontend.longhorn-system.svc.cluster.local
+          url: http://longhorn-frontend.longhorn-system
     widgets:
       - kubernetes:
           cluster:

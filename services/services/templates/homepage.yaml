@@ -102,7 +102,7 @@ spec:
                     widget:
                       # https://gethomepage.dev/widgets/services/qbittorrent/
                       type: qbittorrent
-                      url: http://qbittorrent.media.svc.cluster.local
+                      url: http://qbittorrent.media
                       fields: ["leech", "download", "seed", "upload"]
                       enableLeechProgress: true
                 # sidecar in the qbittorrent pod, which the QBittorrent card already shows
@@ -112,7 +112,7 @@ spec:
                     widget:
                       # https://gethomepage.dev/widgets/services/gluetun/
                       type: gluetun
-                      url: http://gluetun.media.svc.cluster.local
+                      url: http://gluetun.media
                       version: 2
                       fields: ["public_ip", "region", "country", "port_forwarded"]
                       highlight:
@@ -144,7 +144,7 @@ spec:
                       # no field in the radarr widget flags failed imports, so query the queue status
                       # https://gethomepage.dev/widgets/services/customapi/
                       type: customapi
-                      url: http://radarr.media.svc.cluster.local/api/v3/queue/status
+                      url: http://radarr.media/api/v3/queue/status
                       headers:
                         X-Api-Key: "{{`{{HOMEPAGE_VAR_RADARR_KEY}}`}}"
                       mappings: &queueStatusMappings
@@ -194,7 +194,7 @@ spec:
                     widget:
                       # same as radarr
                       type: customapi
-                      url: http://sonarr.media.svc.cluster.local/api/v3/queue/status
+                      url: http://sonarr.media/api/v3/queue/status
                       headers:
                         X-Api-Key: "{{`{{HOMEPAGE_VAR_SONARR_KEY}}`}}"
                       mappings: *queueStatusMappings
@@ -209,7 +209,7 @@ spec:
                     widget:
                       # https://gethomepage.dev/widgets/services/argocd/
                       type: argocd
-                      url: http://argocd-server.argocd.svc.cluster.local
+                      url: http://argocd-server.argocd
                       key: "{{`{{HOMEPAGE_VAR_ARGOCD_KEY}}`}}"
                       # only statuses that should be 0, max 4 fields
                       fields: ["degraded", "progressing", "outOfSync", "missing"]
@@ -263,7 +263,7 @@ spec:
                     widget:
                       # https://gethomepage.dev/widgets/services/pihole/
                       type: pihole
-                      url: http://pihole-web.pihole.svc.cluster.local
+                      url: http://pihole-web.pihole
                       version: 6
                       key: "{{`{{HOMEPAGE_VAR_PIHOLE_KEY}}`}}"
                 - SeaweedFS:
@@ -282,7 +282,7 @@ spec:
                       # no seaweedfs widget, so query health from prometheus
                       # https://gethomepage.dev/widgets/services/prometheusmetric/
                       type: prometheusmetric
-                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
+                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090
                       metrics:
                         - label: Under-replicated
                           query: sum(SeaweedFS_master_under_replicated_volumes) + sum(SeaweedFS_master_replica_placement_mismatch)
@@ -369,7 +369,7 @@ spec:
                     widget:
                       # https://gethomepage.dev/widgets/services/prometheus/
                       type: prometheus
-                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
+                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090
                       highlight:
                         targets_down:
                           numeric:
@@ -402,7 +402,7 @@ spec:
                       # no alertmanager widget, so query firing alerts from prometheus
                       # https://gethomepage.dev/widgets/services/prometheusmetric/
                       type: prometheusmetric
-                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
+                      url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090
                       metrics:
                         # severity filters exclude the always-firing Watchdog and InfoInhibitor
                         - label: Critical
