@@ -17,5 +17,5 @@ labels:
 images:
   - name: tandoor-recipes
     newName: vabene1111/recipes
-    newTag: 2.6.15
+    newTag: 2.7.0
 buildMetadata: [managedByLabel]
