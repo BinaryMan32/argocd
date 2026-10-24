@@ -60,6 +60,10 @@ spec:
     - to:
         - podSelector:
             matchLabels:
+              app.kubernetes.io/instance: qbittorrent
+              app.kubernetes.io/name: qbittorrent
+        - podSelector:
+            matchLabels:
               app.kubernetes.io/instance: radarr
               app.kubernetes.io/name: radarr
         - podSelector:
