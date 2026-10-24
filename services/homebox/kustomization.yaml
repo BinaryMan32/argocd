@@ -21,5 +21,5 @@ labels:
 images:
   - name: homebox
     newName: ghcr.io/sysadminsmedia/homebox
-    newTag: 0.27.0-rootless
+    newTag: 0.27.1-rootless
 buildMetadata: [managedByLabel]
