@@ -8,17 +8,18 @@ checks itself. Workers run on separate tdarr node pods which connect to
 
 ## Nodes
 
-Each worker type is a deployment with its worker limits set by env vars, and
-pods labeled with `tdarr-worker-type`:
+Nodes are deployments with their worker limits set by env vars, and pods
+labeled with `tdarr-worker-type`:
 
-- `tdarr-node-health-check-cpu` with 1 health check CPU worker
-- `tdarr-node-transcode-cpu` with 1 transcode CPU worker
+- `tdarr-node-cpu` with 1 transcode CPU worker and 1 health check CPU worker
+
+The free version of tdarr is limited to 5 nodes, so each node runs both worker
+types instead of using a separate pool per worker type.
 
 Pod anti-affinity allows at most one pod per worker type on each kubernetes
-node, so tdarr nodes are named after the host they run on, e.g.
-`<host>-health-check-cpu`.
+node, so tdarr nodes are named after the host they run on, e.g. `<host>-cpu`.
 The server saves node options by name, so options set in the UI persist while
-the pod stays on the same host. Scaling a pool beyond the number of hosts
+the pod stays on the same host. Scaling a deployment beyond the number of hosts
 leaves the extra pods pending.
 
 ## Setup
