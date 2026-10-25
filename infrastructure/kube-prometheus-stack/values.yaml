@@ -237,5 +237,9 @@ kube-prometheus-stack:
       probeSelectorNilUsesHelmValues: false
       scrapeConfigSelectorNilUsesHelmValues: false
 
+  kube-state-metrics:
+    metricLabelsAllowlist:
+      - nodes=[topology.kubernetes.io/zone]
+
 discordWebhookProxy:
   image: nginx:1.31.8-alpine
