@@ -100,7 +100,7 @@ spec:
             # when busy, this gives tdarr nodes lower priority
             requests:
               cpu: 100m
-              memory: 256Mi
+              memory: 2Gi
           volumeMounts:
           # generated from env vars on every start
           - mountPath: /app/configs
