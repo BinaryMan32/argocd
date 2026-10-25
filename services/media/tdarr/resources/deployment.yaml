@@ -21,6 +21,37 @@ spec:
       enableServiceLinks: false
       serviceAccountName: default
       automountServiceAccountToken: false
+      initContainers:
+        # tdarr reads OIDC credentials from a json file, which a secret can't template
+        - name: sso-credentials
+          image: tdarr
+          command:
+            - sh
+            - -c
+            - >-
+              printf '{"issuer":"%s","client_id":"%s","client_secret":"%s","redirect_uri":"%s"}'
+              "$ISSUER" "$CLIENT_ID" "$CLIENT_SECRET" "$REDIRECT_URI" > /sso/oidc.json &&
+              chown 2000:2000 /sso/oidc.json &&
+              chmod 600 /sso/oidc.json
+          env:
+            - name: ISSUER
+              value: https://auth.int.fivebytestudios.com
+            - name: REDIRECT_URI
+              value: https://tdarr.int.fivebytestudios.com/api/v2/public/auth/sso/oidc/callback
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: authelia-oidc-tdarr
+                  key: client-id
+            # generated with only unreserved url characters, so safe in json without escaping
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: authelia-oidc-tdarr
+                  key: client-secret
+          volumeMounts:
+            - mountPath: /sso
+              name: sso
       containers:
         - name: tdarr
           image: tdarr
@@ -45,9 +76,19 @@ spec:
               value: "false"
             - name: inContainer
               value: "true"
-            # web ui is protected by authelia, server port by network policy
+            # https://docs.tdarr.io/docs/other/authentication
             - name: auth
-              value: "false"
+              value: "true"
+            - name: seededApiKey
+              valueFrom:
+                secretKeyRef:
+                  name: tdarr-api-key
+                  key: api-key
+            # https://docs.tdarr.io/docs/other/single-sign-on
+            - name: oidcSsoEnabled
+              value: "true"
+            - name: oidcSsoCredentialsFile
+              value: /app/sso/oidc.json
             - name: maxLogSizeMB
               value: "10"
           ports:
@@ -76,6 +117,9 @@ spec:
             name: logs
           - mountPath: /data
             name: data
+          - mountPath: /app/sso
+            name: sso
+            readOnly: true
       volumes:
         - name: server
           persistentVolumeClaim:
@@ -85,3 +129,8 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: tdarr-data
+        # keep the client secret off disk
+        - name: sso
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi

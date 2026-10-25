@@ -213,6 +213,7 @@ spec:
                       # https://gethomepage.dev/widgets/services/tdarr/
                       type: tdarr
                       url: http://tdarr.media
+                      key: "{{`{{HOMEPAGE_VAR_TDARR_KEY}}`}}"
                       # processed and saved are lifetime totals, not health
                       fields: ["queue", "errored"]
                       highlight:

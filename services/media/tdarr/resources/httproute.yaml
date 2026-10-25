@@ -12,9 +12,3 @@ spec:
     - backendRefs:
         - name: tdarr
           port: 80
-      filters:
-        - type: ExtensionRef
-          extensionRef:
-            group: traefik.io
-            kind: Middleware
-            name: authelia

@@ -115,6 +115,8 @@ homepage:
     - secretRef:
         name: homepage-sonarr
     - secretRef:
+        name: homepage-tdarr
+    - secretRef:
         name: homepage-truenas
   persistence:
     custom-css:

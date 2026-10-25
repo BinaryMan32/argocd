@@ -80,6 +80,11 @@ spec:
               value: "true"
             - name: nodeType
               value: mapped
+            - name: apiKey
+              valueFrom:
+                secretKeyRef:
+                  name: tdarr-api-key
+                  key: api-key
             - name: maxLogSizeMB
               value: "10"
             - name: transcodecpuWorkers

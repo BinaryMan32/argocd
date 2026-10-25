@@ -58,6 +58,18 @@ spec:
           port: 53
         - protocol: TCP
           port: 53
+    # Allow OIDC discovery and token requests to Authelia.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+              app.kubernetes.io/instance: traefik
+      ports:
+        - protocol: TCP
+          port: websecure
     # Allow plugin and version updates
     - to:
         - ipBlock:

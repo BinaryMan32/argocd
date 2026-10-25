@@ -31,4 +31,28 @@ makes replacing the original file a rename instead of a copy.
 When adding a library:
 
 - **Source** `/data/media/movies` or `/data/media/tv`
-- **Transcode cache** `/data/tdarr-cache`
+- **Transcode cache** `/data/tdarr-cache/movies` or `/data/tdarr-cache/tv`
+
+## Authentication
+
+Users sign in with [SSO](https://docs.tdarr.io/docs/other/single-sign-on)
+through Authelia. Nodes and the homepage widget connect with an API key,
+which the server creates on startup from `seededApiKey`.
+
+Secrets are created by scripts, which must run before syncing:
+
+- `infrastructure/authelia/create-sealed-secrets-oidc.sh tdarr` for the OIDC
+  client, which an init container writes into the credentials file tdarr reads
+- `services/media/tdarr/create-sealed-secret-api-key.sh` for the API key
+
+Tdarr only lets existing users sign in with SSO, matched by email. On the first
+start with authentication enabled, tdarr creates an `admin` user whose password
+is the API key:
+
+```sh
+kubectl --namespace=media get secret tdarr-api-key --template='{{index .data "api-key" | base64decode}}{{"\n"}}'
+```
+
+Sign in as `admin`, then under **Tools → Users** add an SSO-only user for each
+person with the email from their Authelia account. Keep the `admin` user as a
+fallback in case SSO breaks.

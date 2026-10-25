@@ -9,6 +9,8 @@ resources:
   - ./resources/pvc-server.yaml
   - ./resources/pvc-data.yaml
   - ./resources/pv-data.yaml
+  - ./resources/sealed-secret-authelia-oidc-tdarr.yaml
+  - ./resources/sealed-secret-tdarr-api-key.yaml
   - ./resources/service.yaml
 labels:
   - includeTemplates: true

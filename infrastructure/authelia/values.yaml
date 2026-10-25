@@ -100,9 +100,6 @@ authelia:
         - domain: sonarr.int.fivebytestudios.com
           subject: group:sonarr
           policy: one_factor
-        - domain: tdarr.int.fivebytestudios.com
-          subject: group:tdarr
-          policy: one_factor
         - domain: traefik.int.fivebytestudios.com
           subject: group:traefik
           policy: two_factor
@@ -120,6 +117,9 @@ authelia:
             id_token: ['groups', 'email']
           grafana:
             id_token: ['email', 'name', 'groups', 'preferred_username']
+          # tdarr fails login unless the ID token has a verified email
+          tdarr:
+            id_token: ['email', 'email_verified']
         # https://www.authelia.com/configuration/identity-providers/openid-connect/clients/
         clients:
           - client_name: headlamp
@@ -222,6 +222,22 @@ authelia:
             consent_mode: pre-configured
             pre_configured_consent_duration: 1y
             token_endpoint_auth_method: client_secret_basic
+          # https://docs.tdarr.io/docs/other/single-sign-on
+          # Tdarr matches logins to existing users by email
+          - client_name: Tdarr
+            client_id: '{{ secret "/secrets/authelia-oidc-tdarr/client-id" }}'
+            claims_policy: tdarr
+            client_secret:
+              path: /secrets/authelia-oidc-tdarr/client-secret-digest
+            redirect_uris:
+              - https://tdarr.int.fivebytestudios.com/api/v2/public/auth/sso/oidc/callback
+            scopes: ['openid', 'profile', 'email']
+            require_pkce: true
+            pkce_challenge_method: S256
+            authorization_policy: one_factor
+            consent_mode: pre-configured
+            pre_configured_consent_duration: 1y
+            token_endpoint_auth_method: client_secret_basic
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
     # Refreshing the storage secret in particular makes it impossible to decrypt the database.
@@ -257,6 +273,10 @@ authelia:
           - key: client-id
           - key: client-secret-digest
       authelia-oidc-audiobookshelf:
+        items:
+          - key: client-id
+          - key: client-secret-digest
+      authelia-oidc-tdarr:
         items:
           - key: client-id
           - key: client-secret-digest

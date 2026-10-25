@@ -5,7 +5,7 @@ script_dir=$(dirname $(realpath $0))
 
 clients=("$@")
 if [ ${#clients[@]} -eq 0 ]; then
-  clients=(headlamp argocd grafana homebox audiobookshelf)
+  clients=(headlamp argocd grafana homebox audiobookshelf tdarr)
 fi
 
 for client in "${clients[@]}"; do
@@ -38,6 +38,12 @@ for client in "${clients[@]}"; do
       $script_dir/create-sealed-secret-oidc-helper.sh audiobookshelf audiobookshelf \
         media client-id client-secret \
         ../../services/media/audiobookshelf/resources
+      ;;
+    tdarr)
+      # An init container writes these into the credentials file tdarr expects
+      $script_dir/create-sealed-secret-oidc-helper.sh tdarr tdarr \
+        media client-id client-secret \
+        ../../services/media/tdarr/resources
       ;;
     *)
       echo "Unknown client: $client" >&2

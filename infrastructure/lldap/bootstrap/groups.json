@@ -62,8 +62,5 @@
   "name": "sonarr"
 }
 {
-  "name": "tdarr"
-}
-{
   "name": "traefik"
 }
