@@ -182,6 +182,17 @@ seaweedfs:
     allowInsecureBind: true
     nodeSelector: |
       kubernetes.io/arch: arm64
+    # Since 4.49, admin rejects gRPC from remote workers without `jwt.filer_signing.key`.
+    # Not using `global.seaweedfs.securityConfig.jwtSigning.filerWrite`: the chart generates a random
+    # key and uses `lookup` to reuse the existing one, but Argo CD doesn't support `lookup`, so the
+    # key would change on every render.
+    # Only admin and worker get the key, so the filer doesn't require JWTs for HTTP writes.
+    # See create-sealed-secret-jwt-filer-signing.sh
+    secretExtraEnvironmentVars:
+      WEED_JWT_FILER_SIGNING_KEY:
+        secretKeyRef:
+          name: seaweedfs-jwt-filer-signing
+          key: key
     data:
       type: persistentVolumeClaim
       size: 1Gi
@@ -194,6 +205,12 @@ seaweedfs:
     jobType: default
     nodeSelector: |
       kubernetes.io/arch: arm64
+    # Signs gRPC calls to admin (see `admin.secretExtraEnvironmentVars` above)
+    extraEnvironmentVars:
+      WEED_JWT_FILER_SIGNING_KEY:
+        secretKeyRef:
+          name: seaweedfs-jwt-filer-signing
+          key: key
 
   networkPolicy:
     enabled: true
