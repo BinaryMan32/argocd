@@ -1,4 +1,4 @@
-# tdarr
+# Tdarr
 
 See [docs](https://docs.tdarr.io/docs/installation/docker/run-compose)
 
@@ -56,3 +56,32 @@ kubectl --namespace=media get secret tdarr-api-key --template='{{index .data "ap
 Sign in as `admin`, then under **Tools → Users** add an SSO-only user for each
 person with the email from their Authelia account. Keep the `admin` user as a
 fallback in case SSO breaks.
+
+## Radarr and Sonarr
+
+Flows use the **Notify Radarr or Sonarr** plugin to rescan files after
+replacing them. The plugin runs on the nodes, which the network policies allow
+to reach radarr and sonarr.
+
+Under **Tools → Variables** add global variables, so flows don't repeat them:
+
+| Variable | Value |
+| --- | --- |
+| `radarr_host` | `http://radarr.media` |
+| `radarr_api_key` | radarr API key |
+| `sonarr_host` | `http://sonarr.media` |
+| `sonarr_api_key` | sonarr API key |
+
+Read the API keys from each app's config:
+
+```sh
+kubectl --namespace=media exec deploy/radarr -- sed -n 's:.*<ApiKey>\(.*\)</ApiKey>.*:\1:p' /config/config.xml
+kubectl --namespace=media exec deploy/sonarr -- sed -n 's:.*<ApiKey>\(.*\)</ApiKey>.*:\1:p' /config/config.xml
+```
+
+Configure the plugin with:
+
+| Arr | Arr Host | Arr API Key |
+| --- | --- | --- |
+| radarr | `{{{args.userVariables.global.radarr_host}}}` | `{{{args.userVariables.global.radarr_api_key}}}` |
+| sonarr | `{{{args.userVariables.global.sonarr_host}}}` | `{{{args.userVariables.global.sonarr_api_key}}}` |

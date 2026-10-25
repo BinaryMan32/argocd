@@ -24,6 +24,12 @@ spec:
             matchLabels:
               app.kubernetes.io/instance: seerr
               app.kubernetes.io/name: seerr
+        # Tdarr flows notify after replacing a file
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: node
+              app.kubernetes.io/instance: tdarr
+              app.kubernetes.io/name: tdarr
         # Requests from homepage widget
         - namespaceSelector:
             matchLabels:

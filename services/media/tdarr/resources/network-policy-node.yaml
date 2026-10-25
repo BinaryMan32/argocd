@@ -39,3 +39,16 @@ spec:
       ports:
         - protocol: TCP
           port: server
+    # Flows notify radarr and sonarr to rescan replaced files
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: radarr
+              app.kubernetes.io/name: radarr
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: sonarr
+              app.kubernetes.io/name: sonarr
+      ports:
+        - protocol: TCP
+          port: webui
