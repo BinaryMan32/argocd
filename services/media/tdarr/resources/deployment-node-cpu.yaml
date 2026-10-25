@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/component: node
     tdarr-worker-type: cpu
 spec:
-  replicas: 1
+  replicas: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -29,6 +29,13 @@ spec:
       serviceAccountName: default
       automountServiceAccountToken: false
       affinity:
+        nodeAffinity:
+          # keep cpu heavy transcodes off control plane nodes
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
         podAntiAffinity:
           # one pod per host, so the host name makes the tdarr node name unique
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -39,6 +46,15 @@ spec:
                   app.kubernetes.io/name: tdarr
                   tdarr-worker-type: cpu
               topologyKey: kubernetes.io/hostname
+          # leave cpu for jellyfin live transcodes
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/instance: jellyfin
+                    app.kubernetes.io/name: jellyfin
+                topologyKey: kubernetes.io/hostname
       containers:
         - name: tdarr-node
           image: tdarr-node
@@ -74,6 +90,12 @@ spec:
               value: "1"
             - name: healthcheckgpuWorkers
               value: "0"
+          resources:
+            # low cpu requests since idle most of the time
+            # when busy, this gives tdarr nodes lower priority
+            requests:
+              cpu: 100m
+              memory: 256Mi
           volumeMounts:
           # generated from env vars on every start
           - mountPath: /app/configs

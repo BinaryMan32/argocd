@@ -16,6 +16,18 @@ spec:
     spec:
       serviceAccountName: jellyfin
       securityContext: {}
+      affinity:
+        podAntiAffinity:
+          # avoid competing with tdarr transcodes for cpu
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/component: node
+                    app.kubernetes.io/instance: tdarr
+                    app.kubernetes.io/name: tdarr
+                topologyKey: kubernetes.io/hostname
       containers:
         - name: jellyfin
           securityContext: {}
@@ -43,7 +55,11 @@ spec:
               path: /health
               port: http
             initialDelaySeconds: 10
-          resources: {}
+          resources:
+            # cpu request gives live transcodes priority over tdarr nodes
+            requests:
+              cpu: "1"
+              memory: 1Gi
           volumeMounts:
             - mountPath: /config
               name: config

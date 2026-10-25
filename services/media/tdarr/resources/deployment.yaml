@@ -61,6 +61,10 @@ spec:
             httpGet:
               path: /
               port: webui
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
           volumeMounts:
           - mountPath: /app/server
             name: server
