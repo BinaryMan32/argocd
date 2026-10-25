@@ -13,6 +13,11 @@ spec:
     initdb:
       database: nextcloud
       owner: nextcloud
+      # Nextcloud revokes all privileges on its database from PUBLIC, including CONNECT for
+      # cnpg_metrics_exporter. Grant via pg_monitor, since cnpg_metrics_exporter doesn't exist yet.
+      # Only runs on bootstrap; existing clusters need the GRANT run manually.
+      postInitApplicationSQL:
+        - GRANT CONNECT ON DATABASE nextcloud TO pg_monitor
 
   storage:
     size: 1Gi
