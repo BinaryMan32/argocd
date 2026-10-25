@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tdarr
+  labels:
+    app.kubernetes.io/component: server
+spec:
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: tdarr
+    app.kubernetes.io/name: tdarr
+  type: ClusterIP
+  ports:
+    - name: webui
+      protocol: TCP
+      port: 80
+      targetPort: webui
+    # tdarr nodes connect to this port
+    - name: server
+      protocol: TCP
+      port: 8266
+      targetPort: server

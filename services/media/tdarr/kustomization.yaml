@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./resources/deployment.yaml
+  - ./resources/httproute.yaml
+  - ./resources/network-policy.yaml
+  - ./resources/pvc-server.yaml
+  - ./resources/pvc-data.yaml
+  - ./resources/pv-data.yaml
+  - ./resources/service.yaml
+labels:
+  - includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: tdarr
+      app.kubernetes.io/name: tdarr
+images:
+  - name: tdarr
+    newName: ghcr.io/haveagitgat/tdarr
+    newTag: 3.01.00
+buildMetadata: [managedByLabel]

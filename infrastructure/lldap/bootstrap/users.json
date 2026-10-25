@@ -32,6 +32,7 @@
     "radarr",
     "seaweedfs-admin",
     "sonarr",
+    "tdarr",
     "traefik"
   ]
 }
@@ -66,7 +67,8 @@
     "prowlarr",
     "qbittorrent",
     "radarr",
-    "sonarr"
+    "sonarr",
+    "tdarr"
   ]
 }
 {
@@ -85,6 +87,7 @@
     "prowlarr",
     "qbittorrent",
     "radarr",
-    "sonarr"
+    "sonarr",
+    "tdarr"
   ]
 }

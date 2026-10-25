@@ -157,6 +157,10 @@ spec:
                   certificateRef: root-wildcard-intranet-tls
                   hostname: "tandoor.{{ .Values.domain.intranet }}"
                   namespace: tandoor-recipes
+                tdarr:
+                  certificateRef: root-wildcard-intranet-tls
+                  hostname: "tdarr.{{ .Values.domain.intranet }}"
+                  namespace: media
                 traefik-dashboard:
                   certificateRef: root-wildcard-intranet-tls
                   hostname: "traefik.{{ .Values.domain.intranet }}"

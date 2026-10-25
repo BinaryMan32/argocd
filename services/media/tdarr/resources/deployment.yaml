@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tdarr
+  labels:
+    app.kubernetes.io/component: server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/instance: tdarr
+      app.kubernetes.io/name: tdarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: server
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: tdarr
+          image: tdarr
+          # https://docs.tdarr.io/docs/installation/variables#tdarr-server-variables
+          env:
+            - name: PUID
+              value: "2000"
+            - name: PGID
+              value: "2000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: America/Chicago
+            - name: serverIP
+              value: 0.0.0.0
+            - name: serverPort
+              value: "8266"
+            - name: webUIPort
+              value: "8265"
+            # all transcoding and health checks happen on separate node pods
+            - name: internalNode
+              value: "false"
+            - name: inContainer
+              value: "true"
+            # web ui is protected by authelia, server port by network policy
+            - name: auth
+              value: "false"
+            - name: maxLogSizeMB
+              value: "10"
+          ports:
+            - name: webui
+              protocol: TCP
+              containerPort: 8265
+            - name: server
+              protocol: TCP
+              containerPort: 8266
+          readinessProbe:
+            httpGet:
+              path: /
+              port: webui
+          volumeMounts:
+          - mountPath: /app/server
+            name: server
+            subPath: server
+          - mountPath: /app/configs
+            name: server
+            subPath: configs
+          - mountPath: /app/logs
+            name: logs
+          - mountPath: /data
+            name: data
+      volumes:
+        - name: server
+          persistentVolumeClaim:
+            claimName: tdarr-server
+        - name: logs
+          emptyDir: {}
+        - name: data
+          persistentVolumeClaim:
+            claimName: tdarr-data

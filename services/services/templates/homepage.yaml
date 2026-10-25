@@ -199,6 +199,29 @@ spec:
                         X-Api-Key: "{{`{{HOMEPAGE_VAR_SONARR_KEY}}`}}"
                       mappings: *queueStatusMappings
                       highlight: *queueStatusHighlight
+                - Tdarr:
+                    icon: tdarr.png
+                    href: "https://tdarr.{{ .Values.domain.intranet }}/"
+                    description: Media Transcoding
+                    namespace: media
+                    app: tdarr
+                    # node pods share the name label and may be scaled to zero
+                    podSelector: >-
+                      app.kubernetes.io/name=tdarr,
+                      app.kubernetes.io/component=server
+                    widget:
+                      # https://gethomepage.dev/widgets/services/tdarr/
+                      type: tdarr
+                      url: http://tdarr.media
+                      # processed and saved are lifetime totals, not health
+                      fields: ["queue", "errored"]
+                      highlight:
+                        # transcode and health check errors stay until requeued
+                        errored:
+                          numeric:
+                            - level: danger
+                              when: gt
+                              value: 0
               - Infrastructure:
                 - ArgoCD:
                     icon: argo-cd.png
