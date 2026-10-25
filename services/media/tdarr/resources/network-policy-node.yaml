@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tdarr-node-access
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: node
+      app.kubernetes.io/instance: tdarr
+      app.kubernetes.io/name: tdarr
+  policyTypes:
+    - Ingress
+    - Egress
+  # nodes only make outbound connections to the server
+  ingress: []
+
+  egress:
+    # Allow DNS
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: coredns
+              app.kubernetes.io/name: coredns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Tdarr server, which also serves plugins to nodes
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: server
+              app.kubernetes.io/instance: tdarr
+              app.kubernetes.io/name: tdarr
+      ports:
+        - protocol: TCP
+          port: server

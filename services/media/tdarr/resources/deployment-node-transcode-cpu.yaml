@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tdarr-node-transcode-cpu
+  labels:
+    app.kubernetes.io/component: node
+    tdarr-worker-type: transcode-cpu
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      # anti-affinity prevents surging onto a host already running this pool
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: node
+      app.kubernetes.io/instance: tdarr
+      app.kubernetes.io/name: tdarr
+      tdarr-worker-type: transcode-cpu
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: node
+        tdarr-worker-type: transcode-cpu
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      affinity:
+        podAntiAffinity:
+          # one pod per host, so the host name makes the tdarr node name unique
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: node
+                  app.kubernetes.io/instance: tdarr
+                  app.kubernetes.io/name: tdarr
+                  tdarr-worker-type: transcode-cpu
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: tdarr-node
+          image: tdarr-node
+          env:
+            - name: K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            # the server saves node options by name
+            - name: nodeName
+              value: $(K8S_NODE_NAME)-transcode-cpu
+            - name: PUID
+              value: "2000"
+            - name: PGID
+              value: "2000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: America/Chicago
+            - name: serverURL
+              value: http://tdarr.media:8266
+            - name: inContainer
+              value: "true"
+            - name: nodeType
+              value: mapped
+            - name: maxLogSizeMB
+              value: "10"
+            - name: transcodecpuWorkers
+              value: "1"
+            - name: transcodegpuWorkers
+              value: "0"
+            - name: healthcheckcpuWorkers
+              value: "0"
+            - name: healthcheckgpuWorkers
+              value: "0"
+          volumeMounts:
+          # generated from env vars on every start
+          - mountPath: /app/configs
+            name: configs
+          - mountPath: /app/logs
+            name: logs
+          - mountPath: /data
+            name: data
+      volumes:
+        - name: configs
+          emptyDir: {}
+        - name: logs
+          emptyDir: {}
+        - name: data
+          persistentVolumeClaim:
+            claimName: tdarr-data

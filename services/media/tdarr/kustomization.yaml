@@ -2,8 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./resources/deployment.yaml
+  - ./resources/deployment-node-health-check-cpu.yaml
+  - ./resources/deployment-node-transcode-cpu.yaml
   - ./resources/httproute.yaml
   - ./resources/network-policy.yaml
+  - ./resources/network-policy-node.yaml
   - ./resources/pvc-server.yaml
   - ./resources/pvc-data.yaml
   - ./resources/pv-data.yaml
@@ -16,5 +19,9 @@ labels:
 images:
   - name: tdarr
     newName: ghcr.io/haveagitgat/tdarr
+    newTag: 3.01.00
+  # must match the server version
+  - name: tdarr-node
+    newName: ghcr.io/haveagitgat/tdarr_node
     newTag: 3.01.00
 buildMetadata: [managedByLabel]
