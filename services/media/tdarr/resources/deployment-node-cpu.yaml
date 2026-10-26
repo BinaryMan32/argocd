@@ -101,6 +101,8 @@ spec:
             requests:
               cpu: 100m
               memory: 2Gi
+            limits:
+              memory: 6Gi
           volumeMounts:
           # generated from env vars on every start
           - mountPath: /app/configs

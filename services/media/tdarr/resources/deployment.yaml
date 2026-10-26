@@ -106,6 +106,8 @@ spec:
             requests:
               cpu: 350m
               memory: 768Mi
+            limits:
+              memory: 2Gi
           volumeMounts:
           - mountPath: /app/server
             name: server
