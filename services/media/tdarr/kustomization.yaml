@@ -20,9 +20,9 @@ labels:
 images:
   - name: tdarr
     newName: ghcr.io/haveagitgat/tdarr
-    newTag: 3.02.00
+    newTag: 3.03.00
   # must match the server version
   - name: tdarr-node
     newName: ghcr.io/haveagitgat/tdarr_node
-    newTag: 3.02.00
+    newTag: 3.03.00
 buildMetadata: [managedByLabel]
