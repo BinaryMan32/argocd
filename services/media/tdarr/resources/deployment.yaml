@@ -104,8 +104,8 @@ spec:
               port: webui
           resources:
             requests:
-              cpu: 100m
-              memory: 256Mi
+              cpu: 350m
+              memory: 768Mi
           volumeMounts:
           - mountPath: /app/server
             name: server
