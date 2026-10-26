@@ -85,3 +85,24 @@ Configure the plugin with:
 | --- | --- | --- |
 | radarr | `{{{args.userVariables.global.radarr_host}}}` | `{{{args.userVariables.global.radarr_api_key}}}` |
 | sonarr | `{{{args.userVariables.global.sonarr_host}}}` | `{{{args.userVariables.global.sonarr_api_key}}}` |
+
+## Reviewing transcodes
+
+Add the **Require Review** flow plugin before **Replace Original File** to hold
+transcodes in the staging section, with **Auto accept successful transcodes**
+off. [review-staged.py](review-staged.py) lists the held files, opens the
+original and the transcode in
+[video-compare](https://github.com/pixop/video-compare), then sends the chosen
+verdict back to tdarr.
+
+It needs `video-compare`, the media share mounted locally, and a tdarr API key
+stored in the desktop keyring:
+
+```sh
+sudo apt install libsecret-tools
+secret-tool store --label='Tdarr API key' service tdarr
+./review-staged.py
+```
+
+`TDARR_PATH_MAP` maps the pods' `/data` to the local mount, `/mnt/nfs/media` by
+default. `TDARR_API_KEY` overrides the keyring.
