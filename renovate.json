@@ -7,6 +7,9 @@
   "assigneesFromCodeOwners": true,
   "reviewersFromCodeOwners": true,
   "prHourlyLimit": 0,
+  "timezone": "America/Chicago",
+  "schedule": ["* 8-23 * * *"],
+  "automergeSchedule": ["* 8-23 * * *"],
   "packageRules": [
     {
       "description": "automatically merge all patch updates",
@@ -60,8 +63,8 @@
       "description": "avoid restarting foundry during evening game sessions (6pm-2am)",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["felddy/foundryvtt"],
-      "timezone": "America/Chicago",
-      "schedule": ["* 2-17 * * *"]
+      "schedule": ["* 8-17 * * *"],
+      "automergeSchedule": ["* 8-17 * * *"]
     }
  ],
   "argocd": {
