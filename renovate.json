@@ -57,7 +57,8 @@
         "ghcr.io/haveagitgat/tdarr",
         "ghcr.io/haveagitgat/tdarr_node"
       ],
-      "groupName": "tdarr"
+      "groupName": "tdarr",
+      "changelogUrl": "https://tdarr.io/download/"
     },
     {
       "description": "avoid restarting foundry during evening game sessions (6pm-2am)",
