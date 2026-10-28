@@ -6,6 +6,7 @@
   ],
   "assigneesFromCodeOwners": true,
   "reviewersFromCodeOwners": true,
+  "prHourlyLimit": 0,
   "packageRules": [
     {
       "description": "automatically merge all patch updates",
