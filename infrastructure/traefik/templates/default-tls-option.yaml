@@ -1,0 +1,12 @@
+# Applies to every TLS connection that doesn't match a router with its own
+# TLS options, which is all of them since no other TLSOption exists. Must be
+# named "default".
+# Traefik has no per-entrypoint default, so this covers intranet and external.
+apiVersion: traefik.io/v1alpha1
+kind: TLSOption
+metadata:
+  name: default
+spec:
+  # reject clients with no SNI, or SNI not matching any certificate,
+  # instead of serving the self-signed traefik default certificate.
+  sniStrict: true
