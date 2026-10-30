@@ -9,9 +9,21 @@ spec:
   template:
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        # image USER is "node", runAsNonRoot needs a numeric uid to verify
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: foundryvtt-web
           image: foundryvtt
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           # https://hub.docker.com/r/felddy/foundryvtt#environment-variables
           env:
             - name: CONTAINER_CACHE_SIZE
