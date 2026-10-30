@@ -16,7 +16,9 @@ spec:
     spec:
       serviceAccountName: default
       automountServiceAccountToken: false
-      securityContext: {}
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       affinity:
         podAntiAffinity:
           # avoid competing with tdarr transcodes for cpu
@@ -31,7 +33,8 @@ spec:
                 topologyKey: kubernetes.io/hostname
       containers:
         - name: jellyfin
-          securityContext: {}
+          securityContext:
+            allowPrivilegeEscalation: false
           image: jellyfin
           imagePullPolicy: IfNotPresent
           ports:
