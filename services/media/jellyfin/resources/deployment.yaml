@@ -64,6 +64,9 @@ spec:
             requests:
               cpu: "1"
               memory: 1Gi
+            limits:
+              # Rockchip Media Process Platform hardware transcoding
+              devic.es/rkmpp: "1"
           volumeMounts:
             - mountPath: /config
               name: config
