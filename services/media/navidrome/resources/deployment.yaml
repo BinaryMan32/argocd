@@ -15,9 +15,24 @@ spec:
       enableServiceLinks: false
       serviceAccountName: default
       automountServiceAccountToken: false
+      # https://www.navidrome.org/docs/installation/docker/#permissions
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        # longhorn volumes were created when navidrome ran as root
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: navidrome
           image: navidrome
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           # https://www.navidrome.org/docs/usage/configuration-options/
           env:
             # https://www.navidrome.org/docs/usage/integration/external-services
