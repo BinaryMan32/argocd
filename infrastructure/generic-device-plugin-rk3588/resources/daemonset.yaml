@@ -1,0 +1,93 @@
+# Adapted from https://github.com/squat/generic-device-plugin/blob/main/manifests/generic-device-plugin.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: generic-device-plugin-rk3588
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rk3588
+      app.kubernetes.io/name: generic-device-plugin
+  updateStrategy:
+    type: RollingUpdate
+  # with readinessProbe, stop a rollout of an image which crashes after starting
+  minReadySeconds: 10
+  template:
+    spec:
+      automountServiceAccountToken: false
+      priorityClassName: system-node-critical
+      # the rockchip rk3588 nodes, griffin-mercury has none of these devices
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      tolerations:
+        - operator: Exists
+          effect: NoExecute
+        - operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: generic-device-plugin
+          image: generic-device-plugin
+          # https://github.com/squat/generic-device-plugin#usage
+          # Globs in a group are paired by index with the other paths' matches,
+          # so a glob would only contribute its first match here. List each
+          # device explicitly instead.
+          args:
+            # devic.es/rkmpp, see README.md
+            - --device
+            - |
+              name: rkmpp
+              groups:
+                - count: 1
+                  paths:
+                    - path: /dev/mpp_service
+                    - path: /dev/rga
+                    - path: /dev/dri/renderD128
+                    - path: /dev/dma_heap/cma
+                    - path: /dev/dma_heap/cma-uncached
+                    - path: /dev/dma_heap/system
+                    - path: /dev/dma_heap/system-dma32
+                    - path: /dev/dma_heap/system-uncached
+                    - path: /dev/dma_heap/system-uncached-dma32
+            # devic.es/mali, see README.md
+            - --device
+            - |
+              name: mali
+              groups:
+                - count: 1
+                  paths:
+                    - path: /dev/mali0
+          resources:
+            requests:
+              cpu: 50m
+              memory: 10Mi
+            limits:
+              cpu: 50m
+              memory: 20Mi
+          ports:
+            - name: http
+              containerPort: 8080
+          # /health always returns 200 once the HTTP server is up
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: device-plugin
+              mountPath: /var/lib/kubelet/device-plugins
+            - name: dev
+              mountPath: /dev
+      volumes:
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: dev
+          hostPath:
+            path: /dev

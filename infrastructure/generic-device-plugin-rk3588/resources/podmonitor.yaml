@@ -1,0 +1,14 @@
+# Adapted from https://github.com/squat/generic-device-plugin/blob/main/manifests/podmonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: generic-device-plugin-rk3588
+spec:
+  podMetricsEndpoints:
+    - interval: 15s
+      port: http
+      path: /metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rk3588
+      app.kubernetes.io/name: generic-device-plugin
