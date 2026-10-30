@@ -10,7 +10,6 @@ resources:
   - resources/pvc-config.yaml
   - resources/pvc-media.yaml
   - resources/service.yaml
-  - resources/serviceaccount.yaml
 labels:
   - includeTemplates: true
     pairs:

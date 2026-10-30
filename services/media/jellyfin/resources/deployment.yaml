@@ -14,7 +14,7 @@ spec:
       app.kubernetes.io/name: jellyfin
   template:
     spec:
-      serviceAccountName: jellyfin
+      automountServiceAccountToken: false
       securityContext: {}
       affinity:
         podAntiAffinity:

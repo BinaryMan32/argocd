@@ -8,6 +8,7 @@ spec:
     matchLabels: {}
   template:
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: foundryvtt-web
           image: foundryvtt
