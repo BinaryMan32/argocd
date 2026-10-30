@@ -1,0 +1,46 @@
+# Test jellyfin-ffmpeg hardware access through devic.es/rkmpp and devic.es/mali,
+# see README.md.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jellyfin-ffmpeg-test-gpu
+  namespace: media
+spec:
+  restartPolicy: Never
+  automountServiceAccountToken: false
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  # uncomment to test a specific node, e.g. right after a reboot
+  # nodeSelector:
+  #   kubernetes.io/hostname: griffin4
+  containers:
+    - name: ffmpeg
+      # same image as services/media/jellyfin
+      image: docker.io/jellyfin/jellyfin:12.4
+      # init MPP and OpenCL as in Jellyfin's docs, with a short null output so
+      # ffmpeg exits 0 once the devices initialize
+      command:
+        - /usr/lib/jellyfin-ffmpeg/ffmpeg
+        - -hide_banner
+        - -v
+        - debug
+        - -init_hw_device
+        - rkmpp=rk
+        - -init_hw_device
+        - opencl=ocl@rk
+        - -f
+        - lavfi
+        - -i
+        - testsrc2
+        - -t
+        - "1"
+        - -f
+        - "null"
+        - "-"
+      securityContext:
+        allowPrivilegeEscalation: false
+      resources:
+        limits:
+          devic.es/rkmpp: "1"
+          devic.es/mali: "1"

@@ -1,0 +1,33 @@
+# Test jellyfin-ffmpeg hardware access through devic.es/rkmpp, see README.md.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jellyfin-ffmpeg-test-rkmpp
+  namespace: media
+spec:
+  restartPolicy: Never
+  automountServiceAccountToken: false
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: ffmpeg
+      # same image as services/media/jellyfin
+      image: docker.io/jellyfin/jellyfin:12.4
+      # encode a generated clip with the MPP encoder, then decode it with the
+      # MPP decoder
+      command:
+        - sh
+        - -ec
+        - |
+          ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg
+          $ffmpeg -hide_banner -v verbose \
+            -f lavfi -i testsrc2=size=1920x1080:rate=30 -t 5 \
+            -vf format=nv12 -c:v h264_rkmpp -y /tmp/test.mp4
+          $ffmpeg -hide_banner -v verbose \
+            -c:v h264_rkmpp -i /tmp/test.mp4 -f null -
+      securityContext:
+        allowPrivilegeEscalation: false
+      resources:
+        limits:
+          devic.es/rkmpp: "1"
