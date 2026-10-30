@@ -10,7 +10,16 @@ nextcloud:
     image:
       repository: library/nginx
       tag: 1.31.8-alpine
+    securityContext:
+      allowPrivilegeEscalation: false
   nextcloud:
+    securityContext:
+      allowPrivilegeEscalation: false
+    podSecurityContext:
+      # fsGroup chart default when podSecurityContext is unset and nginx is enabled
+      fsGroup: 82
+      seccompProfile:
+        type: RuntimeDefault
     configs:
       protocol.config.php: |-
         <?php
@@ -60,6 +69,9 @@ nextcloud:
   cronjob:
     enabled: true
     type: sidecar
+    sidecar:
+      securityContext:
+        allowPrivilegeEscalation: false
     cronjob:
       affinity:
         podAffinity:
@@ -90,6 +102,14 @@ nextcloud:
     enabled: true
   metrics:
     enabled: true
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+    podSecurityContext:
+      seccompProfile:
+        type: RuntimeDefault
   prometheus:
     serviceMonitor:
       enabled: true

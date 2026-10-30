@@ -14,6 +14,9 @@ spec:
       app.kubernetes.io/name: jellyfin
   template:
     spec:
+      # Set explicitly, removing serviceAccountName leaves the deprecated
+      # serviceAccount field behind, which then repopulates serviceAccountName
+      serviceAccountName: default
       automountServiceAccountToken: false
       securityContext: {}
       affinity:
