@@ -17,6 +17,9 @@ spec:
       serviceAccountName: default
       automountServiceAccountToken: false
       securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
       affinity:
@@ -35,6 +38,9 @@ spec:
         - name: jellyfin
           securityContext:
             allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           image: jellyfin
           imagePullPolicy: IfNotPresent
           ports:
