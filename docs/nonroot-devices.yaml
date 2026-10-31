@@ -1,0 +1,3 @@
+# https://docs.k3s.io/cli/agent
+# Sets device_ownership_from_security_context=true in the containerd CRI config
+nonroot-devices: true

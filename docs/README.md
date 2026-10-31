@@ -5,6 +5,7 @@
 - [cgroup v2](./cgroup-v2.md)
 - [Registry](./registry.md)
 - [Disk Cleanup](./disk-cleanup.md)
+- [Non-root Devices](./nonroot-devices.md)
 
 ## Control Plane Only
 
