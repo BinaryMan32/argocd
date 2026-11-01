@@ -30,6 +30,13 @@ which require the Rockchip BSP kernel.
 
 `/dev/dri/renderD129` is the NPU, and is excluded.
 
+MPP identifies the SoC from `/proc/device-tree/compatible`, which containerd
+masks. Without it, MPP only enables the codecs common to every Rockchip SoC
+(H.264, MPEG-2), and refuses HEVC/VP9/AV1 decoding and HEVC encoding with
+`unable to create ... for soc unknown unsupported`. Jellyfin works around this
+with an `LD_PRELOAD` shim, see
+[fake-dt.c](../../services/media/jellyfin/configmap/fake-device-tree/fake-dt.c).
+
 ## devic.es/mali
 
 Mali-G610 GPU (`/dev/mali0`). Jellyfin only needs it for OpenCL HDR

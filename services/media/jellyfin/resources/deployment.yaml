@@ -34,6 +34,25 @@ spec:
                     app.kubernetes.io/instance: tdarr
                     app.kubernetes.io/name: tdarr
                 topologyKey: kubernetes.io/hostname
+      initContainers:
+        # containerd masks the device tree, which Rockchip MPP needs to enable
+        # hardware codecs based on platform name, see configmap/fake-device-tree/fake-dt.c
+        - name: fake-device-tree
+          image: gcc
+          command:
+            - sh
+            - /configmap/setup.sh
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - mountPath: /configmap
+              name: fake-device-tree-configmap
+              readOnly: true
+            - mountPath: /fake-device-tree
+              name: fake-device-tree
       containers:
         - name: jellyfin
           securityContext:
@@ -43,6 +62,9 @@ spec:
                 - ALL
           image: jellyfin
           imagePullPolicy: IfNotPresent
+          env:
+            - name: JELLYFIN_FFMPEG
+              value: /fake-device-tree/ffmpeg
           ports:
             - name: http
               containerPort: 8096
@@ -85,6 +107,13 @@ spec:
               name: cache-images
             - mountPath: /cache/transcodes
               name: cache-transcodes
+            - mountPath: /fake-device-tree
+              name: fake-device-tree
+              readOnly: true
+            # /sys/firmware is masked, but not this mount of the same file
+            - mountPath: /host-device-tree/compatible
+              name: host-device-tree-compatible
+              readOnly: true
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -100,3 +129,13 @@ spec:
         - emptyDir:
             sizeLimit: 50Gi
           name: cache-transcodes
+        - name: fake-device-tree
+          emptyDir:
+            sizeLimit: 1Mi
+        - name: fake-device-tree-configmap
+          configMap:
+            name: jellyfin-fake-device-tree
+        - name: host-device-tree-compatible
+          hostPath:
+            path: /sys/firmware/devicetree/base/compatible
+            type: File

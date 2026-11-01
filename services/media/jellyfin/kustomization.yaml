@@ -19,4 +19,16 @@ images:
   - name: jellyfin
     newName: docker.io/jellyfin/jellyfin
     newTag: "12.4"
+  # same Debian release as the jellyfin image
+  - name: gcc
+    newName: docker.io/library/gcc
+    newTag: 16.2.0-trixie
+configMapGenerator:
+  - name: jellyfin-fake-device-tree
+    files:
+      - configmap/fake-device-tree/fake-dt.c
+      - configmap/fake-device-tree/ffmpeg
+      - configmap/fake-device-tree/setup.sh
+    options:
+      disableNameSuffixHash: true
 buildMetadata: [managedByLabel]

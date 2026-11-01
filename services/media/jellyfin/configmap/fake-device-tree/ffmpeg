@@ -1,0 +1,3 @@
+#!/bin/sh
+# JELLYFIN_FFMPEG wrapper that preloads fake-dt.c, installed by setup.sh
+LD_PRELOAD=/fake-device-tree/fake-dt.so exec /usr/lib/jellyfin-ffmpeg/ffmpeg "$@"
