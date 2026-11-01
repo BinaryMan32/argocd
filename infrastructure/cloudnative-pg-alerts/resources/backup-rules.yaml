@@ -1,0 +1,36 @@
+# Not from upstream. The barman-cloud plugin reports backups in its own metrics, and the cnpg_collector backup
+# metrics are always 0. Clusters without the plugin don't have these metrics, so they don't alert.
+# https://github.com/cloudnative-pg/plugin-barman-cloud/blob/main/web/docs/observability.md
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cloudnative-pg-backups
+spec:
+  groups:
+    - name: cloudnative-pg-backups
+      rules:
+        # ScheduledBackups run weekly, so allow an extra day
+        - alert: CNPGBackupTooOld
+          annotations:
+            summary: CNPG Cluster has no recent backup.
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" last completed a backup {{ $value | humanizeDuration }} ago.
+          expr: |
+            time() - max by (namespace, job) (barman_cloud_cloudnative_pg_io_last_available_backup_timestamp) > 8 * 86400
+          for: 10m
+          labels:
+            severity: warning
+
+        # Clears after the next successful backup
+        - alert: CNPGBackupFailed
+          annotations:
+            summary: CNPG Cluster's most recent backup failed.
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" has a failed backup more recent than its last successful backup.
+          expr: |
+            max by (namespace, job) (barman_cloud_cloudnative_pg_io_last_failed_backup_timestamp)
+              > on (namespace, job)
+            max by (namespace, job) (barman_cloud_cloudnative_pg_io_last_available_backup_timestamp)
+          for: 10m
+          labels:
+            severity: warning

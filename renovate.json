@@ -66,6 +66,32 @@
       "matchPackageNames": ["felddy/foundryvtt"],
       "schedule": ["* 8-17 * * *"],
       "automergeSchedule": ["* 8-17 * * *"]
+    },
+    {
+      "description": "prometheus rules copied from upstream must be updated by hand before merging",
+      "matchFileNames": ["infrastructure/cloudnative-pg-alerts/**"],
+      "automerge": false,
+      "prBodyNotes": [
+        "Diff the upstream rules between these versions and update `{{packageFile}}` before merging. See `infrastructure/cloudnative-pg-alerts/README.md`."
+      ]
+    },
+    {
+      "description": "show upstream changes to cloudnative-pg cluster chart prometheus rules",
+      "matchFileNames": ["infrastructure/cloudnative-pg-alerts/**"],
+      "matchPackageNames": ["cloudnative-pg/charts"],
+      "prBodyNotes": [
+        "Upstream rule history: https://github.com/{{depName}}/commits/{{newValue}}/charts/cluster/prometheus_rules",
+        "Upstream rule changes between these versions (no output means no changes):\n\n```sh\ngh api repos/{{depName}}/compare/{{currentValue}}...{{newValue}} \\\n  --jq '.files[] | select(.filename | startswith(\"charts/cluster/prometheus_rules/\")) | \"--- \\(.filename) (\\(.status))\\n\\(.patch)\"'\n```"
+      ]
+    },
+    {
+      "description": "show upstream changes to cloudnative-pg default prometheus rules",
+      "matchFileNames": ["infrastructure/cloudnative-pg-alerts/**"],
+      "matchPackageNames": ["cloudnative-pg/cloudnative-pg"],
+      "prBodyNotes": [
+        "Upstream rule history: https://github.com/{{depName}}/commits/{{newValue}}/docs/src/samples/monitoring/prometheusrule.yaml",
+        "Upstream rule changes between these versions (no output means no changes):\n\n```sh\ngh api repos/{{depName}}/compare/{{currentValue}}...{{newValue}} \\\n  --jq '.files[] | select(.filename == \"docs/src/samples/monitoring/prometheusrule.yaml\") | \"--- \\(.filename) (\\(.status))\\n\\(.patch)\"'\n```"
+      ]
     }
  ],
   "argocd": {
@@ -118,6 +144,16 @@
       ],
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "k3s-io/k3s"
+    },
+    {
+      "customType": "regex",
+      "description": "Track upstream sources of copied files",
+      "managerFilePatterns": [
+        "/cloudnative-pg-alerts/.+\\.yaml$/"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)(?:\\s+versioning=(?<versioning>\\S+))?\\s*\\n\\s*#\\s*https://github\\.com/[^/]+/[^/]+/tree/(?<currentValue>[^/\\s]+)/"
+      ]
     }
   ]
 }

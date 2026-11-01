@@ -1,0 +1,225 @@
+# Rules adapted from the cloudnative-pg cluster chart. See ../README.md before editing.
+# renovate: datasource=github-tags depName=cloudnative-pg/charts versioning=regex:^cluster-v(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$
+# https://github.com/cloudnative-pg/charts/tree/cluster-v0.9.0/charts/cluster/prometheus_rules
+# Omitted:
+# - CNPGClusterHAWarning: fires permanently on clusters with 2 instances
+# - CNPGClusterHighReplicationLag: same expression as CNPGClusterPhysicalReplicationLagWarning
+# - CNPGClusterLogicalReplication*: logical replication isn't used
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cloudnative-pg-cluster-chart
+spec:
+  groups:
+    - name: cloudnative-pg.rules
+      rules:
+        # One series per CNPG instance pod, with `job` set to match the PodMonitor's job.
+        # Built from kube-state-metrics, so that it's still present when an instance's metrics exporter is down.
+        - record: namespace_pod:cnpg_cluster:info
+          expr: |
+            label_join(
+              max by (namespace, pod, owner_name) (kube_pod_owner{owner_kind="Cluster", owner_is_controller="true"}),
+              "job", "/", "namespace", "owner_name"
+            )
+
+    - name: cloudnative-pg
+      rules:
+        - alert: CNPGClusterHACritical
+          annotations:
+            summary: CNPG Cluster has no standby replicas!
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" has no ready standby replicas. Your cluster at a severe
+              risk of data loss and downtime if the primary instance fails.
+
+              The primary instance is still online and able to serve queries, although connections to the `-ro` endpoint
+              will fail. The `-r` endpoint os operating at reduced capacity and all traffic is being served by the main.
+
+              This can happen during a normal fail-over or automated minor version upgrades in a cluster with 2 or less
+              instances. The replaced instance may need some time to catch-up with the cluster primary instance.
+
+              This alarm will be always trigger if your cluster is configured to run with only 1 instance. In this
+              case you may want to silence it.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterHACritical.md
+          expr: |
+            max by (namespace, job) (cnpg_pg_replication_streaming_replicas - cnpg_pg_replication_is_wal_receiver_up) < 1
+              and on (namespace, job)
+            (max by (namespace, job) (cnpg_collector_replica_mode) == 0)
+          for: 5m
+          labels:
+            severity: critical
+
+        - alert: CNPGClusterHighConnectionsCritical
+          annotations:
+            summary: CNPG Instance maximum number of connections critical!
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" instance {{ $labels.pod }} is using {{ $value }}% of
+              the maximum number of connections.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterHighConnectionsCritical.md
+          expr: |
+            sum by (namespace, job, pod) (cnpg_backends_total) / max by (namespace, job, pod) (cnpg_pg_settings_setting{name="max_connections"}) * 100 > 95
+          for: 5m
+          labels:
+            severity: critical
+
+        - alert: CNPGClusterHighConnectionsWarning
+          annotations:
+            summary: CNPG Instance is approaching the maximum number of connections.
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" instance {{ $labels.pod }} is using {{ $value }}% of
+              the maximum number of connections.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterHighConnectionsWarning.md
+          expr: |
+            sum by (namespace, job, pod) (cnpg_backends_total) / max by (namespace, job, pod) (cnpg_pg_settings_setting{name="max_connections"}) * 100 > 80
+          for: 5m
+          labels:
+            severity: warning
+
+        - alert: CNPGInstanceMetricsAbsent
+          annotations:
+            summary: CNPG instance metrics exporter is hung
+            description: |-
+              CloudNativePG instance "{{ $labels.namespace }}/{{ $labels.pod }}" has had an unreachable metrics endpoint for 10 minutes, so its metrics exporter is hung.
+
+              The lag, HA and replication alerts all read from this exporter and will not fire while it is down. A hung exporter has previously coincided with a frozen standby, so physical replication may be stuck and unmonitored. Check the instance directly.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGInstanceMetricsAbsent.md
+          expr: |
+            up == 0 and on (namespace, pod) namespace_pod:cnpg_cluster:info
+          for: 10m
+          labels:
+            severity: critical
+
+        - alert: CNPGClusterInstancesOnSameNode
+          annotations:
+            summary: CNPG Cluster instances are located on the same node.
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" has {{ $value }}
+              instances on the same node {{ $labels.node }}.
+
+              A failure or scheduled downtime of a single node will lead to a potential service disruption and/or data loss.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterInstancesOnSameNode.md
+          expr: |
+            count by (namespace, job, node) (
+              max by (namespace, pod, node) (kube_pod_info{node!=""})
+              * on (namespace, pod) group_left (job) namespace_pod:cnpg_cluster:info
+            ) > 1
+          for: 5m
+          labels:
+            severity: warning
+
+        # Upstream checks all PVCs used by instance pods: data, `-wal` and `-tbs*`
+        # local-path volumes are excluded: they're directories on the node's root filesystem, so kubelet reports the
+        # node's usage rather than the volume's, and node-exporter's NodeFilesystem* alerts already cover that.
+        - alert: CNPGClusterLowDiskSpaceCritical
+          annotations:
+            summary: CNPG Instance is running out of disk space!
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" is running extremely low on disk space. Check attached PVCs!
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterLowDiskSpaceCritical.md
+          expr: |
+            max by (namespace, job, persistentvolumeclaim) (
+              (
+                max by (namespace, persistentvolumeclaim) (1 - kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes)
+                unless on (namespace, persistentvolumeclaim) kube_persistentvolumeclaim_info{storageclass="local-path"}
+              )
+              * on (namespace, persistentvolumeclaim) group_left (job) (
+                max by (namespace, pod, persistentvolumeclaim) (kube_pod_spec_volumes_persistentvolumeclaims_info)
+                * on (namespace, pod) group_left (job) namespace_pod:cnpg_cluster:info
+              )
+            ) * 100 > 90
+          for: 5m
+          labels:
+            severity: critical
+
+        - alert: CNPGClusterLowDiskSpaceWarning
+          annotations:
+            summary: CNPG Instance is running out of disk space.
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" is running low on disk space. Check attached PVCs.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterLowDiskSpaceWarning.md
+          expr: |
+            max by (namespace, job, persistentvolumeclaim) (
+              (
+                max by (namespace, persistentvolumeclaim) (1 - kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes)
+                unless on (namespace, persistentvolumeclaim) kube_persistentvolumeclaim_info{storageclass="local-path"}
+              )
+              * on (namespace, persistentvolumeclaim) group_left (job) (
+                max by (namespace, pod, persistentvolumeclaim) (kube_pod_spec_volumes_persistentvolumeclaims_info)
+                * on (namespace, pod) group_left (job) namespace_pod:cnpg_cluster:info
+              )
+            ) * 100 > 70
+          for: 5m
+          labels:
+            severity: warning
+
+        # Upstream counts series rather than summing them, so it treats instances with cnpg_collector_up=0 as online.
+        # Instances are found via kube-state-metrics, so the alert still fires when no instance exports metrics.
+        - alert: CNPGClusterOffline
+          annotations:
+            summary: CNPG Cluster has no running instances!
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" has no ready instances.
+
+              Having an offline cluster means your applications will not be able to access the database, leading to
+              potential service disruption and/or data loss.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterOffline.md
+          expr: |
+            count by (namespace, job) (namespace_pod:cnpg_cluster:info)
+              unless on (namespace, job)
+            (sum by (namespace, job) (cnpg_collector_up) > 0)
+          for: 5m
+          labels:
+            severity: critical
+
+        # Upstream's description says ms, but cnpg_pg_replication_lag is in seconds
+        - alert: CNPGClusterPhysicalReplicationLagCritical
+          annotations:
+            summary: CNPG Cluster very high physical replication lag
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" is experiencing a very high physical replication lag of {{ $value }}s.
+
+              High replication lag indicates network issues, busy instances, slow queries or suboptimal configuration.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterPhysicalReplicationLag.md
+          expr: |
+            max by (namespace, job) (cnpg_pg_replication_lag) > 15
+          for: 5m
+          labels:
+            severity: critical
+
+        - alert: CNPGClusterPhysicalReplicationLagWarning
+          annotations:
+            summary: CNPG Cluster high physical replication lag
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" is experiencing a high physical replication lag of {{ $value }}s.
+
+              High replication lag indicates network issues, busy instances, slow queries or suboptimal configuration.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterPhysicalReplicationLag.md
+          expr: |
+            max by (namespace, job) (cnpg_pg_replication_lag) > 1
+          for: 5m
+          labels:
+            severity: warning
+
+        # Upstream compares to the chart's configured instance count; this uses the number of instance pods instead.
+        # Fires when there are fewer zones than instances and fewer than 3 zones.
+        - alert: CNPGClusterZoneSpreadWarning
+          annotations:
+            summary: CNPG Cluster instances in the same zone.
+            description: |-
+              CloudNativePG Cluster "{{ $labels.job }}" has instances in the same availability zone.
+
+              A disaster in one availability zone will lead to a potential service disruption and/or data loss.
+            runbook_url: https://github.com/cloudnative-pg/charts/blob/main/charts/cluster/docs/runbooks/CNPGClusterZoneSpreadWarning.md
+          expr: |
+            count by (namespace, job) (
+              count by (namespace, job, label_topology_kubernetes_io_zone) (
+                max by (namespace, pod, node) (kube_pod_info{node!=""})
+                * on (namespace, pod) group_left (job) namespace_pod:cnpg_cluster:info
+                * on (node) group_left (label_topology_kubernetes_io_zone) max by (node, label_topology_kubernetes_io_zone) (kube_node_labels)
+              )
+            )
+              < on (namespace, job)
+            count by (namespace, job) (namespace_pod:cnpg_cluster:info)
+              < 3
+          for: 5m
+          labels:
+            severity: warning
