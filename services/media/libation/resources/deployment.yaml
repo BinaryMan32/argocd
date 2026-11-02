@@ -10,6 +10,7 @@ spec:
     type: Recreate
   selector:
     matchLabels:
+      app.kubernetes.io/component: ui
       app.kubernetes.io/instance: libation
       app.kubernetes.io/name: libation
   template:
