@@ -7,7 +7,8 @@ spec:
     - name: traefik-intranet
       namespace: traefik
   hostnames:
-    - {{ .Values.httpRoute.hostname }}
+    # set by services/services/templates/homepage.yaml
+    - ""
   rules:
     - backendRefs:
         - name: homepage

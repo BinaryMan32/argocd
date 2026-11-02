@@ -12,4 +12,4 @@ kubectl create secret generic \
     homepage-sonarr \
     --from-literal=HOMEPAGE_VAR_SONARR_KEY="$api_key" \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/sealed-secret-homepage-sonarr.yaml
+kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-homepage-sonarr.yaml

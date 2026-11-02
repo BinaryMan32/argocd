@@ -91,12 +91,3 @@ repositories:
   password: ""
   url: https://nextcloud.github.io/helm/
   username: ""
-- caFile: ""
-  certFile: ""
-  insecure_skip_tls_verify: false
-  keyFile: ""
-  name: homepage
-  pass_credentials_all: false
-  password: ""
-  url: https://jameswynn.github.io/helm-charts/
-  username: ""

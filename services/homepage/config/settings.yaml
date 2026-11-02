@@ -1,0 +1,6 @@
+title: Five Byte Studios
+theme: dark
+color: slate
+providers:
+  longhorn:
+    url: http://longhorn-frontend.longhorn-system

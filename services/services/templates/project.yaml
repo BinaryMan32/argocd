@@ -10,7 +10,6 @@ spec:
   description: Services
   sourceRepos:
   - {{ .Values.source.repoURL }}
-  - https://jameswynn.github.io/helm-charts/ # homepage
   - https://pajikos.github.io/home-assistant-helm-chart/
   destinations:
   - namespace: '*'

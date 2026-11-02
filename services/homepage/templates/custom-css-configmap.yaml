@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: homepage-custom-css
-data:
-  custom.css: |
-    {{- .Values.homepage.customCss | nindent 4 }}

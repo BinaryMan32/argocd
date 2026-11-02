@@ -1,0 +1,18 @@
+- Developer:
+  - Github:
+    - icon: github-light.png
+      href: https://github.com/BinaryMan32/argocd
+      description: ArgoCD Applications, Configuration, and Documentation
+- Infrastructure:
+  - Turing Pi griffin-turing0:
+    - icon: rackula-dark.png
+      href: https://192.168.8.10/
+      description: "griffin0, griffin1, griffin2, griffin3"
+  - Turing Pi griffin-turing1:
+    - icon: rackula-dark.png
+      href: https://192.168.8.11/
+      description: "griffin4, griffin5, griffin6"
+  - Turing Pi griffin-turing2:
+    - icon: rackula-dark.png
+      href: https://192.168.8.12/
+      description: "griffin7, griffin8, griffin9"

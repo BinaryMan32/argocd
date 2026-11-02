@@ -18,4 +18,4 @@ kubectl create secret generic \
     homepage-truenas \
     --from-literal=HOMEPAGE_VAR_TRUENAS_KEY="$api_key" \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/sealed-secret-homepage-truenas.yaml
+kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-homepage-truenas.yaml

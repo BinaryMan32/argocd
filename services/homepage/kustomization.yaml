@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./resources/cluster-role-binding-homepage.yaml
+  - ./resources/cluster-role-homepage.yaml
+  - ./resources/deployment.yaml
+  - ./resources/httproute.yaml
+  - ./resources/sealed-secret-homepage-argocd.yaml
+  - ./resources/sealed-secret-homepage-pihole.yaml
+  - ./resources/sealed-secret-homepage-radarr.yaml
+  - ./resources/sealed-secret-homepage-sonarr.yaml
+  - ./resources/sealed-secret-homepage-tdarr.yaml
+  - ./resources/sealed-secret-homepage-truenas.yaml
+  - ./resources/service-account.yaml
+  - ./resources/service.yaml
+configMapGenerator:
+  # https://gethomepage.dev/configs/
+  - name: homepage
+    files:
+      - config/bookmarks.yaml
+      - config/docker.yaml
+      - config/kubernetes.yaml
+      - config/services.yaml
+      - config/settings.yaml
+      - config/widgets.yaml
+  - name: homepage-custom-css
+    files:
+      - config/custom.css
+generatorOptions:
+  # TODO: remove after verifying the switch from the helm chart,
+  # so that pods restart when config changes
+  disableNameSuffixHash: true
+labels:
+  - includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: homepage
+      app.kubernetes.io/name: homepage
+images:
+  - name: homepage
+    newName: ghcr.io/gethomepage/homepage
+    newTag: v2.7.0
+buildMetadata: [managedByLabel]

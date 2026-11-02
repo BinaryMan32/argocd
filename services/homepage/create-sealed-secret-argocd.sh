@@ -11,6 +11,6 @@ kubectl create secret generic \
     homepage-argocd \
     --from-literal=HOMEPAGE_VAR_ARGOCD_KEY="$token" \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/sealed-secret-homepage-argocd.yaml
+kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-homepage-argocd.yaml
 
 argocd logout grpc.argocd.int.fivebytestudios.com

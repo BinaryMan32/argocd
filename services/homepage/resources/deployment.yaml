@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: homepage
+      app.kubernetes.io/name: homepage
+  template:
+    spec:
+      serviceAccountName: homepage
+      automountServiceAccountToken: true
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      containers:
+        - name: homepage
+          image: homepage
+          # env is set by services/services/templates/homepage.yaml:
+          # HOMEPAGE_ALLOWED_HOSTS and the HOMEPAGE_VAR_DOMAIN_* suffixes used in config/services.yaml
+          # secrets referenced in config as {{HOMEPAGE_VAR_*}}
+          # https://gethomepage.dev/installation/docker/#using-environment-secrets
+          envFrom:
+            - secretRef:
+                name: homepage-argocd
+            - secretRef:
+                name: homepage-pihole
+            - secretRef:
+                name: homepage-radarr
+            - secretRef:
+                name: homepage-sonarr
+            - secretRef:
+                name: homepage-tdarr
+            - secretRef:
+                name: homepage-truenas
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            # https://gethomepage.dev/configs/custom-css-js/
+            - name: custom-css
+              mountPath: /app/config/custom.css
+              subPath: custom.css
+              readOnly: true
+            # homepage writes to /app/config, so config files are mounted individually
+            - name: homepage-base-config
+              mountPath: /app/config
+            - name: homepage-config
+              subPath: bookmarks.yaml
+              mountPath: /app/config/bookmarks.yaml
+            - name: homepage-config
+              subPath: docker.yaml
+              mountPath: /app/config/docker.yaml
+            - name: homepage-config
+              subPath: kubernetes.yaml
+              mountPath: /app/config/kubernetes.yaml
+            - name: homepage-config
+              subPath: services.yaml
+              mountPath: /app/config/services.yaml
+            - name: homepage-config
+              subPath: settings.yaml
+              mountPath: /app/config/settings.yaml
+            - name: homepage-config
+              subPath: widgets.yaml
+              mountPath: /app/config/widgets.yaml
+            - name: logs
+              mountPath: /app/config/logs
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+          startupProbe:
+            failureThreshold: 30
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+      volumes:
+        - name: custom-css
+          configMap:
+            name: homepage-custom-css
+        - name: homepage-base-config
+          emptyDir: {}
+        - name: homepage-config
+          configMap:
+            name: homepage
+        - name: logs
+          emptyDir: {}

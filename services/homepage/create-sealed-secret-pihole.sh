@@ -13,4 +13,4 @@ kubectl create secret generic \
     homepage-pihole \
     --from-literal=HOMEPAGE_VAR_PIHOLE_KEY="$app_password" \
     --output=yaml |
-kubeseal --format=yaml --sealed-secret-file=$script_dir/templates/sealed-secret-homepage-pihole.yaml
+kubeseal --format=yaml --sealed-secret-file=$script_dir/resources/sealed-secret-homepage-pihole.yaml
