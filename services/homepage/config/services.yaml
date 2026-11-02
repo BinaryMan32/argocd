@@ -77,6 +77,10 @@
       description: Audible Audio Book Downloader
       namespace: media
       app: libation
+  - Libation ArgoCD Deployment:
+      icon: argo-cd.png
+      href: "https://argocd.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/applications/argocd/libation?view=tree&resource=&node=apps%2FDeployment%2Fmedia%2Flibation%2F0"
+      description: Scale Libation UI up or down
   - QBittorrent:
       icon: qbittorrent.png
       href: "https://qbittorrent.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/"
