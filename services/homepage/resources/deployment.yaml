@@ -20,8 +20,12 @@ spec:
       containers:
         - name: homepage
           image: homepage
-          # env is set by services/services/templates/homepage.yaml:
-          # HOMEPAGE_ALLOWED_HOSTS and the HOMEPAGE_VAR_DOMAIN_* suffixes used in config/services.yaml
+          # services/services/templates/homepage.yaml appends HOMEPAGE_ALLOWED_HOSTS
+          # and the HOMEPAGE_VAR_DOMAIN_* suffixes used in config/services.yaml
+          env:
+            # /app/config is read-only, so don't write logs/homepage.log there
+            - name: LOG_TARGETS
+              value: stdout
           # secrets referenced in config as {{HOMEPAGE_VAR_*}}
           # https://gethomepage.dev/installation/docker/#using-environment-secrets
           envFrom:
@@ -42,34 +46,11 @@ spec:
               containerPort: 3000
               protocol: TCP
           volumeMounts:
-            # https://gethomepage.dev/configs/custom-css-js/
-            - name: custom-css
-              mountPath: /app/config/custom.css
-              subPath: custom.css
-              readOnly: true
-            # homepage writes to /app/config, so config files are mounted individually
-            - name: homepage-base-config
+            # mounted as a directory (not subPath) so config changes are picked up
+            # without restarting, and open pages reload when /api/hash changes
+            - name: homepage-config
               mountPath: /app/config
-            - name: homepage-config
-              subPath: bookmarks.yaml
-              mountPath: /app/config/bookmarks.yaml
-            - name: homepage-config
-              subPath: docker.yaml
-              mountPath: /app/config/docker.yaml
-            - name: homepage-config
-              subPath: kubernetes.yaml
-              mountPath: /app/config/kubernetes.yaml
-            - name: homepage-config
-              subPath: services.yaml
-              mountPath: /app/config/services.yaml
-            - name: homepage-config
-              subPath: settings.yaml
-              mountPath: /app/config/settings.yaml
-            - name: homepage-config
-              subPath: widgets.yaml
-              mountPath: /app/config/widgets.yaml
-            - name: logs
-              mountPath: /app/config/logs
+              readOnly: true
           livenessProbe:
             failureThreshold: 3
             initialDelaySeconds: 0
@@ -92,13 +73,6 @@ spec:
               port: 3000
             timeoutSeconds: 1
       volumes:
-        - name: custom-css
-          configMap:
-            name: homepage-custom-css
-        - name: homepage-base-config
-          emptyDir: {}
         - name: homepage-config
           configMap:
             name: homepage
-        - name: logs
-          emptyDir: {}

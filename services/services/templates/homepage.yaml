@@ -16,14 +16,20 @@ spec:
             name: homepage
           patch: |-
             - op: add
-              path: /spec/template/spec/containers/0/env
+              path: /spec/template/spec/containers/0/env/-
               value:
-                - name: HOMEPAGE_ALLOWED_HOSTS
-                  value: homepage.{{ .Values.domain.intranet }}
-                - name: HOMEPAGE_VAR_DOMAIN_INTRANET
-                  value: {{ .Values.domain.intranet }}
-                - name: HOMEPAGE_VAR_DOMAIN_EXTERNAL
-                  value: {{ .Values.domain.external }}
+                name: HOMEPAGE_ALLOWED_HOSTS
+                value: homepage.{{ .Values.domain.intranet }}
+            - op: add
+              path: /spec/template/spec/containers/0/env/-
+              value:
+                name: HOMEPAGE_VAR_DOMAIN_INTRANET
+                value: {{ .Values.domain.intranet }}
+            - op: add
+              path: /spec/template/spec/containers/0/env/-
+              value:
+                name: HOMEPAGE_VAR_DOMAIN_EXTERNAL
+                value: {{ .Values.domain.external }}
         - target:
             kind: HTTPRoute
             name: homepage

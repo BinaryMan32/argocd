@@ -15,17 +15,21 @@ resources:
   - ./resources/service.yaml
 configMapGenerator:
   # https://gethomepage.dev/configs/
+  # mounted read-only, so must include every file homepage would otherwise
+  # copy from src/skeleton, or it exits on startup
   - name: homepage
     files:
       - config/bookmarks.yaml
+      - config/custom.css
+      - config/custom.js
       - config/docker.yaml
       - config/kubernetes.yaml
+      - config/proxmox.yaml
       - config/services.yaml
       - config/settings.yaml
       - config/widgets.yaml
-  - name: homepage-custom-css
-    files:
-      - config/custom.css
+    options:
+      disableNameSuffixHash: true
 labels:
   - includeTemplates: true
     pairs:
