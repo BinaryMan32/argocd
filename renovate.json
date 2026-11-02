@@ -135,6 +135,16 @@
     },
     {
       "customType": "regex",
+      "description": "Update app versions installed by container init scripts",
+      "managerFilePatterns": [
+        "/services/media/libation/config/.+\\.sh$/"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)\\s*\\n\\w+=(?<currentValue>\\S+)"
+      ]
+    },
+    {
+      "customType": "regex",
       "description": "Update kubernetes version",
       "managerFilePatterns": [
         "/system-upgrade/.+-plan.yaml/"

@@ -23,6 +23,7 @@
     "grafana-editors",
     "infra-ops",
     "jaeger",
+    "libation",
     "longhorn",
     "media-ops",
     "play-when-ops",

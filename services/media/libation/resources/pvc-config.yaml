@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: libation-config
+spec:
+  # only one pod at a time may use the libation database
+  accessModes:
+    - "ReadWriteOncePod"
+  resources:
+    requests:
+      storage: "2Gi"
+  storageClassName: longhorn

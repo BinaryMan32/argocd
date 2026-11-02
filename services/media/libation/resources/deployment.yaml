@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: libation
+spec:
+  # replicas intentionally omitted, scaled up when needed and back down to 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: libation
+      app.kubernetes.io/name: libation
+  template:
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: default
+      automountServiceAccountToken: false
+      containers:
+        - name: libation
+          image: libation
+          # https://docs.linuxserver.io/selkies/user-guide/configuration/
+          env:
+            - name: PUID
+              value: "2000"
+            - name: PGID
+              value: "2000"
+            - name: TZ
+              value: America/Chicago
+            - name: TITLE
+              value: Libation
+            # relaunch libation if its window is closed
+            - name: RESTART_APP
+              value: "true"
+            - name: START_DOCKER
+              value: "false"
+            - name: NO_GAMEPAD
+              value: "true"
+            # replaces appsettings.json which can also set this via:
+            # {"LibationFiles": "/config/Libation"}
+            - name: LIBATION_FILES_DIR
+              value: /config/Libation
+          ports:
+            # plain http, only for use behind a proxy terminating tls
+            - name: webui
+              protocol: TCP
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: webui
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: "4"
+              memory: 3Gi
+          volumeMounts:
+          - mountPath: /config
+            name: config
+          # same path as the desktop install, so Books and FileLocationsV2.json paths keep working
+          - mountPath: /mnt/nfs/media/media/audiobooks
+            name: audiobooks
+          - mountPath: /custom-cont-init.d
+            name: init
+            readOnly: true
+          - mountPath: /dev/shm
+            name: shm
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: libation-config
+        - name: audiobooks
+          persistentVolumeClaim:
+            claimName: libation-audiobooks
+        - name: init
+          configMap:
+            name: libation-init
+            defaultMode: 0755
+        # docker default 64Mi is too small, linuxserver recommends 1gb
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi

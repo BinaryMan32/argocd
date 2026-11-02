@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./resources/deployment.yaml
+  - ./resources/httproute.yaml
+  - ./resources/network-policy.yaml
+  - ./resources/pv-audiobooks.yaml
+  - ./resources/pvc-audiobooks.yaml
+  - ./resources/pvc-config.yaml
+  - ./resources/service.yaml
+configMapGenerator:
+  - name: libation-init
+    files:
+      - ./config/install-libation.sh
+labels:
+  - includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: libation
+      app.kubernetes.io/name: libation
+images:
+  # browser desktop, libation is installed at startup by config/install-libation.sh
+  # versioned tags are commit hashes (debiantrixie-5b3c1a4b-ls147), so pin the digest instead
+  - name: libation
+    newName: ghcr.io/linuxserver/baseimage-selkies
+    newTag: debiantrixie
+    digest: sha256:7fa5ffec83a1dbe5397d5751b9e072f8abe5c74b5e2f1f6d2442ab08fcd76970
+buildMetadata: [managedByLabel]

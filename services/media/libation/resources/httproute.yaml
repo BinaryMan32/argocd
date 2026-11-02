@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: libation
+spec:
+  parentRefs:
+    - name: traefik-intranet
+      namespace: traefik
+  hostnames:
+    - libation.int.fivebytestudios.com
+  rules:
+    - backendRefs:
+        - name: libation
+          port: 80
+      filters:
+        - type: ExtensionRef
+          extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: authelia
