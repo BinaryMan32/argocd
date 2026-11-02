@@ -71,6 +71,12 @@
       description: Audio Book Player
       namespace: media
       app: audiobookshelf
+  - Libation:
+      icon: libation.png
+      href: "https://libation.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/"
+      description: Audible Audio Book Downloader
+      namespace: media
+      app: libation
   - QBittorrent:
       icon: qbittorrent.png
       href: "https://qbittorrent.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/"
