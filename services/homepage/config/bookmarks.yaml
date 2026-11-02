@@ -3,10 +3,6 @@
     - icon: github-light.png
       href: https://github.com/BinaryMan32/argocd
       description: ArgoCD Applications, Configuration, and Documentation
-  - Github Issues:
-    - icon: github-light.png
-      href: https://github.com/BinaryMan32/argocd/issues
-      description: Planned work and follow-ups
 - Infrastructure:
   - Turing Pi griffin-turing0:
     - icon: rackula-dark.png
