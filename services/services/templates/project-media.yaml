@@ -28,3 +28,5 @@ spec:
     - p, proj:media:ops, applications, sync, media/*, allow
     - p, proj:media:ops, applicationsets, get, media/*, allow
     - p, proj:media:ops, logs, get, media/*, allow
+    # allow user to stop and start the libation UI
+    - p, proj:media:ops, applications, action/apps/Deployment/scale, media/libation, allow
