@@ -14,7 +14,7 @@ if pgrep -ix libation > /dev/null; then
     exit 1
 fi
 
-pod=$($kubectl get pod --selector=app.kubernetes.io/name=libation --output=name)
+pod=$($kubectl get pod --selector=app.kubernetes.io/name=libation,app.kubernetes.io/component=ui --output=name)
 if [ -z "$pod" ]; then
     echo "No libation pod found, scale the libation deployment to 1 first" >&2
     exit 1
