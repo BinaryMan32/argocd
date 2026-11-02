@@ -26,10 +26,6 @@ configMapGenerator:
   - name: homepage-custom-css
     files:
       - config/custom.css
-generatorOptions:
-  # TODO: remove after verifying the switch from the helm chart,
-  # so that pods restart when config changes
-  disableNameSuffixHash: true
 labels:
   - includeTemplates: true
     pairs:
