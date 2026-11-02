@@ -2,8 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: libation
+  labels:
+    app.kubernetes.io/component: ui
 spec:
   selector:
+    app.kubernetes.io/component: ui
     app.kubernetes.io/instance: libation
     app.kubernetes.io/name: libation
   type: ClusterIP
