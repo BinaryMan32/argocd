@@ -61,6 +61,14 @@
       "changelogUrl": "https://tdarr.io/download/"
     },
     {
+      "description": "the libation UI (installed by init script) and cli cronjob open the same database",
+      "matchPackageNames": [
+        "rmcrackan/Libation",
+        "rmcrackan/libation"
+      ],
+      "groupName": "libation"
+    },
+    {
       "description": "avoid restarting foundry during evening game sessions (6pm-2am)",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["felddy/foundryvtt"],

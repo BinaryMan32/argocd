@@ -20,6 +20,25 @@ Books are mounted at `/mnt/nfs/media/media/audiobooks`, the same path as the
 desktop install, so `Books` in `Settings.json` and file paths saved in
 `FileLocationsV2.json` work unchanged.
 
+## Scheduled downloads
+
+The `libation` CronJob runs the official
+[docker image](https://getlibation.com/docs/installation/docker) daily, which
+scans all accounts and downloads every book that isn't liberated yet. Mark books
+that shouldn't be downloaded in the UI first. The image and
+`LIBATION_VERSION` in the init script must match, renovate updates them together.
+
+The job uses the same config volume, so a run waits while the UI is scaled up,
+and the UI waits for a running job. A run that hasn't finished after 6 hours fails.
+
+The image works on copies of `Settings.json` and `AccountsSettings.json`, so
+changes it makes to them aren't saved, and it doesn't update
+`FileLocationsV2.json`. Run a job by hand with:
+
+```sh
+kubectl -n media create job --from=cronjob/libation libation-manual
+```
+
 ## Encryption key
 
 Libation encrypts the account tokens in `AccountsSettings.json` with a master
