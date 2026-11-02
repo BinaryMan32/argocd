@@ -101,6 +101,10 @@ spec:
                   certificateRef: root-wildcard-intranet-tls
                   hostname: "jellyfin.{{ .Values.domain.intranet }}"
                   namespace: media
+                libation:
+                  certificateRef: root-wildcard-intranet-tls
+                  hostname: "libation.{{ .Values.domain.intranet }}"
+                  namespace: media
                 lldap:
                   certificateRef: root-wildcard-intranet-tls
                   hostname: "lldap.{{ .Values.domain.intranet }}"
