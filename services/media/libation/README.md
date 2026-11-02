@@ -20,12 +20,28 @@ Books are mounted at `/mnt/nfs/media/media/audiobooks`, the same path as the
 desktop install, so `Books` in `Settings.json` and file paths saved in
 `FileLocationsV2.json` work unchanged.
 
-## Migrating desktop settings
+## Encryption key
 
-With the deployment scaled to 1 and the desktop Libation closed, run:
+Libation encrypts the account tokens in `AccountsSettings.json` with a master
+key, which the desktop keeps in the OS keyring. The container has no keyring,
+so without a key Libation can't decrypt imported tokens, creates its own
+`libation-master.key` next to them and starts with no accounts.
+
+[create-sealed-secret-master-key.sh](./create-sealed-secret-master-key.sh)
+exports the desktop key into the `libation-master-key` sealed secret, mounted
+outside `/config` and found via `LIBATION_MASTER_KEY_FILE`, so the config
+volume and its backups only hold encrypted tokens:
 
 ```sh
-KUBECTL_ARGS="--context griffin" ./migrate-settings.sh
+./create-sealed-secret-master-key.sh
+```
+
+## Migrating desktop settings
+
+Create the encryption key secret first. With the deployment scaled to 1 and the desktop Libation closed, run:
+
+```sh
+./migrate-settings.sh
 ```
 
 It copies `~/.local/share/Libation` except logs into `/config/libation-import`

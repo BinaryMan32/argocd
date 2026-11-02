@@ -39,6 +39,10 @@ spec:
             # {"LibationFiles": "/config/Libation"}
             - name: LIBATION_FILES_DIR
               value: /config/Libation
+            # decrypts the tokens in AccountsSettings.json
+            # kept out of /config so backups of it stay encrypted
+            - name: LIBATION_MASTER_KEY_FILE
+              value: /secrets/libation-master-key/libation-master.key
           ports:
             # plain http, only for use behind a proxy terminating tls
             - name: webui
@@ -66,6 +70,9 @@ spec:
             readOnly: true
           - mountPath: /dev/shm
             name: shm
+          - mountPath: /secrets/libation-master-key
+            name: master-key
+            readOnly: true
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -82,3 +89,8 @@ spec:
           emptyDir:
             medium: Memory
             sizeLimit: 1Gi
+        # owned by root, abc is the only other user in the container and needs to read it
+        - name: master-key
+          secret:
+            secretName: libation-master-key
+            defaultMode: 0444
