@@ -14,10 +14,17 @@ IMPORT_DIR="${HOME}/libation-import"
 # the container filesystem survives container restarts, but not a new pod
 if [[ "$(cat /usr/lib/libation/.version 2>/dev/null)" != "${LIBATION_VERSION}" ]]; then
   echo "**** installing libation ${LIBATION_VERSION} ****"
+  # the network policy only allows egress on 443
+  sed -i 's|http://|https://|' /etc/apt/sources.list
+  # apt-get update only warns on fetch failures unless told otherwise
+  apt-get update -qq --error-on=any
   # .NET requires icu, match the package by pattern since its name includes the version
-  apt-get update -qq
-  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
-    "$(apt-cache search --names-only '^libicu[0-9]+$' | cut -d' ' -f1)"
+  icu="$(apt-cache search --names-only '^libicu[0-9]+$' | cut -d' ' -f1)"
+  if [[ -z "${icu}" ]]; then
+    echo "**** no libicu package found ****" >&2
+    exit 1
+  fi
+  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends "${icu}"
   version="${LIBATION_VERSION#v}"
   deb="$(mktemp --suffix=.deb)"
   curl -fsSL -o "${deb}" \
