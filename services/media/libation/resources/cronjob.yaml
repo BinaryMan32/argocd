@@ -5,8 +5,6 @@ metadata:
   labels:
     app.kubernetes.io/component: cronjob
 spec:
-  # suspended until the books liberate would download on its first run have been reviewed
-  suspend: true
   schedule: "0 4 * * *" # 04:00 daily
   timeZone: "America/Chicago"
   # the config volume is ReadWriteOncePod, so a run waits while the UI is scaled up,
