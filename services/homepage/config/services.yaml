@@ -82,7 +82,7 @@
         app.kubernetes.io/component=ui
   - Libation ArgoCD:
       icon: argo-cd.png
-      href: "https://argocd.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/applications/argocd/libation?resource=kind%3ACronJob%2Ckind%3ADeployment"
+      href: "https://argocd.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/applications/argocd/libation?resource=kind%3ACronJob%2Ckind%3ADeployment%2Ckind%3APod"
       description: Scale the UI deployment or trigger the cronjob
   - QBittorrent:
       icon: qbittorrent.png
