@@ -30,7 +30,8 @@ spec:
             runAsUser: 2000
             runAsGroup: 2000
             runAsNonRoot: true
-          containers:
+          # init containers run in order, so the scan only starts after libation succeeds
+          initContainers:
             - name: libation
               image: libation-cli
               # https://getlibation.com/docs/installation/docker
@@ -71,6 +72,43 @@ spec:
                 - mountPath: /secrets/libation-master-key
                   name: master-key
                   readOnly: true
+          containers:
+            # audiobookshelf can't watch for files written over nfs by another client, so ask it to scan
+            - name: audiobookshelf-scan
+              image: curl
+              env:
+                # "Audible" library, folder /audiobooks/audible
+                - name: AUDIOBOOKSHELF_LIBRARY_ID
+                  value: 64b73ff2-2c46-4c28-bbff-feccc9ad8616
+                - name: AUDIOBOOKSHELF_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: libation-audiobookshelf-api-key
+                      key: api-key
+              # returns as soon as the scan starts, retry so a restarting audiobookshelf doesn't rerun libation
+              args:
+                - /bin/sh
+                - -c
+                - >
+                  curl
+                  --fail
+                  --no-progress-meter
+                  --retry 5
+                  --retry-all-errors
+                  --retry-delay 10
+                  --request POST
+                  --header "Authorization: Bearer ${AUDIOBOOKSHELF_API_KEY}"
+                  "http://audiobookshelf.media/api/libraries/${AUDIOBOOKSHELF_LIBRARY_ID}/scan"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop: ["ALL"]
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+                limits:
+                  memory: 64Mi
           volumes:
             - name: config
               persistentVolumeClaim:

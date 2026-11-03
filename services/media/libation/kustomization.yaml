@@ -4,10 +4,12 @@ resources:
   - ./resources/cronjob.yaml
   - ./resources/deployment.yaml
   - ./resources/httproute.yaml
+  - ./resources/network-policy-cronjob.yaml
   - ./resources/network-policy.yaml
   - ./resources/pv-audiobooks.yaml
   - ./resources/pvc-audiobooks.yaml
   - ./resources/pvc-config.yaml
+  - ./resources/sealed-secret-libation-audiobookshelf-api-key.yaml
   - ./resources/sealed-secret-libation-master-key.yaml
   - ./resources/service.yaml
 configMapGenerator:
@@ -30,4 +32,8 @@ images:
   - name: libation-cli
     newName: docker.io/rmcrackan/libation
     newTag: 14.2.5
+  # triggers an audiobookshelf library scan after the cronjob imports books
+  - name: curl
+    newName: curlimages/curl
+    newTag: 8.23.0
 buildMetadata: [managedByLabel]

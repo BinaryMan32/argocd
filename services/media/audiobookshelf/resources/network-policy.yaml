@@ -20,6 +20,12 @@ spec:
             matchLabels:
               app.kubernetes.io/name: traefik
               app.kubernetes.io/instance: traefik
+        # Library scan requests from the libation import cronjob
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: cronjob
+              app.kubernetes.io/instance: libation
+              app.kubernetes.io/name: libation
       ports:
         - protocol: TCP
           port: http

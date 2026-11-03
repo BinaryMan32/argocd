@@ -33,10 +33,21 @@ and the UI waits for a running job. A run that hasn't finished after 6 hours fai
 
 The image works on copies of `Settings.json` and `AccountsSettings.json`, so
 changes it makes to them aren't saved, and it doesn't update
-`FileLocationsV2.json`. Run a job by hand with:
+`FileLocationsV2.json`. Run a job by hand from the CronJob's Create Job action in
+argocd.
+
+### Audiobookshelf scan
+
+Audiobookshelf can't watch for files written over NFS by another client, so
+after libation finishes, a second container asks it to scan the Audible library.
+Libation runs as an init container, so the scan only runs if it succeeds.
+
+Library scans require an Audiobookshelf admin, and API keys can't be limited to
+scanning, so create a dedicated admin user (e.g. `libation-scan`) and an API key
+for it, then seal the key:
 
 ```sh
-kubectl -n media create job --from=cronjob/libation libation-manual
+./create-sealed-secret-audiobookshelf.sh
 ```
 
 ## Encryption key

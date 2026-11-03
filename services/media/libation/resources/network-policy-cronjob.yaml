@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: libation-cronjob-access
+spec:
+  # adds to libation-access, which also selects cronjob pods
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: cronjob
+      app.kubernetes.io/instance: libation
+      app.kubernetes.io/name: libation
+  policyTypes:
+    - Egress
+  egress:
+    # Trigger an audiobookshelf library scan after importing books
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: audiobookshelf
+              app.kubernetes.io/name: audiobookshelf
+      ports:
+        - protocol: TCP
+          port: http
