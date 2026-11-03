@@ -80,10 +80,10 @@
       podSelector: >-
         app.kubernetes.io/name=libation,
         app.kubernetes.io/component=ui
-  - Libation ArgoCD Deployment:
+  - Libation ArgoCD:
       icon: argo-cd.png
-      href: "https://argocd.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/applications/argocd/libation?view=tree&resource=&node=apps%2FDeployment%2Fmedia%2Flibation%2F0"
-      description: Scale Libation UI up or down
+      href: "https://argocd.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/applications/argocd/libation?resource=kind%3ACronJob%2Ckind%3ADeployment"
+      description: Scale the UI deployment or trigger the cronjob
   - QBittorrent:
       icon: qbittorrent.png
       href: "https://qbittorrent.{{HOMEPAGE_VAR_DOMAIN_INTRANET}}/"
