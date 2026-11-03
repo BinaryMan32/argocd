@@ -20,6 +20,8 @@ spec:
         metadata:
           labels:
             app.kubernetes.io/component: cronjob
+          annotations:
+            kubectl.kubernetes.io/default-container: libation
         spec:
           enableServiceLinks: false
           serviceAccountName: default
