@@ -36,7 +36,8 @@ spec:
               image: libation-cli
               # https://getlibation.com/docs/installation/docker
               # liberate.sh copies Settings.json and AccountsSettings.json into /config-internal,
-              # links the database, then runs scan and liberate once
+              # links the database, then runs the given command instead of its scan and liberate loop
+              args: [/bin/bash, /scripts/liberate-watchdog.sh]
               env:
                 # same path as the UI, so the log path in Settings.json stays valid
                 - name: LIBATION_CONFIG_DIR
@@ -71,6 +72,9 @@ spec:
                   subPath: audible
                 - mountPath: /secrets/libation-master-key
                   name: master-key
+                  readOnly: true
+                - mountPath: /scripts
+                  name: scripts
                   readOnly: true
           containers:
             # audiobookshelf can't watch for files written over nfs by another client, so ask it to scan
@@ -120,3 +124,6 @@ spec:
               secret:
                 secretName: libation-master-key
                 defaultMode: 0444
+            - name: scripts
+              configMap:
+                name: libation-cronjob

@@ -31,6 +31,15 @@ that shouldn't be downloaded in the UI first. The image and
 The job uses the same config volume, so a run waits while the UI is scaled up,
 and the UI waits for a running job. A run that hasn't finished after 6 hours fails.
 
+Downloads from CDNs sometimes stall without the connection closing (#1670), and
+libation never times out, so the job runs
+[config/liberate-watchdog.sh](./config/liberate-watchdog.sh) instead of the
+image's loop. It restarts `liberate` when the process reads and
+writes less than 1 MiB of files in 5 minutes, up to 5 times. A stalled
+process still does a few bytes of runtime housekeeping io now and then.
+Libation prints no progress without a terminal, so the script also logs each
+download's progress once a minute.
+
 The image works on copies of `Settings.json` and `AccountsSettings.json`, so
 changes it makes to them aren't saved, and it doesn't update
 `FileLocationsV2.json`. Run a job by hand from the CronJob's Create Job action in

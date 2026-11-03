@@ -16,6 +16,9 @@ configMapGenerator:
   - name: libation-init
     files:
       - ./config/install-libation.sh
+  - name: libation-cronjob
+    files:
+      - ./config/liberate-watchdog.sh
 labels:
   - includeTemplates: true
     pairs:
