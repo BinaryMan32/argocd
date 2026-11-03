@@ -30,3 +30,5 @@ spec:
     - p, proj:media:ops, logs, get, media/*, allow
     # allow user to stop and start the libation UI
     - p, proj:media:ops, applications, action/apps/Deployment/scale, media/libation, allow
+    # allow user to trigger the libation cronjob
+    - p, proj:media:ops, applications, action/batch/CronJob/create-job, media/libation, allow
