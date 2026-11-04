@@ -9,6 +9,13 @@ labels:
     pairs:
       app.kubernetes.io/instance: home-assistant
       app.kubernetes.io/name: mqtt
+    # kustomize 5.8.2+ no longer labels `volumeClaimTemplates` with `includeTemplates`.
+    # `includeVolumeClaimTemplates: true` restores the old behavior, but earlier versions reject it.
+    fields:
+      - path: spec/volumeClaimTemplates[]/metadata/labels
+        group: apps
+        kind: StatefulSet
+        create: true
 images:
   - name: mosquitto
     newName: eclipse-mosquitto
