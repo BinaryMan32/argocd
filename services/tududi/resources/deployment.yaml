@@ -18,7 +18,14 @@ spec:
       containers:
         - name: tududi
           image: tududi
+          # https://docs.tududi.com/getting-started/configuration
           env:
+            # https://github.com/chrisvel/tududi/blob/main/docs/16-postgresql.md
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: tududi-db-app
+                  key: uri
             - name: TUDUDI_USER_EMAIL
               valueFrom:
                 secretKeyRef:
@@ -49,14 +56,9 @@ spec:
               path: /
               port: http
           volumeMounts:
-            - mountPath: /app/backend/db
-              name: database
-            - mountPath: /app/backend/uploads
+            - mountPath: /app/uploads
               name: uploads
       volumes:
-        - name: database
-          persistentVolumeClaim:
-            claimName: tududi-database
         - name: uploads
           persistentVolumeClaim:
             claimName: tududi-uploads

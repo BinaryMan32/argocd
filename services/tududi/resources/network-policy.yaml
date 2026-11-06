@@ -40,6 +40,15 @@ spec:
         - protocol: TCP
           port: 53
 
+    # Allow database
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: tududi-db
+      ports:
+        - protocol: TCP
+          port: postgresql
+
     # Allow egress to internet but not in cluster
     - to:
         - ipBlock:
