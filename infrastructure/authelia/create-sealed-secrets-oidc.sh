@@ -5,7 +5,7 @@ script_dir=$(dirname $(realpath $0))
 
 clients=("$@")
 if [ ${#clients[@]} -eq 0 ]; then
-  clients=(headlamp argocd grafana homebox audiobookshelf tdarr)
+  clients=(headlamp argocd grafana homebox audiobookshelf tdarr tududi)
 fi
 
 for client in "${clients[@]}"; do
@@ -44,6 +44,12 @@ for client in "${clients[@]}"; do
       $script_dir/create-sealed-secret-oidc-helper.sh tdarr tdarr \
         media client-id client-secret \
         ../../services/media/tdarr/resources
+      ;;
+    tududi)
+      # Keys are environment variable names, loaded with envFrom
+      $script_dir/create-sealed-secret-oidc-helper.sh tududi tududi \
+        tududi OIDC_CLIENT_ID OIDC_CLIENT_SECRET \
+        ../../services/tududi/resources
       ;;
     *)
       echo "Unknown client: $client" >&2

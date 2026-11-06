@@ -241,6 +241,21 @@ authelia:
             consent_mode: pre-configured
             pre_configured_consent_duration: 1y
             token_endpoint_auth_method: client_secret_basic
+          # https://docs.tududi.com/getting-started/sso-oidc
+          # tududi reads claims from userinfo, so no claims_policy is needed.
+          - client_name: tududi
+            client_id: '{{ secret "/secrets/authelia-oidc-tududi/client-id" }}'
+            client_secret:
+              path: /secrets/authelia-oidc-tududi/client-secret-digest
+            redirect_uris:
+              - https://tududi.int.fivebytestudios.com/api/oidc/callback/authelia
+            scopes: ['openid', 'profile', 'email']
+            require_pkce: true
+            pkce_challenge_method: S256
+            authorization_policy: two_factor
+            consent_mode: pre-configured
+            pre_configured_consent_duration: 1y
+            token_endpoint_auth_method: client_secret_basic
   secret:
     # Authelia helm chart automatically generates random secrets, but that updates the secrets on re-deploy.
     # Refreshing the storage secret in particular makes it impossible to decrypt the database.
@@ -280,6 +295,10 @@ authelia:
           - key: client-id
           - key: client-secret-digest
       authelia-oidc-tdarr:
+        items:
+          - key: client-id
+          - key: client-secret-digest
+      authelia-oidc-tududi:
         items:
           - key: client-id
           - key: client-secret-digest

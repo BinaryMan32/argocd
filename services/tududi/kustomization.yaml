@@ -10,6 +10,7 @@ resources:
   - ./resources/network-policy.yaml
   - ./resources/pvc-uploads.yaml
   - ./resources/sealed-secret.yaml
+  - ./resources/sealed-secret-authelia-oidc-tududi.yaml
   - ./resources/sealed-secret-seaweedfs-s3-user-tududi-cnpg.yaml
   - ./resources/service.yaml
 labels:

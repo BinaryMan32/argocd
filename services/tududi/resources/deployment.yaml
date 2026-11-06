@@ -43,10 +43,25 @@ spec:
                   key: sessionSecret
             - name: TUDUDI_ALLOWED_ORIGINS
               value: https://tududi.int.fivebytestudios.com
+            # https://docs.tududi.com/getting-started/sso-oidc
+            - name: BASE_URL
+              value: https://tududi.int.fivebytestudios.com
+            - name: OIDC_ENABLED
+              value: "true"
+            - name: OIDC_PROVIDER_NAME
+              value: Authelia
+            # Part of the redirect URI configured in Authelia
+            - name: OIDC_PROVIDER_SLUG
+              value: authelia
+            - name: OIDC_ISSUER_URL
+              value: https://auth.int.fivebytestudios.com
             - name: PUID
               value: "65534"
             - name: PGID
               value: "65534"
+          envFrom:
+            - secretRef:
+                name: authelia-oidc-tududi
           ports:
             - name: http
               protocol: TCP
