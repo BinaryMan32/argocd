@@ -4,6 +4,7 @@ resources:
   - ./resources/cnpg-cluster.yaml
   - ./resources/cnpg-objectstore.yaml
   - ./resources/cnpg-podmonitor.yaml
+  - ./resources/cnpg-scheduled-backup.yaml
   - ./resources/deployment.yaml
   - ./resources/httproute.yaml
   - ./resources/network-policy.yaml
