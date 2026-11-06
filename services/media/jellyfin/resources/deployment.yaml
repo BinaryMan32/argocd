@@ -117,7 +117,7 @@ spec:
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: jellyfin-config
+            claimName: cloned-pvc-264969e1-4218-4969-9-58fe795c
         - name: media
           persistentVolumeClaim:
             claimName: jellyfin-media
