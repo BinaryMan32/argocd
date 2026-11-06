@@ -32,6 +32,10 @@ for user in "$@"; do
       $script_dir/create-sealed-secret-s3-user.sh "$user" \
         homebox ../../services/homebox/resources
       ;;
+    tududi-cnpg)
+      $script_dir/create-sealed-secret-s3-user.sh "$user" \
+        tududi ../../services/tududi/resources
+      ;;
     tempo)
       $script_dir/create-sealed-secret-s3-user.sh "$user" \
         tempo ../tempo/templates

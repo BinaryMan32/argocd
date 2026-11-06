@@ -158,6 +158,14 @@ seaweedfs:
         secretKeyRef:
           name: seaweedfs-s3-user-homebox-cnpg
           key: secret-access-key
+      S3_USER_TUDUDI_CNPG_ACCESS_KEY_ID:
+        secretKeyRef:
+          name: seaweedfs-s3-user-tududi-cnpg
+          key: access-key-id
+      S3_USER_TUDUDI_CNPG_SECRET_ACCESS_KEY:
+        secretKeyRef:
+          name: seaweedfs-s3-user-tududi-cnpg
+          key: secret-access-key
       S3_USER_TEMPO_ACCESS_KEY_ID:
         secretKeyRef:
           name: seaweedfs-s3-user-tempo
@@ -178,6 +186,7 @@ seaweedfs:
         - name: play-when-dev-cnpg
         - name: play-when-stage-cnpg
         - name: play-when-prod-cnpg
+        - name: tududi-cnpg
         - name: tempo
     data:
       type: persistentVolumeClaim
@@ -274,6 +283,7 @@ seaweedfs:
                         - play-when-dev
                         - play-when-stage
                         - play-when-prod
+                        - tududi
                 podSelector:
                   matchExpressions:
                     - key: cnpg.io/cluster
@@ -384,6 +394,14 @@ s3:
       credentials:
         - accessKey: "${S3_USER_HOMEBOX_CNPG_ACCESS_KEY_ID}"
           secretKey: "${S3_USER_HOMEBOX_CNPG_SECRET_ACCESS_KEY}"
+    - name: tududi-cnpg
+      actions:
+        - Read:tududi-cnpg
+        - Write:tududi-cnpg
+        - List:tududi-cnpg
+      credentials:
+        - accessKey: "${S3_USER_TUDUDI_CNPG_ACCESS_KEY_ID}"
+          secretKey: "${S3_USER_TUDUDI_CNPG_SECRET_ACCESS_KEY}"
     - name: tempo
       actions:
         - Read:tempo
