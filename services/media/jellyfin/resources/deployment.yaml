@@ -6,7 +6,7 @@ spec:
   strategy:
     # https://github.com/jellyfin/jellyfin-helm/blob/master/charts/jellyfin/values.yaml
     type: Recreate
-  replicas: 1
+  replicas: 0
   revisionHistoryLimit: 3
   selector:
     matchLabels:
