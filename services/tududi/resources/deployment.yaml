@@ -55,6 +55,9 @@ spec:
               value: authelia
             - name: OIDC_ISSUER_URL
               value: https://auth.int.fivebytestudios.com
+            # Only allow login with Authelia
+            - name: PASSWORD_AUTH_ENABLED
+              value: "false"
             - name: PUID
               value: "65534"
             - name: PGID
