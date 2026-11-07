@@ -1,6 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - resources/recurring-job-backup-weekly.yaml
+  - resources/recurring-job-snapshot-daily.yaml
   - resources/storage-class-longhorn-large-ext4.yaml
   - resources/storage-class-longhorn-large-xfs.yaml
   - resources/storage-class-longhorn-local-ext4.yaml

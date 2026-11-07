@@ -1,0 +1,18 @@
+# Weekly backup of every volume in the default group to the NFS backup target.
+# Unlike snapshots, backups are independent of the replicas, so they survive
+# replica-level corruption.
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: backup-weekly
+  namespace: longhorn-system
+spec:
+  name: backup-weekly
+  task: backup
+  # Sunday 01:00 local (UTC-6)
+  cron: "0 7 * * 0"
+  retain: 4
+  concurrency: 1
+  groups:
+    - default
+  labels: {}

@@ -53,6 +53,12 @@ spec:
           backupTarget: nfs://{{ .Values.nfs.server }}:{{ .Values.nfs.path }}/manual/longhorn-backup
         defaultSettings:
           concurrentAutomaticEngineUpgradePerNodeLimit: "1"
+          # rehash all snapshot files on each scheduled check. With fast-check
+          # (default), a rebuilt replica records the source's checksum without
+          # hashing its own copy and is then skipped, so a bad rebuild goes unnoticed.
+          snapshotDataIntegrity: enabled
+          # daily at 03:00 local (UTC-6); the default "0 0 */7 * *" ran at 18:00 local
+          snapshotDataIntegrityCronjob: "0 9 * * *"
           taintToleration: reserved-arch=amd64:NoSchedule
   # helm template incorrectly sets nodePort for LoadBalancer
   ignoreDifferences:

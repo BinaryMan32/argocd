@@ -1,0 +1,22 @@
+# Daily snapshot of every volume in the default group, an hour before the
+# snapshot data integrity check (snapshotDataIntegrityCronjob in longhorn.yaml).
+# The integrity check skips system-generated snapshots, so without user
+# snapshots most volumes would never be checked.
+# Exclude a volume by labelling its PVC with
+#   recurring-job.longhorn.io/source: enabled
+#   recurring-job-group.longhorn.io/none: enabled
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: snapshot-daily
+  namespace: longhorn-system
+spec:
+  name: snapshot-daily
+  task: snapshot
+  # 02:00 local (UTC-6)
+  cron: "0 8 * * *"
+  retain: 6
+  concurrency: 2
+  groups:
+    - default
+  labels: {}
