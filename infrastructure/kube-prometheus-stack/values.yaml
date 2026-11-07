@@ -223,6 +223,11 @@ kube-prometheus-stack:
     prometheusSpec:
       storageSpec:
         volumeClaimTemplate:
+          metadata:
+            # exclude from the Longhorn snapshot/backup recurring jobs (high churn, expendable)
+            labels:
+              recurring-job.longhorn.io/source: enabled
+              recurring-job-group.longhorn.io/none: enabled
           spec:
             storageClassName: longhorn-large-ext4
             accessModes: ["ReadWriteOnce"]

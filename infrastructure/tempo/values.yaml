@@ -5,6 +5,10 @@ tempo:
     enabled: true
     storageClassName: longhorn
     size: 10Gi
+    # The PVC is excluded from the Longhorn snapshot/backup recurring jobs (high churn,
+    # expendable). The chart can't set PVC labels, so a new PVC must be labelled by hand:
+    #   kubectl -n tempo label pvc storage-tempo-0 \
+    #     recurring-job.longhorn.io/source=enabled recurring-job-group.longhorn.io/none=enabled
   serviceMonitor:
     enabled: true
   tempo:
