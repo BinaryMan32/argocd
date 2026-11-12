@@ -38,5 +38,5 @@ labels:
 images:
   - name: homepage
     newName: ghcr.io/gethomepage/homepage
-    newTag: v2.7.0
+    newTag: v2.8.0
 buildMetadata: [managedByLabel]
