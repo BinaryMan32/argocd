@@ -321,11 +321,10 @@ authelia:
             port: http
 # https://github.com/valkey-io/valkey-helm/tree/main/valkey
 valkey:
-  deploymentStrategy: Recreate
-  dataStorage:
+  persistence:
     enabled: true
-    requestedSize: 1Gi
-    className: longhorn
+    size: 1Gi
+    storageClass: longhorn
   auth:
     enabled: true
     usersExistingSecret: authelia-valkey
