@@ -23,6 +23,9 @@ client → Cloudflare edge (TLS) → tunnel → cloudflared
   `cloudflare` namespace.
 * A [NetworkPolicy](../traefik/templates/network-policy.yaml) only allows
   cloudflared to connect to the `web-cloudflare` entrypoint, since it trusts `X-Forwarded-For`.
+* cloudflared's [NetworkPolicy](./templates/network-policy.yaml) allows tunnel connections to the
+  Cloudflare edge addresses in `edgeCIDRs` in [values.yaml](./values.yaml).
+  If Cloudflare changes those addresses, the tunnel shows as `Down` until `edgeCIDRs` is updated.
 
 ## Initial Setup
 
