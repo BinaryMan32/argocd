@@ -1,0 +1,21 @@
+# override from ArgoCD App
+# UUID of the locally-managed tunnel, see README.md
+tunnelId: ""
+# Zone whose subdomains are routed through the tunnel
+domain: ""
+
+# Traefik service receiving all tunnel traffic, see infrastructure/traefik
+origin: http://traefik-cloudflare.traefik.svc.cluster.local:80
+
+replicas: 2
+
+image:
+  repository: cloudflare/cloudflared
+  tag: 2026.11.0
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    memory: 128Mi

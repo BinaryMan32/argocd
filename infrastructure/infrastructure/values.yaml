@@ -14,6 +14,11 @@ domain:
   iot: iot.wildfreddy.fivebytestudios.com
   external: wildfreddy.fivebytestudios.com
   playwhen: playwhen.fivebytestudios.com
+  # served through cloudflare tunnel, see infrastructure/cloudflared
+  tunnel: wildfreddy.net
+# See infrastructure/cloudflared/README.md
+cloudflare:
+  tunnelId: "cdfd8bf3-134b-4af8-ba10-df7b22fdeab2"
 ipAddress:
   router: "192.168.8.1"
   kubernetes: "192.168.8.8"

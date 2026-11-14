@@ -1,0 +1,33 @@
+{{- if .Values.cloudflare.gateway.listeners.http }}
+# Receives traffic from the Cloudflare Tunnel, see infrastructure/cloudflared.
+# TLS is terminated by Cloudflare, so listeners use plain HTTP.
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: traefik-cloudflare
+  annotations:
+    # external-dns creates a proxied CNAME to the tunnel for each attached HTTPRoute hostname.
+    # Required: otherwise external-dns would use status.addresses, which is the intranet IP.
+    external-dns.kubernetes.io/target: {{ required "cloudflare.target is required" .Values.cloudflare.target | quote }}
+spec:
+  gatewayClassName: traefik
+  listeners:
+{{- range $name, $listener := .Values.cloudflare.gateway.listeners.http }}
+    - name: {{ $name }}
+      # must match the web-cloudflare entrypoint port
+      port: {{ index $.Values.traefik.ports "web-cloudflare" "port" }}
+      protocol: HTTP
+      hostname: {{ $listener.hostname | quote }}
+      allowedRoutes:
+{{- if $listener.namespace }}
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ $listener.namespace }}
+{{- else }}
+        namespaces:
+          from: Same
+{{- end }}
+{{- end }}
+{{- end }}

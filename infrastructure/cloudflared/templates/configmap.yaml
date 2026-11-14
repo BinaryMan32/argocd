@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared
+data:
+  # https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/configuration-file/
+  config.yaml: |
+    tunnel: {{ .Values.tunnelId | quote }}
+    credentials-file: /etc/cloudflared/creds/credentials.json
+    metrics: 0.0.0.0:2000
+    no-autoupdate: true
+    ingress:
+      # Routing for individual hosts is done by HTTPRoutes on the traefik-cloudflare Gateway
+      - hostname: "*.{{ .Values.domain }}"
+        service: {{ .Values.origin }}
+      - service: http_status:404

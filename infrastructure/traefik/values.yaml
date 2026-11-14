@@ -10,6 +10,12 @@ external:
   gateway:
     listeners:
       https: {}
+cloudflare:
+  # override from ArgoCD App: <tunnel UUID>.cfargotunnel.com
+  target: ""
+  gateway:
+    listeners:
+      http: {}
 playWhenRedirect:
   intranet:
     hostnames: []
@@ -65,6 +71,19 @@ traefik:
         external: true
       http:
         aliasHeadersStrategy: reject
+    web-cloudflare:
+      port: 7080
+      exposedPort: 80
+      expose:
+        default: false
+        cloudflare: true
+      http:
+        aliasHeadersStrategy: reject
+      # Keep X-Forwarded-For set by cloudflared, which contains the real client IP
+      forwardedHeaders:
+        trustedIPs:
+          # pod CIDR
+          - 10.42.0.0/16
 
   service:
     spec:
@@ -76,6 +95,9 @@ traefik:
           type: LoadBalancer
           # Preserve client IP addresses
           externalTrafficPolicy: Local
+      cloudflare:
+        spec:
+          type: ClusterIP
 
   # Enables the dashboard in Secure Mode
   api:

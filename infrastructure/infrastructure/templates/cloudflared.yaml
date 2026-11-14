@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflared
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project.name }}
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    path: {{ .Values.project.path }}/cloudflared
+    helm:
+      valueFiles:
+        - values.yaml
+      valuesObject:
+        tunnelId: {{ .Values.cloudflare.tunnelId | quote }}
+        domain: {{ .Values.domain.tunnel }}
+  destination:
+    namespace: cloudflare
+    server: {{ .Values.destination.server }}
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

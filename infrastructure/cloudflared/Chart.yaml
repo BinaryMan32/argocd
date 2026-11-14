@@ -1,0 +1,4 @@
+apiVersion: v2
+name: cloudflared
+description: Cloudflare Tunnel connector routing tunnel traffic to Traefik
+version: 1.0.0
