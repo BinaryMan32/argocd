@@ -72,7 +72,7 @@ kubectl -n argocd delete secret argocd-initial-admin-secret
 ## Webhooks
 
 Webhooks are received through the [Cloudflare Tunnel](../cloudflared/README.md).
-The `*-webhook-tunnel-ipallow` middlewares only allow requests from GitHub and GitLab addresses.
+The `*-webhook-ipallow` middlewares only allow requests from GitHub and GitLab addresses.
 
 ### GitLab
 

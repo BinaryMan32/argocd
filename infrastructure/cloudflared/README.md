@@ -67,7 +67,7 @@ kubectl -n cloudflare logs deployment/cloudflared | grep "Registered tunnel conn
 
 Requests reach Traefik from cloudflared, so middlewares using the client IP
 address must read it from `X-Forwarded-For`, for example
-[github-webhook-tunnel-ipallow-middleware.yaml](../argocd/github-webhook-tunnel-ipallow-middleware.yaml).
+[github-webhook-ipallow-middleware.yaml](../argocd/github-webhook-ipallow-middleware.yaml).
 
 [tunnel]: https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/
 [local]: https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/
