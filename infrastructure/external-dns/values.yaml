@@ -1,0 +1,29 @@
+# https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/values.yaml
+external-dns:
+  provider:
+    name: cloudflare
+  env:
+    # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/cloudflare.md
+    - name: CF_API_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: cloudflare-api-token
+          key: token
+  # Only create records for routes attached to the tunnel Gateway
+  sources:
+    - gateway-httproute
+  gatewayNamespace: traefik
+  # Remove records when routes are deleted. Only records with a matching
+  # TXT ownership record (txtOwnerId) are ever changed or deleted.
+  policy: sync
+  txtOwnerId: griffin
+  # override from ArgoCD App
+  domainFilters: []
+  extraArgs:
+    gateway-name: traefik-cloudflare
+    # Records point to the tunnel, which only works through the Cloudflare proxy
+    cloudflare-proxied: true
+    # override from ArgoCD App: required because the API token is limited to one zone
+    zone-id-filter: null
+  serviceMonitor:
+    enabled: true

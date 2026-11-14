@@ -91,3 +91,12 @@ repositories:
   password: ""
   url: https://nextcloud.github.io/helm/
   username: ""
+- caFile: ""
+  certFile: ""
+  insecure_skip_tls_verify: false
+  keyFile: ""
+  name: external-dns
+  pass_credentials_all: false
+  password: ""
+  url: https://kubernetes-sigs.github.io/external-dns/
+  username: ""

@@ -16,8 +16,11 @@ client → Cloudflare edge (TLS) → tunnel → cloudflared
   [configmap.yaml](./templates/configmap.yaml) instead of the Cloudflare dashboard.
   All `*.wildfreddy.net` traffic is sent to Traefik, so routing for individual
   services is done by HTTPRoutes.
+* [external-dns](../external-dns/) creates a proxied `CNAME` record pointing to
+  the tunnel for each HTTPRoute attached to the `traefik-cloudflare` Gateway.
 * Hostnames without a matching HTTPRoute return 404.
-* cloudflared is deployed into the `cloudflare` namespace.
+* cloudflared and external-dns are deployed by separate apps into the shared
+  `cloudflare` namespace.
 * A [NetworkPolicy](../traefik/templates/network-policy.yaml) only allows
   cloudflared to connect to the `web-cloudflare` entrypoint, since it trusts `X-Forwarded-For`.
 
@@ -38,6 +41,7 @@ client → Cloudflare edge (TLS) → tunnel → cloudflared
    Then delete the local credentials file and `~/.cloudflared/cert.pem`.
    `cert.pem` can create and delete tunnels in the account, and can be recreated
    with `cloudflared tunnel login` when needed.
+5. Set up [external-dns](../external-dns/README.md).
 
 ## Verification
 
