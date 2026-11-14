@@ -1,0 +1,47 @@
+{{- /*
+Controls all incoming connections to the traefik pods.
+
+Once a NetworkPolicy selects the traefik pods, ports which aren't listed are blocked,
+so every entrypoint in .Values.traefik.ports must be covered by a rule below.
+
+* Entrypoints exposed on the traefik-cloudflare Service only accept cloudflared.
+  They trust X-Forwarded-For from the pod CIDR, so other pods could otherwise
+  forge the client IP checked by ipAllowList middlewares.
+* All other entrypoints are open to all sources, unchanged from before this policy
+  existed (LAN and internet clients, kubelet probes, prometheus).
+*/ -}}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: traefik-ingress
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+      app.kubernetes.io/instance: traefik
+  policyTypes:
+    - Ingress
+  ingress:
+    # All sources
+    - ports:
+{{- range $name, $config := .Values.traefik.ports }}
+{{- if not (index (default dict $config.expose) "cloudflare") }}
+        - protocol: TCP
+          port: {{ $name | lower }}
+{{- end }}
+{{- end }}
+    # cloudflared only
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: cloudflare
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: cloudflared
+      ports:
+{{- range $name, $config := .Values.traefik.ports }}
+{{- if index (default dict $config.expose) "cloudflare" }}
+        - protocol: TCP
+          port: {{ $name | lower }}
+{{- end }}
+{{- end }}

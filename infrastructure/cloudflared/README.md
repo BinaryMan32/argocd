@@ -18,6 +18,8 @@ client → Cloudflare edge (TLS) → tunnel → cloudflared
   services is done by HTTPRoutes.
 * Hostnames without a matching HTTPRoute return 404.
 * cloudflared is deployed into the `cloudflare` namespace.
+* A [NetworkPolicy](../traefik/templates/network-policy.yaml) only allows
+  cloudflared to connect to the `web-cloudflare` entrypoint, since it trusts `X-Forwarded-For`.
 
 ## Initial Setup
 
