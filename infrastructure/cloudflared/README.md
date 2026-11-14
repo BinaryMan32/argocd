@@ -41,7 +41,9 @@ client → Cloudflare edge (TLS) → tunnel → cloudflared
    Then delete the local credentials file and `~/.cloudflared/cert.pem`.
    `cert.pem` can create and delete tunnels in the account, and can be recreated
    with `cloudflared tunnel login` when needed.
-5. Set up [external-dns](../external-dns/README.md).
+5. remove `~/.cloudflared`
+6. uninstall `cloudflared`
+7. Set up [external-dns](../external-dns/README.md).
 
 ## Verification
 
@@ -54,12 +56,6 @@ Check that the tunnel connected:
 
 ```sh
 kubectl -n cloudflare logs deployment/cloudflared | grep "Registered tunnel connection"
-```
-
-From the command line, which requires `cert.pem` from `cloudflared tunnel login`:
-
-```sh
-cloudflared tunnel info griffin
 ```
 
 ## Adding a Service
