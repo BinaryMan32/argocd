@@ -71,6 +71,9 @@ kubectl -n argocd delete secret argocd-initial-admin-secret
 
 ## Webhooks
 
+Webhooks are received through the [Cloudflare Tunnel](../cloudflared/README.md).
+The `*-webhook-tunnel-ipallow` middlewares only allow requests from GitHub and GitLab addresses.
+
 ### GitLab
 
 For each of the following projects:
@@ -85,7 +88,7 @@ For each of the following projects:
 Add a webhook with the following settings:
 
 * Name: `ArgoCD Webhook`
-* URL: `https://gitlab-webhook.argocd.wildfreddy.fivebytestudios.com/api/webhook`
+* URL: `https://argocd-gitlab-webhook.wildfreddy.net/api/webhook`
 * Secret token: from secret `gitlab-webhook` in `argocd` namespace
   `kubectl -n argocd get secret gitlab-webhook -o jsonpath="{.data.secret}" | base64 -d`
 * Trigger:
@@ -100,7 +103,7 @@ For each of the following repositories:
 
 Add a webhook with the following settings:
 
-* Payload URL: `https://github-webhook.argocd.wildfreddy.fivebytestudios.com/api/webhook`
+* Payload URL: `https://argocd-github-webhook.wildfreddy.net/api/webhook`
 * Content type: `application/json`
 * Secret: from secret `github-webhook` in `argocd` namespace
   `kubectl -n argocd get secret github-webhook -o jsonpath="{.data.secret}" | base64 -d`

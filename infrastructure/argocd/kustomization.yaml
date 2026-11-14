@@ -16,9 +16,13 @@ resources:
 - github-webhook-httproute.yaml
 - github-webhook-ipallow-middleware.yaml
 - github-webhook-secret.yaml
+- github-webhook-tunnel-httproute.yaml
+- github-webhook-tunnel-ipallow-middleware.yaml
 - gitlab-webhook-httproute.yaml
 - gitlab-webhook-ipallow-middleware.yaml
 - gitlab-webhook-secret.yaml
+- gitlab-webhook-tunnel-httproute.yaml
+- gitlab-webhook-tunnel-ipallow-middleware.yaml
 - sealed-secret-authelia-oidc-argocd.yaml
 patches:
 - path: argocd-cm.yaml

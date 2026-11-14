@@ -69,6 +69,10 @@ cloudflared tunnel info griffin
    `<name>.{{ .Values.domain.tunnel }}` and the service namespace.
 2. Add an HTTPRoute with `parentRefs` set to Gateway `traefik-cloudflare` in namespace `traefik`.
 
+Requests reach Traefik from cloudflared, so middlewares using the client IP
+address must read it from `X-Forwarded-For`, for example
+[github-webhook-tunnel-ipallow-middleware.yaml](../argocd/github-webhook-tunnel-ipallow-middleware.yaml).
+
 [tunnel]: https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/
 [local]: https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/
 [install]: https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/downloads/

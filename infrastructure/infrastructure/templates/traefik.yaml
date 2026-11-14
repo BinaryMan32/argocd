@@ -217,6 +217,19 @@ spec:
                   certificateRef: play-when-prod-tls
                   hostname: "*.{{ .Values.domain.playwhen }}"
                   namespace: play-when-prod
+        {{- if .Values.cloudflare.tunnelId }}
+        cloudflare:
+          target: "{{ .Values.cloudflare.tunnelId }}.cfargotunnel.com"
+          gateway:
+            listeners:
+              http:
+                argocd-github-webhook:
+                  hostname: "argocd-github-webhook.{{ .Values.domain.tunnel }}"
+                  namespace: argocd
+                argocd-gitlab-webhook:
+                  hostname: "argocd-gitlab-webhook.{{ .Values.domain.tunnel }}"
+                  namespace: argocd
+        {{- end }}
         # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
         traefik:
           service:

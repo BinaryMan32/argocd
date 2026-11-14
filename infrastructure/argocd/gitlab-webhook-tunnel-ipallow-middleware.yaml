@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: gitlab-webhook-tunnel-ipallow
+spec:
+  ipAllowList:
+    # Requests arrive from cloudflared, which sets X-Forwarded-For to the client IP.
+    # Use the right-most X-Forwarded-For address which isn't a pod (cloudflared).
+    # https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/ipallowlist/#ipstrategyexcludedips
+    ipStrategy:
+      excludedIPs:
+        - 10.42.0.0/16
+    # https://docs.gitlab.com/user/gitlab_com/#ip-range
+    sourceRange:
+      - 34.74.90.64/28
+      - 34.74.226.0/24

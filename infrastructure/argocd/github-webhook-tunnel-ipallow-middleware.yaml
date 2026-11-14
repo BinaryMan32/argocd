@@ -1,0 +1,24 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: github-webhook-tunnel-ipallow
+spec:
+  ipAllowList:
+    # Requests arrive from cloudflared, which sets X-Forwarded-For to the client IP.
+    # Use the right-most X-Forwarded-For address which isn't a pod (cloudflared).
+    # https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/ipallowlist/#ipstrategyexcludedips
+    ipStrategy:
+      excludedIPs:
+        - 10.42.0.0/16
+    # https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses
+    # curl -s https://api.github.com/meta | yq --yaml-output '.hooks'
+    sourceRange:
+      - 9.234.106.48/28
+      - 9.234.98.160/28
+      - 9.234.98.176/28
+      - 192.30.252.0/22
+      - 185.199.108.0/22
+      - 140.82.112.0/20
+      - 143.55.64.0/20
+      - 2a0a:a440::/29
+      - 2606:50c0::/32
