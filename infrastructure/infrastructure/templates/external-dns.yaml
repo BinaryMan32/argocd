@@ -12,6 +12,7 @@ spec:
     targetRevision: {{ .Values.source.targetRevision }}
     path: {{ .Values.project.path }}/external-dns
     helm:
+      skipCrds: true
       valueFiles:
         - values.yaml
       valuesObject:
