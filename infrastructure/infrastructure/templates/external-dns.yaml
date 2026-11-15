@@ -17,7 +17,7 @@ spec:
       valuesObject:
         external-dns:
           domainFilters:
-            - {{ .Values.domain.tunnel }}
+            - {{ .Values.domain.public }}
           extraArgs:
             zone-id-filter: {{ .Values.cloudflare.tunnelZoneId | quote }}
   destination:

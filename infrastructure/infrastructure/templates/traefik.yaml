@@ -213,10 +213,10 @@ spec:
             listeners:
               http:
                 argocd-github-webhook:
-                  hostname: "argocd-github-webhook.{{ .Values.domain.tunnel }}"
+                  hostname: "argocd-github-webhook.{{ .Values.domain.public }}"
                   namespace: argocd
                 argocd-gitlab-webhook:
-                  hostname: "argocd-gitlab-webhook.{{ .Values.domain.tunnel }}"
+                  hostname: "argocd-gitlab-webhook.{{ .Values.domain.public }}"
                   namespace: argocd
         {{- end }}
         # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml

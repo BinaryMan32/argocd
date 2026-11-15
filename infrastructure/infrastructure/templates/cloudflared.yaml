@@ -16,7 +16,7 @@ spec:
         - values.yaml
       valuesObject:
         tunnelId: {{ .Values.cloudflare.tunnelId | quote }}
-        domain: {{ .Values.domain.tunnel }}
+        domain: {{ .Values.domain.public }}
   destination:
     namespace: cloudflare
     server: {{ .Values.destination.server }}

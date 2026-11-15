@@ -19,7 +19,7 @@ spec:
           dnsZones:
             - {{ .Values.domain.external }}
             - {{ .Values.domain.playwhen }}
-            - {{ .Values.domain.tunnel }}
+            - {{ .Values.domain.public }}
         intranet:
           dnsZones:
             - {{ .Values.domain.intranet }}

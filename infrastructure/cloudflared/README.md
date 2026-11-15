@@ -65,7 +65,7 @@ kubectl -n cloudflare logs deployment/cloudflared | grep "Registered tunnel conn
 
 1. Add a listener to `cloudflare.gateway.listeners.http` in
    [traefik.yaml](../infrastructure/templates/traefik.yaml), using a hostname
-   `<name>.{{ .Values.domain.tunnel }}` and the service namespace.
+   `<name>.{{ .Values.domain.public }}` and the service namespace.
 2. Add an HTTPRoute with `parentRefs` set to Gateway `traefik-cloudflare` in namespace `traefik`.
 
 Requests reach Traefik from cloudflared, so middlewares using the client IP
