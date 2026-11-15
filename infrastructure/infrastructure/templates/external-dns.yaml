@@ -15,7 +15,12 @@ spec:
       valueFiles:
         - values.yaml
       valuesObject:
-        external-dns:
+        tunnel:
+          domainFilters:
+            - {{ .Values.domain.public }}
+          extraArgs:
+            zone-id-filter: {{ .Values.cloudflare.zoneId | quote }}
+        direct:
           domainFilters:
             - {{ .Values.domain.public }}
           extraArgs:

@@ -2,7 +2,13 @@ apiVersion: v2
 name: external-dns
 description: external-dns and configuration resources
 version: 1.0.0
+# One instance per Gateway, since the Cloudflare proxy setting can't be set on a Gateway
 dependencies:
 - name: external-dns
+  alias: tunnel
+  repository: https://kubernetes-sigs.github.io/external-dns/
+  version: 1.23.0
+- name: external-dns
+  alias: direct
   repository: https://kubernetes-sigs.github.io/external-dns/
   version: 1.23.0
