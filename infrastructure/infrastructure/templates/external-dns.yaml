@@ -19,7 +19,7 @@ spec:
           domainFilters:
             - {{ .Values.domain.public }}
           extraArgs:
-            zone-id-filter: {{ .Values.cloudflare.tunnelZoneId | quote }}
+            zone-id-filter: {{ .Values.cloudflare.zoneId | quote }}
   destination:
     namespace: cloudflare
     server: {{ .Values.destination.server }}

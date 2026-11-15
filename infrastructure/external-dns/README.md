@@ -11,7 +11,7 @@ to the `traefik-cloudflare` Gateway. See [cloudflared](../cloudflared/README.md)
 
 ## Initial Setup
 
-1. Set `cloudflare.tunnelZoneId` in [values.yaml](../infrastructure/values.yaml)
+1. Set `cloudflare.zoneId` in [values.yaml](../infrastructure/values.yaml)
    to the Zone ID shown on the `wildfreddy.net` overview page in the Cloudflare dashboard.
 2. Run [create-sealed-secret-cloudflare-api-token.sh](./create-sealed-secret-cloudflare-api-token.sh)
    to create the `cloudflare-api-token` sealed secret.
