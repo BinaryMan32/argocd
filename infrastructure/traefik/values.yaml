@@ -7,6 +7,10 @@ intranet:
       http: {}
       https: {}
 external:
+  # override from ArgoCD App: hostname of the DNS record with the home public IP address,
+  # created by hand, see infrastructure/external-dns.
+  # external-dns creates a DNS-only CNAME to it for each attached HTTPRoute hostname in its domain.
+  dnsTarget: ""
   gateway:
     listeners:
       https: {}

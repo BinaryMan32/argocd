@@ -4,6 +4,10 @@ metadata:
   name: traefik-external
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+{{- with .Values.external.dnsTarget }}
+    # Required: otherwise external-dns would use status.addresses, which is the intranet IP.
+    external-dns.kubernetes.io/target: {{ . | quote }}
+{{- end }}
 spec:
   gatewayClassName: traefik
   listeners:
