@@ -3,8 +3,6 @@ kind: Service
 metadata:
   name: jellyfin
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
   selector:
     app.kubernetes.io/instance: jellyfin
     app.kubernetes.io/name: jellyfin
