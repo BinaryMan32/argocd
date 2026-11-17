@@ -39,11 +39,20 @@ kubectl -n relay exec deploy/relay -- wg show
 kubectl -n relay exec deploy/relay -- ping -c 3 10.99.0.1
 ```
 
-Throughput test, with an `iperf3` server in a debug container sharing the pod's network:
+Throughput test. Start an `iperf3` server in a debug container sharing the pod's network.
+`kubectl debug` needs a pod, not a deployment:
 
 ```sh
-kubectl -n relay debug -it deploy/relay --image=nicolaka/netshoot --profile=general -- iperf3 -s
-# on the VPS, after `apt install iperf3`: VPS to cluster, then cluster to VPS
-iperf3 -c 10.99.0.2 -t 30
-iperf3 -c 10.99.0.2 -t 30 -R
+pod=$(kubectl -n relay get pod -l app.kubernetes.io/name=relay -o name)
+kubectl -n relay debug -it "$pod" --image=nicolaka/netshoot --profile=general -- iperf3 -s
+```
+
+Then from [relay](../../relay/), install `iperf3` on the VPS, test VPS to cluster,
+then cluster to VPS, and remove it again. Ansible shows the output when each test finishes.
+
+```sh
+ansible relay -m apt -a "name=iperf3"
+ansible relay -a "iperf3 -c 10.99.0.2 -t 30"
+ansible relay -a "iperf3 -c 10.99.0.2 -t 30 -R"
+ansible relay -m apt -a "name=iperf3 state=absent purge=true autoremove=true"
 ```
