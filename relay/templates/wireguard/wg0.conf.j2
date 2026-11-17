@@ -3,6 +3,7 @@
 [Interface]
 Address = {{ wireguard_vps_address }}/24
 ListenPort = {{ wireguard_port }}
+MTU = {{ wireguard_mtu }}
 # The private key is generated on the VPS by the playbook and never leaves it
 PostUp = wg set %i private-key /etc/wireguard/private.key
 

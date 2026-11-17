@@ -15,6 +15,7 @@ cluster pod 10.99.0.2 → home router → CGNAT → VPS 10.99.0.1, UDP 51820
   instead of the image's OpenRC init.
 * The private key is in a sealed secret, while the rest of the config is in a ConfigMap.
   An init container adds the key to a copy of `wg0.conf` in an in-memory `emptyDir`.
+* The tunnel MTU is `1370`, limited by the `1450` MTU of the pod network. The VPS uses the same MTU.
 * Ports forwarded from the VPS through the tunnel are set in `forwards` in [values.yaml](./values.yaml).
   `PostUp` adds iptables rules in the pod's network namespace that send them on to their destination,
   and masquerade them as the pod, so replies come back to the pod and go back through the tunnel.

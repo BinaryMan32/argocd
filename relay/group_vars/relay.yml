@@ -6,6 +6,9 @@ wireguard_vps_address: 10.99.0.1
 wireguard_cluster_public_key: "QsnQi0nAykhJl2LgSEwQpoIjwEavzJMvjiYuElG7QEA="
 # Address of the cluster end of the tunnel
 wireguard_cluster_address: 10.99.0.2
+# Same as the cluster end, which is limited by the 1450 MTU of the pod network.
+# Larger packets from the VPS would be fragmented on the way to the pod.
+wireguard_mtu: 1370
 
 # UDP ports forwarded through the tunnel to the cluster end, which forwards them on,
 # see forwards in infrastructure/relay/values.yaml
