@@ -1,0 +1,30 @@
+#!/usr/sbin/nft -f
+{{ ansible_managed | comment }}
+# Second layer behind the Linode Cloud Firewall, see README.md
+
+flush ruleset
+
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy drop;
+
+		iif lo accept
+		ct state established,related accept
+		ct state invalid drop
+
+		# ICMPv6 is required for IPv6 neighbor discovery and router advertisements
+		meta l4proto { icmp, ipv6-icmp } accept
+		# DHCPv4 replies
+		udp sport 67 udp dport 68 accept
+
+		tcp dport 22 accept
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}

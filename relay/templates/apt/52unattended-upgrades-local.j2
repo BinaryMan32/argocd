@@ -1,0 +1,6 @@
+{{ ansible_managed | comment('c') }}
+// Uses the default origins from 50unattended-upgrades: Debian stable and security updates.
+// Reboot when an update requires it, such as a new kernel.
+Unattended-Upgrade::Automatic-Reboot "true";
+// UTC, 04:00 US Central Standard Time, 05:00 Central Daylight Time
+Unattended-Upgrade::Automatic-Reboot-Time "10:00";

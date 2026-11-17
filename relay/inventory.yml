@@ -1,0 +1,7 @@
+relay:
+  hosts:
+    linode-chicago:
+      # DNS only A record created by hand, see README.md
+      ansible_host: relay.wildfreddy.net
+      ansible_user: root
+      ansible_python_interpreter: /usr/bin/python3
