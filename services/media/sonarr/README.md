@@ -36,7 +36,7 @@ Under **Connect**:
     - On Manual Interaction Required
   - **Host** `jellyfin.media.svc.cluster.local`
   - **Port** `80`
-  - **API Key** create `New API Key` named `sonarr` at [https://jellyfin.int.fivebytestudios.com/web/#/dashboard/keys](Jellyfin API Keys)
+  - **API Key** create `New API Key` named `sonarr` at [https://jellyfin.wildfreddy.net/web/#/dashboard/keys](Jellyfin API Keys)
   - **Send Notifications** off
   - **Update Library** on
   - **Map Paths From** `/data/media/tv`

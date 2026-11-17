@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - resources/deployment.yaml
   - resources/httproute.yaml
-  - resources/httproute-intranet.yaml
   - resources/network-policy.yaml
   - resources/pv-media.yaml
   - resources/pvc-cache-images.yaml
