@@ -9,6 +9,8 @@ source:
 domain:
   intranet: int.fivebytestudios.com
   external: wildfreddy.fivebytestudios.com
+  # Cloudflare zone, see infrastructure/infrastructure/values.yaml
+  public: wildfreddy.net
 ipAddress:
   homeAssistant: 192.168.8.108
   iperf3: 192.168.8.107

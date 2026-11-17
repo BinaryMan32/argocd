@@ -61,7 +61,7 @@
         app: navidrome
     - Jellyfin:
         icon: jellyfin.png
-        href: "https://jellyfin.{{HOMEPAGE_VAR_DOMAIN_EXTERNAL}}/"
+        href: "https://jellyfin.{{HOMEPAGE_VAR_DOMAIN_PUBLIC}}/"
         description: Media Server
         namespace: media
         app: jellyfin
