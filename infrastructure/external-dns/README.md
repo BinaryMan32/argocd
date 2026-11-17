@@ -8,7 +8,7 @@ Gateway a route is attached to decides whether its record is proxied.
 | Instance | Gateway | Record | Proxied |
 | --- | --- | --- | --- |
 | `tunnel` | `traefik-cloudflare` | `CNAME` to `<tunnel UUID>.cfargotunnel.com`, see [cloudflared](../cloudflared/README.md) | yes |
-| `direct` | `traefik-external` | `CNAME` to `home.wildfreddy.net` | no |
+| `direct` | `traefik-external` | `CNAME` to `relay.wildfreddy.net` | no |
 
 * Only manages records in the `wildfreddy.net` zone (`domainFilters`, `zone-id-filter`),
   so routes on `traefik-external` with other hostnames are ignored.
@@ -18,7 +18,7 @@ Gateway a route is attached to decides whether its record is proxied.
 * Uses `policy: sync`, so records are deleted when routes are removed.
   Ownership is tracked using `TXT` records with a separate `txtOwnerId` per instance,
   so each instance only changes its own records. Records created by hand,
-  such as `home.wildfreddy.net`, are never changed.
+  such as `relay.wildfreddy.net`, are never changed.
 
 ## Initial Setup
 
@@ -26,9 +26,11 @@ Gateway a route is attached to decides whether its record is proxied.
    to the Zone ID shown on the `wildfreddy.net` overview page in the Cloudflare dashboard.
 2. Run [create-sealed-secret-cloudflare-api-token.sh](./create-sealed-secret-cloudflare-api-token.sh)
    to create the `cloudflare-api-token` sealed secret.
-3. In the Cloudflare dashboard, create a DNS only `A` record `home.wildfreddy.net`
-   with the home public IP address. It isn't updated automatically, so when the
-   address changes, update this record and the API token IP filters.
+3. In the Cloudflare dashboard, create a DNS only `A` record `relay.wildfreddy.net`
+   with the public IP address of the relay VPS. It isn't updated automatically,
+   so update it when the VPS is rebuilt with a new address.
+   The API token IP filters are separate: they hold the home public IP address,
+   which is the source address of requests made by the cluster.
 
 Check the records that were created:
 

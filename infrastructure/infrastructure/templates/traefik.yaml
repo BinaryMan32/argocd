@@ -173,7 +173,7 @@ spec:
                   hostname: "tududi.{{ .Values.domain.intranet }}"
                   namespace: tududi
         external:
-          dnsTarget: "home.{{ .Values.domain.public }}"
+          dnsTarget: "relay.{{ .Values.domain.public }}"
           wildcardCertificates:
             foundry-vtt-wildcard-external-tls:
               dnsNames:

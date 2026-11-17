@@ -30,7 +30,7 @@ tunnel:
   serviceMonitor:
     enabled: true
 
-# Routes attached to the traefik-external Gateway: DNS-only CNAME to the home public IP record
+# Routes attached to the traefik-external Gateway: DNS-only CNAME to the relay VPS record
 direct:
   provider:
     name: cloudflare
@@ -49,7 +49,7 @@ direct:
   domainFilters: []
   extraArgs:
     gateway-name: traefik-external
-    # Not proxied (the default), traffic goes directly to the home public IP
+    # Not proxied (the default), traffic goes directly to the relay VPS
     # override from ArgoCD App: required because the API token is limited to one zone
     zone-id-filter: null
   serviceMonitor:
