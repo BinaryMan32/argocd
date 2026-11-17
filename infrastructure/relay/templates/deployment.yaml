@@ -25,6 +25,33 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+      initContainers:
+        - name: generate-config
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: ["/bin/sh", "/opt/relay/generate-config.sh"]
+          securityContext:
+            # root only to read the key, which is owned by root. No capabilities needed.
+            runAsUser: 0
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: config-template
+              mountPath: /template/wireguard
+              readOnly: true
+            - name: secret
+              mountPath: /secret/wireguard-key
+              readOnly: true
+            - name: script
+              mountPath: /opt/relay
+              readOnly: true
+            - name: config
+              mountPath: /etc/wireguard
       containers:
         - name: wireguard
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -52,24 +79,22 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: config
-              mountPath: /etc/wireguard
-              readOnly: true
-            - name: key
-              mountPath: /etc/wireguard-key
-              readOnly: true
             - name: script
               mountPath: /opt/relay
               readOnly: true
+            - name: config
+              mountPath: /etc/wireguard
+              readOnly: true
       volumes:
-        - name: config
+        # wg0.conf without the private key
+        - name: config-template
           configMap:
             name: relay
             items:
               - key: wg0.conf
                 path: wg0.conf
             defaultMode: 0400
-        - name: key
+        - name: secret
           secret:
             secretName: relay-wireguard-key
             defaultMode: 0400
@@ -77,5 +102,13 @@ spec:
           configMap:
             name: relay
             items:
+              - key: generate-config.sh
+                path: generate-config.sh
               - key: run.sh
                 path: run.sh
+        # wg0.conf with the private key, written by generate-config.sh.
+        # In memory, like the secret volume, so the key is never written to the node's disk.
+        - name: config
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi

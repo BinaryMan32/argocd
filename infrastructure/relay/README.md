@@ -13,8 +13,8 @@ cluster pod 10.99.0.2 → home router → CGNAT → VPS 10.99.0.1, UDP 51820
   `NET_ADMIN` only applies to that namespace, not the node.
 * The image only provides the tools. [run.sh](./templates/configmap.yaml) runs `wg-quick`
   instead of the image's OpenRC init.
-* The private key is in a sealed secret. `wg0.conf` sets it with `PostUp`,
-  so the config can be a ConfigMap.
+* The private key is in a sealed secret, while the rest of the config is in a ConfigMap.
+  An init container adds the key to a copy of `wg0.conf` in an in-memory `emptyDir`.
 * The [NetworkPolicy](./templates/network-policy.yaml) only allows the tunnel to the VPS.
   It's enforced on the node, so the pod can't change it, and it limits where traffic
   from the tunnel can go even if the VPS is compromised.
