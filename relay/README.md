@@ -66,10 +66,6 @@ pointing at the public IP address of the VPS. The `direct` instance of
 `vpn.wildfreddy.net:14585` by the clients of the UniFi WireGuard VPN server.
 It can't be proxied, since the Cloudflare proxy doesn't forward UDP.
 
-At home, Pi-hole answers some names that point at the VPS with home network addresses,
-so clients at home don't go through the relay, see
-[pihole.yaml](../infrastructure/infrastructure/templates/pihole.yaml).
-
 ## Usage
 
 Install Ansible, for example `sudo apt install ansible`, then run from this directory:

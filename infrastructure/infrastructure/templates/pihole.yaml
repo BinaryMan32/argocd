@@ -34,10 +34,6 @@ spec:
             - server=/{{ .Values.domain.lan }}/{{ .Values.ipAddress.router }}
             - server=/0.168.192.in-addr.arpa/{{ .Values.ipAddress.router }}
 
-            # Home network addresses for names that point at the relay VPS,
-            # so clients at home don't go through the relay
-            - host-record=vpn.wildfreddy.net,192.168.5.1
-
         persistentVolumeClaim:
           enabled: true
           storageClass: longhorn
