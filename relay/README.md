@@ -22,6 +22,7 @@ Inbound rules:
 | icmp | ICMP | | all IPv4 and IPv6 |
 | wireguard-relay | UDP | 51820 | all IPv4 |
 | wireguard-vpn | UDP | 14585 | all IPv4 |
+| https | TCP | 443 | all IPv4 |
 
 When the home public IP address changes, update the `ssh-home` rule.
 `wireguard-relay` allows all sources, since WireGuard ignores packets that aren't from a known key,
@@ -55,6 +56,20 @@ client → VPS public IP:port → tunnel → cluster pod → destination:port
 
 The VPS replaces the client's address with its tunnel address `10.99.0.1`, since the cluster end
 only accepts packets from that address, and sends replies back through the tunnel.
+
+## HTTPS
+
+HAProxy forwards HTTPS through the tunnel to the cluster end, which forwards it to the Traefik
+`websecure-relay` entrypoint. It doesn't decrypt the connections. It closes connections without a hostname
+in the TLS handshake, e.g. scanners connecting to the IP address, and Traefik rejects unknown hostnames.
+Each connection starts with a PROXY protocol header containing the client IP address.
+
+```text
+client → VPS public IP:443 → HAProxy → tunnel → cluster pod → Traefik websecure-relay
+```
+
+A hostname also needs an HTTPRoute on the `traefik-external` Gateway, which makes external-dns create
+its DNS record.
 
 ## DNS
 

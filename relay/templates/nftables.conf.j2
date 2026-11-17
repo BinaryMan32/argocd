@@ -23,6 +23,9 @@ table inet filter {
 
 		# WireGuard tunnel from the cluster
 		udp dport {{ wireguard_port }} accept
+
+		# HAProxy
+		tcp dport 443 accept
 	}
 
 	chain forward {

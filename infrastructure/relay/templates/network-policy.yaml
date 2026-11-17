@@ -22,8 +22,12 @@ spec:
     {{- range .Values.forwards }}
     # Forwarded from the VPS through the tunnel
     - to:
+      {{- if .to }}
+        {{- toYaml .to | nindent 8 }}
+      {{- else }}
         - ipBlock:
             cidr: {{ .destination }}/32
+      {{- end }}
       ports:
         - protocol: {{ .protocol }}
           port: {{ .port }}

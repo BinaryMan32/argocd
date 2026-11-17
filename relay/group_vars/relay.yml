@@ -15,3 +15,7 @@ wireguard_mtu: 1370
 forwarded_udp_ports:
   # WireGuard VPN
   - 14585
+
+# HTTPS from HAProxy to the cluster end of the tunnel, which forwards it to Traefik,
+# see forwards in infrastructure/relay/values.yaml
+https_cluster_port: 6443

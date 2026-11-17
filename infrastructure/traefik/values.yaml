@@ -88,6 +88,21 @@ traefik:
         trustedIPs:
           # pod CIDR
           - 10.42.0.0/16
+    # HTTPS from the relay VPS, see infrastructure/relay. The relay pod forwards it to
+    # the traefik-relay ClusterIP Service, and is the only pod allowed to reach this port.
+    websecure-relay:
+      port: 6443
+      exposedPort: 6443
+      expose:
+        default: false
+        relay: true
+      http:
+        aliasHeadersStrategy: reject
+      # The VPS starts each connection with a PROXY protocol header containing the client IP
+      proxyProtocol:
+        trustedIPs:
+          # pod CIDR
+          - 10.42.0.0/16
 
   service:
     spec:
@@ -102,6 +117,12 @@ traefik:
       cloudflare:
         spec:
           type: ClusterIP
+      relay:
+        spec:
+          type: ClusterIP
+          # Fixed, since the relay pod has no DNS access, see infrastructure/relay/values.yaml.
+          # Kubernetes only assigns addresses in 10.43.0.0/24 when every other address is used.
+          clusterIP: 10.43.0.20
 
   # Enables the dashboard in Secure Mode
   api:

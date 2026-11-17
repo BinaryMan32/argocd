@@ -7,6 +7,8 @@ so every entrypoint in .Values.traefik.ports must be covered by a rule below.
 * Entrypoints exposed on the traefik-cloudflare Service only accept cloudflared.
   They trust X-Forwarded-For from the pod CIDR, so other pods could otherwise
   forge the client IP checked by ipAllowList middlewares.
+* Entrypoints with proxyProtocol.trustedIPs only accept the relay pod, for the same reason:
+  they trust the client IP in the PROXY protocol header.
 * All other entrypoints are open to all sources, unchanged from before this policy
   existed (LAN and internet clients, kubelet probes, prometheus).
 */ -}}
@@ -25,7 +27,7 @@ spec:
     # All sources
     - ports:
 {{- range $name, $config := .Values.traefik.ports }}
-{{- if not (index (default dict $config.expose) "cloudflare") }}
+{{- if not (or (index (default dict $config.expose) "cloudflare") (dig "proxyProtocol" "trustedIPs" list $config)) }}
         - protocol: TCP
           port: {{ $name | lower }}
 {{- end }}
@@ -41,6 +43,21 @@ spec:
       ports:
 {{- range $name, $config := .Values.traefik.ports }}
 {{- if index (default dict $config.expose) "cloudflare" }}
+        - protocol: TCP
+          port: {{ $name | lower }}
+{{- end }}
+{{- end }}
+    # relay pod only
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: relay
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: relay
+      ports:
+{{- range $name, $config := .Values.traefik.ports }}
+{{- if dig "proxyProtocol" "trustedIPs" list $config }}
         - protocol: TCP
           port: {{ $name | lower }}
 {{- end }}

@@ -13,12 +13,28 @@ vps:
 tunnelAddress: 10.99.0.2
 
 # Forwarded from the VPS through the tunnel to the same port on the destination,
-# see forwarded_udp_ports in relay/group_vars/relay.yml
+# see relay/group_vars/relay.yml.
+# to: NetworkPolicy peers for the destination, instead of its IP address.
 forwards:
   # WireGuard VPN
   - protocol: UDP
     port: 14585
     destination: 192.168.8.1
+  # HTTPS from HAProxy to the Traefik websecure-relay entrypoint on the traefik-relay Service ClusterIP,
+  # which is fixed in infrastructure/traefik/values.yaml
+  - protocol: TCP
+    port: 6443
+    destination: 10.43.0.20
+    # kube-proxy replaces the ClusterIP with a Traefik pod IP address
+    # before the NetworkPolicy checks the connection
+    to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: traefik
+        podSelector:
+          matchLabels:
+            app.kubernetes.io/name: traefik
+            app.kubernetes.io/instance: traefik
 
 # Only used for the tools: wg, wg-quick, ip, iptables. run.sh replaces the image's OpenRC init.
 # v1.0.<date> is the wireguard-tools release. The tag is rebuilt weekly, so the digest pins the image.
