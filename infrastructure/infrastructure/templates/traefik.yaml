@@ -190,7 +190,7 @@ spec:
                   certificateRef: foundry-vtt-wildcard-external-tls
                   hostname: "*.foundry-vtt.{{ .Values.domain.external }}"
                   namespace: foundry-vtt
-                jellyfin-public:
+                jellyfin:
                   certificateRef: wildfreddy-net-wildcard-tls
                   hostname: "jellyfin.{{ .Values.domain.public }}"
                   namespace: media
