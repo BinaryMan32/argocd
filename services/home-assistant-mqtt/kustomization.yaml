@@ -19,7 +19,7 @@ labels:
 images:
   - name: mosquitto
     newName: eclipse-mosquitto
-    newTag: 2.1.2-alpine
+    newTag: 2.1.4-alpine
 configMapGenerator:
   - name: mqtt-config
     files:
