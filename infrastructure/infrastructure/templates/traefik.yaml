@@ -198,6 +198,10 @@ spec:
                   certificateRef: root-wildcard-external-tls
                   hostname: "jellyfin.{{ .Values.domain.external }}"
                   namespace: media
+                jellyfin-public:
+                  certificateRef: wildfreddy-net-wildcard-tls
+                  hostname: "jellyfin.{{ .Values.domain.public }}"
+                  namespace: media
                 navidrome:
                   certificateRef: root-wildcard-external-tls
                   hostname: "navidrome.{{ .Values.domain.external }}"
