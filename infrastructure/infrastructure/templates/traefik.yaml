@@ -195,8 +195,8 @@ spec:
                   hostname: "jellyfin.{{ .Values.domain.public }}"
                   namespace: media
                 navidrome:
-                  certificateRef: root-wildcard-external-tls
-                  hostname: "navidrome.{{ .Values.domain.external }}"
+                  certificateRef: wildfreddy-net-wildcard-tls
+                  hostname: "navidrome.{{ .Values.domain.public }}"
                   namespace: media
                 nextcloud:
                   certificateRef: root-wildcard-external-tls

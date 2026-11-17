@@ -55,7 +55,7 @@
   - External:
     - Navidrome:
         icon: navidrome.png
-        href: "https://navidrome.{{HOMEPAGE_VAR_DOMAIN_EXTERNAL}}/"
+        href: "https://navidrome.{{HOMEPAGE_VAR_DOMAIN_PUBLIC}}/"
         description: Music Player
         namespace: media
         app: navidrome

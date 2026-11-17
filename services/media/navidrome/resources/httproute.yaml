@@ -7,7 +7,7 @@ spec:
     - name: traefik-external
       namespace: traefik
   hostnames:
-    - navidrome.wildfreddy.fivebytestudios.com
+    - navidrome.wildfreddy.net
   rules:
     - backendRefs:
         - name: navidrome
