@@ -66,6 +66,11 @@ pointing at the public IP address of the VPS. The `direct` instance of
 `vpn.wildfreddy.net:14585` by the clients of the UniFi WireGuard VPN server.
 It can't be proxied, since the Cloudflare proxy doesn't forward UDP.
 
+At home, UniFi `Dest. NAT` policies redirect connections to the VPS public IP address
+to their destination on the internal network, so clients at home don't go through the relay.
+Clients use the same address on both networks, so they don't need a new DNS lookup when they move.
+The policies share the UniFi network list `Relay Host IP`.
+
 ## Usage
 
 Install Ansible, for example `sudo apt install ansible`, then run from this directory:
@@ -86,7 +91,7 @@ and reboot at 10:00 UTC when an update requires it.
 
 1. Create the Linode with the Debian image, a root password and an SSH key,
    and attach the Cloud Firewall.
-2. If the IP address changed, update `relay.wildfreddy.net`.
+2. If the IP address changed, update `relay.wildfreddy.net` and the UniFi network list `Relay Host IP`.
 3. Compare the SSH host key fingerprint with the output of
    `ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub` in the Lish console,
    then connect once with `ssh root@relay.wildfreddy.net` to accept it.
