@@ -7,7 +7,6 @@ spec:
     - name: traefik-external
       namespace: traefik
   hostnames:
-    - jellyfin.wildfreddy.fivebytestudios.com
     - jellyfin.wildfreddy.net
   rules:
     - matches:
