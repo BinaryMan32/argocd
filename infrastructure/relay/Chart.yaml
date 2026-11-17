@@ -1,0 +1,4 @@
+apiVersion: v2
+name: relay
+description: WireGuard tunnel to the relay VPS, which receives inbound connections for the cluster
+version: 1.0.0

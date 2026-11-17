@@ -1,11 +1,17 @@
 - name: Relay VPS
   hosts: relay
   tasks:
+    - name: Check variables
+      ansible.builtin.assert:
+        that: wireguard_cluster_public_key | length > 0
+        fail_msg: Set wireguard_cluster_public_key in group_vars/relay.yml
+
     - name: Install packages
       ansible.builtin.apt:
         name:
           - nftables
           - unattended-upgrades
+          - wireguard-tools
         update_cache: true
         cache_valid_time: 3600
         autoremove: true
@@ -46,6 +52,42 @@
         enabled: true
         state: started
 
+    - name: WireGuard directory
+      ansible.builtin.file:
+        path: /etc/wireguard
+        state: directory
+        mode: "0700"
+
+    # Only generated once: the cluster config contains the matching public key
+    - name: WireGuard private key
+      ansible.builtin.shell: umask 077 && wg genkey > /etc/wireguard/private.key
+      args:
+        creates: /etc/wireguard/private.key
+
+    - name: WireGuard config
+      ansible.builtin.template:
+        src: templates/wireguard/wg0.conf.j2
+        dest: /etc/wireguard/wg0.conf
+        mode: "0600"
+      notify: Restart WireGuard
+
+    - name: Enable WireGuard
+      ansible.builtin.systemd_service:
+        name: wg-quick@wg0
+        enabled: true
+        state: started
+
+    # Commands are skipped in check mode, since Ansible can't know whether they change anything
+    - name: Read WireGuard public key
+      ansible.builtin.shell: wg pubkey < /etc/wireguard/private.key
+      register: wireguard_public_key
+      changed_when: false
+
+    - name: Show WireGuard public key
+      ansible.builtin.debug:
+        msg: "Set vps.publicKey in infrastructure/relay/values.yaml to {{ wireguard_public_key.stdout }}"
+      when: wireguard_public_key is not skipped
+
   handlers:
     - name: Reload ssh
       ansible.builtin.systemd_service:
@@ -56,3 +98,10 @@
       ansible.builtin.systemd_service:
         name: nftables
         state: reloaded
+
+    # Briefly drops the tunnel. wg syncconf would avoid that, but it would also clear
+    # the private key, since the config file doesn't contain it.
+    - name: Restart WireGuard
+      ansible.builtin.systemd_service:
+        name: wg-quick@wg0
+        state: restarted

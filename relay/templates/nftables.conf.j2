@@ -14,10 +14,15 @@ table inet filter {
 
 		# ICMPv6 is required for IPv6 neighbor discovery and router advertisements
 		meta l4proto { icmp, ipv6-icmp } accept
+
 		# DHCPv4 replies
 		udp sport 67 udp dport 68 accept
 
+		# SSH
 		tcp dport 22 accept
+
+		# WireGuard tunnel from the cluster
+		udp dport {{ wireguard_port }} accept
 	}
 
 	chain forward {

@@ -1,0 +1,26 @@
+# Relay VPS configured by relay/playbook.yml in the repository root
+vps:
+  # IP address instead of relay.wildfreddy.net, since the pod has no DNS access,
+  # and the NetworkPolicy needs an address
+  address: 172.232.4.234
+  port: 51820
+  # WireGuard public key printed by the playbook
+  publicKey: "E3dBH2YNlf/vEoAkoEyRiJcvjqA/nAGitpXqiWVVyn8="
+  # Address of the VPS end of the tunnel
+  tunnelAddress: 10.99.0.1
+
+# Address of the cluster end of the tunnel
+tunnelAddress: 10.99.0.2
+
+# Only used for the tools: wg, wg-quick, ip, iptables. run.sh replaces the image's OpenRC init.
+# v1.0.<date> is the wireguard-tools release. The tag is rebuilt weekly, so the digest pins the image.
+image:
+  repository: docker.io/procustodibus/wireguard
+  tag: v1.0.20260223@sha256:f95b365bc233f67c4f3c9c286678f93ee42bd8b42a4bcaebd202f8d480ea0394
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 16Mi
+  limits:
+    memory: 64Mi

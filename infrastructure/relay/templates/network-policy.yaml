@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: relay-access
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: relay
+  # No ingress rules: packets from the VPS are replies on the tunnel connection started by the pod.
+  policyTypes:
+    - Ingress
+    - Egress
+
+  egress:
+    # WireGuard tunnel to the relay VPS
+    - to:
+        - ipBlock:
+            cidr: {{ .Values.vps.address }}/32
+      ports:
+        - protocol: UDP
+          port: {{ .Values.vps.port }}

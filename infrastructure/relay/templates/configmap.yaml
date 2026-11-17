@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: relay
+data:
+  # https://man7.org/linux/man-pages/man8/wg-quick.8.html
+  wg0.conf: |
+    [Interface]
+    Address = {{ .Values.tunnelAddress }}/24
+    # The private key is set from the sealed secret, so this file contains no secrets
+    PostUp = wg set %i private-key /etc/wireguard-key/private-key
+
+    [Peer]
+    # relay VPS
+    PublicKey = {{ required "vps.publicKey is printed by relay/playbook.yml" .Values.vps.publicKey }}
+    Endpoint = {{ .Values.vps.address }}:{{ .Values.vps.port }}
+    AllowedIPs = {{ .Values.vps.tunnelAddress }}/32
+    # The home connection is behind CGNAT, so the tunnel is always started from this end.
+    # Keepalives hold the NAT mapping open, so packets from the VPS can reach the pod.
+    PersistentKeepalive = 25
+
+  # Replaces the image's OpenRC init: bring up the interface, then wait until the pod stops.
+  run.sh: |
+    #!/bin/sh
+    set -e
+    config=/etc/wireguard/wg0.conf
+    wg-quick up "$config"
+    trap 'wg-quick down "$config"; exit 0' TERM INT
+    while true; do
+      sleep 3600 &
+      wait $!
+    done

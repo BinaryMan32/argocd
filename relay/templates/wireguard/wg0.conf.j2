@@ -1,0 +1,13 @@
+{{ ansible_managed | comment }}
+# https://man7.org/linux/man-pages/man8/wg-quick.8.html
+[Interface]
+Address = {{ wireguard_vps_address }}/24
+ListenPort = {{ wireguard_port }}
+# The private key is generated on the VPS by the playbook and never leaves it
+PostUp = wg set %i private-key /etc/wireguard/private.key
+
+[Peer]
+# cluster, see infrastructure/relay. It starts the tunnel from behind CGNAT,
+# so there is no Endpoint here.
+PublicKey = {{ wireguard_cluster_public_key }}
+AllowedIPs = {{ wireguard_cluster_address }}/32

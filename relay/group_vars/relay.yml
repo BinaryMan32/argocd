@@ -1,0 +1,8 @@
+# WireGuard tunnel to the cluster, see infrastructure/relay
+wireguard_port: 51820
+# Address of the VPS end of the tunnel
+wireguard_vps_address: 10.99.0.1
+# From infrastructure/relay/create-sealed-secret-wireguard-key.sh
+wireguard_cluster_public_key: "QsnQi0nAykhJl2LgSEwQpoIjwEavzJMvjiYuElG7QEA="
+# Address of the cluster end of the tunnel
+wireguard_cluster_address: 10.99.0.2

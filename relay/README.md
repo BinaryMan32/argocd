@@ -20,9 +20,26 @@ Inbound rules:
 | --- | --- | --- | --- |
 | ssh-home | TCP | 22 | home public IP address `/32` |
 | icmp | ICMP | | all IPv4 and IPv6 |
+| wireguard-relay | UDP | 51820 | all IPv4 |
 
 When the home public IP address changes, update the `ssh-home` rule.
+`wireguard-relay` allows all sources, since WireGuard ignores packets that aren't from a known key,
+and the tunnel keeps working if the home public IP address changes.
 The VPS also runs nftables with similar rules, see [nftables.conf.j2](./templates/nftables.conf.j2).
+
+## WireGuard
+
+The cluster starts a WireGuard tunnel to the VPS, see [infrastructure/relay](../infrastructure/relay/README.md).
+The VPS end is `10.99.0.1`, the cluster end is `10.99.0.2`.
+
+The playbook generates the VPS private key on the VPS, and prints the public key at the end of each run.
+The cluster public key is set in [group_vars/relay.yml](./group_vars/relay.yml).
+
+Check the tunnel on the VPS:
+
+```sh
+ansible relay -a "wg show"
+```
 
 ## DNS
 
@@ -54,6 +71,8 @@ and reboot at 10:00 UTC when an update requires it.
 3. Compare the SSH host key fingerprint with the output of
    `ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub` in the Lish console,
    then connect once with `ssh root@relay.wildfreddy.net` to accept it.
-4. Run the playbook.
+4. Run the playbook. A new VPS has a new WireGuard key, so set `vps.publicKey` in
+   [infrastructure/relay/values.yaml](../infrastructure/relay/values.yaml) to the printed public key,
+   and `vps.address` if the IP address changed.
 
 [Ansible]: https://docs.ansible.com/

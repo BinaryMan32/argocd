@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: relay
+  labels:
+    app.kubernetes.io/name: relay
+  annotations:
+    # wg-quick only reads its config and key at startup
+    reloader.stakater.com/auto: "true"
+spec:
+  # Must stay at 1: the VPS has one peer for this key, and two pods would keep replacing
+  # each other's endpoint. Recreate avoids overlapping pods during updates.
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: relay
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: relay
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: wireguard
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: ["/bin/sh", "/opt/relay/run.sh"]
+          # Ready while the last handshake with the VPS is recent. Handshakes repeat every
+          # 2 minutes while the keepalives are flowing.
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - test $(( $(date +%s) - $(wg show wg0 latest-handshakes | cut -f2) )) -lt 180
+            periodSeconds: 30
+          securityContext:
+            # wg-quick and ip need root with NET_ADMIN, which only applies to the pod's
+            # own network namespace. The kernel WireGuard module comes from the node.
+            runAsUser: 0
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+              add: ["NET_ADMIN"]
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/wireguard
+              readOnly: true
+            - name: key
+              mountPath: /etc/wireguard-key
+              readOnly: true
+            - name: script
+              mountPath: /opt/relay
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: relay
+            items:
+              - key: wg0.conf
+                path: wg0.conf
+            defaultMode: 0400
+        - name: key
+          secret:
+            secretName: relay-wireguard-key
+            defaultMode: 0400
+        - name: script
+          configMap:
+            name: relay
+            items:
+              - key: run.sh
+                path: run.sh
