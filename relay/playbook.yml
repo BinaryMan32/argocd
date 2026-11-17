@@ -52,6 +52,15 @@
         enabled: true
         state: started
 
+    # Lets the kernel pass packets between interfaces, so the forwarded ports can go from
+    # the public interface into the tunnel. The forward chain in nftables.conf.j2 drops
+    # everything else, so the VPS doesn't route anything other than the forwarded ports.
+    - name: IPv4 forwarding
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_forward
+        value: "1"
+        sysctl_file: /etc/sysctl.d/90-relay.conf
+
     - name: WireGuard directory
       ansible.builtin.file:
         path: /etc/wireguard

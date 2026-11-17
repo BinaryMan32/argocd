@@ -21,6 +21,7 @@ Inbound rules:
 | ssh-home | TCP | 22 | home public IP address `/32` |
 | icmp | ICMP | | all IPv4 and IPv6 |
 | wireguard-relay | UDP | 51820 | all IPv4 |
+| wireguard-vpn | UDP | 14585 | all IPv4 |
 
 When the home public IP address changes, update the `ssh-home` rule.
 `wireguard-relay` allows all sources, since WireGuard ignores packets that aren't from a known key,
@@ -41,11 +42,29 @@ Check the tunnel on the VPS:
 ansible relay -a "wg show"
 ```
 
+## Forwarded Ports
+
+The UDP ports in `forwarded_udp_ports` in [group_vars/relay.yml](./group_vars/relay.yml)
+are forwarded through the tunnel to the cluster end, which forwards them on to their destination,
+see `forwards` in [infrastructure/relay/values.yaml](../infrastructure/relay/values.yaml).
+Each port also needs a Cloud Firewall rule.
+
+```text
+client → VPS public IP:port → tunnel → cluster pod → destination:port
+```
+
+The VPS replaces the client's address with its tunnel address `10.99.0.1`, since the cluster end
+only accepts packets from that address, and sends replies back through the tunnel.
+
 ## DNS
 
 `relay.wildfreddy.net` is a DNS only `A` record created by hand in the Cloudflare dashboard,
 pointing at the public IP address of the VPS. The `direct` instance of
 [external-dns](../infrastructure/external-dns/README.md) creates `CNAME` records to it.
+
+`vpn.wildfreddy.net` is a DNS only `CNAME` to it created by hand, used as the endpoint
+`vpn.wildfreddy.net:14585` by the clients of the UniFi WireGuard VPN server.
+It can't be proxied, since the Cloudflare proxy doesn't forward UDP.
 
 ## Usage
 

@@ -27,9 +27,34 @@ table inet filter {
 
 	chain forward {
 		type filter hook forward priority filter; policy drop;
+
+		ct state established,related accept
+		ct state invalid drop
+
+		# Only the ports forwarded to the cluster, see the nat table
+		iifname "{{ ansible_facts['default_ipv4']['interface'] }}" oifname "wg0" ct status dnat accept
 	}
 
 	chain output {
 		type filter hook output priority filter; policy accept;
 	}
 }
+{% if forwarded_udp_ports %}
+
+table ip nat {
+	chain prerouting {
+		type nat hook prerouting priority dstnat; policy accept;
+
+		# Forward to the cluster end of the tunnel
+		iifname "{{ ansible_facts['default_ipv4']['interface'] }}" udp dport { {{ forwarded_udp_ports | join(", ") }} } dnat to {{ wireguard_cluster_address }}
+	}
+
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+
+		# The cluster end only accepts packets from the VPS end of the tunnel,
+		# and sends its replies back through the tunnel
+		oifname "wg0" ct status dnat masquerade
+	}
+}
+{% endif %}

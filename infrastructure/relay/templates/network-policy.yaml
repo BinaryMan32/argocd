@@ -19,3 +19,12 @@ spec:
       ports:
         - protocol: UDP
           port: {{ .Values.vps.port }}
+    {{- range .Values.forwards }}
+    # Forwarded from the VPS through the tunnel
+    - to:
+        - ipBlock:
+            cidr: {{ .destination }}/32
+      ports:
+        - protocol: {{ .protocol }}
+          port: {{ .port }}
+    {{- end }}

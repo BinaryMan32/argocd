@@ -6,3 +6,9 @@ wireguard_vps_address: 10.99.0.1
 wireguard_cluster_public_key: "QsnQi0nAykhJl2LgSEwQpoIjwEavzJMvjiYuElG7QEA="
 # Address of the cluster end of the tunnel
 wireguard_cluster_address: 10.99.0.2
+
+# UDP ports forwarded through the tunnel to the cluster end, which forwards them on,
+# see forwards in infrastructure/relay/values.yaml
+forwarded_udp_ports:
+  # WireGuard VPN
+  - 14585

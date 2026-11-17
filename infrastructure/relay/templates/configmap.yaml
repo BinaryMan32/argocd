@@ -8,6 +8,15 @@ data:
   wg0.conf: |
     [Interface]
     Address = {{ .Values.tunnelAddress }}/24
+    {{- range .Values.forwards }}
+    # Forwarded from the VPS
+    PostUp = iptables -t nat -A PREROUTING -i %i -p {{ lower .protocol }} --dport {{ .port }} -j DNAT --to-destination {{ .destination }}
+    PostDown = iptables -t nat -D PREROUTING -i %i -p {{ lower .protocol }} --dport {{ .port }} -j DNAT --to-destination {{ .destination }}
+    {{- end }}
+    # The destinations can't reach the tunnel address, so they reply to the pod,
+    # which sends the replies back through the tunnel
+    PostUp = iptables -t nat -A POSTROUTING -o eth0 -m conntrack --ctstate DNAT -j MASQUERADE
+    PostDown = iptables -t nat -D POSTROUTING -o eth0 -m conntrack --ctstate DNAT -j MASQUERADE
 
     [Peer]
     # relay VPS

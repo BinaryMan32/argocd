@@ -12,6 +12,14 @@ vps:
 # Address of the cluster end of the tunnel
 tunnelAddress: 10.99.0.2
 
+# Forwarded from the VPS through the tunnel to the same port on the destination,
+# see forwarded_udp_ports in relay/group_vars/relay.yml
+forwards:
+  # WireGuard VPN
+  - protocol: UDP
+    port: 14585
+    destination: 192.168.8.1
+
 # Only used for the tools: wg, wg-quick, ip, iptables. run.sh replaces the image's OpenRC init.
 # v1.0.<date> is the wireguard-tools release. The tag is rebuilt weekly, so the digest pins the image.
 image:
