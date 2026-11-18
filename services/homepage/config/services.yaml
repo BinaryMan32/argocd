@@ -3,7 +3,7 @@
   - External:
     - NextCloud:
         icon: nextcloud.png
-        href: "https://nextcloud.{{HOMEPAGE_VAR_DOMAIN_EXTERNAL}}/"
+        href: "https://nextcloud.{{HOMEPAGE_VAR_DOMAIN_PUBLIC}}/"
         description: Private Cloud
         namespace: nextcloud
         app: nextcloud

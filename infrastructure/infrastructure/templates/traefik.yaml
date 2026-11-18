@@ -199,8 +199,8 @@ spec:
                   hostname: "navidrome.{{ .Values.domain.public }}"
                   namespace: media
                 nextcloud:
-                  certificateRef: root-wildcard-external-tls
-                  hostname: "nextcloud.{{ .Values.domain.external }}"
+                  certificateRef: wildfreddy-net-wildcard-tls
+                  hostname: "nextcloud.{{ .Values.domain.public }}"
                   namespace: nextcloud
                 play-when-prod:
                   certificateRef: play-when-prod-tls

@@ -16,14 +16,14 @@ spec:
         # https://github.com/nextcloud/helm/blob/main/charts/nextcloud/values.yaml
         nextcloud:
           nextcloud:
-            host: "nextcloud.{{ .Values.domain.external }}"
+            host: "nextcloud.{{ .Values.domain.public }}"
           httpRoute:
             enabled: true
             parentRefs:
               - name: traefik-external
                 namespace: traefik
             hostnames:
-              - "nextcloud.{{ .Values.domain.external }}"
+              - "nextcloud.{{ .Values.domain.public }}"
   destination:
     namespace: nextcloud
     server: {{ .Values.destination.server }}

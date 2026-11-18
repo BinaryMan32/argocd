@@ -28,14 +28,13 @@ nextcloud:
         );
       # workaround for failed matrics scraping
       # from https://github.com/nextcloud/helm/issues/833
+      # NEXTCLOUD_TRUSTED_DOMAINS includes the host and the service name
       trusted_domains.config.php: |-
         <?php
         $CONFIG = array (
-          'trusted_domains' => array(
-            0 => 'localhost',
-            1 => 'nextcloud.nextcloud.svc.cluster.local',
-            2 => getenv('POD_IP'),
-            3 => 'nextcloud.wildfreddy.fivebytestudios.com',
+          'trusted_domains' => array_merge(
+            array('localhost', getenv('POD_IP')),
+            explode(' ', getenv('NEXTCLOUD_TRUSTED_DOMAINS')),
           ),
         );
     extraEnv:
