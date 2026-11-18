@@ -9,6 +9,9 @@ spec:
   template:
     spec:
       automountServiceAccountToken: false
+      # Foundry binds its license signature to the hostname, which by default is the pod name
+      # and changes on every restart, see https://github.com/felddy/foundryvtt-docker#readme
+      hostname: foundry-vtt
       securityContext:
         # image USER is "node", runAsNonRoot needs a numeric uid to verify
         runAsUser: 1000
