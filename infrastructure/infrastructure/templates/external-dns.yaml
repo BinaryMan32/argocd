@@ -24,8 +24,11 @@ spec:
         direct:
           domainFilters:
             - {{ .Values.domain.public }}
+            - {{ .Values.domain.playwhen }}
           extraArgs:
-            zone-id-filter: {{ .Values.cloudflare.zoneId | quote }}
+            zone-id-filter:
+              - {{ .Values.cloudflare.zoneId | quote }}
+              - {{ .Values.cloudflare.playwhenZoneId | quote }}
   destination:
     namespace: cloudflare
     server: {{ .Values.destination.server }}

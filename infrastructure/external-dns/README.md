@@ -10,8 +10,8 @@ Gateway a route is attached to decides whether its record is proxied.
 | `tunnel` | `traefik-cloudflare` | `CNAME` to `<tunnel UUID>.cfargotunnel.com`, see [cloudflared](../cloudflared/README.md) | yes |
 | `direct` | `traefik-external` | `CNAME` to `relay.wildfreddy.net` | no |
 
-* Only manages records in the `wildfreddy.net` zone (`domainFilters`, `zone-id-filter`),
-  so routes on `traefik-external` with other hostnames are ignored.
+* Only manages records under `domainFilters` in the zones in `zone-id-filter`, so routes with
+  other hostnames are ignored.
 * The `CNAME` target is taken from the `external-dns.kubernetes.io/target` annotation on the Gateway.
 * Attach each route to only one of these Gateways. Otherwise both instances
   would try to create a record with the same name.
@@ -22,8 +22,8 @@ Gateway a route is attached to decides whether its record is proxied.
 
 ## Initial Setup
 
-1. Set `cloudflare.zoneId` in [values.yaml](../infrastructure/values.yaml)
-   to the Zone ID shown on the `wildfreddy.net` overview page in the Cloudflare dashboard.
+1. Set `cloudflare.zoneId` and `cloudflare.playwhenZoneId` in [values.yaml](../infrastructure/values.yaml)
+   to the Zone IDs shown on the `wildfreddy.net` and `fivebytestudios.com` overview pages in the Cloudflare dashboard.
 2. Run [create-sealed-secret-cloudflare-api-token.sh](./create-sealed-secret-cloudflare-api-token.sh)
    to create the `cloudflare-api-token` sealed secret.
 3. In the Cloudflare dashboard, create a DNS only `A` record `relay.wildfreddy.net`

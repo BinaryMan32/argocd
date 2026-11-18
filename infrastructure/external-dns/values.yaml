@@ -25,7 +25,7 @@ tunnel:
     gateway-name: traefik-cloudflare
     # Records point to the tunnel, which only works through the Cloudflare proxy
     cloudflare-proxied: true
-    # override from ArgoCD App: required because the API token is limited to one zone
+    # override from ArgoCD App: required because the API token is limited to specific zones
     zone-id-filter: null
   serviceMonitor:
     enabled: true
@@ -50,7 +50,7 @@ direct:
   extraArgs:
     gateway-name: traefik-external
     # Not proxied (the default), traffic goes directly to the relay VPS
-    # override from ArgoCD App: required because the API token is limited to one zone
+    # override from ArgoCD App: required because the API token is limited to specific zones
     zone-id-filter: null
   serviceMonitor:
     enabled: true

@@ -5,7 +5,7 @@ cat <<'EOF'
 Go to https://dash.cloudflare.com/profile/api-tokens and select "Create Token"
   Token name: griffin external-dns
   Policies: "Start from scratch" > "Start with a Zone policy", including only
-  the wildfreddy.net zone (not all zones), with permissions:
+  the wildfreddy.net and fivebytestudios.com zones, with permissions:
     Zone Read - look up the zone
     DNS Write/Edit - create, update and delete records
   Token expiration: No expiration
