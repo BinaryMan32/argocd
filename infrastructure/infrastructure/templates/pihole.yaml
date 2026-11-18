@@ -18,6 +18,11 @@ spec:
           existingSecret: pihole-admin
         whitelist:
           - "*.fivebytestudios.com"
+        # pihole.toml settings, as FTLCONF_<section>_<key> environment variables
+        # https://docs.pi-hole.net/ftldns/configfile
+        ftl:
+          # Answer queries for names without a domain locally, never forward them upstream
+          dns_domainNeeded: "true"
         dnsmasq:
           customDnsEntries:
             - server=/{{ .Values.domain.intranet }}/{{ .Values.ipAddress.k8sGateway }}
