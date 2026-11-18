@@ -17,11 +17,6 @@ spec:
       valuesObject:
         dashboard:
           hostname: "traefik.{{ .Values.domain.intranet }}"
-        playWhenRedirect:
-          intranet:
-            hostnames:
-              - "www.dev.playwhen.{{ .Values.domain.intranet }}"
-              - "www.stage.playwhen.{{ .Values.domain.intranet }}"
         intranet:
           wildcardCertificates:
             argocd-wildcard-intranet-tls:
