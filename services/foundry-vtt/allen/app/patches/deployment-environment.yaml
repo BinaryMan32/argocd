@@ -11,8 +11,6 @@ spec:
           env:
             - name: FOUNDRY_HOSTNAME
               value: "allen.foundry-vtt.wildfreddy.fivebytestudios.com"
-            - name: FOUNDRY_LOCAL_HOSTNAME
-              value: "allen.foundry-vtt.int.fivebytestudios.com"
             - name: FOUNDRY_USERNAME
               valueFrom:
                 secretKeyRef:

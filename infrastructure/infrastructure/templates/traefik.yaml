@@ -30,9 +30,6 @@ spec:
             argocd-wildcard-intranet-tls:
               dnsNames:
                 - "*.argocd.{{ .Values.domain.intranet }}"
-            foundry-vtt-wildcard-intranet-tls:
-              dnsNames:
-                - "*.foundry-vtt.{{ .Values.domain.intranet }}"
             play-when-dev-tls:
               dnsNames:
                 - "*.dev.playwhen.{{ .Values.domain.intranet }}"
@@ -69,10 +66,6 @@ spec:
                   certificateRef: root-wildcard-intranet-tls
                   hostname: "bazarr.{{ .Values.domain.intranet }}"
                   namespace: media
-                foundry-vtt:
-                  certificateRef: foundry-vtt-wildcard-intranet-tls
-                  hostname: "*.foundry-vtt.{{ .Values.domain.intranet }}"
-                  namespace: foundry-vtt
                 grafana:
                   certificateRef: root-wildcard-intranet-tls
                   hostname: "grafana.{{ .Values.domain.intranet }}"
