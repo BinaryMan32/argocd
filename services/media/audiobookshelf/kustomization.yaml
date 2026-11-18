@@ -20,5 +20,5 @@ labels:
 images:
   - name: audiobookshelf
     newName: ghcr.io/advplyr/audiobookshelf
-    newTag: 2.37.2
+    newTag: 2.38.0
 buildMetadata: [managedByLabel]
