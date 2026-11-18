@@ -12,7 +12,9 @@ domain:
   dev: dev.wildfreddy.fivebytestudios.com
   lan: lan.wildfreddy.fivebytestudios.com
   iot: iot.wildfreddy.fivebytestudios.com
-  playwhen: playwhen.fivebytestudios.com
+  playwhen:
+    intranet: playwhen.int.fivebytestudios.com
+    external: playwhen.fivebytestudios.com
   # Cloudflare zone, either proxied through the tunnel or through the relay VPS, see infrastructure/external-dns
   public: wildfreddy.net
 # See infrastructure/cloudflared/README.md
@@ -21,7 +23,7 @@ cloudflare:
   # Zone IDs from each zone's overview page in the Cloudflare dashboard
   # domain.public zone
   zoneId: "41b58f5b35a4160ba5eab109374a574c"
-  # fivebytestudios.com zone, containing domain.playwhen
+  # fivebytestudios.com zone, containing domain.playwhen.external
   playwhenZoneId: "fdfa38f21e461e1e891a1cd056e1ed6f"
 ipAddress:
   router: "192.168.8.1"

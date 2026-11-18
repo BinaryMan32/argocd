@@ -24,10 +24,10 @@ spec:
                 - "*.argocd.{{ .Values.domain.intranet }}"
             play-when-dev-tls:
               dnsNames:
-                - "*.dev.playwhen.{{ .Values.domain.intranet }}"
+                - "*.dev.{{ .Values.domain.playwhen.intranet }}"
             play-when-stage-tls:
               dnsNames:
-                - "*.stage.playwhen.{{ .Values.domain.intranet }}"
+                - "*.stage.{{ .Values.domain.playwhen.intranet }}"
             root-wildcard-intranet-tls:
               dnsNames:
                 - "*.{{ .Values.domain.intranet }}"
@@ -100,11 +100,11 @@ spec:
                   namespace: pihole
                 play-when-dev:
                   certificateRef: play-when-dev-tls
-                  hostname: "*.dev.playwhen.{{ .Values.domain.intranet }}"
+                  hostname: "*.dev.{{ .Values.domain.playwhen.intranet }}"
                   namespace: play-when-dev
                 play-when-stage:
                   certificateRef: play-when-stage-tls
-                  hostname: "*.stage.playwhen.{{ .Values.domain.intranet }}"
+                  hostname: "*.stage.{{ .Values.domain.playwhen.intranet }}"
                   namespace: play-when-stage
                 prometheus:
                   certificateRef: root-wildcard-intranet-tls
@@ -161,7 +161,7 @@ spec:
                 - "*.foundry-vtt.{{ .Values.domain.public }}"
             play-when-prod-tls:
               dnsNames:
-                - "*.{{ .Values.domain.playwhen }}"
+                - "*.{{ .Values.domain.playwhen.external }}"
             wildfreddy-net-wildcard-tls:
               dnsNames:
                 - "*.{{ .Values.domain.public }}"
@@ -186,7 +186,7 @@ spec:
                   namespace: nextcloud
                 play-when-prod:
                   certificateRef: play-when-prod-tls
-                  hostname: "*.{{ .Values.domain.playwhen }}"
+                  hostname: "*.{{ .Values.domain.playwhen.external }}"
                   namespace: play-when-prod
         {{- if .Values.cloudflare.tunnelId }}
         cloudflare:
