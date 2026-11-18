@@ -9,8 +9,6 @@ cert-manager:
     enabled: true
     servicemonitor:
       enabled: true
-  config:
-    enableGatewayAPI: true
 email: fettinge@gmail.com
 
 external:
