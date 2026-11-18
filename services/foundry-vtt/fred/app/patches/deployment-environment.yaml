@@ -10,7 +10,7 @@ spec:
           # https://hub.docker.com/r/felddy/foundryvtt#environment-variables
           env:
             - name: FOUNDRY_HOSTNAME
-              value: "fred.foundry-vtt.wildfreddy.fivebytestudios.com"
+              value: "fred.foundry-vtt.wildfreddy.net"
             - name: FOUNDRY_USERNAME
               valueFrom:
                 secretKeyRef:

@@ -164,9 +164,9 @@ spec:
         external:
           dnsTarget: "relay.{{ .Values.domain.public }}"
           wildcardCertificates:
-            foundry-vtt-wildcard-external-tls:
+            foundry-vtt-wildcard-tls:
               dnsNames:
-                - "*.foundry-vtt.{{ .Values.domain.external }}"
+                - "*.foundry-vtt.{{ .Values.domain.public }}"
             play-when-prod-tls:
               dnsNames:
                 - "*.{{ .Values.domain.playwhen }}"
@@ -180,8 +180,8 @@ spec:
             listeners:
               https:
                 foundry-vtt:
-                  certificateRef: foundry-vtt-wildcard-external-tls
-                  hostname: "*.foundry-vtt.{{ .Values.domain.external }}"
+                  certificateRef: foundry-vtt-wildcard-tls
+                  hostname: "*.foundry-vtt.{{ .Values.domain.public }}"
                   namespace: foundry-vtt
                 jellyfin:
                   certificateRef: wildfreddy-net-wildcard-tls

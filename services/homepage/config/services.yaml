@@ -35,7 +35,7 @@
     - External:
       - Foundry VTT (Fred):
           icon: foundry-vtt.png
-          href: "https://fred.foundry-vtt.{{HOMEPAGE_VAR_DOMAIN_EXTERNAL}}/"
+          href: "https://fred.foundry-vtt.{{HOMEPAGE_VAR_DOMAIN_PUBLIC}}/"
           description: Virtual Tabletop
           namespace: foundry-vtt
           app: foundry-vtt
@@ -44,7 +44,7 @@
             app.kubernetes.io/instance=fred
       - Foundry VTT (Allen):
           icon: foundry-vtt.png
-          href: "https://allen.foundry-vtt.{{HOMEPAGE_VAR_DOMAIN_EXTERNAL}}/"
+          href: "https://allen.foundry-vtt.{{HOMEPAGE_VAR_DOMAIN_PUBLIC}}/"
           description: Virtual Tabletop
           namespace: foundry-vtt
           app: foundry-vtt
