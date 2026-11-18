@@ -17,7 +17,6 @@ spec:
       valuesObject:
         external:
           dnsZones:
-            - {{ .Values.domain.external }}
             - {{ .Values.domain.playwhen }}
             - {{ .Values.domain.public }}
         intranet:

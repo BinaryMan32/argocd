@@ -28,11 +28,6 @@ spec:
             - op: add
               path: /spec/template/spec/containers/0/env/-
               value:
-                name: HOMEPAGE_VAR_DOMAIN_EXTERNAL
-                value: {{ .Values.domain.external }}
-            - op: add
-              path: /spec/template/spec/containers/0/env/-
-              value:
                 name: HOMEPAGE_VAR_DOMAIN_PUBLIC
                 value: {{ .Values.domain.public }}
         - target:

@@ -170,9 +170,6 @@ spec:
             play-when-prod-tls:
               dnsNames:
                 - "*.{{ .Values.domain.playwhen }}"
-            root-wildcard-external-tls:
-              dnsNames:
-                - "*.{{ .Values.domain.external }}"
             wildfreddy-net-wildcard-tls:
               dnsNames:
                 - "*.{{ .Values.domain.public }}"

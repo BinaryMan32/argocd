@@ -8,7 +8,6 @@ source:
   targetRevision: main
 domain:
   intranet: int.fivebytestudios.com
-  external: wildfreddy.fivebytestudios.com
   # Cloudflare zone, see infrastructure/infrastructure/values.yaml
   public: wildfreddy.net
 ipAddress:

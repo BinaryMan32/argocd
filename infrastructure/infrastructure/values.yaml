@@ -12,9 +12,8 @@ domain:
   dev: dev.wildfreddy.fivebytestudios.com
   lan: lan.wildfreddy.fivebytestudios.com
   iot: iot.wildfreddy.fivebytestudios.com
-  external: wildfreddy.fivebytestudios.com
   playwhen: playwhen.fivebytestudios.com
-  # Cloudflare zone, either proxied through the tunnel or direct, see infrastructure/external-dns
+  # Cloudflare zone, either proxied through the tunnel or through the relay VPS, see infrastructure/external-dns
   public: wildfreddy.net
 # See infrastructure/cloudflared/README.md
 cloudflare:
