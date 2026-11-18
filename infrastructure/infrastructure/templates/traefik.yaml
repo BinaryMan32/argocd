@@ -22,9 +22,6 @@ spec:
             hostnames:
               - "www.dev.playwhen.{{ .Values.domain.intranet }}"
               - "www.stage.playwhen.{{ .Values.domain.intranet }}"
-          external:
-            hostnames:
-              - "www.{{ .Values.domain.playwhen }}"
         intranet:
           wildcardCertificates:
             argocd-wildcard-intranet-tls:
