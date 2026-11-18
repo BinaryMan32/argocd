@@ -58,13 +58,6 @@ traefik:
       port: 443
       http:
         aliasHeadersStrategy: reject
-    web-ext:
-      port: 9080
-      exposedPort: 80
-      expose:
-        external: true
-      http:
-        aliasHeadersStrategy: reject
     websecure-ext:
       port: 9443
       exposedPort: 443
