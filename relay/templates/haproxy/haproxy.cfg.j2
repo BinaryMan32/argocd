@@ -1,7 +1,7 @@
 {{ ansible_managed | comment }}
 # https://docs.haproxy.org/3.0/configuration.html
 #
-# Forwards HTTPS to the cluster without decrypting it, see README.md
+# Forwards HTTPS to the cluster without decrypting it, and redirects HTTP to HTTPS, see README.md
 
 global
 	# journald, since HAProxy runs in the foreground under systemd
@@ -19,11 +19,22 @@ defaults
 	timeout client 1h
 	timeout server 1h
 
+frontend http
+	mode http
+	option httplog
+	bind :80
+	timeout client 30s
+	timeout http-request 10s
+	# Close connections without a hostname
+	http-request reject unless { req.hdr(host) -m found }
+	http-request redirect scheme https code 301
+
 frontend https
 	bind :443
 	# Wait for the TLS ClientHello, and close connections without a hostname (SNI),
 	# e.g. scanners connecting to the IP address. Traefik checks the hostname.
 	tcp-request inspect-delay 5s
+	# Close connections without a hostname
 	tcp-request content reject unless { req.ssl_sni -m found }
 	default_backend cluster
 

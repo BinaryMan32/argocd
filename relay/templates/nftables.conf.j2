@@ -25,7 +25,7 @@ table inet filter {
 		udp dport {{ wireguard_port }} accept
 
 		# HAProxy
-		tcp dport 443 accept
+		tcp dport { 80, 443 } accept
 	}
 
 	chain forward {

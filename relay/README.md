@@ -23,6 +23,7 @@ Inbound rules:
 | wireguard-relay | UDP | 51820 | all IPv4 |
 | wireguard-vpn | UDP | 14585 | all IPv4 |
 | https | TCP | 443 | all IPv4 |
+| http | TCP | 80 | all IPv4 |
 
 When the home public IP address changes, update the `ssh-home` rule.
 `wireguard-relay` allows all sources, since WireGuard ignores packets that aren't from a known key,
@@ -70,6 +71,9 @@ client → VPS public IP:443 → HAProxy → tunnel → cluster pod → Traefik 
 
 A hostname also needs an HTTPRoute on the `traefik-external` Gateway, which makes external-dns create
 its DNS record.
+
+HTTP on port `80` doesn't reach the cluster. HAProxy redirects it to the same URL using HTTPS,
+Like HTTPS, requests without a hostname are closed.
 
 ## DNS
 
