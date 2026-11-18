@@ -78,7 +78,7 @@ Like HTTPS, requests without a hostname are closed.
 ## DNS
 
 `relay.wildfreddy.net` is a DNS only `A` record created by hand in the Cloudflare dashboard,
-pointing at the public IP address of the VPS. The `direct` instance of
+pointing at the public IP address of the VPS. The `relay` instance of
 [external-dns](../infrastructure/external-dns/README.md) creates `CNAME` records to it.
 
 `vpn.wildfreddy.net` is a DNS only `CNAME` to it created by hand, used as the endpoint

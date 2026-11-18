@@ -21,7 +21,7 @@ spec:
             - {{ .Values.domain.public }}
           extraArgs:
             zone-id-filter: {{ .Values.cloudflare.zoneId | quote }}
-        direct:
+        relay:
           domainFilters:
             - {{ .Values.domain.public }}
             - {{ .Values.domain.playwhen }}

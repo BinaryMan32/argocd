@@ -8,7 +8,7 @@ Gateway a route is attached to decides whether its record is proxied.
 | Instance | Gateway | Record | Proxied |
 | --- | --- | --- | --- |
 | `tunnel` | `traefik-cloudflare` | `CNAME` to `<tunnel UUID>.cfargotunnel.com`, see [cloudflared](../cloudflared/README.md) | yes |
-| `direct` | `traefik-external` | `CNAME` to `relay.wildfreddy.net` | no |
+| `relay` | `traefik-external` | `CNAME` to `relay.wildfreddy.net` | no |
 
 * Only manages records under `domainFilters` in the zones in `zone-id-filter`, so routes with
   other hostnames are ignored.
@@ -36,7 +36,7 @@ Check the records that were created:
 
 ```sh
 kubectl -n cloudflare logs deployment/external-dns-tunnel
-kubectl -n cloudflare logs deployment/external-dns-direct
+kubectl -n cloudflare logs deployment/external-dns-relay
 ```
 
 [external-dns]: https://github.com/kubernetes-sigs/external-dns

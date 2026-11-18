@@ -18,6 +18,7 @@ tunnel:
   gatewayNamespace: traefik
   # Remove records when routes are deleted
   policy: sync
+  # included in TXT records to track owning instance
   txtOwnerId: griffin
   # override from ArgoCD App
   domainFilters: []
@@ -31,7 +32,7 @@ tunnel:
     enabled: true
 
 # Routes attached to the traefik-external Gateway: DNS-only CNAME to the relay VPS record
-direct:
+relay:
   provider:
     name: cloudflare
   env:
@@ -44,6 +45,7 @@ direct:
     - gateway-httproute
   gatewayNamespace: traefik
   policy: sync
+  # included in TXT records to track owning instance
   txtOwnerId: griffin-direct
   # override from ArgoCD App
   domainFilters: []

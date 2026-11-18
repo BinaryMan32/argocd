@@ -9,6 +9,6 @@ dependencies:
   repository: https://kubernetes-sigs.github.io/external-dns/
   version: 1.23.0
 - name: external-dns
-  alias: direct
+  alias: relay
   repository: https://kubernetes-sigs.github.io/external-dns/
   version: 1.23.0
