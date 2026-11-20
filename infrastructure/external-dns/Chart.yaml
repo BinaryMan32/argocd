@@ -7,8 +7,8 @@ dependencies:
 - name: external-dns
   alias: tunnel
   repository: https://kubernetes-sigs.github.io/external-dns/
-  version: 1.23.0
+  version: 1.24.0
 - name: external-dns
   alias: relay
   repository: https://kubernetes-sigs.github.io/external-dns/
-  version: 1.23.0
+  version: 1.24.0
