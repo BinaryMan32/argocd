@@ -10,7 +10,7 @@ resources:
 images:
   - name: foundryvtt
     newName: felddy/foundryvtt
-    newTag: 14.370.0
+    newTag: 14.370.1
 configurations:
   - kustomizeconfig.yaml
 buildMetadata: [managedByLabel]
