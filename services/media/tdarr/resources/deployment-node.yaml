@@ -7,11 +7,7 @@ metadata:
 spec:
   replicas: 5
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      # anti-affinity prevents surging onto a host already running this pool
-      maxSurge: 0
-      maxUnavailable: 1
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/component: node
